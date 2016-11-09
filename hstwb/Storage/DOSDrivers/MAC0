@@ -1,0 +1,33 @@
+/* $VER: MAC0 2.36 (22.08.96)
+ *
+ * CD-ROM filesystem mount entry
+ */
+
+Device		= mfm.device
+Unit		= 0
+FileSystem	= L:AmiCDFS
+Flags		= 0
+BlocksPerTrack	= 10
+LowCyl		= 0
+HighCyl		= 79
+Surfaces	= 2
+Buffers		= 32
+BufMemType	= 1
+Mask            = 0x7fffffff
+GlobVec		= -1
+Priority	= 5
+DosType		= 0x43444653
+StackSize	= 600
+Mount		= 1
+
+Control		= "BL=4 FB=32"
+
+/* Control field template:
+ *
+ * LC=LOWERCASE/S,CS=CASESENSE/S,
+ * HF=HFSFIRST/S,TD=TRACKDISK/S,
+ * BL=BUFFERLINES/K/N,FB=FILEBUFFERS/K/N,
+ * DC=DISKCHANGE/K/N,MT=MOTORTIME/K/N,
+ * SD=STARTDELAY/K/N,TDC=TDCHANGE/S,
+ * TOSHIBA/S,OLDMODE/S
+ */

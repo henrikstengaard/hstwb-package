@@ -1,0 +1,266 @@
+KingCON v1.3 (31.05.94)
+=======================
+
+	New features:
+	-------------
+	* Filename completion can be performed much faster now thanks to
+	  an internal directory cache. It is activated with the option
+	  DIRCACHE<filecachesize>/<commcachesize>/<volumes>.
+	  The cache is shared among all open KingCON-consoles. Please
+	  look in the documentation for details about this feature.
+
+	* Two new menuitems under the "Console" menu to make the console
+	  window jump to the next public screen, or to a screen you
+	  select from a list.
+
+	* A new substitution-string, %A, can be used to insert the
+	  current directory in the titlebar (or icon's title), where as
+	  much as possible of the path has been replaced with an assign.
+	  (For example, "Ram Disk:ENV/Sys" => "ENV:Sys")
+
+	* The substitution-string %V inserts just the volumename of
+	  the current directory.
+
+	* Two new line-editing keys have been added:
+
+	     Control-P	- Repeats the previous word.
+
+	     Control-T	- Inserts the arguments for the previus command
+	     		  stored in the history-buffer.
+
+	* The select-window is opened under the mousepointer to
+	  make life easier for SunMouse-users.
+
+	* The new NOSHORTCUTS-option removes the Amiga-key shortcuts
+	  for the menus. This is useful if you for example can't get
+	  used with the fact that the console responds to Amiga-Q.
+
+	Fixed problems:
+	---------------
+	* The DOS doesn't hang if KingCON is run together with xData.
+	  (The fault is xData's, though :) Note that a diskloaded
+	  font can't be used in the window if you are running xData.
+	  If you experience problems with diskloaded fonts in combination
+	  with other programs that patch the AmigaDOS Open()-function,
+	  then PLEASE contact me.
+
+	* Several problems with different versions of the
+	  dir-replacement "ls" solved.
+
+	* The select-window could crash and cause enforcer-hits
+	  on some machines. Shouldn't do that anymore.
+
+	* Doesn't crash if a non-existant prefs-file was specified,
+	  either by putting the name right after KCON: or using
+	  the PREFS-option.
+
+	* Empty "path-components" in the filename used to open a
+	  KCON-window caused enforcer-hits.
+
+	* Pending packets to the handler aren't lost when the window
+	  is iconified.
+
+	* Sometimes the review-buffer could insert line-feeds in
+	  wrong places.
+
+	* After using the review-buffer, the console doesn't slow
+	  down on deep screens anymore.
+
+	* The control-sequence that is generated when the close-gadget
+	  is pressed in raw-mode is now correct.
+
+	* The raw-mode in a window opened in cooked mode reports
+	  control-sequences in a way that is compatible with CON:
+
+	* ARexx-programs can now be stopped with Control-C.
+
+	* The packets ACTION_STACK and ACTION_QUEUE returned
+	  ERROR_ACTION_NOT_KNOWN, even if they were supported
+	  by the handler.
+
+	* ACTION_CHANGE_SIGNAL now has the correct returncodes.
+
+	* KingCON sometimes lost track of the current dir when
+	  started from the OS2.0 Shell-icon.
+
+	* The system's default font is always used in a window opened
+	  on the Workbench, instead of the screen font.
+
+	* Some cosmetical misfeatures in the filename-completion
+	  were removed.
+
+
+KingCON v1.2 (22.03.94)
+=======================
+
+	New features:
+	-------------
+	* Default options can be saved in an environment variable.
+
+	* Added new selection-methods that don't involve opening a window
+	  when several files match during filename-completion.
+	  This is configured with the FNCMODE-option.
+
+	* The memory for the review-buffer can be static if you specify a
+	  negative value after MAXBUF.
+
+	* An extra gadget in the titlebar lets you iconify the window
+	  quickly using the mouse. The image comes from MUI by
+	  Stefan Stuntz.
+
+	* The review-buffer has gone through some cosmetic changes, making
+	  it look better when you scroll through it.
+
+	* You can now insert the current directory, process number etc
+	  in the titlebar by using substitution-strings, like the
+	  AmigaDOS Prompt-command.
+
+	* A custom icon, to use when the console is iconified, can be
+	  defined with the IMAGE-option. An exact position on the
+	  screen can be specified with ICONPOS<x>/<y>.
+
+	* The title for the icon can be specified with ICONTITLE.
+
+	* MENUFY-option to create a menuitem in the Tools-menu when
+	  the window is iconified.
+
+	* KEEPCLOSED-option to prevent the window from opening if text is
+	  ouput to the console while it is iconified.
+
+	* FASTUPDATE-option for increasing the speed of the review-buffer.
+	  Especially useful for 68000-owners. It works by simply updating
+	  the scrollbar more seldom.
+
+	* POPSCREEN-option to bring the screen, on which the window is
+	  opened, to front.
+
+	* New editing- and manouveringkeys:
+
+	    Control-Left Arrow	- Moves to the previous part of a filename.
+	    Control-Right Arrow	- Moves to the next part of a filename.
+	    Control-Up Arrow	- Moves up one line in the review.
+	    Control-Down Arrow	- Moves down one line in the review.
+	    Control-Backspace	- Deletes a part of a filename to the left.
+	    Control-Delete	- Deletes a part of a filename to the right.
+
+	* New menu-shortcuts:
+	    Amiga-J		- Enable/disable jump-scroll.
+	    Amiga-.		- Show/hide .info-files.
+	    Amiga-W		- Enable/disable review-buffer.
+
+	* When completing a filename and no files match your pattern,
+	  the devicelist is searched automatically, (just as if you
+	  had pressed Shift-TAB).
+
+	* When you Maximize a window, it doesn't cover the first
+	  raster line of the screen, so you easily can drag it
+	  with the mouse.
+
+
+	Things that should have been in earlier versions:
+	-------------------------------------------------
+	* RAW: works now.
+
+	* The console doesn't hang if you have v36 of diskfont.library.
+	  KingCON can even run if some disk-based libraries are
+	  missing, but some features will be disabled.
+
+	* The filename-completion doesn't keep any directory-locks.
+
+	* KingCON doesn't crash when trying to open its window on SID2.
+
+	* The window is activated when you drop an icon on it.
+
+	* WINDOW-option accepts 0x in front of the address like CON:
+
+	* SCREEN-option recognises * as the top screen like CON: does.
+
+	* Stored command-lines are printed before they are executed when
+	  you have specified asynchronous typeahead.
+
+	* Failing to complete a filename doesn't produce a NULL-character
+	  on the command-line.
+
+	* Wildcards can be used when completing device-names.
+
+	* The path in the window-title doesn't mysteriously disappear.
+
+	* KingCON understands which process to signal better.
+
+	* SetKeyMap works in a KingCON-window.
+
+	* The correct font is always used when opening a window on a
+	  public screen.
+
+	* The ARexx-commands Queue, Push and Lines can now be used
+	  in a KingCON-window. They all use some of the many
+	  undocumented features of CON:. For example, WaitForChar()
+	  returns the number of lines in the console's internal
+	  readbuffer in IoErr().
+
+	* Lots of other things that you probably never noticed.
+
+
+KingCON v1.1 (15.12.93)
+=======================
+
+	New features:
+	-------------
+	* Some more edition functions were added:
+
+	    Shift-BS		- Deletes the line to the left.
+	    Shift-Del		- Deletes the line to the right.
+	    Alt-BS		- Deletes a word to the left.
+	    Alt-Del		- Deletes a word to the right
+	    Amiga-Del		- Deletes a whole word.
+	    Shift-RETURN	- The current command-line is saved to
+	    			  the history-buffer, but it isn't executed.
+
+	* The ALT-option allows you to specify the zoom-size more precisely
+	  than MINI.
+
+	* Asynchronous typeahead is possible with the ASYNC-option.
+
+	* When a filename with spaces is in it is selected with filename-
+	  completion, leading and trailing quotationmarks are added.
+
+	* You can now drop Workbench icons in the console window to insert
+	  their filenames in the command line.
+
+	* The console window can be iconified and put on the Workbench
+	  as an AppIcon. This replaces the Minimize-function.
+
+	* AmigaDOS wildcards can be used when completing filenames.
+
+	* The current directory is shown in the titlebar if you specify
+	  the SHOWDIR-option.
+
+	* The review-buffer's maximum size can be set with the MAXBUF-option.
+
+
+	Features that should have been in v1.0:
+	---------------------------------------
+	* The 68000-version doesn't contain any 68020-compiled code...
+
+	* The console doesn't freeze randomly in RAW-mode.
+
+	* Keymaps with multiple-character keys are understood properly.
+
+	* The ASL-requester no longer generates Enforcer-hits.
+
+	* It is possible to use Amiga-V for pasting in RAW-mode.
+
+	* The window's title can now contain ':'.
+
+	* The '['-character is visible in the review-buffer.
+
+	* The review-buffer understands CR better.
+
+	* In addition to this, some minor bugs were fixed in the
+	  command-line editing and the scrollgadget.
+
+
+KingCON v1.0 (13.10.93)
+=======================
+
+	* First release

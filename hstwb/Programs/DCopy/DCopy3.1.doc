@@ -1,0 +1,256 @@
+*******************************************************************************
+******                                                                   ******
+******                 D-COPY  v3.1  -  a D-MOB release!                 ******
+******                                                                   ******
+******            Coding by TURBOBRAIN  &  graphics by NICK23            ******
+******        Original copy routines by R.GELFAND & S.THUBEAUVILLE       ******
+******                      Finished May 14 1993                         ******
+******                                                                   ******
+******  This program may not be distributed for any commercial reasons.  ******
+******                                                                   ******
+*******************************************************************************
+******                                                                   ******
+******	BootBlock.brainfile (BBBF) & BootBlock.library is		 ******
+******	Copyright © Safe Hex International 1992				 ******
+******  Look in the BBBF-drawer for more information...                                                                 ******
+******                                                                   ******
+*******************************************************************************
+
+	This program was made after we had enough of cursing over badly
+	coded, inequal and often inaccurate copy-programs.
+	Because of this we decided to create a copier superior to all
+	other copiers seen before, and this is it...
+	D-Copy is developed by hackers for hackers, and suited for your
+	needs, and therefore D-Copy should be your choice from now on!!
+	
+
+
+notes:	D-Copy v3.1 has been tested on:
+	  *  A1000
+	  *  A500, A500+
+	  *  A2000/2500
+	  *  A3000
+          *  A4000 (some bugs known 'NIB')
+
+	D-Copy has been tested with:
+	  *  512k - 16meg memory expansion
+          *  2 Meg ChipMem
+	  *  1-4 external + harddrive
+	  *  Kickstart v1.1 - v3.1 (40.38)
+	  *  TurboCards (68030 + 040)
+
+
+features - switches:
+--------------------
+SRC:	Source drive DF0: - DF3:
+
+DEST:	Destination drive(s) DF0: - DF3:
+	Writing will affect all destination drives selected. If
+	destination and source drive is the same, D-Copy will
+	copy in single-drive mode.
+	
+
+DOS 1:	Copies standard DOS tracks, including errors.        
+
+DOS 2:	Copies standard DOS tracks with corrected errors. Checksums
+	are recalculated and some header info are also corrected.
+	Otherwise the same as DosCopy 1. Use when data is lost due to
+	read errors. This will not recover all data but should be able
+	to save some of it.
+
+DOS 3:  Copies standard DOS track but uses the Bitmap to find out which
+        tracks that contains data so it only have to copy tracks with data
+        on and format the rest.
+
+NIB 1:	Copies foreign formats. Use when disks are copy-protected...
+
+NIB 2:	Basically the same as NibbleCopy 1, but uses a different
+	method to find the track gap.
+
+NIB 3:  Copies MS-DOS disks (720 Kb). This routine is NOT ready yet.
+        The copy routine is working and so is some of the error checking-
+        routines. The only thing that isn't working is the checksum routine
+        for the header and data section. I had some problems with their
+        strange checksum-format.
+	
+
+CHK:	Checks standard DOS tracks for errors in the selected source drive.
+
+FMT:    Format standard DOS disks. When prompted for the diskname, you can
+        select single tracks to be formated by clicking in the grid or just
+        start the operation to do a normal format.
+
+NAME:	Tells the name of the disk in the selected source drive.
+
+DEF:	Sets SIDE 0/1, START+END TRACK, SYNC-WORDS, and SYNC-CORRECTOR
+	to the default values.
+	
+ERR:	Click on ERR and then on an error in the grid to get a 
+	short explanation of what it is.
+
+DRIVE:	Scans the system for connected diskdrives (should find 5'25"
+	not tested) Handy if you forgot to turn on any drives.
+
+START/
+END:	Click in the grids to select start and end track.
+	Left mouse button for START and right for END.
+
+0/1:	Selects which head to copy; Top, Bottom, or Both.
+
+
+
+
+
+FFS:	Only used in formatting. Disk will be formated with
+	FastFileSystem. 
+
+RAM:	Tracks are stored in memory; same as single-drive copy, but
+	may be written more than once to selected destinations.
+	
+VRFY:	Verifies selected destinations. Verify errors are displayed
+	in blue digits, where the digit is the drive number. If more
+	than one drive gets a verify error on the same track, a blue
+	X will appear instead of a digit.
+	The verify isn't completely dependable, because the verfication
+	starts half a second after the writing has started (e.g. the
+	the writing of one track takes half a second). The verify
+	routine will read the track correctly, but a damaged track
+	may hold this data for a certain amount of time and then 
+	lose it. To be sure, wait a while between copying and
+	checking target disks for errors.
+	Use SAFE button to make the verify safer...
+
+SAFE:	Makes a CheckDisk after selected operation (copy or format)
+	This method is safer than Verify because there is more time
+        between the writing to the disk and the reading (checking)
+        from it, so if a track is bad it will probably lose it's
+        contens before the check has started and you will get an error.
+
+	
+
+
+CRUNCHER MENU:
+        Use this only if you are short on memory, because it takes more
+        time. The tracks are crunched and stored into memory under singel-
+        drive copy. The higher cruncher level, the more data you can
+        store in memory (and ofcourse it takes more time too).
+
+
+
+SYNCMENU:
+	When the sync switch is on, all sync-marks will be recalculated
+	during copy. This option should be turned off when copying
+	foreign formats!
+	The sync-mark is a mark that the disk controller uses to
+	find the start of a track or sector on the disk. The standard
+	mark for the Amiga is $4489. If you change this, the disk
+	controller won't find any valid data on the disk. This can
+	be used as a kind of copy-protection, because if you don't
+	know the correct sync-word for the tracks, the disk becomes
+	completely unreadable.
+	The 'READ' and 'WRT' switches above the sync button stands for
+	read/write sync-word. If you change the write-sync to an
+	other value and copy the disk with this, the disk becomes
+	unreadable if you don't know the correct sync-word. Crypting
+	protection for valuable disks can be made with this kind of
+	operation. You just have to set the read-sync to the same 
+	value as you had on the write-sync before and the write-sync
+	to the standard sync-word($4489) to get back a readable disk!
+	When you choose your 'secret' sync-word you have to let D-Copy
+	calculate it for you by pressing the up or down arrows on
+	the 'i' selector to the right of the sync-word. This assures
+	you that the sync-word is a valid sync value to be used as
+	a sync-mark. WARNING! Use this option with caution, since
+			      incorrect usage will destroy all data.
+
+
+
+
+features - buttons:                        
+-------------------                        
+KILL:	Removes the system to increase memory.
+	Very handy for those who are short of RAM. Use when copying
+	in single-drive mode.
+	When clicking on the exit button the computer will reset.
+	This is a true reset routine (i.e expansion boards are found
+	when the system is rebooting). 
+	
+GO!:	Starts the selected function.
+
+ESC:	Aborts the selected function.
+
+R:	Makes a retry on damaged tracks after a copy. Has shown to
+	be very successful in reading damaged tracks.
+
+
+
+features - specials:
+--------------------
+SPD:	Selects what speed with which to step the head from one
+	track to another. Speeds are 1 - 9 (Fast to Slow).
+	Most drives can't handle a speed faster than 3. You'll
+	have to try out what speed is the best for your drive!
+	Don't take any chances with using a faster speed than
+	your drive can handle. This will only result in read
+	errors on your destination disks.
+	
+ATT:    The number of attempts to read damaged tracks. Also affects
+	the number of writings during verification. The retries are
+	displayed on the right side of each track-grid.
+	Slightly below these 'Retry-indicators' you will find another
+	pair of indicators which indicates how many tracks that failed
+	to be read correctly or was correctly read after retries. 
+
+VC:	If this Led is on, DCopy has found a VirusCheck-library and
+	a valid BootBlock-brainfile. Virus checking is now enabled
+	when you are checking disks (CHK) or copying disks in one of
+	the 'DOS' modes. The name of the library should be
+	'libs:Bootblock.library' and the name of the brainfile should
+	be 'l:Bootblock.brainfile'.
+
+	
+Comments:
+---------
+MOUSE:	Mouse will be freezed when clicking the RIGHT mouse button
+	over the GO-R-ESC area. Indicated by pointer turning yellow.
+
+MODES:	If you have selected the same source and destination drive
+	the program will turn on single-drive mode automatically. This
+	is the only way to get into single-drive mode.
+
+DRIVES:	If you have connected more than one external drive you may get
+	some problems with power consumption. Having a four-drive system
+	working requires a lot of power so you just have to see if your
+	powersupply can deliver the amount your drives need.
+
+SECTOR-SCANNERS:
+	These 'scanners' is found below each track-grid. The right one
+	in each grid reports 'Sector OK' information by either turning
+	green or red (Good, Bad). When a damaged track is read, DCopy
+	stores all the good sectors and makes a new read (retry). If some
+	of the new read sectors are good which was bad in the previous
+	readings, DCopy replaces the bad (old) sector with the good (new).
+	This helps a lot if you want to read a damaged track. The scanner
+	to the left is showing which sectors has been read OK.
+	
+
+
+
+	The testing of this program has been made by several of my
+	friends and the D-MOB crew, who also gave me moral support
+	during intense bug-fixing periods. I also wish to thank all
+	those who sent me bug-reports and ideas on how to improve
+	D-Copy and you are now able to enjoy the result!
+
+
+	If you find some bugs or have some constructive ideas on
+	how to improve D-Copy, please write or call me at:
+
+
+
+		Stefan Bernbo / TURBOBRAIN
+		Hantverkaregatan 2
+		S-37135 Karlskrona
+		SWEDEN
+	   tel: +46-(0)455-10053		
+

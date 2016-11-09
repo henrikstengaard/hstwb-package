@@ -1,0 +1,240 @@
+[1mDiskSalv 4 (V13.6) Release Notes[0m
+
+	This is the second commercial release of the DiskSalv 4
+program. The DiskSalv program and distribution materials are Copyright
+1991-1996 by Dave Haynie, All Rights Reserved.  This program is a commercial
+release, and may not be copied in any form, except as part of ordinary
+single-user backup activities.
+
+[1mAbout AmigaGuide[0m
+
+	Commodore's AmigaGuide is not included with this distribution.
+If you have a 3.x system, you'll want to change the iam.guide and
+DiskSalv.guide icons to use MultiView rather than the AmigaGuide program.
+Otherwise, make sure that you've installed Commodore's freely
+redistributable AmigaGuide package, available from numerous sources.
+
+	Bugs with AmigaGuide cause problems on some systems with
+DiskSalv's Guide files.  We have not been able to determine the cause of
+these problems. In the worst case, you can always read the documentation
+with a viewer such as "more."  There are also third-party
+freely-redistributable AmigaGuide viewers such as MoreText.  If you have
+problems with DiskSalv3 because of AmigaGuide, simply select the option
+not to use it when DiskSalv3 brings up a requester telling you that you
+have an early version of AmigaGuide.  Upgrading to AmigaOS 3.1 is a good
+thing generally, and no AmigaGuide problems have been reported with 3.x
+systems and DiskSalv3.
+
+	(12.17 update)The on-line documentation has been updated. This
+contains a list of the enhancements, and it works around some of the
+bugs in V34 versions of the AmigaGuide.library.
+
+[1mA Note On Packaging[0m
+
+	Please reuse and recycle.  While we've done our best to
+minimize DiskSalv's packaging, we know that even this is not enough.
+For direct orders, we ship just a disk in a mailer, and there's not
+much you can do with that.  If you bought DiskSalv 3 off the store shelf,
+please pass the outer wrap on to a friend to tell them about DiskSalv,
+and please use the mailer the next time you need to send a disk.
+
+[1mUpdates[0m
+
+	Updates to DiskSalv 4 will probably be available as freely
+redistributable patches from all the usual sources.  If you don't
+have a modem or user's group through which to obtain freely
+redistributable software, you are missing out on a lot!  (Shameless
+plug:  "Connect Your Amiga! A Guide to the Internet, LANs, BBSs and
+Online Services" has good information about sources of freely
+redistributable software.)
+
+The most current updates should always be available via anonymous ftp in the
+directory:
+
+	file:ftp.iam.com/biz/iam/disksalv
+
+[1mUser Support[0m
+
+	Unlimited user support is available, via Internet and FAX. Please
+note that this is provided to answer real questions, problems, etc. It is
+[1mnot[0m an interactive on-line manual.  Such a manual is provided in the
+DiskSalv.guide file. No free telephone support is provided for DiskSalv4.
+Contacts:
+
+		Internet:	disksalv-bugs@iam.com
+		FAX:		+1-609-224-0442  DISKSALV SUPPORT ONLY
+
+	[1mDo not[0m send orders to Dave's fax or email (above). For orders,
+contact IAM or it's distributors as listed in the AmigaGuide file for
+contact information.  [1mDo not[0m call IAM for support or bug reports for
+DiskSalv 3.
+
+	We request, if you wish return correspondence by FAX of any kind,
+please furnish a real FAX number that's active at all times. We will not
+retry FAX numbers that only answer part-time.
+
+	Note that Dave Haynie attempts to answer direct email, but will
+give preferential treatment to email sent to the official support address.
+
+	Serious questions will be answered as soon as possible. Bug reports
+will be immediately researched, but no return acknowledgement will be sent
+unless requested. Bugs not to report:
+
+    1) Old DiskSalv 2 problems. These can be, and probably have been,
+       addressed via the DiskSalv 2 shareware support mechanisms; send
+       mail/email directly to Dave Haynie, and he'll act/reply as he
+       see fit.
+
+    2) Don't complain about funny DiskSalv requesters if you're using
+       any of the "Requester Improvement" hacks from the public domain.
+       All of these examined so far do not fully support the capabilities
+       Intuition BuildSysRequest() function, and therefore may mutate
+       DiskSalv's requesters for the worse.  If you don't like this,
+       don't run such programs -- DiskSalv is fully compliant Intuition
+       rules.
+
+    3) Don't complain about DiskSalv not recovering/salvaging your MS-DOS,
+       OS/2, Windows NT, Macintosh, ISO9660, or other non-AmigaDOS-standard
+       disk format. It doesn't do this.  However, as of DiskSalv 3, it does
+       attempt to identify some of these alien formats, and when it does
+       successfully do so, it attempts to prevent you from doing something
+       stupid to that disk.
+
+    4) Don't complain about abuse of the Device Editor window. DiskSalv
+       tries to be smart about things, but it's not Kreskin -- it doesn't
+       attempt to figure out that you're doing something wrong. If you are,
+       sorry, but like most power tools, you can get hurt if you don't know
+       what you're doing.  DiskSalv 3's user interface takes extra measures
+       to simplify the standard stuff and keep the more advanced features
+       out of the way.  You aren't going to accidently stumble across this
+       stuff.
+
+[1mFileSystem Support[0m
+
+	We are interested in supporting any file system in common use on the
+Amiga. To date, this has been limited to the AmigaDOS native file system
+variations. However, we're more than happy to support any 3rd party custom
+file systems in future DiskSalv versions.
+
+	If you have developed or are developing a file system, and would like
+us to consider support for it in DiskSalv, you can contact us via mail or
+email, or send the following:
+
+	- One copy of the file system handler, and anything else necessary to
+	  install the file system on a standard 32-bit Amiga.
+
+	- Details of the file system's structure, including directories,
+	  files, links, etc.
+
+	- Any other details on the file system: file system type identification
+	  code, support/non-support of different block sizes, etc.
+
+Obviously, if we receive 20 new file systems, there isn't likely to be time
+to implement them all in the next release. However, any file systems received
+will be prioritized into the enhancement list. We do expect to support any
+file system in common use, especially if it's clearly documented.
+
+[1mRevision History[0m
+
+SEE GUIDE FILE FOR CHANGES SINCE 12.15.
+
+CHANGES 12.15 (164804 bytes, README updated by DL at IAM)
+	- Primarily fixes bug which could cause DS3 to write the wrong
+	  file type to block 0.
+
+CHANGES 12.12 (164668 bytes, +1116 bytes)
+	- Added IAM logo/name to the "About..." menu/gadget.
+
+	- Additional firewalls added to disk scanner routine, in an effort
+	  to better reject non-disk-filesystem based devices.
+
+	- Added several extra checks in the disk drop routines, to better
+	  reject non-disk-filesystem based devices.
+
+CHANGES 12.11 (163552 bytes, +176 bytes)
+	- Several HELP message tokens adjusted for better interactivity.
+
+	- HELP gadget hit routine adjusted to sort for smallest matched
+	  gadget.
+
+
+CHANGES 12.10 (163376 bytes, +720 bytes)
+	- Warning message put up for amigaguide.library versions less than 39.
+	  This is only put up if neither FORCEGUIDE nor NOGUIDE are specified
+	  as command parameters.
+
+	- New FORCEGUIDE command parameter forces amigaguide.library to be used
+	  on V39 systems without a warning.
+
+	- The Device Editor's "Project/Load from File..." function now properly
+	  updates when successfully loading a DOSDrivers file.
+
+	- Pattern matches now correctly terminate on STOP and EXCLUDE.
+
+CHANGES 12.9 (162656 bytes)
+	- First pre-release for production.
+
+--
+
+This is the publisher's release package for DiskSalv 4.  This
+release is designed primarily to fix a big in previous versions of
+DiskSalv 4 that caused an incorrect block zero filesystem type to be
+written in fix-in-place functions.  Note that the Repair or Unformat
+functions in this version will correct this problem on any disks so
+damaged.  This release version is:
+
+        V13.6s  Release for Stefan Ossowski's Schatztruhe
+        V13.6i  Release for Intangible Assets Manufacturing
+
+Revision History
+
+CHANGES 13.6
+        - Provisional DiskSalv 4 release.
+        - Added AFS modes to disk Search/Analyze function.
+        - Added help prompting and some new help contexts.
+
+CHANGES 13.4
+        - Now called DiskSalv 3.5
+        - Many, many AFS fixes. No dependencies on AFS Root anymore.
+        - New Best-Guess functionality.
+
+CHANGES 13.2
+        - Basic AFS stuff is working.
+
+LEGAL
+	The standard software disclaimer: This software isn't yours, it's
+	still ours, we're just letting you use it. Of course, we don't
+	guarantee that you actually can use it, that it'll do anything we
+	claim it will, or even that it won't cause irreversible physical harm
+	to your computer, its hard drive, you, your cat, your close
+	relatives, or even most of a city block.  Do not taunt HappyFunBall...
+
+	In other words, Dave Haynie, Dale L. Larson, IAM and their suppliers
+	do not warrant the performance or results you may obtain by using
+	DiskSalv. We make no warranties, express or implied, as to
+	performance, noninfringement of third party rights, merchantability,
+	fitness for any particular purpose, or anything else that we can
+	possibly disclaim.
+
+	In case you still don't get the idea, let us paraphrase the
+	disclaimer from from Haventree Software's EasyFlow program.
+	(Haventree can sue us if they don't like us reproducing their great
+	prose.)
+
+	If DiskSalv doesn't work: tough.  If you lose millions because
+	DiskSalv messes up, it's you that's out the millions, not us.  If you
+	don't like this disclaimer: tough. We reserve the right to do the
+	absolute minimum provided by law, up to and including nothing.  This
+	is basically the same disclaimer that comes with all software
+	packages, but ours is in plain English and theirs is in legalese. We
+	didn't want to include any disclaimer at all, but our lawyers
+	insisted.
+
+     Installer and Installer project icon
+     (c) Copyright 1991-93 Commodore-Amiga, Inc.  All Rights Reserved.
+     Reproduced and distributed under license from Commodore.
+
+     INSTALLER SOFTWARE IS PROVIDED "AS-IS" AND SUBJECT TO CHANGE;
+     NO WARRANTIES ARE MADE.  ALL USE IS AT YOUR OWN RISK.  NO LIABILITY
+     OR RESPONSIBILITY IS ASSUMED.
+

@@ -1,0 +1,221 @@
+                       Professional File System III V5.3
+                       ================================
+
+Notes for public domain release
+===============================
+This is the Professional File System III as it was released back in 1999,
+with the patches from PFS3_5153 applied.
+
+Note that the sources, also released on Aminet, will not result in
+exactly the same binaries, because some minor changes have been made to the
+source code.
+
+Copyright and disclamer notice
+==============================
+
+Copyright (c) 2011, Michiel Pelt, Peltin BV
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. All advertising materials mentioning features or use of this software
+   must display the following acknowledgement:
+   This product includes software developed by Michiel Pelt.
+4. Neither the name of the author nor the
+   names of its contributors may be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY MICHIEL PELT ''AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL MICHIEL PELT BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Installation
+============
+
+> Install PFS3 using the icon. DO NOT copy files directly from the
+  CD onto you harddrive.
+
+
+Changes since PFS 3 V5.1 (revision 18.3)
+========================================
+
+
+> Shared read-write
+
+  MODE_FINDOUTPUT is now a fully shared lock. In previous releases it was
+  single writer multiple reader, now it is multiple writer multiple reader.
+  Some programs like Apache had problems with this.
+
+> Fixed bug: Deldir date
+
+  When using list the dates in the deldir were incorrect
+
+> Fixed bug: Possible crash when listing deldir
+
+  If the deldir contains some very large files, PFS3 could crash while listing
+  the deldir.
+
+Changes since PFSDoctor V1.3
+============================
+
+> new feature: Undo Format
+
+  Use 'undo format' to get a partition back that has accidentally been quick
+  formatted.
+
+> new feature: Search Filesystem
+
+  Use 'search filesystem' if your RDB is lost and you don't remember where the
+  partitions are. Search Filesystem searches the specified device for PFS3
+  partitions. If it finds one you are offered the option to save a mountfile.
+  The mountfile contains all the information needed to rebuild the RDB for that
+  partition or can be used for manual mounting. PFSdocter continues by checking
+  the partition and searching for the next one.
+
+> repairing NON DOS disks
+
+  PFSDoctor now can also repair non-dos disks
+
+> improved performance
+
+> bugfix: pfsdoctor sometimes left the partition in an invalid state after repair
+  and had to be run two times. 
+
+
+Changes since PFSII V4.2
+========================
+
+> Larger delete directory
+
+  The deldir can now be configured to hold upto 992 deleted files. The
+  default size is 63. This can be changed with the supplied SetDeldir
+  utility.
+
+> HDInsttools
+
+  HDInsttools, written by Olivier Kastl, is now included in the PFS3
+  package. 
+
+> PFSDoctor
+
+  PFSDoctor is a brandnew disk repair program, included on the CD.
+
+> Long filenames
+
+  PFS3 now supports filenames of upto 108 characters
+
+> Device name in requesters
+
+  PFS now shows the devicename in all requesters. This makes it easier
+  to see which disk a requester comes from.
+
+> Italian version
+
+  An italian version is included
+
+
+Changes since PFSII V4.1
+========================
+
+> Read only mode can be disabled with the lock command
+
+  If the disk is put in read only mode due to errors, it can now be put back
+  in normal read/write mode with the lock command from the c: directory.
+  We recommend to use this only in order to reformat the disk.
+
+
+> Support for TD64
+
+  PFS2 now supports TD64 devices. This allows the use of harddisks larger than
+  4G without using direct scsi. To use TD64 install the standard version on
+  a partition exceeding the 4G border and TD64 will be used automatically.
+  A direct scsi version is still included to support large disks for devices
+  which are not TD64 compatible.
+
+
+> Support for large partitions
+
+  PFS2 now supports partitions of upto 104G (was 5G).
+
+
+Fixed bugs
+----------
+
+5.1
+
+> 'Beta Warning 1 bug'. This error could occur when a large number
+  of files was changed at once, e.g. setting the archive bit on all
+  files of the disk.
+
+> Reserved area full problems. PFS3 volumes can hold more files.
+
+> Problems with 1024 byte blocksizes fixed
+
+> Hardlink problems fixed. Hardlinks to rollover files failed.
+  Renaming and overwriting hardlinks across directories failed.
+
+> Enforcer hit during format fixed
+
+4.2
+
+> Errors when formatting partitions larger than 5G
+  PFS2 didn't check for maximum partition size. Version 4.2 support upto 104G.
+
+> 'Read outside partition' errors on Phase 5 boards.
+  fixed.
+
+> Crashed if rolloverfile of size 0 was created
+  fixed
+
+> The MaxTransfer and the maximum blocksize where stated wrong in the german
+  manual.
+
+> The French version showed a wrong version number in the format requester.
+
+> The dosdrivers were not on the distribution CD.
+
+
+
+Diskvalid
+=========
+
+current revision: 1.19 
+
+Changes since 1.14
+------------------
+
+> Added PFS3 support
+  including the long filenames and larger deldir
+
+> Added 1024 byte block support
+
+Changes since 1.11
+------------------
+
+> Support for direct-scsi and td64
+  Allows partitions exceeding the 4G border to be checked.
+
+
+> New switch: TD64
+  If supplied uses TD64 protocol. Otherwise uses direct-scsi
+  to access area above 4G.
+
+
+> Compatible with increased maximum partition size
+  Supports the 104G partitions of PFS2 V4.2
+
+
+
+

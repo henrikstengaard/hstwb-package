@@ -1,0 +1,18 @@
+; AGS2 Music Start Script
+; -----------------------
+
+; Skip end, if menupath doesn't exist
+IF NOT EXISTS ENV:menupath
+  SKIP end
+ENDIF
+
+; Pick random music file from menupath music directory
+setenv randommusic `C:filepick "$menupath/music/#?"`
+
+; Use easymod to play random music file in background, if any exists
+IF NOT $randommusic EQ ""
+  run >NIL: C:easymod >NIL: "$randommusic"
+ENDIF
+
+; End
+LAB end

@@ -1,0 +1,437 @@
+## version $VER: Visage.catalog 39.19 (18.02.98)
+## language √e”tina
+## codeset 0
+;
+; Czech translation by Vit Sindlar <sindlar@jackal.cis.vutbr.cz>
+;
+; *Note* In case above e-mail address doesn't work, you can ALWAYS
+;        reach me at this one: <sindlarv@hotmail.com>
+;
+; $VER: Visage.cd 39.15 (29.7.97)
+;
+MSG_BY
+\x9b1m%s - Magnus Holmgren\n\x9b0m
+;\x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+´Tento mœd nen… dostupnŸª
+;´Mode name not availableª
+;
+MSG_ABORTED
+Zru”eno.\n
+;Aborted.\n
+;
+MSG_BREAK
+***P“eru”eno\n
+;***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Upozorn≈n…: Chyba p“i zpracov¡n… prom≈nn◊ v env:\n\
+%s
+;Warning: Error parsing environment variable:\n\
+;%s
+;
+MSG_WARN_NO_WBMON
+Upozorn≈n…: WBMONITOR nenalezl Workbench
+;Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Upozorn≈n…: Monitor '%s' nebyl nalezen
+;Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Upozorn≈n…: Mœd '%s' nebyl nalezen
+;Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Upozorn≈n…: Nezn¡mŸ typ overscanu: '%s'
+;Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Nelze otev“…t %s verze %ld nebo vy””…
+;Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Je vy⁄adov¡n OS 3.0 nebo vy””…
+;You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Chyba p“i zpracov¡n… argument :\n\
+%s
+;Error parsing arguments:\n\
+;%s
+;
+MSG_ERR_FILEREQ
+Nelze otev“…t souborovŸ requester:\n\
+%s
+;Couldn't open file requester:\n\
+;%s
+;
+MSG_ERR_SMREQ
+Nelze otev“…t requester pro zobraz. mœdy:\n\
+%s
+;Couldn't open screen mode requester:\n\
+;%s
+;
+MSG_ERR_MONITORREQ
+Nelze otev“…t requester pro monitory:\n\
+%s
+;Couldn't open monitor requester:\n\
+;%s
+;
+; - Replaced with MSG_ERR_SHOW
+;MSG_ERR_PATTERN (//)
+;Error parsing pattern\n\
+;'%s':\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Vr¡ceno klientovi
+;Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Chyb… Call-back hook
+;Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Toto nen… soubor typu IFF
+;Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Chyba v souboru IFF
+;Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Soubor IFF je po”kozenŸ
+;Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Chyba p“i hled¡n…
+;Seek error
+;
+MSG_ERR_IFF_WRITE
+Chyba p“i z¡pisu
+;Write error
+;
+MSG_ERR_IFF_READ
+Chyba p“i √ten…
+;Read error
+;
+MSG_ERR_IFF_MEM
+Nedostatek pam≈ti
+;Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Nelze zpracovat
+;No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Konec kontextu
+;End of context
+;
+MSG_ERR_IFF_EOF
+Konec souboru
+;End of file
+;
+MSG_ERR_SCR_MONITOR
+Po⁄adovanŸ monitor nen… dostupnŸ
+;Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Jsou nutn◊ nov≈j”… grafick◊ √ipy
+;You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Nedostatek pam≈ti
+;Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Nedostatek grafick◊ pam≈ti
+;Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Intern… chyba
+;Internal error
+;
+MSG_ERR_SCR_MODE
+Nezn¡mŸ rozli”ovac… mœd
+;Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Nelze zobrazit na st¡vaj…c…m hardware
+;Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Nelze otev“…t okno
+;Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Zobraz. mœd nen… dostupnŸ
+;Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+Soubor je sice typu IFF, ale ne ILBM
+;IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Nezn¡mŸ form¡t
+;Unknown format
+;
+MSG_ERR_NO_DATA
+Chyb… data
+;Missing data
+;
+MSG_ERR_BAD_DATA
+Ûpatn¡ data
+;Bad data
+;
+MSG_ERR_EOF
+Neo√ek¡vanŸ konec souboru
+;Premature end of file
+;
+MSG_ERR_RENDER
+Obr¡zek nelze zobrazit
+;Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Nepodporovan¡ data
+;Unsupported data
+;
+MSG_ERR_LIB
+Chyb… extern… knihovna
+;External library missing
+;
+MSG_ERR_FORMAT
+Nezn¡mŸ form¡t
+;Unknown format
+;
+MSG_ERR_UNKNOWN
+Nezn¡mŸ chybovŸ kœd: %ld. Nahla”te mi to, pros…m
+;Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tChyba v obr¡zku: %s
+;\tError in picture: %s
+;
+MSG_ERR_SHOW
+Nelze zobrazit '%s': %s
+;Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Visage - informace
+;Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Volba zobraz. mœdu
+;Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Volba monitoru
+;Select monitor
+;
+MSG_FILE_REQ_TITLE
+Volba soubor  k zobrazen…
+;Select files to view
+;
+MSG_GAD_OK
+ Ok \
+
+; Ok \
+;
+;
+MSG_CLIPBOARD
+´Schr¡nkaª
+;´Clipboardª
+;
+; The following strings are used for the algorithmic mode names.
+; See the manual for more information about these.
+;
+MSG_EXTRA_LOW_RES
+Extra-Low Res
+;Extra-Low Res
+;
+MSG_LOW_RES
+Low Res
+;Low Res
+;
+MSG_HIGH_RES
+High Res
+;High Res
+;
+MSG_SUPER_HIGH_RES
+Super-High Res
+;Super-High Res
+;
+MSG_LACED
+ Prokl¡danŸ
+; Laced
+;
+MSG_DOUBLE
+ Neblikaj…c…
+; Double
+;
+MSG_HAM
+ HAM
+; HAM
+;
+MSG_EHB
+ EHB
+; EHB
+;
+MSG_DPF2
+ DPF2
+; DPF2
+;
+MSG_DPF
+ DPF
+; DPF
+;
+; ** Version 39.1 **
+;
+MSG_WARN_NO_DITHER
+Upozorn≈n…: Nezn¡mŸ typ vyhlazen… '%s'
+;Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Upozorn≈n…: Hodnota %ld pro %s je mimo rozsah (%ld - %ld)
+;Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Upozorn≈n…: Nelze otev“…t timer.device
+;Warning: Couldn't open timer.device
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+; - Replaced with MSG_NEWTIME
+;
+;MSG_TIME (//)
+;%2d.%03ds)\n
+;
+; ** Version 39.2 **
+;
+; Well, this string isn't *that* important to translate.. ;)
+;
+MSG_CYCLE_TASK
+Cyklova√ barev Visage
+;Visage color cycler
+;
+MSG_ERR_FILE_EMPTY
+Pr¡zdnŸ soubor
+;File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Upozorn≈n…: Chyba p“i zpracov¡n… konfigura√n…ho\n\
+souboru v adres¡“i '%s':\n\
+%s
+;Warning: Error parsing configuration file\n\
+;in drawer '%s':\n\
+;%s
+;
+MSG_WARN_BAD_CFGPATH
+Upozorn≈n…: Nelze naj…t adres¡“ z ConfigPath\n\
+'%s':\n\
+%s
+;Warning: Couldn't locate ConfigPath drawer\n\
+;'%s':\n\
+;%s
+;
+MSG_TESTED_OK
+obr¡zek je v po“¡dku
+;Picture ok
+;
+MSG_ALL_TESTED_OK
+V”echny testovan◊ obr¡zky byly v po“¡dku\n
+;All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Jeden nebo v…ce testovanŸch obr¡zk  bylo vadnŸch\n
+;One or more tested pictures failed\n
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+; (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage - ⁄¡dost
+;Visage request
+;
+MSG_ASK_PASSWORD
+Vlo⁄te heslo pro\n\
+\"%s\":
+;Enter password for\n\
+;\"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD
+Ûpatn≈ zadan◊ heslo
+;Password incorrect or missing
+;
+; ** Version 39.5 **
+;
+MSG_ERR_NO_DRAWER
+Nelze p“ej…t do adres¡“e '%s':\n\
+%s
+;Couldn't move to drawer '%s':\n\
+;%s
+;
+; ** Version 39.6 **
+;
+MSG_ERR_SCR_ATTACH
+Nelze p“ej…t na obrazovku
+;Couldn't attach screens
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Upozorn≈n…: Nezn¡mŸ mœd "bez okraje" '%s'
+;Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Upozorn≈n…: '%s' je nezn¡mŸ mœd
+;Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+Nelze otev“…t seznam soubor  '%s':\n\
+%s
+;Couldn't open list file '%s':\n\
+;%s
+;
+MSG_ERR_READ_LIST
+Nelze p“e√…st seznam soubor  '%s':\n\
+%s
+;Couldn't read list file '%s':\n\
+;%s
+;
+MSG_WARN_OPEN_FONT
+Upozorn≈n…: Nelze otev“…t p…smo pro '%s'
+;Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Upozorn≈n…: Ûpatn¡ velikost p…sma v '%s'
+;Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Upozorn≈n…: Chyb… velikost p…sma v '%s'
+;Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Upozorn≈n…: ˙¡danŸ mœd '%s' nen… zn¡m
+;Warning: Order mode '%s' not known
+;
+; ** Version 39.18
+;
+MSG_ERR_INFO
+Nelze na√…st informace o '%s': %s
+;Couldn't get information for '%s': %s
+;

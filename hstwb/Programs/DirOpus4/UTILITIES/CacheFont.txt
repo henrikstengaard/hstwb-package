@@ -1,0 +1,214 @@
+
+                              CacheFont  v1.1
+                               By Adam Dawes
+                            25th September 1994
+
+
+What Is CacheFont?
+==================
+
+CacheFont is a little utility that makes accessing your fonts significantly
+quicker -- in fact, near instant.
+
+I was always annoyed when using any programs on my Amiga which involved
+fonts by the fact that when the program went to see what fonts were
+available, I was presented with a rather lengthy wait. I decided I'd
+finally had enough of this, and it was time to do something about it.
+
+So after much poring over my keyboard and flicking through Amiga Intern, I
+finally came up with a solution. This utility comes in two parts:
+
+  CacheFont . . . . Installs or removes CacheFont (run it once to install
+                    the program, and a second time to remove it).
+  MakeFontList  . . This program must be run before CacheFont can be used.
+                    It creates the list of fonts that CacheFont will use
+                    later in order to avoid reading the whole font list
+                    again.
+
+CacheFont relies entirely on the files made by the MakeFontList utility. If
+your fonts directory is changed, CacheFont will *not* know anything about
+it unless you run MakeFontList afterwards. Even rebooting your machine
+won't change the list of fonts that CacheFont is aware of, so please run
+the MakeFontList utility every time you change your font directory. It
+takes only as long to run as a single font requester would've taken without
+CacheFont, and I think you'll agree that your font directory is changed
+much less often than you open a font requester!
+
+
+
+System Requirements
+===================
+
+CacheFont will only work on an Amiga with OS2 or greater. You don't need a
+harddrive, vast quantities of memory, or anything else.
+
+
+
+Using CacheFont
+===============
+
+CacheFont is installed simply by entering its command from the command
+line. It will print a message telling you that it has installed itself, and
+from then on all your font requesters will be running through the patch.
+
+If you wish to uninstall the patch, simply execute the command again and it
+will remove itself.
+
+The best way to install CacheFont is by including it in your
+startup-sequence or user-startup. This way, the patch will be initialised
+every time your system is booted.
+
+You do not need to 'run' the program as it returns control to your command
+line immediately.
+
+
+
+Using MakeFontList
+==================
+
+MakeFontList must be run in order for the CacheFont to function. It scans
+your Fonts: directory and stores the information needed by CacheFont in a
+directory (which will be created if necessary) called Fonts:CacheFontData/.
+
+If CacheFont has any difficulty reading these data files, it will display a
+requester asking you to run MakeFontList, and continue by using the
+original (slow) unpatched routine.
+
+You will need to run MakeFontList every time you make a change to your
+Fonts: directory. Don't include this command in your startup-sequence
+though! Call it manually whenever you need to.
+
+And how much disk space is wasted by the caching information files? Well I
+have 55 fonts installed at the moment, and the cache files come out to a
+whopping great 1581 bytes, hardly a great sacrifice. :)
+
+
+
+Testing
+=======
+
+CacheFont has been tested without any problems on the following utilities:
+
+  AdPro 2.5
+  AmiQWK 2.5
+  Brilliance 2.0
+  CygnusEd Professional 3.5
+  DeluxePaint4
+  DeluxePaint4 AGA
+  Devpac 3.02
+  DirectoryOpus 4.12
+  Filer 3.1
+  Final Writer
+  Font Prefs V2.14
+  GoldEd 0.991
+  GP Fax 2.343
+  Infocom Task Force 1.55
+  MUI 2.2
+  NComm
+  Nicola 1-06
+  PageStream 3.0
+  Personal Fonts Maker 1.2
+  PowerPacker 4.0a
+  ProCalc 1.04
+  Q-Blue 1.0
+  ReqChange 2.01
+  Spot 1.3
+  SuperBase Pro4 1.01
+  Term 4.1
+  ToolManager 2.1
+  TurboText 1.03
+  Typesmith 2.02
+  Wordworth 3.0b
+  Workbench 'Font' preferences program
+
+CacheFont has been tested and works on the following computers:
+
+  A600
+  A1200
+  A1500
+  A3000
+  A4000/030
+  A4000/040
+
+..it should work on any other computers without any problems (see
+"requirements").
+
+
+
+Legal stuff
+===========
+
+Ok, so my associates and I have tested this program as extensively as we
+can, and haven't found any bugs in it yet, but sod's law clearly dictates
+that the experiences of the many are worse than the experiences of the few.
+
+I won't accept responsibility for any damage done to your system or data
+lost, directly or indirectly, as a result from using CacheFont or any of
+its associated files. You use the program entirely at your own risk. Of
+course if you *do* experience problems then I'll do what I can to sort them
+out, and please let me know so that I can try to cure them in a future
+version of CacheFont.
+
+CacheFont and its associated files are not public domain. They may be
+distributed freely as long as no unreasonable charge is imposed. It may not
+be included within any commercial package without express written
+permission from the author; the exceptions from this are the AmiNet CDs and
+Fred Fish's utility collections. CacheFont and its associated utilities may
+only be distributed if all files contained within the original archive are
+present.
+
+
+
+History
+=======
+
+ Version 1.0 (1/9/94)
+
+  o Initial release.
+
+  o Thanks to the following people for assistance in testing:
+        Nick Doyle
+        Jon Hudson
+        Lars Janssen
+        Roger Kille
+        Mark Stacey
+        Tim Still
+        Nicholas Wynne
+
+
+ Version 1.1 (25/9/94)
+
+  o CacheFont now understands Tagged font lists. This should keep it
+    working with most (if not *all*) of the programs that crashed version
+    1.0 (eg, FontPrefs by Martin Stengle). Note that CacheFont doesn't
+    actually return the tags at the moment, it always returns a null
+    pointer. Whilst this isn't entirely useful, it does stop crashes. My
+    thanks to Bret McGee for helping my find and solve this bug (aswell
+    as for some other very nice ideas which have yet to be implememted).
+
+  o Version strings are now Commodore Style-Guide compliant (thanks to
+    everyone who pointed that one out to me! :)
+
+
+
+Contacting the author
+=====================
+
+Yes! Please do write to me if you like CacheFont or if you have any
+problems with it or suggestions for a new version. I can't promise to reply
+quickly if you write via snail-mail, but I will always reply to email
+messages. I can be contacted at:
+
+  InterNet
+     ad32@vms.bton.ac.uk
+
+  FidoNet
+     Adam Dawes@2:441/93.5
+
+  SnailMail
+     Adam Dawes
+     47 Friar Road
+     Brighton
+     BN1 6NH
+     England
+

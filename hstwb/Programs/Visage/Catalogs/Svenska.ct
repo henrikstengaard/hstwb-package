@@ -1,0 +1,422 @@
+## version $VER: visage.catalog 39.18 (29.11.97)
+## codeset 0
+## language svenska
+;
+MSG_BY
+\x9b1m%s - Av Magnus Holmgren\n\x9b0m
+; \x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Skärmlägesnamn ej tillgängligt»
+; «Mode name not available»
+;
+MSG_ABORTED
+Avbruten.\n
+; Aborted.\n
+;
+MSG_BREAK
+***Avbrott\n
+; ***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Varning: Fel i miljövariabeln:\n\
+%s
+; Warning: Error parsing environment variable:\n%s
+;
+MSG_WARN_NO_WBMON
+Varning: WBMONITOR kunde inte hitta Workbench
+; Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Varning: Kunde inte hitta skärm '%s'
+; Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Varning: Kunde inte hitta skärmläge '%s'
+; Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Varning: Overscan-typ '%s' är ej känd
+; Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Kunde inte öppna %s version %ld eller högre
+; Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Du behöver OS 3.0 eller nyare
+; You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Fel i argumenten:\n\
+%s
+; Error parsing arguments:\n%s
+;
+MSG_ERR_FILEREQ
+Kunde inte öppna filväljaren:\n\
+%s
+; Couldn't open file requester:\n%s
+;
+MSG_ERR_SMREQ
+Kunde inte öppna skärmlägesväljaren:\n\
+%s
+; Couldn't open screen mode requester:\n%s
+;
+MSG_ERR_MONITORREQ
+Kunde inte öppna skärmväljaren:\n\
+%s
+; Couldn't open monitor requester:\n%s
+;
+;MSG_ERR_PATTERN
+;Fel vid mönstertolkning av\n\
+;'%s':\n\
+;%s
+; Error parsing pattern\n'%s':\n%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Retur till klienten
+; Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Anrops-hook saknas
+; Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Ej en IFF-fil
+; Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Syntaxfel i IFF-fil
+; Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Trasig IFF-fil
+; Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Sökfel
+; Seek error
+;
+MSG_ERR_IFF_WRITE
+Skrivfel
+; Write error
+;
+MSG_ERR_IFF_READ
+Läsfel
+; Read error
+;
+MSG_ERR_IFF_MEM
+Ej tillräckligt med minne
+; Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Fel i IFF-fil (egenskap på fel ställe?)
+; No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Slut på sammanhang
+; End of context
+;
+MSG_ERR_IFF_EOF
+Slut på filen
+; End of file
+;
+MSG_ERR_SCR_MONITOR
+Efterfrågad skärm finns inte tillgänglig
+; Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Du behöver nyare grafikkretsar
+; You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Ej tillräckligt med minne
+; Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Ej tillräckligt med grafikminne
+; Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Internt fel
+; Internal error
+;
+MSG_ERR_SCR_MODE
+Okänt skärmläge
+; Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Det önskade skärmdjupet kräver bättre hårdvara
+; Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Kunde inte öppna fönstret
+; Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Skärmläget finns ej tillgängligt
+; Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF men inte ILBM
+; IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Okänt format
+; Unknown format
+;
+MSG_ERR_NO_DATA
+Data saknas
+; Missing data
+;
+MSG_ERR_BAD_DATA
+Felaktig data
+; Bad data
+;
+MSG_ERR_EOF
+För tidigt filslut
+; Premature end of file
+;
+MSG_ERR_RENDER
+Kunde inte skapa bilden
+; Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Okänt dataformat
+; Unsupported data
+;
+MSG_ERR_LIB
+Externt bibliotek saknas
+; External library missing
+;
+MSG_ERR_FORMAT
+Okänt format
+; Unknown format
+;
+MSG_ERR_UNKNOWN
+Okänt felnummer: %ld. Var god rapportera
+; Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tFel i bilden: %s
+; \tError in picture: %s
+;
+MSG_ERR_SHOW
+Kunde inte visa '%s': %s
+; Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Visage - Information
+; Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Välj skärmläge
+; Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Välj skärm
+; Select monitor
+;
+MSG_FILE_REQ_TITLE
+Välj filer att visa
+; Select files to view
+;
+MSG_GAD_OK
+ Ok \
+
+;  Ok
+;
+MSG_CLIPBOARD
+«Urklipp»
+; «Clipboard»
+;
+MSG_EXTRA_LOW_RES
+Extralågupplösning
+; Extra-Low Res
+;
+MSG_LOW_RES
+Lågupplösning
+; Low Res
+;
+MSG_HIGH_RES
+Högupplösning
+; High Res
+;
+MSG_SUPER_HIGH_RES
+Superhögupplösning
+; Super-High Res
+;
+MSG_LACED
+ lace
+; Laced
+;
+MSG_DOUBLE
+ dubbel
+; Double
+;
+MSG_HAM
+ HAM
+; HAM
+;
+MSG_EHB
+ EHB
+; EHB
+;
+MSG_DPF2
+ DPF2
+; DPF2
+;
+MSG_DPF
+ DPF
+; DPF
+;
+; ** 39.1 **
+;
+MSG_WARN_NO_DITHER
+Varning: Dither-typ '%s' är ej känd
+; Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Varning: Värdet %ld för %s är inte tillåtet\n\
+(det måste vara mellan %ld och %ld)
+; Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Varning: Kunde inte öppna timer.device
+; Warning: Couldn't open timer.device
+;
+;MSG_TIME
+;%2d,%03ds)\n
+; %2d.%03ds)\n
+;
+; ** 39.2 **
+;
+MSG_CYCLE_TASK
+Visage färgcyklare
+; Visage color cycle task
+;
+MSG_ERR_FILE_EMPTY
+Filen är tom
+; File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Varning: Fel i konfigurationsfilen\n\
+i lådan '%s':\n\
+%s
+; Warning: Error parsing configuration file\n\
+; in drawer '%s':\n\
+; %s
+;
+MSG_WARN_BAD_CFGPATH
+Varning: Kunde inte hitta ConfigPath-lådan\n\
+'%s':\n\
+%s
+; Warning: Couldn't locate ConfigPath drawer\n\
+; '%s':\n\
+; %s
+;
+MSG_TESTED_OK
+Bild ok
+; Picture ok
+;
+MSG_ALL_TESTED_OK
+Alla testade bilder var ok\n
+; All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+En eller flera bilder misslyckades\n
+; One or more tested pictures failed\n
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;  (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage - Förfrågan
+; Visage request
+;
+MSG_ASK_PASSWORD
+Ange lösenord för\n\
+\"%s\":
+; Enter password for \n\
+; \"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD
+Lösenord är felaktigt eller saknas
+; Password incorrect or missing
+;
+; ** Version 39.5 **
+;
+MSG_ERR_NO_DRAWER
+Kunde inte gå till lådan '%s':\n\
+%s
+; Couldn't move to drawer '%s':\n\
+; %s
+;
+; ** Version 39.6 **
+;
+MSG_ERR_SCR_ATTACH
+Kunde inte koppla skärmarna
+; Couldn't attach screens
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Varning: Ramblankningsläge '%s' är ej känt
+; Warning: Borderblank mode '%s' not known
+;
+; Jag vet, ovanstående är inte en höjdaröversättning. ;)
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Varning: Färgläge '%s' är ej känt
+; Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+Kunde inte öppna fillistan "%s":\n\
+%s
+; Couldn't open list file '%s':\n\
+; %s
+;
+MSG_ERR_READ_LIST
+Kunde inte läsa fillistan "%s":\n\
+%s
+; Couldn't read list file '%s':\n\
+; %s
+;
+MSG_WARN_OPEN_FONT
+Varning: Kunde inte öppna teckensnitt för "%s"
+; Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Varning: Olämplig teckensnittsstorlek i "%s"
+; Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Varning: Teckensnittsstorlek saknas i "%s"
+; Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Varning: Ordningen "%s" är ej känd
+; Warning: Order mode '%s' not known
+;
+; ** Version 39.18
+;
+MSG_ERR_INFO
+Kunde inte få information om "%s": %s
+;
+; ** Version 39.20
+;
+MSG_WARN_RANGE_FLOAT
+Varning: Värdet %s för %s är inte tillåtet\n\
+(det måste vara mellan %s och %a)
+;

@@ -1,0 +1,108 @@
+/* Visage_Slideshow for Directory Opus 5 and Visage.
+ By Leo 'Nudel' Davidson for Gods'Gift Utilities
+ email: leo.davidson@keble.oxford.ac.uk  www: http://info.ox.ac.uk/~kebl0364/
+
+ Visage is (C)1995 by Magnus Holmgren (Internet: cmh@lls.se or cmh@augs.se,
+ Fidonet: 2:204/204.6) and available on Aminet or from Magnus' WWW Page
+ (http://www.lls.se/~cmh). Many thanks to Magnus for a great picture viewer,
+ especially the rare random-slideshow and xpk-decrypt options.
+
+$VER: Visage_Slideshow.dopus5 1.5 (8.1.96)
+
+   NOTE: This script _requires_ DOpus v5.11 or above.
+
+   This simple script will call "Visage" to display a slideshow of all
+   pictures in the source-lister's path, in random order. Optionally, a
+   requester will appear so that you can give it a password to xpk-decrypt the
+   pictures with, if required.
+
+   To change the default amount of time pictures are displayed for, alter the
+   "Visage_Delay" variable below (time in seconds).
+
+   This script has the ability to disable SwazBlanker for the duration of
+   the slideshow. For this to work you must have a program called "handlecx"
+   in your path and you must enable it by having the "DisSwaz" switch below
+   as "YES". If you don't run SwazBlanker or don't have handlecx, make sure
+   you set it to "NO" or things might not work.
+
+Call as:
+------------------------------------------------------------------------------
+ARexx	DOpus5:ARexx/Visage_Slideshow.dopus5 {Qp} {s} [NoPass] [<Time>]
+------------------------------------------------------------------------------
+Turn off all switches.
+"[]" means this part is optional.
+Arguments must be given in the order shown.
+
+NoPass: Tells the script not to prompt for a password (no decryption).
+<Time>: Override the default delay-time (seconds) between pictures.
+
+   v1.00 -> v1.01 - Very minor tidying up.
+                    Now checks to make sure the DOPUS.x port exists.
+    v1.01 -> v1.2 - Now uses Show() instead of ShowList(). (Thanks Stoebi)
+                    Style Guide compliant version numbering and $VER string.
+     v1.2 -> v1.3 - "NoPass" option added to surpress password prompt.
+                    Added the ability to change the default delay time on
+                    the command line.
+     v1.3 -> v1.4 - Paths with a space at the beginning or end will now be
+                    handled correctly, for what it's worth.
+     v1.4 -> v1.5 - Now has the ability to disable SwazBlanker for the
+                    duration of the slideshow. See above for details.
+*/
+/*- Path to Visage command -------------------------------------------------*/
+Visage_Path  = "DH0:Tools/Art/Utils/Visage"
+/*- Default Delay variable -------------------------------------------------*/
+Visage_Delay = 5
+/*- If you run SwazBlanker and have "handlecx" in your path, put "YES" -----*/
+DisSwaz = "YES"
+/*--------------------------------------------------------------------------*/
+options results
+options failat 99
+signal on syntax;signal on ioerr		/* Error trapping */
+parse arg DOpusPort source_path.0 opt1 opt2 .
+DOpusPort = Strip(DOpusPort,"B",'" ')
+/* Important: source_path.0 must be stripped as below incase there is a
+              space at the beginning or end of the name */
+source_path.0 = Strip(Strip(source_path.0,"B",' '),"B",'"')
+
+If DOpusPort="" THEN Do
+	Say "Not correctly called from Directory Opus 5!"
+	Say "Load this ARexx script into an editor for more info."
+	EXIT
+	END
+If ~Show("P",DOpusPort) Then Do
+	Say DOpusPort "is not a valid port."
+	EXIT
+	End
+Address value DOpusPort
+
+If DisSwaz = "YES" Then
+	Address command 'handlecx disable "SwazBlanker"'
+
+Delay = Visage_Delay
+AskPass = "Y"
+If opt1~="" then do
+	If upper(opt1)="NOPASS" then do
+		AskPass = "N"
+		opt1 = opt2
+		End
+	If Datatype(opt1,"N") then
+		Delay = opt1
+	End
+
+Visage_Password = ""
+If AskPass = "Y" then do
+	dopus getstring '"Enter password, if required" 256 "" Okay|Cancel'
+
+	If DOPUSRC = 0 Then
+		Exit
+	Else
+		If Result ~= "RESULT" Then
+			Visage_Password = ' PASSWORD "' || RESULT || '"'
+	End
+
+address command Visage_Path source_path.0 || "#? DELAY" Delay Visage_Password "NOBUSY FOREVER QUIET RANDOM WAITFORPIC CENTRE"
+
+syntax:;ioerr:				/* In case of error, jump here */
+If DisSwaz = "YES" Then
+	Address command 'handlecx enable "SwazBlanker"'
+EXIT

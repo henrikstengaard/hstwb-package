@@ -1,0 +1,395 @@
+;
+## version $VER: Visage.catalog 39.17 (23.6.98)
+## codeset 0
+## language Português
+## chunk AUTH Raul J. B. Silva <luarsilva@mail.telepac.pt>
+;
+; Portuguese translation by Raul J. B. Silva. All rights reserved
+;
+MSG_BY
+\x9b1m%s Por Magnus Holmgren\n\x9b0m
+;\x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Nome do modo não disponivel»
+;«Mode name not available»
+;
+MSG_ABORTED
+*** Abortar\n
+;Aborted.\n
+;
+MSG_BREAK
+*** Interrompida a execução\n
+;***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Atenção: Erro na execução\n\
+na variável de retorno:\n\
+%s
+;Warning: Error parsing environment variable:\n\
+;%s
+;
+MSG_WARN_NO_WBMON
+Atenção: o WBMONITOR não conseguiu encontrar o Workbench
+;Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Atenção: o Monitor '%s' não foi encontrado
+;Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Atenção: o Modo '%s' não foi encontrado
+;Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Atenção: O tipo de overscan '%s' é desconhecido
+;Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Não consegui abrir %s versão %ld ou superior
+;Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Necessita do AmigaOS 3.0 ou superior
+;You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Erro no tratamento dos argumentos:\n\
+%s
+;Error parsing arguments:\n\
+;%s
+;
+MSG_ERR_FILEREQ
+Não consegui abrir um pedido de ficheiros:\n\
+%s
+;Couldn't open file requester:\n\
+;%s
+;
+MSG_ERR_SMREQ
+Não consegui abrir um pedido\n\
+de modo de ecrã:\n\
+%s
+;Couldn't open screen mode requester:\n\
+;%s
+;
+MSG_ERR_MONITORREQ
+Não consegui abrir um pedido de monitores:\n\
+%s
+;Couldn't open monitor requester:\n\
+;%s
+;
+;MSG_ERR_PATTERN
+;Erro interpretando o padrão\n\
+;´%s':\n\
+;%s
+;Error parsing pattern\n\
+;'%s':\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Voltando ao cliente
+;Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Desapareceu o gancho de retorno
+;Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Não é uma imagem em formato IFF.
+;Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Erro de sìntese no ficheiro IFF.
+;Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Imagem em formato IFF danificada.
+;Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Erro de busca.
+;Seek error
+;
+MSG_ERR_IFF_WRITE
+Erro de escrita.
+;Write error
+;
+MSG_ERR_IFF_READ
+Erro de leitura.
+;Read error
+;
+MSG_ERR_IFF_MEM
+Não há memória suficiente para a imagem (IFF).
+;Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Ambito inválido para a propiedade
+;No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Fim do contexto.
+;End of context
+;
+MSG_ERR_IFF_EOF
+Fim do ficheiro.
+;End of file
+;
+MSG_ERR_SCR_MONITOR
+Pedido do Monitor não disponivel.
+;Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Necessita de uma versão actualizada\n\
+dos chips.
+;You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Não há memória suficiente para o (ecrã).
+;Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Não há memória gráfica suficiente.
+;Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Erro interno do (ecrã).
+;Internal error
+;
+MSG_ERR_SCR_MODE
+Modo de ecrã desconhecido.
+;Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+A profundidade do ecrã é maior\n\
+que a soportada pelo hardware.
+;Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Não consegui abrir a janela.
+;Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Modo de ecrã não disponivel.
+;Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+É um IFF mas nãp do tipo ILBM.
+;IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Formato desconhecido.
+;Unknown format
+;
+MSG_ERR_NO_DATA
+Faltam dados.
+;Missing data
+;
+MSG_ERR_BAD_DATA
+Dados defeituosos.
+;Bad data
+;
+MSG_ERR_EOF
+Fim prematuro do ficheiro.
+;Premature end of file
+;
+MSG_ERR_RENDER
+Não consegui criar a imagem.
+;Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Dados não soportados.
+;Unsupported data
+;
+MSG_ERR_LIB
+Falta a bibliotéca externa.
+;External library missing
+;
+MSG_ERR_FORMAT
+Formato desconhecido.
+;Unknown format
+;
+MSG_ERR_UNKNOWN
+Código de erro desconhecido %ld.\n\
+Informe o autor deste erro, por favor.
+;Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tErro na imagem: %s
+;\tError in picture: %s
+;
+MSG_ERR_SHOW
+Não consegui mostrar '%s': %s
+;Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Informação de Visage
+;PicView information
+;
+MSG_SCREENMODE_REQ_TITLE
+Escolha um modo de ecrã
+;Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Escolha um monitor
+;Select monitor
+;
+MSG_FILE_REQ_TITLE
+Escolha as imagens que quer visualizar
+;Select files to view
+;
+MSG_GAD_OK
+De acordo
+; Ok \
+;
+MSG_CLIPBOARD
+«Portapéis»
+;«Clipboard»
+;
+MSG_EXTRA_LOW_RES
+ExtraBaixaRes
+;Extra-Low Res
+;
+MSG_LOW_RES
+BaixaRes
+;Low Res
+;
+MSG_HIGH_RES
+AltaRes
+;High Res
+;
+MSG_SUPER_HIGH_RES
+SuperAltaRes
+;Super-High Res
+;
+MSG_LACED
+ Entrelaçada
+; Laced
+;
+MSG_DOUBLE
+ Dupla
+; Double
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Atenção: Não conheço o Tipo de (Dither) '%s'
+;
+MSG_WARN_RANGE
+Atenção: Valor %ld para %s fora dos parametros (%ld - %ld)
+;
+MSG_WARN_TIMER
+Atenção: Não consegui abrir o dispositivo 'timer.device'
+;
+MSG_CYCLE_TASK
+Ciclo de cor de Visage
+;
+MSG_ERR_FILE_EMPTY
+Ficheiro vazio
+;
+MSG_WARN_BAD_FILE_ARGS
+Atenção: Erro no tratamento do ficheiro de\n\
+configuração na gaveta '%s':\n\
+%s
+;
+MSG_WARN_BAD_CFGPATH
+Atenção: Não consegui localizar a gaveta ConfigPath\n\
+'%s':\n\
+%s
+;
+MSG_TESTED_OK
+Imagem correcta
+;Picture ok
+;
+MSG_ALL_TESTED_OK
+Todas as imagens comprovadas estão correctas\n
+;All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Uma ou mais imagens comprovadas NÃO estão correctas\n
+;One or more tested pictures failed\n
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Pedido de Visage
+;Visage request
+;
+MSG_ASK_PASSWORD
+Introduza a chave de acesso para\n\
+\"%s\":
+;Enter password for\n\
+;\"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD
+Falta a chave de acesso ou está incorrecta
+;Password incorrect or missing
+;
+; ** Versión 39.5 **
+;
+MSG_ERR_NO_DRAWER
+É imposivel mover a gaveta '%s':\n\
+%s
+;Couldn't move to drawer '%s':\n\
+;%s
+;
+; ** Versión 39.6 **
+;
+MSG_ERR_SCR_ATTACH
+É imposivel juntar o ecrã
+; Couldn't attach screens
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Atenção: modo de border negro '%s' desconhecido
+;Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Atenção: modo de cor '%s' desconhecido
+;Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+É imposivel abrir a lista de ficheiros '%s':\n\
+%s
+;Couldn't open list file '%s':\n\
+;%s
+;
+MSG_ERR_READ_LIST
+É imposivel ler a lista de ficheiros '%s':\n\
+%s
+;Couldn't read list file '%s':\n\
+;%s
+;
+MSG_WARN_OPEN_FONT
+Atenção: é imposivel abrir o tipo de letras para '%s'
+;Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Atenção: tamanho do tipo de letras incorrecto em '%s'
+;Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Atenção: tamanho do tipo de letras inexistente em '%s'
+;Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Atenção: modo de ordem '%s' desconhecido
+;Warning: Order mode '%s' not known
+;

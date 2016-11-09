@@ -1,0 +1,104 @@
+;======================================================================
+;
+; DiskSalv general installer -- $VER: Install 13.0 (24.11.95)
+;
+; 13.0	Moved stuff around for DiskSalv 4 support.
+;
+; 12.0	Moved stuff around for DiskSalv 4 support.
+;
+; 11.5	Added updates for DiskSalv V11.30 distribution, mainly support
+;	for the additional locale files.
+; 11.4	Simple updates for DiskSalv V11.28
+;	Fixed the install-locale-from-archive routine
+; 11.3	Added better checks for the existance of the locales archive
+;
+;======================================================================
+;
+; Some basic strings
+
+(set #disksalv-install 
+     (cat "\nInstall DiskSalv 4\n"
+          "\nYou may install the DiskSalv program and related "
+          "files in the directory of your choice.  Proceed?"))
+
+(set #disksalv-install-help
+     (cat "\nThis section lets you choose in which drawer or on "
+          "which disk the DiskSalv 4 program will be installed."
+          "\n\nIf you choose to proceed, you will be asked where you "
+          "want the DiskSalv files placed.  If you choose "
+          "to skip this part, you will go to the portion of the "
+          "installation that processes language installations".))
+
+(set #which-disk
+     "In which disk or drawer should DiskSalv 4 be installed?")
+
+(set #docs-install
+     (cat "\nInstall DiskSalv 4 Documentation\n"
+          "\nThe AmigaGuide Interactive Manual for DiskSalv can be"
+	  "\ninstalled in the directory of your choice.  Proceed?"))
+
+(set #docs-install-help
+     (cat "\nThis section lets you choose in which drawer or on "
+          "which disk the DiskSalv 4 interactive manual will be installed. "
+	  "In most cases, it should be installed in the same directory "
+	  "as the DiskSalv 4 program, or along the AmigaGuide standard"
+	  "path."
+          "\n\nIf you choose to proceed, you will be asked where you "
+          "want the DiskSalv documents placed.  If you choose "
+          "to skip this part, installation is complete."))
+
+(set #docs-where
+     (cat "\nIn which disk or drawer should DiskSalv interactive "
+          "documentation be installed?"))
+
+(set #dsdocname      "DiskSalv.guide")
+
+;======================================================================
+;
+; The main program
+
+(set inputdir          (pathonly @icon))
+(set @default-dest     "SYS:Tools")
+
+; First, install the DiskSalv program proper.
+
+(if (askbool (prompt #disksalv-install)
+             (help #disksalv-install-help)
+             (choices "Yes" "Skip This Part")
+             (default 1))
+
+    ((set outputdir 
+          (askdir (prompt  #which-disk)
+		  (help    @askdir-help)
+		  (default @default-dest)))
+     (set @default-dest outputdir)
+     (copyfiles (source inputdir)
+                (dest outputdir)
+                (pattern "DiskSalv")
+                (files)
+                (infos))
+     (tooltype  (dest (tackon outputdir "DiskSalv"))
+                (noposition))))
+
+; Next, how about the DiskSalv docs.
+
+(if (askbool (prompt #docs-install)
+	     (help #docs-install-help)
+	     (choices "Yes" "Skip This Part")
+	     (default 1))
+
+    ((set outputdir
+          (askdir (prompt  #which-disk)
+		  (help    @askdir-help)
+		  (default @default-dest)))
+     (set @default-dest outputdir)
+     (copyfiles (source inputdir)
+                (dest outputdir)
+                (pattern "DiskSalv.guide")
+                (files)
+                (infos))
+     (tooltype  (dest (tackon outputdir "DiskSalv.guide"))
+                (noposition)))
+    (set @default-dest ""))
+
+

@@ -1,0 +1,118 @@
+======================================================================
+
+DISKSALV 3 BUG REPORT FORM		DiskSalv Version______________
+
+Please fill out this form as best as possible in the event of some
+kind of problem with DiskSalv.  I certainly want DiskSalv to work all
+the time and fix every possible disk problem, but I can't solve a
+problem I don't know about.  So reports like this are very important.
+
+
+Bug reports can be submitted via email, to disksalv-bugs@iam.com. This
+is more efficient that physical mail, we prefer this if you have net
+access.
+
+DO NOT CALL IAM with bug reports or for support of DiskSalv 3.
+
+======================================================================
+Your Configuration:
+
+    [] A500     []A1000     []A2500      []A1200      []CDTV/CD32
+    [] A600     []A2000     []A3000      []A4000      []Other
+
+    KS Version___________   RAM__________   Other HW__________________
+
+    WB Version___________   HD___________   HD Controller_____________
+
+======================================================================
+Please explain the problem as completely as possible:
+
+    File System Version/Type__________________________________________
+
+    ScreenMode________________________  Font__________________________
+
+    []Shell/CLI     []Workbench         Locale________________________
+
+    Problem:   []Full Lockup    []GURU/Crash   []DS Can't fix the disk
+
+    Steps to see this problem?________________________________________
+
+    __________________________________________________________________
+
+    __________________________________________________________________
+
+
+    Other Comments____________________________________________________
+
+    __________________________________________________________________
+
+    __________________________________________________________________
+
+======================================================================
+Special note on floppies:
+
+    Many problems so far enountered will show up on a disk duplicated
+    with the DiskCopy program.  If you're experiencing a problem that
+    will copy this way, I would really appreciate receiving such a
+    copy by mail.  Assuming the problem is a real one (and, of course,
+    disk-related), I have been very successful at fixing problems I
+    can actually get my hands on.  You will get a free update, and of
+    course your restored disk, if such a problem sent in turns out to
+    be a real problem with DiskSalv.
+
+======================================================================
+
+                         Please Tape Here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+                                                             +-------+
+                                                             |       |
+                                                             |       |
+                                                             |       |
+                                                             |       |
+                                                             +-------+
+
+
+
+
+
+
+				   Intangible Assets Manufacturing
+                                   DiskSalv Bug Reports
+                                   284 Memorial Avenue
+                                   Gibbstown, NJ USA
+
+                                            08027
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+
+
+

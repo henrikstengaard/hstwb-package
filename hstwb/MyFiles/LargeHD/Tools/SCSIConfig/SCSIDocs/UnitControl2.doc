@@ -1,0 +1,217 @@
+
+
+                       UnitControl 2.5 (29.04.1996)
+                      ==============================
+
+The  Workbench  tool  UnitControl  allows  you to carry out device specific
+settings  for  each  individual  device connected to the SCSI bus.  It also
+allows   you   to  control  removable  media  and  tape  streamers.   Start
+UnitControl  by  double-clicking  on  the  icon.  The following main window
+appears:
+
+
+The  upper  part  of the window displays the units present on the SCSI bus.
+You  can  select  these  for further actions by clicking on the units.  The
+title  of  the  selected  unit then changes color.  If you should have more
+units than will fit in the window then you can scroll through the list with
+the scroll bar on the right-hand side of the display window.
+
+
+--- Quit
+
+As  long  as  none of the devices is selected, only the Quit button will be
+available  from  the five buttons in the lower part of the main window.  By
+clicking on this button you will exit UnitControl.
+
+As  soon  as you select a device the other buttons become available.  These
+buttons allow you to control various actions of the connected device.
+
+
+--- Eject:
+
+If  the  SCSI  device  supports software controlled ejection of the medium,
+then  this  button will eject the medium.  For devices which do not support
+ejection of mediums the activation of this button normally causes the drive
+motor to stop.
+
+--- Stop:
+
+This  button  turns off the drive motor of the device selected.  Hard disks
+or  removable  drives  which you only use sporadically can be turned off in
+this way to avoid unnecessary wear and tear and power consumption.
+
+--- Start:
+
+A device deactivated with Stop or for other reasons can be reactivated by
+using this button.
+
+--- Rescan
+
+Rescan SCSI Bus for new SCSI units.
+
+--- Mount
+
+Try to mount partitions from a unit.
+
+--- Prefs
+
+Allows to set a Resident Tag with 'Save'.  May speedup your next reboot.
+
+--- x x x x x x x x  Unit Scan Array
+
+The unit which is activated here is scanned during the boot phase.
+
+--- SCSI Reset Delay
+
+The seconds the device waits after a SCSI Reset.
+
+--- Inquiry Error Delay
+
+The seconds the device waits after an Inquiry Error
+
+--- Inquiry Error Retry
+
+The retry count for an Inquiry after an Error.
+
+--- Error Retrys
+
+The retry count for an SCSI Operation after an SCSI Error.
+
+--- Selection Timeout
+
+The count of chip ticks the chip uses to determine that a selection failed.
+
+
+--- Lun Reselection
+
+Using Reselection between single Luns of a Unit.
+I know no Unit which supports this.
+
+--- Options:
+
+By activating this button a new window is opened, where you can set special
+device  parameters  for the unit selected.  This tool can be very useful if
+problems occur in transmitting data to a certain device without other units
+being   affected.    The   settings  under  Special  also  allow  the  data
+transmission to be adjusted to maximum speed.
+
+
+You  should  have  various information about the selected device at hand so
+that  you  can  set  the  options  correctly.  In general, you can find the
+information  in  the  datasheets  or  the  operating  instructions  of  the
+connected device.
+
+
+--- Asynchron/Synchron
+
+This  button  switches  between  synchronous and asynchronous access to the
+device.   The  default setting is determined from the information contained
+in  the  RDB.   In  synchronous  mode  a  certain  number of data words are
+transferred  in  a block, followed by a handshake.  This mode allows higher
+transmission   rates  if  the  device  supports  them.   Unfortunately  the
+likelihood  of  errors in the transmission also increases, in proportion to
+the  size  of  the  block  to be transmitted.  In synchronous mode up to 10
+MByte  data  transmission  rate is possible.  The maximum transmission rate
+for a particular device is, however, affected by both the device itself and
+the length and type of the SCSI cable used.
+
+When  you activate the synchronous mode, the SCSI Controller and the device
+concerned  automatically  negotiate the maximum transmission rate.  This is
+mostly  10  Mb/sec for FAST SCSI devices, and 4 or 5 Mb/sec for normal SCSI
+or SCSI-II devices.
+
+If  10 Mb/sec is automatically set this does not mean that the transmission
+can  take  place  securely  at  this  rate  when  the  synchronous  mode is
+activated.  If occasional transmission errors occur or the hard disk "hangs
+up"  at  high  transmission  rates  after setting the synchronous operation
+mode,  this  can  be an indication that the connection to the device is not
+secure  enough  for  the  chosen  speed.   This  problem occurs because the
+transmission  rates are extremely dependant on the cable length.  In such a
+case you should set the rate lower to prevent transmission faults.
+
+Experiments  have  shown  that the highest setting for the synchronous data
+transmission   is   not   necessarily   the  fastest.   Today,  nearly  all
+manufacturers  rate  the  speed  of  their  hard  disks at 10 Mb/sec, which
+relates  to the SCSI bus speed.  In reality, today (Autumn 1993) hardly any
+hard  disks  transfer  more than 4 Mb/secec as usable sustained output.  In
+practice, with a fast drive in the gigabyte range, for example, it has been
+shown  that  the  transfer  values  determined from the common test program
+DiskSpeed  4.2 were faster in synchron-6MB-mode than in synchron-10MB-mode.
+It  is  therefore  sensible  to try out various settings with the help of a
+test program when determining the optimal setting for a certain drive.
+
+
+--- Slider BYTES/HANDSHAKE
+
+This  adjuster  allows you to set the number of bytes to be transmitted per
+handshake.   The  optimal  value  for  this  setting can only be determined
+through  trial  and  errors.   A  setting  which  is  too  high  can  cause
+transmission  errors,  which  significantly lowers the speed or even causes
+read  errors.   The  regulator  is set to 8 as a starting point, which will
+provide  you  with  an  acceptable  transmission rate with an extremely low
+likelihood of errors.
+
+
+--- Slider SYNCHRON MB/S
+
+Here  you  can manipulate the speed of the data transmission in synchronous
+operation.   As  previously  explained,  the SCSI Controller and the device
+concerned  negotiate  the  maximum  transmission  rate.  If you should have
+problems  with the device connected, in the form of read errors or SCSI bus
+hang-ups  despite  this,  then you can decrease this value to check whether
+the  device  or  the connection (cable) are unable to correctly execute the
+high transmission speed.  This problem can also occur if the device accepts
+10  Mb/sec  as a permitted value because the transmission rate is extremely
+dependant on the cable length.
+
+Both the Bytes/Handshake and the Synchron Mb/sec adjusters should always be
+considered as linked. To find the real best possible setting some test and
+trial work is necessary. In general, the default values should provide
+secure transmission at the optimum transmission rate.
+
+
+--- Reselection
+
+SCSI devices are able to hand over the bus during long continual operations
+to  allow  other devices to transmit data.  At the end of the operation the
+device  then  demands  the  bus once again to convey its own results.  This
+process is called Reselection.  As not all devices support this process and
+some  devices which do support it do not work correctly in this mode, it is
+possible  to activate or deactivate this mode specifically for each device.
+Reselection  has  practically  no effect in access to an individual device.
+Reselection requires additional protocol so you should expect a slight loss
+of performance.  Only when several devices are active simultaneously on the
+bus is an increase in performance likely.
+
+--- FWC Mode
+
+Use this to enable/diable the write RAM cache.
+
+--- Removable
+
+Selects if a SCSI unit is a removable or not.
+
+--- Quit
+
+Quit allows you to exit the Special window, but it does not change anything
+in the device configuration.
+
+
+--- Set
+
+Set allows you to save the settings made for the device.
+
+
+--- Reset
+
+This  resets  the SCSI bus.  If the SCSI bus should hang up (which you will
+recognise  because  the  bus  activity  LED  on  one  or more of the drives
+connected  will  be  lit  continuously)  then  you can return the bus to an
+active state with this button.
+
+Reset  affects  the  whole  bus,  not  only  the device selected.  If other
+devices  are  transmitting  data  when this button is activated, it will be
+lost.   This  can  vary  from  harmless  read  errors  to the loss of whole
+partitions.   Use  reset only if there is no disk activity in the system or
+as the very last resort if the SCSI bus has crashed .
+

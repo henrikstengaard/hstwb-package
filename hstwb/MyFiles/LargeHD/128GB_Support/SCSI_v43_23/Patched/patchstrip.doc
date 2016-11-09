@@ -1,0 +1,46 @@
+This program is freeware.  This program is a hack.  I will not be responsible
+for any damages arising from the use of this program.  Use this program at
+your own risk.
+
+Introduction:
+I was quite excited to finally see an updated version of the SCSI/IDE drivers
+on the Amiga International, Inc. website.  Finally, an IDE driver capable of
+utilizing IDE/ATAPI cd-rom drives!  And it was FREE!  Unfortunately, the
+upgraded drivers also caused some problems with my system.  But,
+unfortunately, it was not without it's problems.  First and most importantly,
+it threw my clock WAY out of whack (which I had a real problem tracking down,
+with a slew of add-ons and hacks in my wbstartup drawer and startup-sequence).
+Secondly, on April 4th, it decided to throw a recoverable alert at me
+notifying me that it was a beta version and that it had expired.  Fine, but
+the alert also crashed my system at that point and it took several resets to
+bring my machine to it's senses.  So, that night I set about writing this
+patch.  It worked by jumping to the exit routine no matter what the date is,
+thereby bypassing the alert code completely.
+
+Requirements:
+OS3.x (V40.xx)
+hard disk
+SCSI_IDE43_23.lha (available from www.amiga.de)
+
+Usage:
+patchstrip <Axxx.LD.STRIP> <newfilename>
+
+where <Axxx.LD.STRIP> is the AmigaDOS path/filename of the module to patch.
+You must be using the V43.23 modules, as I have no idea what this will do
+to other versions of the modules. The Amiga International, Inc. archive uses
+A300.LD.STRIP,A600...,A1000...,A4000T... and SCSIDISK.LD.STRIP as the
+filenames that they de-archive to.  If you have renamed them like I have, be
+sure to give the proper path and filename here.  As far as I can tell, this
+patch should work fine on any of these modules, although this patch has only
+been tested so far on my machine only.
+
+<newfilename> is the destination path/filename for the patched version of the
+module.  This patch does not overwrite the original module, so this leaves
+you with a backup if the patch for some reason fails.
+
+This program has been tested on my equipment and works fine.  My configuration
+is an A4000/040T with 18 MB RAM, 2.1GB Quantum Fireball SCSI HD, NEC 24 speed
+ATAPI CD-ROM.
+
+I would also like to thank David Benn for his excellant ACE compiler, with
+which this program was made in a whopping fifteen minutes.

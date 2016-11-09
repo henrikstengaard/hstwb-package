@@ -1,0 +1,539 @@
+                                SCSIConfig
+                               -------------
+
+SCSIConfig  allows  you  to format and partition SCSI-devices, such as hard
+disks  or removable drives, and to make them available to the system.  Open
+SCSIConfig by double-clicking on the appropriate icon.
+
+The  options for personally configuring your system are explained in detail
+in  the  following  section.   Connecting  hard  disks already operating on
+another  controller to your Amiga and data-loss are described in a separate
+section.   If  you want to use disk drives already being used by the Amiga,
+you should read this section before experimenting.
+
+HDToolBox,  which is delivered as part of the Operating System, may be used
+instead  of  SCSIConfig.   This may be useful especially if SCSIConfig does
+not  correctly  recognize  partitions  on disk drives that were already RDB
+formatted   by   an   alternate  controller.   Please  refer  also  to  the
+step-by-step   instructions.    Since   HDToolBox  uses  the  internal  IDE
+controller  as default it has to be startet from the shell with the correct
+devicename in order to make it operate on the SCSI controller.
+
+The syntax used is:
+
+	1> hdtoolbox DEVICENAME
+
+
+
+Both SCSIConfig and HDToolbox are programs which format hard disks or other
+SCSI-devices.   Formatting  means a complete loss of data, which is why you
+must   proceed   carefully   with   these   programs   and  not  experiment
+unnecessarily.    Always   check   that   you  have  selected  the  correct
+SCSI-device,  before  executing destructive steps such as new-formatting or
+partitioning.   If  you  want  to  connect  disk  drives  which are already
+operating  on  another controller and which contain data, then for security
+reasons,  we  strongly advise backing-up the hard drive BEFORE removing the
+old  system.   Each  new  connection  of a hard disk which is already being
+used, involves a risk (even if it is very small) of data loss due to errors
+in the installation or commissioning.  If it would take too long to back-up
+the  data onto diskettes because of the large amount of data, then ask your
+dealer  whether he can carry out the back-ups (e.g.  on a streamer) and new
+installation  for  you,  or  whether  you  can  rent a streamer, at a small
+charge.   We  accept  no  liability  for loss of data on hard disks or SCSI
+devices used prior to being connected to th SCSI Controller.
+
+
+ additional information
+-------------------------
+
+Start  SCSIConfig  by  double-clicking  on  the  SCSIConfig  icon  and  the
+following main window will be opened:
+
+This window contains the two truly "dangerous" buttons which must always be
+handled  with care:  "Save Changes" and "LowLevelFormat".  This is why they
+are dealt with right at the start of this section.
+
+All  alterations  which  you make to one of the other windows, will only be
+written  to  the  disk  drive  with  "Save  Changes".   If you have changed
+partition  data  or  disk  drive data, the old settings will be permanently
+lost  by  writing the new values to the disk drive.  In many cases changing
+this  data  results  in  the  loss  of  all  the  data  files stored on the
+partitions concerned or the partitions themselves.
+
+The  "LowLevelFormat"  function  physically formats the disk drive.  If you
+execute  this  command, all the data stored on the disk drive will be lost.
+Nearly all SCSI disk drives no longer need to be Low-Level formatted by the
+user, as these drives are already physically formatted by the manufacturer.
+In  general,  it  is  only  necessary  to  physically  format new media for
+removable disk drives.
+
+As  both  the  "LowLevelFormat"  and  "Save  Changes"  functions  can  have
+destructive  effects,  as  described, they are both protected against being
+activated  by  mistake with two security steps.  You can stop the procedure
+once  it has been started by using CANCEL.  If you confirm the procedure by
+clicking  on OK in the second security step, the function will be executed,
+without fail.
+
+Now,  back  to  the  description  of  SCSIConfig.  In the upper part of the
+window  there  are  two  lists.   The right-hand list displays all the SCSI
+Controllers  installed  on  your system, while the left-hand list shows all
+the devices connected to the controller selected.  The buttons in the lower
+portion  of  the  window execute various functions or open further windows.
+The  functions  are  always  executed  on  the device selected in the upper
+portion.   To  select a device, click once on the appropriate device, which
+will then change color.
+
+When you have selected the device, you can then apply the various functions
+described  below,  to  the  device.  Please note that not all functions are
+applicable to all devices.  For example, a CD-ROM cannot be reconfigured in
+ConfigDrive and SCSIConfig displays a message to this effect.
+
+Available gadgets are:
+
+*** Config Drive
+
+The  ConfigDrive  window,  which  appears  when  the  ConfigDrive button is
+activated,  is  used to inform the system of the drive data.  Theoretically
+you  can  take all the values here from the datasheet of your hard disk and
+type  them  in manually but this is normally not the case.  To save you the
+work  and  to avoid errors, the "Reload Geometry" button has been provided.
+Click  on  this  button and the drive data will be read so that the program
+can  investigate  a  suitable  geometry.  This procedure is recommended for
+drives  which  have  never  been  used  on  an  Amiga  before.   The values
+investigated  by  the  program  will then be transferred to the appropriate
+fields.   The  values  produced  by  SCSIConfig  may  be different from the
+figures  on  the  datasheet  for  the SCSI device.  This is normal, as SCSI
+devices  are  "intelligent" and the parameters are automatically translated
+correctly.   You  therefore  need not, and in fact cannot, alter any of the
+values  read  in  by  "Reload  Geometry",  as  you will otherwise alter the
+format-management within the drive.
+
+Do  not  use  Reload Geometry on drives which have already been used on the
+Amiga,  as  these  are  established in the geometry defined in the RDB.  If
+this  geometry  is  altered  by Reload Geometry, this will cause a complete
+loss  of  data.   If you want to use a drive already formatted on the Amiga
+which  cannot be automatically connected, you must use the geometry already
+determined in the RDB by means of Reload RDB.
+
+With  Reload RDB you can reload the drive data which is stored in the Rigid
+Disk  Block.   This is sensible if you have made changes to the entries and
+want  to  cancel them or for connecting hard disks already formatted by the
+Amiga,  whose  RDB is not correctly recognised.  Finally, this function may
+be  required  for older RDB's where the most important details are correct,
+but  not  all  the information is available for automatic connection of the
+drive  under  AMIGA-DOS  3.0.  By reading with Reload RDB and rewriting the
+RDB  via  Save Changes WITHOUT altering the size settings, this data can be
+updated  to  the  latest version.  This procedure is only to be used when a
+hard disk which is already RDB formatted is not automatically recognised on
+SCSI Controller.
+
+The  Load  Device and Delete Device buttons are used to bring in updates to
+device  drivers.   When  phase  5  publishes  a  new  driver,  it  will  be
+accompanied  by  special  instructions for using these buttons.  Neither of
+these buttons are used at this moment in time.
+
+The two checkboxes "Synchron" and "Reselection" allow you to specify that a
+hard  disk  or  another  SCSI  device  is to be automatically switched into
+Synchronous  or  Reselection mode at system start-up.  You can change these
+settings  and  store  the  changes  in  the  main window without losing the
+existing  data.   For  the meanings and advantages and disadvantages of the
+operation modes, please read the description of UnitControl.
+
+
+*** Information
+
+This button calls up various device data of the selected device.
+
+On  the  right-hand  side there is a selection window, where you can select
+the  type  of  information to be displayed (the so-called ModeSense-Pages).
+Not  all  SCSI  devices return the same values to a request, so information
+offered to you here depends on the device.  Select an information title and
+the  corresponding  parameters  will be displayed in the left portion.  You
+cannot  alter  any  data  here.  The information given is generally only of
+interest  to  specialists  and  is  not  used in the daily operation of the
+devices.
+
+*** LowLevelFormat
+
+This  executes  the  physical  formatting  of the device selected.  As this
+operation  definitely  deletes all data stored on the device, including the
+partition  information, two security steps take place before this operation
+is  executed.   You  can terminate the execution of the Low-Level-Format by
+activating  the  CANCEL  button.   A Low-Level-Format can take an extremely
+long  time,  depending  on  the  type,  size  and  speed  of the hard disk;
+formatting  times  of  several  hours  are by no means unusual.  As already
+explained,  it  is  generally not necessary to Low-Level-Format hard disks;
+this is mainly required for removable drives or optical disks.
+
+Interrupting  a  LowLevelFormat could damage the data on the drive, so that
+it  is  no longer possible to address it.  The internal administration data
+on  the drive can be destroyed by interrupting the Low-Level-Format, so the
+drive  no  longer  reacts  to  SCSI commands or returns totally nonsensical
+values.   You  should,  therefore,  NEVER interrupt a Low-Level-Format by a
+system reset or any other method.
+
+We  also  advise  you  that  a  Low-level-Format  is  a totally destructive
+measure,  which  will  definitely cause a complete loss of data.  Apply the
+Low-Level-Format only to completely new SCSI devices or those which you are
+sure contain no data.
+
+*** Partition Drive
+
+Partition  Drive  informs  the  system  how  the logical drive (partitions)
+should be created on a disk drive.  It makes little sense to further divide
+up  small  drives  or  removable media.  With larger disks, however, it can
+definitely  be  sensible  to  set  up  several logical drives.  It can, for
+example,  also  be advantageous to divide a disk so that one partition only
+contains  data  of  a  particular  type,  if this data is often written and
+altered.  Furthermore, individual partitions can be operated with different
+filesystems,  which  can  also  be  determined  in  the  partition menu.  A
+filesystem  represents  the communication between the device driver and the
+operating   system.   It  translates  the  data-oriented  commands  of  the
+operating  system  into the block-oriented commands for the driver.  Common
+filesystems  are,  for  example,  the PC-compatible Cross-DOS-Filesystem or
+special  emulator  filesystems.   For  general  AMIGA  applications  it  is
+generally advisable to use FFS (Fast FileSystem).
+
+In the left portion of the window you will see the partitions set up on the
+device  selected and in the right portion the filesystems available.  Under
+each  of the selection lists there is a button for adding a new entry ("Add
+Partition"  and  "Add  Filesystem")  and  one for deleting a selected entry
+("Delete  Partition"  and  "Delete Filesystem").  You can process any entry
+simply by double clicking on it.
+
+When  first setting up a drive which has previously not been RDB formatted,
+SCSIConfig  automatically produces a partition called "QDH0" which includes
+the  whole drive.  If you want to produce several partitions you must alter
+this  partition by reducing the values for End Cyl., Total Cyl.  or MBytes.
+Exit  from  the  partition  window  by  clicking on "OK" and then produce a
+further   partition   by   activating  the  "Add  Partition"  button  which
+automatically takes up all the free space on the hard disk.  Naturally, you
+can  also  reduce  this  further to produce another partition and so forth.
+You can produce any number of partitions in this way.
+
+Advice  about partitioning:  First, note that each partition uses a certain
+amount  of the main memory depending on the choice of the buffer size:  too
+many  partitions,  especially  with  large  buffers,  can therefore clearly
+reduce  the  available  memory  (you  can  always  fit  more on FASTLANE if
+required).  Secondly, note that due to hard disk technology, the partitions
+which  use  the  "lower numbered" tracks on the hard disk (those physically
+located  on  the  outside  of  the  disk)  are,  in general, faster.  As an
+example,  if  a  disk with 100,000 cylinders is divided into two partitions
+then  the  partition  which  extends from track 2 to track 50,000 is faster
+than  the partition from tracks 50,001 to 99,999.  This difference in speed
+between  the  outer and inner tracks of a hard disk can amount to more than
+50 %.  Common practice is to make the lower partition bootable and a system
+partition.  As this is not absolutely necessary, however, you should decide
+which  data you want fastest access to.  For example, it may be sensible to
+place  the  system  partition  with  the  multimedia program (which is only
+loaded  once),  on the inside and the animation data which needs to be read
+quickly and often, on the outside.
+
+*** The Partition Window
+
+The  upper  part  of  the window contains an input window for the partition
+data  and  the lower part contains the data for the other partitions of the
+selected drive.  The input fields available are explained in detail below.
+
+*** Name
+
+The  name  with  which  the partition can be addressed.  This is the device
+name,  not the volume name.  For comparison:  the device name of the floppy
+disk  drive  is  always  "df0:".   The  volume name depends on the diskette
+inserted  and  can  be  changed with the AMIGA-DOS command "relabel" or via
+Workbench.   The  default setting on new drives is "QDH0".  As long as this
+name  is  not  already allocated to another drive there is no reason why it
+should be changed.  Please note that names allocated twice can cause system
+conflicts and, consequently, loss of data.
+
+
+*** Start Cyl.
+
+This  value  indicates  the  beginning  of the partition to the drive.  The
+lowest  tracks (cylinder) of a hard disk (usually two) are required for the
+RDB so this value can never be zero.
+
+
+*** End Cyl.
+
+This value indicates the end of the partition on the drive.
+
+
+*** Total Cyl.
+
+This value indicates the total number of tracks in the partition.
+
+*** MBytes
+
+This value indicates the size of the partition in Megabytes.
+
+The  four fields above are interdependent.  Inputting a value in one of the
+fields  will  cause  the  others  to  be  recalculated automatically.  When
+partitioning,  the  most  sensible  method  is  to  change  the size of the
+partitions  via the MBytes field.  SCSIConfig then automatically calculates
+the correct track limits for the partitions.
+
+
+*** Identifier
+
+The  identifier  area  contains  a  button  and an input field.  The button
+allows  you  to  select the identifier of the filesystem to be used for the
+partition.   If,  as  is  mostly  the case, a partition is to be used under
+AMIGA-DOS, then only the default FFS (Fast FileSystem) should be selected.
+
+The predefined identifiers available are OFS, FFS, OFS Int, DCFS, DCFS Int,
+MSDOS0,  MSDOS1  and  Custom.   All  filesystems,  excluding Custom, have a
+defined  identifier value, which cannot be modified.  If you have connected
+a  new  filesystem  via  the "Add Filesystem" function you can assign it an
+identifier in the filesystem window.  The filesystem concerned will then be
+automatically  started  and  partitions  which have entered this identifier
+will  be  operated  with  the appropriate filesystem.  Please also read the
+information under "Filesystem and the Filesystem Window".
+
+
+*** BlockSize
+
+This  cycle  button  allows you to choose a different block size other than
+512  Byte  for  the partition concerned.  This setting changes the internal
+block  size  of  the z3scsi-driver, not the physical block size of the hard
+disk.  An increase in the block size can have speed advantages depending on
+the hard disk, especially when loading and storing small data files.
+
+
+*** Mask
+
+This  value  indicates  which  area  of the memory of the controller can be
+directly  accessed.   As  the  controller  can directly access the complete
+address area of the processor and a transmission should always be delivered
+in  longword limits, the value pre-set by SCSIConfig of "0xFFFFFFFC" should
+not  be  changed  as  this  will  cause  a significant decrease of the data
+transfer speed.
+
+
+
+*** MaxTransfer
+
+This value limits the maximum amount of data which can be transmitted.  The
+default value of "0xFFFFFF" should not be changed.
+
+
+If  RDB  formatted  hard disks are to be used that were used by other AMIGA
+controllers,  it  is  very  likely  that  the  Mask  value  will not be set
+correctly  for  optimal Zorro-III operation (in general, it would have been
+set at "0xFFFFFE"), which causes considerable data loss.  In this case, the
+MASK  value for the existing partitions must be changed to the "0xFFFFFFFC"
+stated  above.  Check that ONLY the Mask and MaxTransfer values are changed
+as  changes  to  other  partition  details can cause data to be lost on the
+partition.
+
+
+*** Mount
+
+If the box is checked then the partition will be automatically connected at
+system start-up so that the appropriate icon appears on Workbench.
+
+
+*** Boot
+
+If  the box is checked this marks the partition as bootable.  The partition
+which is booted depends on the priority.  The volume which is allocated the
+highest priority and is available will be booted.
+
+
+*** Priority
+
+Input the desired boot priority here.  The boot priority is a value between
+-128  and 127, which determines from which device the system will boot.  If
+more  than  one bootable device is connected, the system will boot from the
+device  that has the highest boot priority.  If the boot priority of a hard
+drive  partition  is  higher than that of the floppy drive, the system will
+boot  from  that  hard  drive,  even  if a bootable disk is inserted in the
+flüoppy drive.
+
+
+*** Reserved Low Blocks
+*** Reserved High Blocks
+
+These  fields  indicate  how  many  blocks  are  not  used  for data at the
+beginning  and  end of the partition.  These values are "2" and "0" for the
+standard  Amiga  filesystem  but  can  be  different for other filesystems.
+Please read the documentation for the filesystem, if necessary.
+
+
+*** Buffers
+
+This  value determines how many blocks are kept in the memory to accelerate
+the  disk  access.   On  every  read  and  write  access,  the  blocks  are
+temporarily stored in these buffers so that they are available more quickly
+when  reaccessed.   The  default  setting  for  the  buffer is 32, which is
+definitely  sufficient for partitions up to approx.  100 MByte; with larger
+partitions it may be sensible to increase the buffer sizes accordingly.  If
+a  partition  validates too often it can be a sign that the buffers are too
+small.
+
+
+*** Filesystems and the Filesystem window
+
+Other  filesystems,  apart from those available in the computer ROM, can be
+loaded   via  the  "Add  Filesystem"  function.   Examples  are  an  MS-DOS
+compatible  filesystem  or  an  emulator  filesystem.   After  loading, the
+filesystem  must  be  allocated  an  internal  identifier;  all  partitions
+assigned  this  identifier will then be operated with this filesystem.  The
+filesystem  will  be  stored  with  the RDB in SCSIConfig and automatically
+started  from (z3|cyb|2060|1230)scsi.device, if a partition is connected at
+system start-up which has the corresponding identifier entry.
+
+If you have loaded a filesystem via "Add Filesystem", the filesystem-window
+opens  automatically  for  you  to  make  various assignments, as described
+below.
+
+
+*** Identifier
+
+Here  you  chose  an  identifier  not  used  by  any other filesystem.  The
+identifier is the system-internal identification of the filesystem.  If you
+load an MS-DOS compatible filesystem, for example, give this filesystem the
+identifier  MSDOS0  and  assign  the  same identifier for a partition which
+should operate with this filesystem.
+
+
+*** Version/Revision
+
+These values are automatically taken from the filesystem.  If more than one
+filesystem  is  assigned  the  same identifier then the filesystem with the
+highest version/revision number will automatically be used.
+
+
+*** Stacksize
+
+If  required,  take  the  value  from  the documentation for the filesystem
+loaded.
+
+
+*** Priority
+
+Should  always  stay at 0 or it will cause problems in the interaction with
+other filesystems.
+
+*** Patchflags
+
+The values entered here should not be altered.
+
+*** Load FileSystem
+
+This  opens  the  data  file  requester  for  selecting  or loading another
+filesystem to overwrite the current entry.
+
+*** Save FileSystem
+
+This  allows  you to save the filesystem selected in the current entry to a
+diskette or hard disk.  This is sensible if you want to produce a back-up.
+
+
+
+
+*** Connecting a Disk Drive Already Used on the Amiga
+
+In  most  cases  the  system  will  recognise a disk drive which is already
+formatted  once it is connected, because almost all SCSI-Controllers on the
+market now support RDB.  Should your disk drive not be recognised, although
+the  old controller was RDB-compatible, it could be that it has created the
+RDB  in  a  different manner than is usual.  In this case it is possible to
+read  the  old  RDB with SCSIConfig and to rewrite it with the "Reload RDB"
+function  in  the  ConfigDevice-Window.   Never  use  the "Reload Geometry"
+command  with disk drives which have been used previously on the AMIGA, and
+whose  data  you  want to keep, as the logical definition of the disk drive
+may not necessarily agree with the actual physical definition.
+
+At  the  end  of  the  description of SCSIConfig you will find step-by-step
+instructions  which  must  always be followed when connecting both new disk
+drives and those which have already been used on the Amiga,.
+
+*** Connecting a New Drive
+
+In  order  to  log-on  a  drive, the drive data must be stored in the first
+sectors  of  the  drive.  The Amiga uses a standardised format called Rigid
+Disk Blocks (RDB).  A drive is connected by first calling up the drive data
+and  then  saving  it  in  RDB.   The  next step is to divide the disk into
+partitions.   These  are  logical divisions on a disk, which enable several
+logical  smaller  disks to be set up on a physically larger drive.  This is
+generally  only  sensible  for very large drives or for assigning a logical
+disk  drive  for  a  single  task.  Partitions have the advantage that data
+errors  in  one  partition,  e.g.   read/write  errors,  checksum errors or
+similar  other  errors,  do  not  affect  data  in  other  partitions.  The
+disadvantage  of  setting up partitions is that the division is not dynamic
+(like  the  directory  sizes within a partition).  You need to have already
+considered  how  much  storage  space  you  require before carrying out the
+partitioning.   It  is  not  totally  impossible to subsequently change the
+partition sizes but it does involve a lot of work.
+
+
+
+
+
+
+Step-by-Step Instructions for Logging-on a Hard Disk
+
+A. Connecting a New Drive
+
+1.      Start up SCSIConfig
+2.      Select the new drive
+3.      Select "Config Drive"
+4.      Select "Reload Geometry"
+5.      Conclude with "OK"
+6.      Proceed to the partition window and set up the partitions required
+7.      Select "Save Changes"
+8.      Exit SCSIConfig with "Quit"
+
+
+A  system  reset will then be executed.  The partitions created are not yet
+usable,  however,  and  must be formatted from Workbench or CLI from AMIGA-
+DOS.   You  can  use  the  menu  item  "Format  Disk"  from  the  Workbench
+"Pictogram"  menu,  with the option "FastFileSystem" selected (provided the
+partitions  are  to  be operated under FFS).  Whenever possible, do not use
+the  options  "International  Mode"  or "DirectoryCache", as these settings
+significantly  reduce  the performance of the hard disk.  You can start the
+AMIGA-DOS format by activating the "Fast" button; this formatting method is
+reliable and only lasts a few seconds.
+
+Further  advice  about  AMIGA-DOS  formatting  can  be  found in your AMIGA
+manual.
+
+If  a  new drive or in particular, a removable medium cannot be partitioned
+in  this  way,  then  it  may  be necessary to carry out a Low-Level-Format
+before calling up "Config Drive".
+
+
+B.  Connecting a Drive Which is Already RDB Formatted
+
+If the drive is automatically recognised on Workbench:
+
+Check the partitions available with the "CheckMask" program, and adjust the
+Mask and MaxTransfer values for Zorro-III operation, if necessary.
+
+If the drive is NOT automatically recognised on Workbench:
+
+1.      Startup SCSIConfig
+2.      Select the new drive
+3.      Select "Config Drive"
+4.      Select "Reload RDB"
+5.      Select "Partition" and check in the partition list, whether the
+		  previously available partitions are displayed.
+
+If  the  previous  partitions  are  not  displayed then quit SCSIConfig now
+WITHOUT saving the changes.  Turn the computer off and remove the AutoSync-
+Enable  Jumper  (see  Chapter  6,  SCSI  Configuration) from FASTLANE Z3 or
+CYBERSTORM   SCSI  Module.   Then  start  this  procedure  again.   If  the
+partitions  are  still  not displayed after this then we recommend carrying
+out  the  procedure  with  HDToolbox  from  Commodore  (see introduction to
+SCSIConfig).
+
+6.      Conclude with "OK"
+7.      Select "Save Changes"
+8.      Exit SCSIConfig with "Quit"
+
+The system will then be reset and the partitions will be available for use.
+
+
+
+

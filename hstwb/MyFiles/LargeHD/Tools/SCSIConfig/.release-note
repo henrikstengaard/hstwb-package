@@ -1,0 +1,13 @@
+Version 3.1 22/09/97 Ralph Schmidt
+        * New TD 44.4 filesystem and info patch
+        * 64Bit SCSIConfig 1.22 which should handle >4GB partitions without
+          problems now
+        * UnitControl 2.11
+          fixed several bugs
+          added the needed cybppc.device changes
+
+Version 3.0 11/09/97 Ralph Schmidt
+        * Layout Cleanup
+        * Added TD64 Commitee filesystem patch for >4GB HD
+        * SCSIConfig 1.20
+        * UnitControl 2.8

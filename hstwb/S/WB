@@ -1,0 +1,53 @@
+; Workbench Script
+; ----------------
+
+
+; Use OS patches
+IF EXISTS S:Use-OS-Patches
+	C:blazewcp
+	C:FBlit
+	C:FText
+ENDIF
+
+
+BindDrivers
+C:Mount >NIL: DEVS:DOSDrivers/~(#?.info)
+
+IF EXISTS DEVS:Monitors
+  IF EXISTS DEVS:Monitors/VGAOnly
+    DEVS:Monitors/VGAOnly
+  EndIF
+
+  C:List >NIL: DEVS:Monitors/~(#?.info|VGAOnly) TO T:M LFORMAT "DEVS:Monitors/%s"
+  Execute T:M
+  C:Delete >NIL: T:M
+EndIF
+
+SetEnv Language "english"
+SetEnv Workbench $Workbench
+SetEnv Kickstart $Kickstart
+UnSet Workbench
+UnSet Kickstart
+
+C:AddDataTypes REFRESH QUIET
+C:IPrefs
+C:FPPrefs
+C:ConClip
+C:FastColors
+
+IF EXISTS ENVARC:Sys/def_ramdisk.info
+   Copy ENVARC:Sys/def_ramdisk.info RAM:Disk.info >NIL:
+EndIf
+
+Path >NIL: RAM: C: SYS:Utilities SYS:Rexxc SYS:System S: SYS:Prefs SYS:WBStartup SYS:Tools SYS:Tools/Commodities
+
+
+IF EXISTS S:User-Startup
+  Execute S:User-Startup
+EndIF
+
+Resident Execute REMOVE
+Resident Assign REMOVE
+
+C:LoadWB
+EndCLI >NIL:

@@ -1,0 +1,32 @@
+;BEGIN MUI
+if exists "System:MUI"
+   assign MUI: "System:MUI"
+   if exists MUI:Libs
+      assign add LIBS: MUI:Libs
+   endif
+   if exists MUI:Locale
+      assign add LOCALE: MUI:Locale
+   endif
+   version >nil: exec.library 39
+   if not warn
+      if exists MUI:Docs
+         if exists HELP:dummy ; do not remove
+         endif                ; this entry!
+         assign add HELP: MUI:Docs
+      endif
+   endif
+endif
+;END MUI
+
+
+; Remove the previous version of KCON:
+Assign KCON: DISMOUNT
+Assign KRAW: DISMOUNT 
+;Mount KCON: from DEVS:KingCON-mountlist
+;Mount KRAW: from DEVS:KingCON-mountlist 
+
+; to replace con with kingCON
+Assign CON: DISMOUNT
+Assign RAW: DISMOUNT 
+Mount CON: from DEVS:KingCON-mountlist
+Mount RAW: from DEVS:KingCON-mountlist 

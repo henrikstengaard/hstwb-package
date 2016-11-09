@@ -1,0 +1,267 @@
+## version $VER: visage.catalog 39.11 (22.1.97)
+## codeset 0
+## language italiano
+;
+; by Roberto Patriarca & Mario Dell'Oca
+;
+MSG_BY
+\x9b1m%s - di Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+Nome di modo non disponibile
+;
+MSG_ABORTED
+Interrotto.\n\
+
+;
+MSG_BREAK
+***Interruzione\n\
+
+;
+MSG_WARN_BAD_ENV_ARGS
+Attenzione: errore nella variabile d'ambiente:\n\
+%s
+;
+MSG_WARN_NO_WBMON
+Attenzione: WBMONITOR non riesce a trovare il Workbench
+;
+MSG_WARN_NO_MONITOR
+Attenzione: monitor '%s' non trovato
+;
+MSG_WARN_NO_MODE
+Attenzione: modo '%s' non trovato
+;
+MSG_WARN_NO_OVERSCAN
+Attenzione: overscan di tipo '%s' sconosciuto
+;
+MSG_ERR_NO_LIB
+Impossibile aprire %s versione %ld o superiore
+;
+MSG_ERR_NEED_OS3
+È necessario il SO 3.0 o superiore
+;
+MSG_ERR_BAD_ARGS
+Errore negli argomenti:\n\
+%s
+;
+MSG_ERR_FILEREQ
+Impossibile aprire la finestra di scelta file:\n\
+%s
+;
+MSG_ERR_SMREQ
+Impossibile aprire la finestra di scelta modo schermo:\n\
+%s
+;
+MSG_ERR_MONITORREQ
+Impossibile aprire la finestra di scelta monitor:\n\
+%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Ritorna al client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Aggancio di call-back mancante
+;
+MSG_ERR_IFF_IFF
+Non è un file IFF
+;
+MSG_ERR_IFF_SYNTAX
+Errore di sintassi nel file IFF
+;
+MSG_ERR_IFF_MANGLED
+File IFF danneggiato
+;
+MSG_ERR_IFF_SEEK
+Errore di posizionamento
+;
+MSG_ERR_IFF_WRITE
+Errore di scrittura
+;
+MSG_ERR_IFF_READ
+Errore di lettura
+;
+MSG_ERR_IFF_MEM
+Memoria insufficiente
+;
+MSG_ERR_IFF_SCOPE
+Non c'è un'estensione valida per la proprietà
+;
+MSG_ERR_IFF_CONTEXT
+Fine del contesto
+;
+MSG_ERR_IFF_EOF
+Fine del file
+;
+MSG_ERR_SCR_MONITOR
+Il monitor richiesto non è disponibile
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Occorrono chip custom più recenti
+;
+MSG_ERR_SCR_MEM
+Memoria insufficiente
+;
+MSG_ERR_SCR_GFXMEM
+Memoria grafica insufficiente
+;
+MSG_ERR_SCR_INTERNAL
+Errore interno
+;
+MSG_ERR_SCR_MODE
+Modo schermo sconosciuto
+;
+MSG_ERR_SCR_DEPTH
+Lo schermo ha troppi colori per questo hardware
+;
+MSG_ERR_SCR_WINDOW
+Impossibile aprire la finestra
+;
+MSG_ERR_SCR_MODEAVAIL
+Modo video non disponibile
+;
+MSG_ERR_IFF_NOT_ILBM
+File IFF, ma non ILBM
+;
+MSG_ERR_NOT_PIC
+Formato sconosciuto
+;
+MSG_ERR_NO_DATA
+Dati mancanti
+;
+MSG_ERR_BAD_DATA
+Dati corrotti
+;
+MSG_ERR_EOF
+Fine precoce del file
+;
+MSG_ERR_RENDER
+Impossibile visualizzare l'immagine
+;
+MSG_ERR_UNKNOWN_DATA
+Dati non supportati
+;
+MSG_ERR_LIB
+Manca una libreria esterna
+;
+MSG_ERR_FORMAT
+Formato sconosciuto
+;
+MSG_ERR_UNKNOWN
+Codice di errore %ld sconosciuto, contatta l'autore!
+;
+MSG_ERR_PICTURE
+\tErrore nell'immagine: %s
+;
+MSG_ERR_SHOW
+Impossibile mostrare '%s': %s
+;
+MSG_REQ_TITLE
+Infomazioni su Visage
+;
+MSG_SCREENMODE_REQ_TITLE
+Seleziona il modo schermo
+;
+MSG_MONITOR_REQ_TITLE
+Seleziona il monitor
+;
+MSG_FILE_REQ_TITLE
+Seleziona i file da visualizzare
+;
+MSG_GAD_OK
+ Ok
+;
+MSG_CLIPBOARD
+«Appunti»
+;
+MSG_EXTRA_LOW_RES
+Extra bassa
+;
+MSG_LOW_RES
+Bassa
+;
+MSG_HIGH_RES
+Alta
+;
+MSG_SUPER_HIGH_RES
+Super alta
+;
+MSG_LACED
+ interlacciata
+;
+MSG_DOUBLE
+ noflicker
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Attenzione: tipo di retinatura '%s' sconosciuto
+;
+MSG_WARN_RANGE
+Attenzione: valore %ld per %s fuori dai limiti %ld-%ld
+;
+MSG_WARN_TIMER
+Attenzione: timer.device non disponibile
+;
+MSG_CYCLE_TASK
+Rotazione di colori
+;
+MSG_ERR_FILE_EMPTY
+File vuoto
+;
+MSG_WARN_BAD_FILE_ARGS
+Attenzione: errore di sintassi nel file di configurazione\n\
+nel cassetto '%s':\n\
+%s
+;
+MSG_WARN_BAD_CFGPATH
+Attenzione: cassetto ConfigPath non trovato\n\
+'%s':\n\
+%s
+;
+MSG_TESTED_OK
+Immagine OK
+;
+MSG_ALL_TESTED_OK
+Tutte le immagini provate sono corrette\n\
+
+;
+MSG_ALL_TESTED_NOT_OK
+Una o più immagini non hanno superato il test\n\
+
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Richiesta di Visage
+;
+MSG_ASK_PASSWORD
+Inserisci la parola chiave per\n\
+\"%s\":
+;
+MSG_ERR_NO_PASSWD
+Parola chiave errata o mancante
+;
+MSG_ERR_NO_DRAWER
+Impossibile spostarsi in '%s':\n\
+%s
+;
+MSG_ERR_SCR_ATTACH
+Impossibile collegare gli schermi
+;
+MSG_ERR_BBLANK
+Attenzione: modo di oscuramento bordo '%s' sconosciuto
+;
+MSG_WARN_NO_COLOR
+Attenzione: modo colore '%s' sconosciuto
+;

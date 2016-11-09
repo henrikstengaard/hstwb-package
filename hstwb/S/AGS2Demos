@@ -1,0 +1,40 @@
+; Arcade Game Selector 2 Demos Startup Script
+; -------------------------------------------
+
+
+; End script, if ags2 demos path is not defined
+IF NOT EXISTS ENV:ags2demospath
+	SKIP end
+ENDIF
+
+
+; Assign AGS
+Assign AGS: $ags2demospath
+
+
+; Set menu path to ags2 demos path
+setenv menupath "$ags2demospath"
+
+
+; Start AGS2
+IF EXISTS AGS:AGS2
+  ; AGS2 Music Start
+  IF EXISTS S:AGS2MusicStart
+    execute S:AGS2MusicStart
+  ENDIF
+
+  AGS:AGS2
+
+  ; AGS2 Music Stop
+  IF EXISTS S:AGS2MusicStop
+    execute S:AGS2MusicStop
+  ENDIF
+ENDIF
+
+
+; Remove AGS assign
+ASSIGN AGS: $ags2demospath REMOVE
+
+
+; End
+LAB end

@@ -1,0 +1,144 @@
+Short:    AmiCDFS (AmiCDROM) v2.40
+Uploader: m_berndt@wanderer.gun.de (Martin Berndt)
+Author:   m_berndt@wanderer.gun.de (Martin Berndt)
+Type:     disk/cdrom
+
+
+------------------------------------------------------------------------
+                   AmiCDFS (AmiCDROM) 2.40 (14.12.97)
+
+                            by Martin Berndt
+
+                The ultimate Amiga CD-ROM Filing System
+------------------------------------------------------------------------
+
+This old goodie by Frank Munkert has been reworked to be the fastest and
+            most compatible CD-ROM Filesystem for the Amiga!
+
+  Just give it a try, and you will never want to be without it again!
+
+------------------------------------------------------------------------
+
+2.0  (14-Feb-96)        first public release of new AmiCDFS
+
+2.1  (01-Mar-96)        - fixed serious bug in Prefetch code
+                        - fixed problems with uncleared buffers
+                        - fixed Control field template
+                        - implemented MOTORCONTROL
+                        - implemented TDPOLLING
+                        - improved some routines
+
+2.2  (04-Mar-96)        - fixed some small bugs in Cache handling code
+                        - removed all old vendor specific routines
+                        - fixed bug in SCSI classification code
+
+2.3  (05-Mar-96)        - fixed potential problem with illegal sector
+                          accesses
+
+2.4  (10-Mar-96)        - fixed problems with CDDA AppIcon handling
+
+2.5  (13-Mar-96)        - removed some more obsolete routines
+                        - easier access to Support BBS
+
+2.6  (15-Mar-96)        - added support for wbstart.library (OS 3.x)
+                        - changed format of version string
+
+2.7  (24-Mar-96)        - removed MOTORCONTROL flag, will be handled
+                          automatically now
+                        - added TOSHIBA switch to avoid problems with
+                          PhotoCDs on Toshiba drives
+
+2.8  (27-Mar-96)        - fixed small bug in SCSI classification code
+                        - the FileBuffer is a Circular Cache now
+
+2.9  (30-Mar-96)        - added OLDMODE switch to support some very
+                          old SCSI Host-Adaptors (HardFrame, Supra etc.)
+
+2.10 (07-Apr-96)        - AmiCDFS now really works with HFS floppy disks
+                          and HFS harddisk partitions
+                        - included example mount file for MAC0
+                        - fixed some small bugs
+
+2.11 (10-Apr-96)        - improved and bug-fixed HFS handling routines
+                        - DosEnvec will now always have valid entries if
+                          SCSI_ReadCapacity was successful
+                        - LineCache will be switched off when mediumsize
+                          cannot be determined or when using a SCSI
+                          device in Trackdisk mode
+
+2.12 (13-Apr-96)        - fixed bug in Symbolic link handling
+                        - fixed bug in SCSI_ReadCapacity
+
+2.13 (16-Apr-96)        - implemented support for Protection bits
+                        - improved Symbolic link handling
+
+2.14 (20-Apr-96)        - DosList handling completely rewritten in order
+                          to prevent deadlock problems
+
+2.15 (24-Apr-96)        - improved Diskchange routines
+                        - replaced TDPOLLING switch by TDCHANGE
+
+2.16 (25-Apr-96)        - LineCache Prefetch will be switched off on
+                          Audio/Data hybrid disks now to avoid illegal
+                          sector accesses
+                        - improved LineCache efficiency
+
+2.17 (05-May-96)        - hopefully fixed a problem with some device
+                          drivers causing a disk to become NDOS when it
+                          was already inserted while mounting
+
+2.18 (27-May-96)        - improved and optimised Cache routines making
+                          AmiCDFS another 10% faster
+
+2.19 (29-May-96)        - added character conversion for RockRidge file
+                          names containing colons
+                        - small improvements in startup code
+
+2.20 (30-May-96)        - fixed serious bug in DosList handling
+
+2.21 (06-Jun-96)        - improved routine for initial media check
+
+2.22 - 2.29             internal test versions
+
+2.30 (15-Jul-96)        - implemented some Rockridge extensions
+                        - implemented support for muFS Protection bits
+                        - implemented MOTORTIME
+
+2.31 (16-Jul-96)        - fixed bug in Protection bits handling
+
+2.32 (20-Jul-96)        - fixed small bug in Rockridge extensions
+
+2.33 - 2.34             internal test versions
+
+2.35 (18-Aug-96)        - included new SetCDFS command
+                        - implemented CASESENSE
+                        - implemented HFSFIRST
+                        - implemented STARTDELAY
+
+2.36 (22-Aug-96)        - fixed deadly bug in DosList handling
+
+2.37 (06-Sep-96)        - improved SetCDFS command
+                        - improved Audio/Data hybrid handling
+                        - removed some dead code
+
+2.38 (13-Nov-96)        - some code cleanup
+                        - recompiled with SAS/C 6.57
+                        - changed account number for money transfer
+
+2.39 (20-Aug-97)        - optimised some routines
+                        - included 68060 version
+                        - recompiled with SAS/C 6.58
+                        - changed account number for money transfer
+
+
+2.40 (14-Dec-97)        - fixed bug in fib_NumBlocks calculation
+                        - implemented LONGNAMES for RockRidge
+                        - extended SetCDFS command
+
+
+------------------------------------------------------------------------
+                           IMPORTANT NOTICE !
+
+    SetPatch and Mount are missing in Aminet release due to some new
+            upload restrictions. So please don't complain...
+------------------------------------------------------------------------

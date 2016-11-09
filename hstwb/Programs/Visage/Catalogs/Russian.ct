@@ -1,0 +1,432 @@
+## version $VER: visage.catalog 39.15 (23.9.97)
+## codeset 0
+## language russian
+## chunk AUTH Oleg and Irene Sergeevy
+## chunk ANNO Usage of this translation is under ATO agreement!
+;
+; $VER: Visage.cd 39.15 (29.7.97)
+;
+MSG_BY
+\x9B1m%s - Íס Magnus Holmgren\n\
+\x9B0m
+;\x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Íסנעסנסבעהס חכ‏ ןהוחכa»
+;«Mode name not available»
+;
+MSG_ABORTED
+Îןהןבaלם.\n\
+
+;Aborted.\n
+;
+MSG_BREAK
+***Íנסaלםב\n\
+
+;***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Áלחכaלחה! Íרחאיa םאןaאםסיח מהןהכהללםט םיןעוהלח‏:\n\
+%s
+;Warning: Error parsing environment variable:\n\
+;%s
+;
+MSG_WARN_NO_WBMON
+Áלחכaלחה! WBMONITOR לה נכםג לaטסח Workbench
+;Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Áלחכaלחה! Ìה םאלaןעוהל כםלחסםן '%s'
+;Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Áלחכaלחה! Ìה לaטדהל ןהוחכ '%s'
+;Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Áלחכaלחה! Ìהחזבהנסלתט סחמ םבהןניaלa '%s'
+;Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Ìה כםגע םסיןתסû %s בהןנחח %ld חךח בתרה
+;Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Ñןהאעהסנ‏ ÍÐ 3.0 חךח בתרה
+;You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Íרחיa םאןaאםסיח aןגעכהלסםב:\n\
+%s
+;Error parsing arguments:\n\
+;%s
+;
+MSG_ERR_FILEREQ
+Ìה םסיןתסû ףaטךםבתט זaמןםנלחי:\n\
+%s
+;Couldn't open file requester:\n\
+;%s
+;
+MSG_ERR_SMREQ
+Ìה םסיןתסû זaמןםנלחי üיןaללתפ ןהוחכםב:\n\
+%s
+;Couldn't open screen mode requester:\n\
+;%s
+;
+MSG_ERR_MONITORREQ
+Ìה םסיןתסû זaמןםנלחי כםלחסםןםב:\n\
+%s
+;Couldn't open monitor requester:\n\
+;%s
+;
+; - Replaced with MSG_ERR_SHOW
+;MSG_ERR_PATTERN (//)
+;Error parsing pattern\n\
+;'%s':\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Áםזבןaס י יךחהלסע
+;Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Íסנעסנסבעהס פעי
+;Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Üסם לה IFF-ףaטך
+;Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Íרחאיa נחלסaינחנa IFF-ףaטךa
+;Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+IFF-ףaטך זaמםןצהל
+;Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Íרחאיa מםחניa
+;Seek error
+;
+MSG_ERR_IFF_WRITE
+Íרחאיa זaמחנח
+;Write error
+;
+MSG_ERR_IFF_READ
+Íרחאיa צסהלח‏
+;Read error
+;
+MSG_ERR_IFF_MEM
+Ëaךם מaכ‏סח
+;Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Ìהמןaבחךûלתט יםלסהינס נבםטנסבa
+;No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Éםלהץ יםלסהינסa
+;End of context
+;
+MSG_ERR_IFF_EOF
+Éםלהץ ףaטךa
+;End of file
+;
+MSG_ERR_SCR_MONITOR
+Íסנעסנסבעהס סןהאעהכתט כםלחסםן
+;Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Ñןהאעהסנ‏ אםךהה כםשלa‏ aממaןaסלa‏ צaנסû
+;You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Ëaךם מaכ‏סח
+;Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Ëaךם גןaףחצהניםט מaכ‏סח
+;Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Áלעסןהלל‏‏ םרחאיa
+;Internal error
+;
+MSG_ERR_SCR_MODE
+Ìהחזבהנסלתט üיןaללתט ןהוחכ
+;Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Âךעאחלa üיןaלa אםךûרה aממaןaסלםגם ךחכחסa
+;Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Ìה םסיןתסû םילם
+;Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Üיןaללתט ןהוחכ להדםנסעמהל
+;Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+Óaטך IFF, לם לה ILBM
+;IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Ìהחזבהנסלתט ףםןכaס
+;Unknown format
+;
+MSG_ERR_NO_DATA
+Íסנעסנסבע‎ס דaללתה
+;Missing data
+;
+MSG_ERR_BAD_DATA
+Ãaללתה זaמםןצהלת
+;Bad data
+;
+MSG_ERR_EOF
+Ìהםוחדaללתט יםלהץ ףaטךa
+;Premature end of file
+;
+MSG_ERR_RENDER
+Ìה מןם‏בחסû חזםאןaוהלחה
+;Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Ìהמםדדהןוחבaהכתט ףםןכaס
+;Unsupported data
+;
+MSG_ERR_LIB
+Íסנעסנסבעהס בלהרל‏‏ אחאךחםסהיa
+;External library missing
+;
+MSG_ERR_FORMAT
+Ìהחזבהנסלתט ףםןכaס
+;Unknown format
+;
+MSG_ERR_UNKNOWN
+Ìהזלaיםכתט יםד םרחאיח: %ld. Ðםםאשחסה aבסםןע.
+;Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tÍרחאיa ב יaןסחליה: %s
+;\tError in picture: %s
+;
+MSG_ERR_SHOW
+Ìה מםיaזaסû '%s': %s
+;Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Visage - Çלףםןכaץח‏
+;Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Òיaוחסה üיןaללתט ןהוחכ
+;Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Òיaוחסה כםלחסםן
+;Select monitor
+;
+MSG_FILE_REQ_TITLE
+Òיaוחסה ףaטךת מןםנכםסןa
+;Select files to view
+;
+MSG_GAD_OK
+OK
+; Ok \
+;
+;
+MSG_CLIPBOARD
+«Éךחמאםןד»
+;«Clipboard»
+;
+; The following strings are used for the algorithmic mode names.
+; See the manual for more information about these.
+;
+MSG_EXTRA_LOW_RES
+Ðaכםה לחזיםה ןaזןהרהלחה
+;Extra-Low Res
+;
+MSG_LOW_RES
+Ìחזיםה ןaזןהרהלחה
+;Low Res
+;
+MSG_HIGH_RES
+Áתנםיםה ןaזןהרהלחה
+;High Res
+;
+MSG_SUPER_HIGH_RES
+Ðבהןפבתנםיםה ןaזןהרהלחה
+;Super-High Res
+;
+MSG_LACED
+Öהןהננסןםצלם
+; Laced
+;
+MSG_DOUBLE
+Ãבםטלםה
+; Double
+;
+MSG_HAM
+HAM
+; HAM
+;
+MSG_EHB
+EHB
+; EHB
+;
+MSG_DPF2
+DPF2
+; DPF2
+;
+MSG_DPF
+DPF
+; DPF
+;
+; ** Version 39.1 **
+;
+MSG_WARN_NO_DITHER
+Áלחכaלחה! Ìהזלaיםכתט סחמ נגךaוחבaלח‏ '%s'
+;Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Áלחכaלחה! Æלaצהלחה %ld דך‏ %s בתרךם חז דםמעניa (%ld - %ld)
+;Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Áלחכaלחה! Ìה םסיןתסû timer.device
+;Warning: Couldn't open timer.device
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+; - Replaced with MSG_NEWTIME
+;
+;MSG_TIME (//)
+;%2d.%03ds)\n
+;
+; ** Version 39.2 **
+;
+; Well, this string isn't *that* important to translate.. ;)
+;
+MSG_CYCLE_TASK
+Visage - Õחיך ץבהסםב
+;Visage color cycler
+;
+MSG_ERR_FILE_EMPTY
+Óaטך מענס
+;File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Áלחכaלחה! Íרחאיa םאןaאםסיח ףaטךa ענסaלםבםי\n\
+ב יaסaךםגה '%s':\n\
+%s
+;Warning: Error parsing configuration file\n\
+;in drawer '%s':\n\
+;%s
+;
+MSG_WARN_BAD_CFGPATH
+Áלחכaלחה! Ìה לaטסח יaסaךםג ענסaלםבםי\n\
+'%s':\n\
+%s
+;Warning: Couldn't locate ConfigPath drawer\n\
+;'%s':\n\
+;%s
+;
+MSG_TESTED_OK
+Éaןסחליa ב לםןכה
+;Picture ok
+;
+MSG_ALL_TESTED_OK
+Áנה מןםבהןהללתה יaןסחליח ב לםןכה\n\
+
+;All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Íדלa חךח אםךהה יaןסחלםי זaמםןצהלת\n\
+
+;One or more tested pictures failed\n
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+MSG_NEW_TIME
+(%2d.%03d נהי.)
+; (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Æaמןםנ
+;Visage request
+;
+MSG_ASK_PASSWORD
+Áבהדחסה מaןםךû דך‏ \n\
+"%s":
+;Enter password for\n\
+;\"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD
+Îaןםךû להבהןהל ךחאם םסנעסנסבעהס
+;Password incorrect or missing
+;
+; ** Version 39.5 **
+;
+MSG_ERR_NO_DRAWER
+Ìה מםכהנסחסû ב יaסaךםג '%s':\n\
+%s
+;Couldn't move to drawer '%s':\n\
+;%s
+;
+; ** Version 39.6 **
+;
+MSG_ERR_SCR_ATTACH
+Ìה מםדיך‎צחסû üיןaלת
+;Couldn't attach screens
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Áלחכaלחה! Ìהזלaיםכתט ןהוחכ םיaלסםביח אםןד‎ןa '%s'
+;Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Áלחכaלחה! Ìהזלaיםכתט ץבהסםבםט ןהוחכ '%s'
+;Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+Ìה םסיןתסû ףaטך נמחניa '%s':\n\
+%s
+;Couldn't open list file '%s':\n\
+;%s
+;
+MSG_ERR_READ_LIST
+Ìה מןםצחסaסû ףaטך נמחניa '%s':\n\
+%s
+;Couldn't read list file '%s':\n\
+;%s
+;
+MSG_WARN_OPEN_FONT
+Áלחכaלחה! Ìה םסיןתסû רןחףס דך‏ '%s'
+;Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Áלחכaלחה! Íרחאיa ןaזכהןa רןחףסa ב '%s'
+;Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Áלחכaלחה! Íסנעסנסבחה ןaזכהןa רןחףסa ב '%s'
+;Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Áלחכaלחה! Ìהזלaיםכתט ןהוחכ דםמעניa ב '%s'
+;Warning: Order mode '%s' not known
+;

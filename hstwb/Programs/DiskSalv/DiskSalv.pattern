@@ -1,0 +1,33 @@
+/* The default patterns for DiskSalv */
+
+/* This pattern matches only files that haven't
+   been archived.  Suggested for use with the
+   Backup Mode. */
+
+pattern "Unarchived Only" {
+   protection("!A");
+   match("include");
+};
+
+/* This pattern only matches things that fit on
+   floppy disks. */
+
+pattern "Fits On Floppy" {
+   size("<", 840K);
+   match("include");
+};
+
+/* This pattern only matches things that are too
+   big for floppies. */
+
+pattern "Too Big For Floppy" {
+   size(">", 840K);
+   match("include");
+};
+
+/* This pattern excludes all .info files. */
+
+pattern "No .Info Files" {
+   path("#?.info");
+   match("exclude");
+};

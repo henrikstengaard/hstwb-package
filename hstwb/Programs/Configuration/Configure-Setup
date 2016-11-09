@@ -1,0 +1,709 @@
+; Configure Setup Script
+; ----------------------
+; Author: Henrik Noerfjand Stengaard
+; Date: 2016-09-13
+;
+; This script configures setup of hardware, devices, boot sequence and whdload.
+; Hardware menu contains configuration of accelerator cards Blizzard, ACA, Furia. It also has options for CPU, FPU and OS patches.
+; Device & Library menu contains configuration of scsi.device, icon.library and select scsi.device.
+; Boot Sequence menu contains configuration of Amiga Boot Selector, Arcade Game Selector 2 for Games and Arcade Game Selector 2 for Demos. 
+; WHDLoad menu contains configuration of WHDLoad quit key.
+
+
+; Delete "first-boot" file, if it exists
+IF EXISTS S:first-boot
+	delete >NIL: S:first-boot
+EndIF
+
+
+; Main Menu
+; ---------
+LAB mainmenu
+
+echo "Hardware" >T:mainmenu
+echo "Device & Library" >>T:mainmenu
+echo "Boot Sequence" >>T:mainmenu
+echo "WHDLoad" >>T:mainmenu
+echo "Reset" >>T:mainmenu
+echo "Reboot" >>T:mainmenu
+echo "Exit" >>T:mainmenu
+
+; Show main menu
+C:ReqList CLONERT BUTTONS I T:mainmenu O ENV:mainmenu H "Configure Setup"
+
+; Delete main menu
+delete >NIL: T:mainmenu
+
+
+; Hardware
+IF $mainmenu eq "1" 
+	SKIP hardwaremenu
+ENDIF 
+
+; Device
+IF $mainmenu eq "2" 
+	SKIP devicelibrarymenu
+ENDIF 
+
+; Boot Sequence
+IF $mainmenu eq "3" 
+	SKIP bootsequencemenu
+ENDIF 
+
+; WHDLoad
+IF $mainmenu eq "4" 
+	SKIP whdloadmenu
+ENDIF 
+
+; Reset
+IF $mainmenu eq "5" 
+	execute SYS:Programs/Configuration/Reset-Setup
+ENDIF 
+
+; Reboot
+IF $mainmenu eq "6"
+	echo "Rebooting in 10 seconds..."
+	wait 10
+	reboot
+ENDIF 
+
+
+SKIP end
+
+
+; Hardware Menu
+; -------------
+LAB hardwaremenu
+
+echo "Use Blizzard:       " NOLINE >T:hardwaremenu
+IF EXISTS S:Use-Blizzard
+	echo "Yes" NOLINE >>T:hardwaremenu
+	IF EXISTS S:MapRom-Blizzard-A1200-KS31
+		echo ", Map KS31" NOLINE >>T:hardwaremenu
+	EndIF
+	echo "" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Use ACA:            " NOLINE >>T:hardwaremenu
+IF EXISTS S:Use-ACA
+	echo "Yes" NOLINE >>T:hardwaremenu
+	IF EXISTS S:MapRom-ACA-A600-KS31
+		echo ", Map KS31" NOLINE >>T:hardwaremenu
+	EndIF
+	IF EXISTS S:MapRom-ACA-A1200-KS31
+		echo ", Map KS31" NOLINE >>T:hardwaremenu
+	EndIF
+	echo "" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Use Furia:          " NOLINE >>T:hardwaremenu
+IF EXISTS S:Use-Furia
+	echo "Yes" NOLINE >>T:hardwaremenu
+	IF EXISTS S:MapRom-Furia-A600-KS31
+		echo ", Map KS31" NOLINE >>T:hardwaremenu
+	EndIF
+	echo "" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Use 020+ CPU:       " NOLINE >>T:hardwaremenu
+IF EXISTS S:Use-020
+	echo "Yes" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Use FPU:            " NOLINE >>T:hardwaremenu
+IF EXISTS S:Use-FPU
+	echo "Yes" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Use OS patches:     " NOLINE >>T:hardwaremenu
+IF EXISTS S:Use-OS-Patches
+	echo "Yes" >>T:hardwaremenu
+Else
+	echo "No" >>T:hardwaremenu
+EndIF
+
+echo "Back" >>T:hardwaremenu
+
+
+; Show hardware menu
+C:ReqList CLONERT BUTTONS I T:hardwaremenu O ENV:hardwaremenu H "Hardware"
+
+; Delete hardware menu
+delete >NIL: T:hardwaremenu
+
+
+; Switch Use Blizzard
+IF $hardwaremenu eq "1" 
+	SKIP blizzard
+ENDIF 
+
+; Switch Use ACA
+IF $hardwaremenu eq "2" 
+	SKIP aca
+ENDIF 
+
+; Switch Use Furia
+IF $hardwaremenu eq "3" 
+	SKIP furia
+ENDIF 
+
+; Switch Use 020+ CPU
+IF $hardwaremenu eq "4" 
+	SKIP cpu
+ENDIF 
+
+; Switch Use FPU
+IF $hardwaremenu eq "5" 
+	SKIP fpu
+ENDIF 
+
+; Switch Use OS patches
+IF $hardwaremenu eq "6" 
+	SKIP ospatches
+ENDIF 
+
+SKIP mainmenu back
+
+
+
+; Device & Library Menu
+; ---------------------
+LAB devicelibrarymenu
+
+
+echo "Load scsi.device:    " NOLINE >T:devicelibrarymenu
+IF EXISTS S:Load-ScsiDevice
+	echo "Yes" >>T:devicelibrarymenu
+Else
+	echo "No" >>T:devicelibrarymenu
+EndIF
+
+echo "Load icon.library:   " NOLINE >>T:devicelibrarymenu
+IF EXISTS S:Load-IconLibrary
+	echo "Yes" >>T:devicelibrarymenu
+Else
+	echo "No" >>T:devicelibrarymenu
+EndIF
+
+echo "Select scsi.device" >>T:devicelibrarymenu
+echo "Back" >>T:devicelibrarymenu
+
+
+; Show device & library menu
+C:ReqList CLONERT BUTTONS I T:devicelibrarymenu O ENV:devicelibrarymenu H "Device & Library"
+
+; Delete hardware menu
+delete >NIL: T:devicelibrarymenu
+
+
+; Switch Load scsi.device
+IF $devicelibrarymenu eq "1" 
+	SKIP loadscsidevice
+ENDIF 
+
+; Switch Load icon.library
+IF $devicelibrarymenu eq "2" 
+	SKIP loadiconlibrary
+ENDIF 
+
+; Select scsi.device
+IF $devicelibrarymenu eq "3" 
+	SKIP selectscsidevice
+ENDIF
+
+SKIP mainmenu back
+
+
+; Boot Sequence Menu
+; ------------------
+LAB bootsequencemenu
+
+
+echo "Start ABS:          " NOLINE >T:bootsequencemenu
+IF EXISTS S:Start-ABS
+	echo "Yes" >>T:bootsequencemenu
+Else
+	echo "No" >>T:bootsequencemenu
+EndIF
+
+echo "Start Multiboot:    " NOLINE >>T:bootsequencemenu
+IF EXISTS S:Start-Multiboot
+	echo "Yes" >>T:bootsequencemenu
+Else
+	echo "No" >>T:bootsequencemenu
+EndIF
+
+echo "Select Multiboot Default" >>T:bootsequencemenu
+
+echo "Start AGS2 Games:   " NOLINE >>T:bootsequencemenu
+IF EXISTS ENV:ags2gamespath
+	IF EXISTS S:Start-AGS2Games
+		echo "Yes" >>T:bootsequencemenu
+	Else
+		echo "No" >>T:bootsequencemenu
+	EndIF
+Else
+	echo "N/A" >>T:bootsequencemenu
+EndIF
+
+echo "Start AGS2 Demos:   " NOLINE >>T:bootsequencemenu
+IF EXISTS ENV:ags2demospath
+	IF EXISTS S:Start-AGS2Demos
+		echo "Yes" >>T:bootsequencemenu
+	Else
+		echo "No" >>T:bootsequencemenu
+	EndIF
+Else
+	echo "N/A" >>T:bootsequencemenu
+EndIF
+
+echo "Back" >>T:bootsequencemenu
+
+
+; Show boot sequence menu
+C:ReqList CLONERT BUTTONS I T:bootsequencemenu O ENV:bootsequencemenu H "Boot Sequence"
+
+; Delete boot sequence menu
+delete >NIL: T:bootsequencemenu
+
+
+; Switch Start ABS
+IF $bootsequencemenu eq "1" 
+	SKIP abs
+ENDIF 
+
+; Switch Start Multiboot
+IF $bootsequencemenu eq "2" 
+	SKIP multiboot
+ENDIF 
+
+; Select Multiboot Default
+IF $bootsequencemenu eq "3" 
+	SKIP multibootdefault
+ENDIF 
+
+; Switch Start AGS2 Games
+IF $bootsequencemenu eq "4" 
+	SKIP ags2games
+ENDIF 
+
+; Switch Start AGS2 Demos
+IF $bootsequencemenu eq "5" 
+	SKIP ags2demos
+ENDIF 
+
+SKIP mainmenu back
+
+
+; WHDLoad Menu
+; ------------
+LAB whdloadmenu
+
+
+echo "Set Quit Key" >T:whdloadmenu
+echo "Back" >>T:whdloadmenu
+
+
+; Show whdload menu
+C:ReqList CLONERT BUTTONS I T:whdloadmenu O ENV:whdloadmenu H "WHDLoad"
+
+; Delete whdload menu
+delete >NIL: T:whdloadmenu
+
+; WHDLoad Quit Key
+IF $whdloadmenu eq "1" 
+	SKIP whdloadquitkey
+ENDIF 
+
+SKIP mainmenu back
+
+
+; Configure Blizzard
+; ------------------
+LAB blizzard
+
+IF EXISTS S:Use-Blizzard
+	delete >NIL: S:Use-Blizzard
+	delete >NIL: S:MapRom-Blizzard-A1200-KS31
+Else
+	echo "" > S:Use-Blizzard
+
+	; Reset ACA and Furia
+	delete >NIL: S:Use-ACA
+	delete >NIL: S:MapRom-ACA-A600-KS31
+	delete >NIL: S:MapRom-ACA-A1200-KS31
+	delete >NIL: S:Use-Furia
+	delete >NIL: S:MapRom-Furia-A600-KS31
+	
+	; Blizzard maprom A1200 Kickstart 3.1
+	setenv blizzardmap `RequestChoice "Blizzard Maprom" "Do you want Blizzard to maprom A1200 Kickstart 3.1?" "Yes|No"`
+	If $blizzardmap eq "1" 
+		echo "" > S:MapRom-Blizzard-A1200-KS31
+	Else
+		; Delete "MapRom-Blizzard-A1200-KS31" file
+		IF EXISTS S:MapRom-Blizzard-A1200-KS31
+			delete >NIL: S:MapRom-Blizzard-A1200-KS31
+		EndIF
+	EndIF
+EndIF
+
+SKIP hardwaremenu back
+
+
+; Configure ACA
+LAB aca
+
+IF EXISTS S:Use-ACA
+	delete >NIL: S:Use-ACA
+	delete >NIL: S:MapRom-ACA-A600-KS31
+	delete >NIL: S:MapRom-ACA-A1200-KS31
+Else
+	echo "" > S:Use-ACA
+
+	; Reset Blizzard and Furia
+	delete >NIL: S:Use-Blizzard
+	delete >NIL: S:MapRom-Blizzard-A1200-KS31
+	delete >NIL: S:Use-Furia
+	delete >NIL: S:MapRom-Furia-A600-KS31
+
+	; ACA maprom A600 Kickstart 3.1
+	setenv acamaprom `RequestChoice "ACA Maprom" "Do you want ACA to maprom A600 Kickstart 3.1?" "Yes|No"`
+	If $acamaprom eq "1" 
+		echo "" > S:MapRom-ACA-A600-KS31
+		
+		SKIP hardwaremenu back
+	Else
+		; Delete "MapRom-ACA-A600-KS31" file
+		IF EXISTS S:MapRom-ACA-A600-KS31
+			delete >NIL: S:MapRom-ACA-A600-KS31
+		EndIF
+	EndIF
+
+	; ACA maprom A1200 Kickstart 3.1
+	setenv acamaprom `RequestChoice "ACA Maprom" "Do you want ACA to maprom A1200 Kickstart 3.1?" "Yes|No"`
+	If $acamaprom eq "1" 
+		echo "" > S:MapRom-ACA-A1200-KS31
+	Else
+		; Delete "MapRom-ACA-A1200-KS31" file
+		IF EXISTS S:MapRom-ACA-A1200-KS31
+			delete >NIL: S:MapRom-ACA-A1200-KS31
+		EndIF
+	EndIF
+EndIF
+
+SKIP hardwaremenu back
+
+
+; Configure Furia
+; ---------------
+LAB furia
+
+IF EXISTS S:Use-Furia
+	delete >NIL: S:Use-Furia
+	delete >NIL: S:MapRom-Furia-A600-KS31
+Else
+	echo "" > S:Use-Furia
+
+	; Reset Blizzard and ACA
+	delete >NIL: S:Use-Blizzard
+	delete >NIL: S:MapRom-Blizzard-A1200-KS31
+	delete >NIL: S:Use-ACA
+	delete >NIL: S:MapRom-ACA-A600-KS31
+	delete >NIL: S:MapRom-ACA-A1200-KS31
+	
+	; Furia maprom A600 Kickstart 3.1
+	setenv furiamaprom `RequestChoice "Furia Maprom" "Do you want Furia to maprom A600 Kickstart 3.1?" "Yes|No"`
+	If $furiamaprom eq "1" 
+		echo "" > S:MapRom-Furia-A600-KS31
+	Else
+		; Delete "MapRom-Furia-A600-KS31" file
+		IF EXISTS S:MapRom-Furia-A600-KS31
+			delete >NIL: S:MapRom-Furia-A600-KS31
+		EndIF
+	EndIF
+EndIf
+
+SKIP hardwaremenu back
+	
+
+; Configure CPU
+; -------------
+LAB cpu
+
+IF EXISTS S:Use-020
+	delete >NIL: S:Use-020
+
+	Copy >NIL: SYS:Programs/Configuration/KingCON1.3/Handler/KingCON-handler L:KingCon-handler
+	Copy >NIL: SYS:Programs/Configuration/iconlib_46.4/icon.library_68000 Libs:icon.library
+Else
+	echo "" > S:Use-020
+
+	Copy >NIL: SYS:Programs/Configuration/KingCON1.3/Handler/KingCON-handler.020 L:KingCon-handler
+	Copy >NIL: SYS:Programs/Configuration/iconlib_46.4/icon.library_68020 Libs:icon.library
+EndIF
+
+SKIP hardwaremenu back
+
+
+; Configure FPU
+; -------------
+LAB fpu
+
+IF EXISTS S:Use-FPU
+	delete >NIL: S:Use-FPU
+
+	Copy >NIL: SYS:Programs/Configuration/guigfx_render_nofpu/ Libs:
+Else
+	echo "" > S:Use-FPU
+
+	Copy >NIL: SYS:Programs/Configuration/guigfx_render_fpu/ Libs:
+EndIF
+
+SKIP hardwaremenu back
+
+
+; Configure OS Patches
+; --------------------
+LAB ospatches
+
+IF EXISTS S:Use-OS-Patches
+	delete >NIL: S:Use-OS-Patches
+Else
+	echo "" > S:Use-OS-Patches
+EndIF
+
+SKIP hardwaremenu back
+
+
+; Load scsi.device
+; ----------------
+LAB loadscsidevice
+
+IF EXISTS S:Load-ScsiDevice
+	delete >NIL: S:Load-ScsiDevice
+Else
+	echo "" > S:Load-ScsiDevice
+EndIF
+
+SKIP devicelibrarymenu back
+
+
+; Load icon.library
+; -----------------
+LAB loadiconlibrary
+
+IF EXISTS S:Load-IconLibrary
+	delete >NIL: S:Load-IconLibrary
+Else
+	echo "" > S:Load-IconLibrary
+EndIF
+
+SKIP devicelibrarymenu back
+
+
+; Select scsi.device
+; ------------------
+LAB selectscsidevice
+
+echo "Built-in (Kickstart ROM)" >T:scsidevicemenu
+echo "v43.45 Chris/Toni A1200 " >>T:scsidevicemenu
+echo "v43.46 Cosmos A600/A1200" >>T:scsidevicemenu
+echo "v43.47 Cosmos A600/A1200" >>T:scsidevicemenu
+echo "v44.20 Doobrey A600     " >>T:scsidevicemenu
+echo "v44.20 Doobrey A1200    " >>T:scsidevicemenu
+echo "          Back          " >>T:scsidevicemenu
+
+; Show select scsi.device menu
+C:ReqList CLONERT BUTTONS I T:scsidevicemenu O ENV:scsidevicemenu H "Select scsi.device"
+
+; Delete select scsi.device menu
+delete >NIL: T:scsidevicemenu
+
+; Built-in (Kickstart ROM)
+IF $bootsequencemenu eq "1" 
+	delete >NIL: devs:scsi.device
+ENDIF 
+
+; v43.45 Chris/Toni A1200
+IF $bootsequencemenu eq "2" 
+	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_45_ChrisToni/A1200IDE.scsi.device.43.45 DEVS:scsi.device
+ENDIF 
+
+; v43.46 Cosmos A600/A1200
+IF $bootsequencemenu eq "3" 
+	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_47_Cosmos/scsi.device_A600_A1200_43.46 DEVS:scsi.device
+ENDIF 
+
+; v43.47 Cosmos A600/A1200
+IF $bootsequencemenu eq "4" 
+	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_47_Cosmos/scsi.device_A600_A1200_43.47b1 DEVS:scsi.device
+ENDIF 
+
+; v44.20 Doobrey A600
+IF $bootsequencemenu eq "5" 
+	Copy >NIL: SYS:Programs/Configuration/SCSI_v44_20_Doobrey/scsi.device_A600_44.2 DEVS:scsi.device
+ENDIF 
+
+; v44.20 Doobrey A1200
+IF $bootsequencemenu eq "6" 
+	Copy >NIL: SYS:Programs/Configuration/SCSI_v44_20_Doobrey/scsi.device_A1200_44.2 DEVS:scsi.device
+ENDIF 
+
+SKIP devicelibrarymenu back
+
+
+; Configure WHDLoad Quit Key
+; --------------------------
+LAB whdloadquitkey
+
+; Reset whdload.prefs
+Copy >NIL: SYS:Programs/Configuration/WHDLoad/WHDLoad.prefs S:
+
+; Select WHDLoad quit key
+setenv quitkey `RequestChoice "WHDLoad Quit Key" "Select global quit key for WHDLoad?" "F10|Help|Del|NumL|ScrL|SysRq|PrtSc|Default"`
+If $quitkey eq "1" 
+	echo "QuitKey=$59" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "2" 
+	echo "QuitKey=$5f" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "3" 
+	echo "QuitKey=$46" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "4" 
+	echo "QuitKey=$5a" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "5" 
+	echo "QuitKey=$5b" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "6" 
+	echo "QuitKey=$5c" >> S:WHDLoad.prefs
+EndIf
+If $quitkey eq "7" 
+	echo "QuitKey=$5d" >> S:WHDLoad.prefs
+EndIf
+
+SKIP whdloadmenu back
+
+
+; Configure Amiga Boot Selector
+; -----------------------------
+LAB abs
+
+IF EXISTS S:Start-ABS
+	delete >NIL: S:Start-ABS
+Else
+	echo "" > S:Start-ABS
+	delete >NIL: S:Start-Multiboot
+	delete >NIL: S:Start-AGS2Games
+	delete >NIL: S:Start-AGS2Demos
+EndIF
+
+SKIP bootsequencemenu back
+
+
+; Configure Multiboot
+; -------------------
+LAB multiboot
+
+IF EXISTS S:Start-Multiboot
+	delete >NIL: S:Start-Multiboot
+Else
+	echo "" > S:Start-Multiboot
+	delete >NIL: S:Start-ABS
+	delete >NIL: S:Start-AGS2Games
+	delete >NIL: S:Start-AGS2Demos
+EndIF
+
+SKIP bootsequencemenu back
+
+
+; Select Multiboot Default
+; ------------------------
+LAB multibootdefault
+
+echo "" NOLINE >T:multibootdefaultmenu
+
+IF EXISTS ENV:ags2gamespath
+	echo "Games" >>T:multibootdefaultmenu
+ENDIF
+
+IF EXISTS ENV:ags2demospath
+	echo "Demos" >>T:multibootdefaultmenu
+ENDIF
+
+echo "Workbench" >>T:multibootdefaultmenu
+echo "Back" >>T:multibootdefaultmenu
+
+; Show select multiboot default menu
+C:ReqList CLONERT BUTTONS I T:multibootdefaultmenu O ENV:multibootdefaultmenu H "Select Multiboot Default"
+
+; Delete select multiboot default menu
+delete >NIL: T:multibootdefaultmenu
+
+; Games
+IF $multibootdefaultmenu eq "1" 
+	copy >NIL: S:StartUp.Games S:StartUp.Default
+ENDIF 
+
+; Demos
+IF $multibootdefaultmenu eq "2" 
+	copy >NIL: S:StartUp.Demos S:StartUp.Default
+ENDIF 
+
+; Workbench
+IF $multibootdefaultmenu eq "3" 
+	copy >NIL: S:StartUp.Workbench S:StartUp.Default
+ENDIF 
+
+SKIP bootsequencemenu back
+
+	
+; Configure AGS2 Games
+; --------------------
+LAB ags2games
+
+IF EXISTS ENV:ags2gamespath
+	IF EXISTS S:Start-AGS2Games
+		delete >NIL: S:Start-AGS2Games
+	Else
+		echo "" > S:Start-AGS2Games
+		delete >NIL: S:Start-Multiboot
+		delete >NIL: S:Start-ABS
+		delete >NIL: S:Start-AGS2Demos
+	EndIF
+EndIF
+
+SKIP bootsequencemenu back
+
+		
+; Configure AGS2 Demos
+; --------------------
+LAB ags2demos
+
+IF EXISTS ENV:ags2demospath
+	IF EXISTS S:Start-AGS2Demos
+		delete >NIL: S:Start-AGS2Demos
+	Else
+		echo "" > S:Start-AGS2Demos
+		delete >NIL: S:Start-Multiboot
+		delete >NIL: S:Start-ABS
+		delete >NIL: S:Start-AGS2Games
+	EndIF
+EndIF
+
+SKIP bootsequencemenu back
+
+
+; End
+LAB end

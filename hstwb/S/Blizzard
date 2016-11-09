@@ -1,0 +1,28 @@
+; Blizzard Accelerator Card Startup Script
+; ----------------------------------------
+
+; Blizzard maprom A1200 Kickstart 3.1
+IF EXISTS S:MapRom-Blizzard-A1200-KS31
+	echo "C:blizkick SYS:devs/kickstarts/kick40068.A1200 EXTRESBUF=200000 MODULE" NOLINE >RAM:Run-BlizKick
+Else
+	echo "C:blizkick ** EXTRESBUF=200000 MODULE" NOLINE >RAM:Run-BlizKick
+EndIf
+
+; Add icon.library module, if "Load-IconLibrary" file exists
+IF EXISTS S:Load-IconLibrary
+	echo " LIBS:icon.library" NOLINE >>RAM:Run-BlizKick
+EndIF
+
+; Add scsi.device module, if "Load-ScsiDevice" and "DEVS:scsi.device" files exists
+IF EXISTS S:Load-ScsiDevice
+	IF EXISTS DEVS:scsi.device
+		echo " DEVS:scsi.device" NOLINE >>RAM:Run-BlizKick
+	Else
+		echo " speedyide" NOLINE >>RAM:Run-BlizKick
+	EndIF
+EndIF
+
+; Add default modules
+echo " SpeedROM QUIET" NOLINE >>RAM:Run-BlizKick
+
+execute RAM:Run-BlizKick

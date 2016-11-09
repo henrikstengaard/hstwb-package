@@ -1,0 +1,339 @@
+Short:    Install Libs/Devs reset-proof, ROM-Updates replacement
+Uploader: Etienne.Vogt@obspm.fr (Etienne Vogt)
+Author:   thor@math.tu-berlin.de (Thomas Richter), Etienne.Vogt@obspm.fr (Etienne Vogt)
+Type:     util/boot
+Version:  40.11
+Requires: OS 2.04, 3.5 or 3.9 recommended, possibly MuProtectModules.lha
+
+_____________________________________________________________________________
+
+
+Notice:
+
+This software was initially developped by Thomas Richter. As Thomas' amiga
+died a few months ago, I agreed with him to take over the development of
+some of his software packages, including this one.
+
+Etienne Vogt, March 2003.
+
+-----------------------------------------------------------------------------
+
+Purpose of LoadModule:
+
+LoadModule installs so called "resident modules" in a reset-proof way,
+possibly replacing ROM modules by disk-based modules, similar to what 
+SetPatch and its "ROM-Updates" mechanism does. "Resident modules" are
+loadable binaries containing a special structure telling the Os how to 
+initialize them and what to perform on initialization - Amiga libraries 
+and devices are the canonical example of these modules, the "ram-handler" 
+is another.
+
+"LoadModule" can be used to install these resident modules in a reset
+proof way such that they are available immediately at system bootstrap
+time. This is desired whenever a module is required for booting, as
+for example some of modules in the Amiga-Os ROM-Updates. "LoadModule"
+can therefore be used as a more canonical form of the ROM-Updates since
+it does not require an undocumented file format - modules have to be 
+provided as loadable disk based binaries in their most canonical form,
+and can be kept in their canonical location. For example, the V45 
+"console.device" could be kept in DEVS: similar to all other devices.
+
+"LoadModule" can be used as well to replace the ROM-based icon and 
+workbench.libraries by their disk-based 3.5 and 3.9 replacments, or
+to make modules reset-proof that are typically disk-based, for example
+the diskfont.library or the mmu.library.
+
+RTF_SINGLETASK modules, like the exec.library V45 from the OS 3.9 Boing
+Bag 2 are not supported, as well as RTF_COLDSTART modules with a startup
+priority of 105 or higher (i.e. everything that would have to be initialized
+before LoadModule can hook in).
+
+Features:
+
+-	Requires modules as loadable binaries in a canonical and documented
+	file format rather than requiring an undocumented file structure.
+-	Checksums all modules such that damaged modules will be detected.
+-	May place modules in non-MEMF_KICK-able memory using some "arcane
+	magic" for boards where no autoconfigurable memory is available,
+	provided this memory is reset-persistent. This goes for most A2K
+	based GVP accelerators.
+-	May or may not cause a reboot and can therefore be bundled with
+	Os 3.5/3.9 SetPatch and MuMove4K.
+-	Before rebooting, ensures that disk buffers are written out to 
+	avoid invalidated disks.
+-	Allows listing of the installed resident modules.
+-	Can be told to remove itself when required.
+-	Can be extended by means of MuProtectModules to optionally
+	write protect some ROM modules.
+-	It's free! (But check the licence conditions below.)
+_____________________________________________________________________________
+
+Synopsis:
+
+LoadModule	MODULE/M,LIST/S,NOREBOOT/S,IGNOREVERIFY/S,NOMEMFKICK/S,
+		REVERSE/S,HEADERFORWARDS/S,REMOVE/S 
+
+
+MODULE/M:		Several file names of resident modules to be made
+			reset-resident. The file names need not to correspond
+			to the names of the resident modules, though.
+			"LoadModule" will figure out the correct names itself.
+
+LIST/S:			List all resident modules installed by "LoadModule"
+
+NOREBOOT/S:		Avoid a reboot even if this would be apropriate. This
+			is useful for cascading "LoadModule" with other tools
+			that would reboot the machine anyhow, e.g. MuMove4K.
+
+			"LoadModule" tries to reboot the machine whenever it
+			is invoked for the first time and no resident modules
+			are found, or whenever it shall be removed and some
+			modules are installed.
+
+IGNOREVERIFY:		Ignore invalid or non-validated devices when rebooting.
+			Otherwise, LoadModule would abort the reboot process
+			printing a warning message.
+			This is useful if you must work with a damaged drive
+			always returning an error status.
+			This will also disable the smart shut-down mechanism
+			which would otherwise shut down all filing-system
+			devices in a "friendly" way.
+
+NOMEMFKICK:		Use MEMF_PUBLIC memory to keep the resident modules.
+			Note: This requires some magic *and* reset-persistent
+			memory. It should be used *only* in case 
+			a) otherwise MEMF_CHIP or 16-bit memory would be used
+			   and this is not tolerateable 
+			*AND*
+			b) you really really really know what you're doing.
+
+REVERSE:		Allocate resident modules "upside down" moving them
+			in the top area of the memory. It is usually a good
+			idea to use this option.
+
+HEADERFORWARDS:		Allocate the resident part of LoadModule itself in
+			non-reverse sense. This resident part will install
+			and replace all resident modules by the disk-based
+			modules on a reboot and *MUST* go into MEMF_KICK able
+			memory (no magic here!). It is by default allocated
+			"upside down", but this can be disabled in case it
+			conflicts with some programs.
+
+REMOVE:			Removes "LoadModule" and its modules from the 
+			reset-resident list and causes a reboot, unless 
+			NOREBOOT is given. In that case, removal is delayed
+			up to the next reboot.
+_____________________________________________________________________________
+
+Examples:
+
+The following one-liner places the Os 3.5/3.9 based icon and workbench
+libraries on the reset-resident list replacing the ROM-modules. This
+line should go into the startup-sequence *in front of SetPatch* 
+(as otherwise SetPatch does this job anyhow by a different approach...)
+
+LoadModule LIBS:icon.library LIBS:workbench.library reverse
+
+
+
+The following lines show how to bundle LoadModule with MuMove4K as to
+avoid a double reboot:
+
+LoadModule LIBS:icon.library LIBS:workbench.library reverse noreboot
+MuMove4K
+
+
+The next example demonstrates how one could replace the ROM-Updates
+mechanism of SetPatch provided you would have the modules as separate
+files on disk. It also disables NSD.
+
+LoadModule LIBS:icon.library LIBS:workbench.library 		+
+	   DEVS:console.device L:Ram-Handler L:FastFileSystem 	+
+	   reverse noreboot
+MuMove4K
+SetPatch NOROMUPDATES NONSD >NIL:
+
+
+
+Finally, the same on a GVP accelerator without autoconfiguring 32 bit
+memory placing the modules in MEMF_PUBLIC instead:
+
+LoadModule LIBS:icon.library LIBS:workbench.library 		+
+	   DEVS:console.device L:Ram-Handler L:FastFileSystem 	+
+	   nomemfkick noreboot
+MuMove4K
+SetPatch NOROMUPDATES NONSD >NIL:
+
+
+List the installed resident modules:
+
+LoadModule LIST
+
+
+On my system, this presents the following output:
+
+
+Resident modules installed:
+
+icon.library         icon.library 44.543 (6.6.2000)
+workbench.library    workbench.library 45.101 (23.11.2000)
+console.device       console 44.6 (31.3.2000)
+ram-handler          ram 44.21 (2.9.2000)
+filesystem           fs 45.9 (3.9.2000)
+
+
+Modules may be extracted from the ROM-Updates file using the ExtractModule
+command included in this archive.
+
+ExtractModule	FROM/K,MODULE/N/A,TO/A
+
+FROM/K:		The ROM-Updates file containing resident modules. Defaults
+		to "DEVS:AmigaOS ROM Update".
+
+MODULE/N/A:	The sequence number of the module to extract. I leave it as
+		an "easy exercise" how to identify the extracted module.
+
+TO/A:		The file that will contain the extracted module.
+
+_____________________________________________________________________________
+
+History:
+
+LoadModule 40.1:	
+
+This is the first release. It was more or less written because I don't
+like the ROM-Updates mechanism overly, especially its requirement for an 
+undocumented file format - and as favour for Ralph Babel in return for a 
+new Guru-ROM and helping me on my SCSI configuration.
+
+
+LoadModule 40.5:
+
+LoadModule does no longer require 32K alignment for each of its modules,
+32K alignment for the complete set of modules is now enough. However, this
+requires release 40.2 of MuProtectModules or higher if module protection 
+is desired.
+
+
+LoadModule 40.6:
+
+Forgot to NULL terminate the resident list which could have caused crashes
+on some systems. Fixed the "REMOVE" option which did not work properly.
+
+
+LoadModule 40.7:
+
+Some format strings of the "LoadModule" failure messages were corrupt. This
+has been fixed now.
+
+
+LoadModule 40.8:
+
+Fixed handling of RELOC32SHORT hunks, I forgot the pad-word. (*sigh*)
+
+
+LoadModule 40.9:
+
+Fixed the installation of resident modules that did not conflict with one
+of the ROM resident modules. LoadModule could have run into an endless
+loop in the previous releases if you tried to install a non-ROM segment.
+
+
+LoadModule 40.10:
+
+Fixed again the installation of additional resident modules. 
+LoadModules failed to initialize the new modules completely
+in this case due to the way how exec runs the init modules.
+Fixed in 40.10. Thanks to Christian Sauer and Etienne Vogt
+for reporting the bug.
+
+
+LoadModule 40.11:
+
+Fixed the new module initialization bug again as Thomas only had the source
+code for version 40.9 in his backups. Fixed allocation of the stack saveback
+area so it is not cleared and other resident stuff that may be located at
+memory top is not wiped out. Made LoadModule 2.04 compatible by reverting
+to the more restrictive MEMF_LOCAL memory attribute under 2.04 KickStart
+instead of the 3.0+ MEMF_KICK.
+
+_____________________________________________________________________________
+
+                     The THOR/EV-Software Licence (v3, 23th March 2003)
+
+
+This License applies to the computer programs known as "LoadModule"
+The "Program", below, refers to such program. The "Archive" refers to the 
+package of distribution, as prepared by the authors of the Program, 
+Thomas Richter and Etienne Vogt. Each licensee is addressed as "you".
+
+
+
+The Program and the data in the archive are freely distributable
+under the restrictions stated below, but are also Copyright (c)
+Thomas Richter (upto V40.10) and Etienne Vogt (V40.11 and up).
+
+Distribution of the Program, the Archive and the data in the Archive by a
+commercial organization without written permission from the authors to any
+third party is prohibited if any payment is made in connection with such
+distribution, whether directly (as in payment for a copy of the Program) or
+indirectly (as in payment for some service related to the Program, or
+payment for some product or service that includes a copy of the Program
+"without charge"; these are only examples, and not an exhaustive enumeration
+of prohibited activities).
+
+
+However, the following methods of distribution
+involving payment shall not in and of themselves be a violation of this
+restriction:
+
+
+(i) Posting the Program on a public access information storage and
+retrieval service for which a fee is received for retrieving information
+(such as an on-line service), provided that the fee is not
+content-dependent (i.e., the fee would be the same for retrieving the same
+volume of information consisting of random data).
+
+
+(ii) Distributing the Program on a CD-ROM, provided that
+
+a) the Archive is reproduced entirely and verbatim on such CD-ROM, including
+especially this licence agreement;
+
+b) the CD-ROM is made available to the public for a nominal fee only,
+
+c) a copy of the CD is made available to the authors for free except for
+shipment costs, and
+
+d) provided further that all information on such CD-ROM is redistributable
+for non-commercial purposes without charge.
+
+
+Redistribution of a modified version of the Archive, the Program or the
+contents of the Archive is prohibited in any way, by any organization,
+regardless whether commercial or non-commercial. Everything must be kept
+together, in original and unmodified form.
+
+
+
+
+Limitations.
+
+
+THE PROGRAM IS PROVIDED TO YOU "AS IS", WITHOUT WARRANTY. THERE IS NO
+WARRANTY FOR THE PROGRAM, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. THE ENTIRE
+RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD
+THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY
+SERVICING, REPAIR OR CORRECTION.
+
+
+IF YOU DO NOT ACCEPT THIS LICENCE, YOU MUST DELETE THE PROGRAM, THE ARCHIVE
+AND ALL DATA OF THIS ARCHIVE FROM YOUR STORAGE SYSTEM. YOU ACCEPT THIS
+LICENCE BY USING OR REDISTRIBUTING THE PROGRAM.
+
+
+                                                        Thomas Richter
+							Etienne Vogt
+_____________________________________________________________________________

@@ -1,0 +1,134 @@
+
+SCSIConfig 1.30
+- Enforcer Hit in the Partition Listview in the combination with Del Partition
+
+SCSIConfig 1.29
+- Create New Partition, change blocksize, ok, return..blocksize not the same bug fixed
+- Create New Partition, DosType FFS isn`t kept bug fixed
+
+SCSIConfig 1.28
+- Totalsector calculation fixed..
+  (Worldwide ZNet bugreport from the Meister himself)
+- New filesystem dostypes
+- CDFS filesystem dostype
+
+SCSIConfig 1.27
+- blizzppc.device added
+
+SCSIConfig 1.26
+- little improved error output
+
+SCSIConfig 1.25
+- smarter 4G output
+
+SCSIConfig 1.24
+- Another layout fix...sigh..propfonts suck with gadtools
+
+SCSIConfig 1.23
+- Gadtools Layout problem hopefully fixed:-)
+  (Sven Ottemann)
+
+SCSIConfig 1.22
+- Changed copyright message
+- TD64 commitee production
+
+SCSIConfig 1.21
+- Little GUI changes
+- Added 64Bit support
+
+SCSIConfig 1.20
+- Fixed New UnitID style:-)
+  (This source is so old it smells)
+- Fixed a correct partition blocksize bug with a physical blocksize != 512.
+- Fixed Format LowLevel,Capacity wrong scsi_CmdLength...really weird
+  that this worked with the old FLogic/EMulex driver...Voodoo
+
+SCSIConfig 1.19
+- Added New UnitID style
+
+SCSIConfig 1.18
+- Fixed LSEG generation problem where the filesize was equal to n*LSEG Size
+  (Great Bugreport by Torsten Lang)
+
+SCSIConfig 1.17
+- Improved Disk Layout Calculation..solved the Zip(0,0,0) problem
+
+SCSIConfig 1.16
+- Changed MSDOS ID 0x4d534000 to 0x4d534800
+- Copyright text changes
+
+SCSIConfig 1.15
+- Added a check for devide by 0 which could only occur if SOMETHING really
+  goes wrong in the Config/HD Recognition.
+
+SCSIConfig 1.14
+- Removed unnecessary V7 check
+
+SCSIConfig 1.13
+- Fixed some problem in the disk layout calculation
+
+SCSIConfig 1.12
+- Auto Device Lookup
+
+SCSIConfig 1.11
+- Don`t send a Start Unit command to scsi units where it's not supported.
+  (Mustek fucks this up as usual)
+
+SCSIConfig 1.10
+- Fixed writing a RDB with a FSH ptr into nowhereland.
+- Fixed broken "OK" button in filesystem module
+- Changed Mask 0xfffffffc to 0xffffffff because ffs is too lame.
+
+SCSIConfig 1.9
+- Phase5 name change
+- Lun support for new scsi devices
+
+SCSIConfig 1.8
+
+- A lot internal changes
+- Raid support(Not complete because of lame Phase5 handling of this issue)
+- Some RDB fields calculated needed for an unknown reason for NetBSD
+
+SCSIConfig 1.5
+
+- Improved broken RDB-Filesystem entry detection
++ Requester when you change parameters that lead to a changed disk layout
+
+SCSIConfig 1.4
+
+- Gui design adjusted to the new window sizes
+
+- Added BlockSize gadget in the Partition Window, so
+  you can now adjust the logical size of a block on the HD.
+  For example: 2048Size
+
+- Fixed Problem with the partition selection in the Used Blocks Listview
+  Didn`t work always...
+
+- If no partition is on the hd scsiconfig uses an EndCyl that is 1 Cycl
+  too high...i had fixed this somewhere else but not for this case.
+  Stupid....
+
+- Fixed Add Partition problem if there's no room for a new partition.
+  The Start and Endcycl could get unlogic values if some sideconditions
+  were true.
+
+- A new StartCyl/EndCyl check when you click on Ok in the partition window
+  could catch wrong partition datas in old RDBs
+
+- Now it outputs if you use not optimized Mask/Transfer values when you
+  click on Ok in the partition window. Keep in mind that Gigamem
+  have to change the Mask values to other NONOPTIMIZED values.
+
+- Now it outputs a warning when you want to calculate a new Disklayout
+  with Load Drivegeometry
+
+- Totalsecots=0 savety check
+
+- Optical Device are treated like Random Access Devices now
+
+- some internal changes
+
+- fixed Lowlevel Format problem..hopefully
+
+- protected against starting several SCSIConfigs

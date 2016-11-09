@@ -1,0 +1,2527 @@
+******************************************************************************  
+
+                    ** Hippopotamus Design Presents: **
+
+                         *** HippoPlayer v2.44 ***
+
+                     Copyright © 1994-1997 K-P Koljonen
+                              ** SHAREWARE **
+
+******************************************************************************
+
+
+HippoPlayer (HiP) is a multiformat module player for the Amiga.  It works
+perfectly under Kickstart 1.2 and has all the same and even more features
+than the players requiring Kick2.0+ to run.
+
+One main reason why I started making this program was that there were no
+good Kick1.3 compatible players around, or I didn't know of one (that was
+back in 1994 when I had an A500).  The other reason was that my good friend
+Jarno Paananen (Guru/Sahara Surfers) made a replay routine for
+Screamtracker ]I[ modules, and I wanted a good GUI for it.
+
+The aim was to make a good module player that works on every Amiga
+configuration and has lot's of useful features.  To achieve speed,
+little size and memory usage, HiP is entirely written in assembler.
+Project HippoPlayer was started 5.2.1994.
+
+"Newcomers will run screaming away", said Nemesis1.  At first HiP may seem
+complicated.  Learn to use HiP, it should be worth the effort :)...
+
+HiP has good support for Screamtracker ]I[, Fasttracker 1 & 2, Taketracker,
+and Multitracker modules (from here onwards referred as PS3Ms,
+meaning that you can listen them with a 68000 Amiga with listenable
+quality.  All are played by the famous replayer by Guru.  HiP was the
+second (or was it third?) program to use the PS3M-routines after Guru's own
+player.
+
+
+Some features in HippoPlayer
+
+ · Screamtracker ]I[, Fasttracker 1 & 2, Taketracker, Multitracker, 1 to 32ch
+
+ · SID-emulation by Håkan Sundell & Ron Birk (works even on kick1.2)
+
+ · TFMX-modules, normal and the seven channel ones
+
+ · A bunch of 4-8 channel sample & synth music formats
+
+ · Easy to use, nice 3D-interface
+
+ · Keyboard control
+
+ · AppWindow
+
+ · ARexx
+
+ · Public screen support
+
+ · Internal multitasking
+
+ · Loads and decompresses XPK, FImp, PowerPacker, LhA, LZX and Zip files.
+
+
+ A500/000/7MHz, kick 1.2, 0.5+0.5M memory (my @{b}old@{ub} Amiga)
+ A500/000/7MHz, kick 1.3, 0.5+0.5M memory
+ A500/000/28MHz, kick 3.1, 1+2M memory
+ A1200/020/14MHz, kick 3.0, 2+0M memory
+ A1200/030/28MHz, kick 3.0, 2+4M memory
+ A1200/030/50Mhz, kick 3.0, 2+4M memory
+ A4000/040/25MHz, kick 3.1, 2+8M memory
+
+HippoPlayer was/is developed on:
+ v1.00-v1.25   A500/010,  Kickstart 1.3/3.1, 1+2M memory, HD
+ v1.27-v1.40   A1200/020, Kickstart 3.0,     2+0M memory, HD
+ v2.00-v2.38   A1200/030, Kickstart 3.0,     2+4M memory, HD
+ v2.39-v?.??   A1200/030, Kickstart 3.0,     2+8M memory, HD
+
+
+
+******************************************************************************
+*                            *** Registration ***		             *
+******************************************************************************
+
+HippoPlayer is shareware and copyright © 1994-96 K-P Koljonen.
+
+If you like using HiP and think some money is in place for my efforts (and
+also because I'm a poor student ;), please consider registering.
+
+To register, send a disk and some money to my address (see About).
+Remember to mention your name and address!  And SEND A DISK!!
+
+Amount of money needed for the registration in different currencies:
+FIM: 40
+CAD: 10
+DEM: 14
+DKK: 50
+GBP: 5
+ITL: 13000
+NOK: 50
+SEK: 60
+USD: 8
+
+These are all worth about 40 FIM, but I can't exchange coins so you should
+round the amount (down or up) so that you can send notes (bills).  So NO
+COINS PLEASE!
+
+Other currencies are ok too, at least those used in Europe.
+
+** SPECIAL REGISTRATION FEE FOR POLISH USERS: 6 USD or equivalent.
+
+You will get the disk back with the latest version of HiP and a key file,
+which you must not spread (no point in doing that anyway).  It is for your
+own use only.  This key file will work with possible future versions too.
+
+Registering by e-mail is also possible.  Send the money by normal mail (no
+need for disk) and I will mail you the key file.
+
+There's no functional difference between registered and unregistered
+versions!
+
+Support quality software, register.
+
+
+******************************************************************************
+*                            *** Distribution ***		             *
+******************************************************************************
+
+HippoPlayer can be freely distributed as long as all files are included
+unaltered.  Not for commercial use without a permission from the author.
+
+Amiga magazines wishing to put HiP into a cover disk should send me the
+corresponding maggy number for free.
+
+
+
+******************************************************************************
+*               *** How and where to get the latest versions ***             *
+******************************************************************************
+
+How and where to get the latest versions
+----------------------------------------
+
+WWW surfers can go and get HiP from http://www.students.tut.fi/~kpk
+
+Public beta versions will also be available there.
+
+---
+
+Those who have access to aminet can go and download HiP from
+mus/play/hippoplayer.lha.
+
+---
+
+You can also try the JuJu mAgicBoArD.  Ask Zymosis membahs for numbahs. :)
+
+
+
+******************************************************************************
+*                           *** Requirements ***		             *
+******************************************************************************
+
+Hardware:
+  Any Amiga with some memory and Kickstart 1.2 or higher.
+
+Software:
+  reqtools.library (any version)
+
+  There is Kick1.3 reqtools.library included in the archive.
+
+The following software is not required, but recommended:
+
+  In order to...                  you need...
+  ------------------------------------------------------------------
+  Use the AHI audio system        to install the AHI audio system :)
+  Load XPK files                  xpkmaster.library and some sublibs
+  Load PowerPacker files          powerpacker.library
+  Load lha, lzx and zip files     to look at archivers
+  Load other packed file formats  to have xfdmaster.library
+  Play SID files                  PlaySID.library
+  Play 4ch MED modules            medplayer.library V5+
+  Play 5-8ch MED modules          octaplayer.library V5+
+  Play 1-64ch OctaMED SS modules  octamixplayer.library V7+
+  Play MusiclineEditor modules	  mline.library
+  Play MP2 & MP3 files		  mpega.library
+
+Most of the player libraries are found in the archive.
+
+reqtools.library and powerpacker.library copyright © Nico François.
+xpkmaster.library copyright © Urban Dominik Müller.
+PlaySID.library copyright © Per Håkan Sundell & Ron Birk.
+medplayer, octaplayer and octamixplayer libraries copyright © Teijo Kinnunen.
+xfdmaster.library copyright ©  Georg Hörmann.
+AHI audio system copyright © Martin `Leviticus' Blom.
+mline.library copyright © Conny & Christian Cyréus
+mpega.library copyright © Stephane Tavenard.
+
+
+
+
+Installation
+------------
+
+ · Copy HiP and one of the info-files to wherever you keep your tools.
+
+ · Copy HippoPlayer.group into S: or define the location later in
+   the preferences.
+
+ · Copy HippoPlayer.PS3M into S:.
+
+ · Copy the player libraries from libs-dir to Libs:. 
+
+ · Copy reqtools.library in LIBS:
+   Note: If you already have reqtools.library installed, you should check
+         the version of it and the version of the library included in the
+         HippoPlayer archive. You should have the newest version in LIBS:.
+
+
+
+******************************************************************************
+*                           *** Music formats ***		             *
+******************************************************************************
+
+Explanation of the list:
+
+Stop/Continue     = 1 - The music can be stopped and continued.
+Multiple songs    = 2 - Modules can have more than one song.
+Volume            = 3 - Volume can be controlled.
+End detect        = 4 - Songend can be detected.
+Forward/backward  = 5 - You can jump forwards and backwards in the song.
+CIA fast forward  = 6 - Play 2x or 4x faster with LMB/RMB and `>'
+AHI support       = 7 - Music can be played thru the AHI device.
+
+The module formats marked with a star (`*') have the replay code inside the
+module itself.  I can't guarantee will they work or not.  This is also the
+reason why they are not in the player group file (no replay code).
+
+Replayer                        1234567    Author
+--------------------------------------------------------------------
+Built-in replayers
+
+David Whittaker                 xx---x-*  David Whittaker
+Delta Music v2.0                x-x--x-*  Bent Nielsen
+Fred                            xx---x-*  Frederic Hahn & JC
+Hippel				xx---x-*  Jochen Hippel
+Maniacs of Noise                xxx--x-*  Maniacs of Noise
+Mark II                         x----x-*  Cachet Software
+MED 1-64ch                      xx-xx--   Teijo Kinnunen
+Music Assembler                 x-x--x-*  Oscar Giesen & Marco Swagerman
+MusiclineEditor			xxx----   Conny & Christian Cyréus
+Old Soundtracker		xxxxxxx	  K-P Koljonen
+Protracker                      xxxxxxx   K-P Koljonen
+PSID                            xx--x--   Håkan Sundell & Ron Birk
+SIDMon v1.0                     x----x-*  Reiner van Vliet
+Sonic Arranger                  -x-----*  Carsten Schlote
+
+Replayers in player group file
+
+Art Of Noise 4 channels         x-x----   Bastian Spiegel
+BP SoundMon v2.0                x-xxxx-   Brian Postma
+BP SoundMon v3.0 (v2.2?)        x-xxxx-   Brian Postma
+DIGI Booster                    x-xxx--   Tomasz Piast (Tap)
+DIGI Booster Pro                x-xxx-x   Tomasz Piast (Tap) ** AHI ONLY! **
+Fasttracker 1                   x-xxx-x   Jarno Paananen
+Fasttracker 2                   x-xxx-x   Jarno Paananen
+Future Composer v1.0-v1.4       x-xx-x-   SuperSero (of the Superions)
+Hippel-COSO			xxxx-xx   Jochen Hippel
+IFF 8SVX/RIFF WAVE/AIFF samples x-xx--x   K-P Koljonen
+JamCracker                      x--x-x-   M. Gemmel
+MP2 & MP3			x--x--x   Stephane Tavenard
+Multitracker                    x-xxx-x   Jarno Paananen
+Oktalyzer                       --xx---   Armin Sander
+Taketracker			x-xxx-x   Jarno Paananen
+TFMX                            xxxxx--   Chris Hülsbeck
+TFMX 7ch                        xxxxx--   Chris Hülsbeck & Jochen Hippel
+The Player 6.1A                 x-x----   Jarno Paananen
+THX Sound System                xxxxx--   Martin Wodok (Dexter/Abyss)
+Screamtracker 3                 x-xxx-x   Jarno Paananen
+
+
+
+Player group (See Prefs)
+------------
+
+Player group (HippoPlayer.group) is a file consisting of the replayers
+not included in the main program.  The reason for this is that by moving
+seldom used replayers into a separate file, memory usage is reduced by
+about 80kB.  Not that much you may think, but maybe just enough to
+prevent some actions from happening on low memory systems/situations.  You
+can decide where HippoPlayer is to look for the player group file in the
+preferences.
+
+
+
+Loading files
+-------------
+
+Normally all modules will be loaded in CHIP. 
+
+The following formats can be played from FAST RAM and are loaded there if
+possible:
+- SID
+- PS3M
+- TFMX (only song data, samples are always in CHIP)
+- Oktalyzer 8 channel modules
+- OctaMED 8-64 channel modules
+- Protracker (only if you have selected PT FAST RAM play)
+- DIGI Booster
+- THX
+
+· Compressed files are loaded to CHIP and then inspected if they should be
+  moved to FAST.
+
+· XPK packed files can be identified by unpacking the first chunk of the
+  file.  That hunk will be used to determine whether the module should be
+  loaded to FAST.
+
+· LhA, LZX and Zip files can be checked for loading to FAST.
+
+
+Advantages of loading to FAST:
+ · FAST RAM is much faster than CHIP, so mixing and other processing 
+   can be done faster.
+ · CHIP RAM is saved for other applications.
+
+
+
+
+Protracker
+-----------
+Protracker is the most popular music format on the Amiga.  HiP features my
+own Protracker play routine.
+
+ · Multisong modules
+ 
+   There are some modules around with several songs separated by the B
+   command.  HiP allows you to play these kind of modules correctly.  Just
+   use the '|<' and '>|' gadgets (or the respective keys) to select
+   different songs. The first player on Amiga to support this feature :)
+
+ · Fast RAM player
+
+   This player can play PT modules from FAST RAM using only 1024 bytes of
+   CHIP RAM.  Useful for very big modules.  
+
+ · Old Soundracker modules
+
+   HiP identifies old Soundtracker modules and converts them to the
+   Protracker format. This will take memory temporarily twice the module
+   size, but I don't think it's a big problem because old ST tunes tend to
+   be very small.
+
+
+
+TFMX
+----
+
+HiP can play both 4 and 7-channel TFMX modules, including the excellent
+Turrican 1, 2 and 3 intro tunes.  A TFMX module consists of two files.
+They must be named `mdat.<name>' and `smpl.<name>'.  To play, select
+`mdat.<name>'.  HippoPlayer will then try to load the `smpl.<name>' file.
+Alternatively you can use the TFHD format TFMX modules.
+
+The mixing rate of TFMX 7 channel replayer can be changed.  The bigger
+value, the better quality and bigger CPU load.  If you lose notes or hear
+`crackling' in the sound try lowering the mixing rate in the preferences.
+
+
+
+PS3M 0.960/020+ (22.2.1996)
+---------------------------
+In the term `PS3M', the following formats apply:
+
+ · Screamtracker ]I[
+ · Protracker
+ · Fasttracker 1 & 2
+ · Taketracker
+ · Multitracker
+
+Jarno Paananen (Guru/Sahara Surfers) has made replayers for these.  They
+have been integrated to a mixing engine which is able to play 1-32 voices
+simultaneously by mixing them through four channels.  The routine is
+amazingly fast.  Even on Amiga 500 eigth channel modules are very
+listenable.  The replayer gobbles quite a bit of memory for its buffers, so
+don't be surprised.
+
+Mixing rates can be changed.  Again, the bigger value, the better quality
+and bigger CPU load.  Using the system friendly mode on A500 will probably
+more or less jam the machine, therefore you should use the killer mode for
+the best quality.
+
+PS3M allows mixing rates higher than 28 kHz, which is normally the hardware
+limit.  In some AGA (ECS too?) screenmodes higher mixing rates are
+possible.  This is what I found out after some experimenting.  I used
+maximum overscan.
+
+                 Maximum mixing rates for screenmodes 
+
+                        PAL          28 kHz		
+                        NTSC         28 kHz
+                        Euro36       28 kHz
+                        DblPAL       54 kHz
+                        DblNTSC      54 kHz
+                        Euro72       58 kHz
+                        Multiscan    58 kHz
+                        Super72      46 kHz
+
+Note: If you use too high a mixing rate, the sound will be distorted.
+
+The 14-bit mode supports CyberSound calibration for the best possible
+quality.
+
+Killer mode will cause Enforcer hits!  It bangs some of the
+interrupt vectors.  Don't use Enforcer with killer mode.
+
+These modules can and should be played from FAST RAM.
+
+PS3M can be configured via the preferences or a configuration file.
+
+
+
+
+PS3M configuration file
+-----------------------
+
+It is possible to control PS3M via the config file `S:HippoPlayer.PS3M'.
+HiP will configure PS3M according to the config file every time a module is
+loaded.
+
+In HippoPlayer.PS3M you can enter PS3M settings for each number of channels
+and for specific modules.  In channel and song settings you may replace the
+number you don't want to alter with ?'s.  Useful when you want to control
+the mixing rate from HiP and the volume boost the PS3M from config file.
+
+The file is quite self-explanatory so you should be able to edit it with no
+problem.  If you don't want to use the config file you can delete it from
+S:  or disable it from prefs.
+
+
+
+SID
+---
+These are tunes ripped from C64 games & demos.  Both normal file + icon and
+one file formats are supported.  The playing is done by PlaySID.library by
+Håkan Sundell and Ron Birk.  Great job dudes!
+
+*** Note 1:  Under Kickstart 1.2/1.3 playsid.library v1.1 does not work
+because it uses some Kick2.0+ functions.  I have made a little patch to
+bypass the problem.  This patch works ONLY with lib version v1.1 and
+Kick1.2/1.3.
+
+*** Note 2:  If you are using the excellent Executive you should switch it
+to use some other timer than CIAB because playsid.library needs the CIAB
+timers for playing.
+
+
+
+MED
+---
+HippoPlayer supports different MED formats:  MMD0, MMD1, MMD2, and MMD3.
+
+4 channel tunes are played with medplayer.library version V6 or higher.
+5-8 channel tunes are played with octaplayer.library version V6 or higher.
+1-64 channel tunes (made OctaMED SoundStudio) are played with
+octamixplayer.library version V7 or higher.
+
+The few configurable items have been implemented by using the PS3M settings
+in Prefs. They are as follows:
+
+- High Quality mode with 5-8 channel modules and octaplayer.library is
+toggled on when the PS3M mixing rate is at least 25000 Hz.  Otherwise it's
+off.
+
+- The mixing rate when using 1-64 channel modules and octamixplayer.library
+is the same as the mixing rate in the PS3M settings.
+
+- The play mode when using 1-64 channel modules and octamixplayer.library
+is 8-bit unless you have 14-bit stereo set in PS3M settings.  If so,
+octamixplayer.library will also use 14-bit output.
+
+
+
+AHI audio system
+----------------
+
+AHI (Audio Hardware Inferface) device and driver based audio system by
+Martin Blom <lcs@lysator.liu.se>.
+
+The replayers in HippoPlayer that currently support AHI are: 
+ · Protracker, Screamtracker 3, Fastracker 1 & 2, Multitracker,
+   Taketracker, Hippel-COSO.
+
+These music formats can thus be played thru any audio card that has an AHI
+driver installed.  Amiga's own audio hardware can of course be used too
+(there are 8-bit and 14-bit modes available). 
+
+At least the following sound cards are currently supported:
+ · Delfina
+ · Toccata
+ · Wavetools
+ · Prelude
+
+Configure AHI from preferences.
+
+AHI requires at least kickstart 2.0.
+
+** NOTE!  Don't try to use the external scopes while using AHI.  You have
+been warned.
+
+
+
+Audio samples
+-------------
+HiP is able to play the following audio sample formats:
+- IFF 8SVX 8-bit mono/stereo
+- AIFF 8/16-bit mono/stereo
+- RIFF WAVE PCM 8/16-bit mono/stereo
+- MP2 & MP3 (mpeg-1 layer 1, 2 and 3)
+
+Samples can also be packed with the XPK system.  If the unpacking takes so
+much time that the sound is distorted, you should try a faster xpk
+sublibrary.
+
+Samples can also be packed with the XPK system.
+
+Some memory is needed for data buffers.  You can set the buffer size from
+Prefs.  The routine may use upto 12 buffers, of which 8 in CHIP
+memory.  This can be a lot if the buffer size is big.
+
+Screenmodes with 15kHz horizontal refresh rates (eg PAL and NTSC) limit the
+maximum sampling frequency to 28kHz.  HiP is able to play over 28kHz
+samples on these screenmodes by reducing the sampling frequency in real
+time.  This (of course) takes some extra CPU power and memory.  Because the
+reducing operation is triggered when the horizontal screen refresh rate is
+15kHz, I don't know how this works on GFX CARDS.
+
+As default 16-bit samples are converted to 8-bit samples before playing.
+However, much better sound quality can be achieved by selecting 14-bit
+output.  This can be done from Prefs under Play-2, where you should enable
+the CyberSound calibration.  (Again, the different conversions eat CPU
+power.)
+
+There's no `standard' 14-bit output available for sample playing, the only
+choices are 8-bit output and 14-bit calibrated output.
+
+Also note that with 14-bit sample output the volume gadget has no effect at
+all.  This is because of the special way of outputting the sound.
+
+The sample player supports AHI, so various sound cards can be used for
+sound output.
+
+MP2 & MP3
+---------
+
+This popular tightly packed music format is played using mpega.library
+by Stephane Tavenard. You need lot's of power for these, at least 040.
+The sample buffer size and other related settings work wor MPs too.
+
+
+******************************************************************************
+*                        *** How to use HippoPlayer ***                      *
+******************************************************************************
+
+The main window is an AppWindow.  You can drop icons onto it and they will
+be added to the list and played.
+
+--------------------------
+*** Gadgets & keyboard ***
+--------------------------
+
+Keyboard shortcuts are bracketed.  The keys work from both main window and
+prefs window.
+
+
+ |<<	Load and play previous module. 
+	Keyboard: [K]
+	Number pad: [4]
+
+ |<	Play previous subsong.
+	Keyboard: [ARROW LEFT]
+	Number pad: [4]
+
+ <<	Backward, jump to previous pattern.
+	Keyboard: [,]
+	Number pad: [1]
+
+ >	Load and/or play selected module. If nothing selected, pop up
+	file requester. [RETURN/ENTER]
+
+ Right mousebutton + >
+	Load a random module and play it.
+	Number pad: [*]
+
+ >>	In general this function jumps forward one song position.
+
+	If the module format supports pos/len:
+
+	· Left mousebutton + `Forward' = Jump one position forward
+	  Keyboard: [.], number pad [3]
+
+	· Right mousebutton + `Forward' = Double the playing speed
+	  Keyboard: [SHIFT+.], [SHIFT] + number pad [3]
+
+	If the module format doesn't support pos/len:
+
+	· Left mousebutton + `Forward' = Double the playing speed
+	  Keyboard: [.], number pad [3]
+
+	· Right mousebutton + `Forward' = Quadruple the playing speed
+	  Keyboard: [SHIFT+.], [SHIFT] + number pad [3]
+
+	To restore the normal playing speed, you can do one of the following:
+
+	· Click `Forward' button.
+	· Press `Forward' key [.], number pad [3].
+	· Click `Pause' button two times.
+	. Press `Pause' key two times.
+
+	Keyboard: [.]
+	Number pad: [3]
+
+ >|	Play next subsong.
+	Keyboard: [ARROW RIGHT]
+	Number pad: [6]
+
+ >>|	Load and play next module.
+	Keyboard: [L]
+	Number pad: [6]
+
+ ||	Stop & continue playing (=pause). 
+	Keyboard: [SPACE]
+	Number pad: [5]
+
+ ^ 	Stop playing and eject the current module.  The memory allocated
+	for the module will be freed.
+	Keyboard: [TAB]
+
+ i	Open the module info window.  Various pieces of information of the
+	currently loaded module are displayed in the window.
+
+	Scroll text with the scrollbar or with the arrow keys (faster 
+	scroll with shifts).  The window can be closed by clicking 'i'
+	again, pressing the [I] key, clicking the window close gadget
+	or clicking right mouse button on the window.
+
+	Sample names are shown if the module is one of the
+	following formats: Protracker, DIGI Booster, Screamtracker ]I[, 
+	Fasttracker 1 & 2, Taketracker, Multitracker, THX.
+
+	Sample playing
+	--------------
+
+	Only for Protracker modules that have been loaded to Chip memory. 
+	(The PT replayer must be set to 'Normal'.)
+
+	To play a sample click left mousebutton on a sample name.  The
+	note of the sample can be defined by the X coordinate of the
+	mousepointer:  the leftmost edge of the window is C-1 and the
+	rightmost edge B-3.
+
+
+ i + shift
+	Open the module info window and activate it.
+
+ Right mousebutton + i
+	Open the about window. Otherwise the same as above.
+		Keyboard: [HELP]
+
+ Horizontal slider
+	Volume controller. 
+	Keyboard: [V], [B]
+	Number pad: [-], [+]
+
+ New	Clear the module list, select new modules and play the first one.
+	Keyboard: [N]
+
+ Right mousebutton + New
+	Clear the module list.
+	Keyboard: [C]
+
+ Add    Add modules to the end of the list using file requester.  
+	You can also select directories; HiP will perform a recursive 
+	directory scan adding all encountered files and dirs.
+
+	Each added directory can have its own list divider.
+
+	The file requester is the Reqtools.library file requester.
+	To select multiple files and dirs click files with shift pressed.
+	
+	Keyboard: [A]
+	Number pad: [0]
+
+
+ Right mousebutton + Add
+	The same as `Add', but the added files are inserted after
+	the currently selected file in the list.
+
+	Keyboard: [T]
+	Number pad: [/]
+
+
+ Del    Delete selected module from the list.
+	Keyboard: [D], [BACKSPACE]
+	Number pad: [[]
+
+ Right mousebutton + Del
+	Delete selected file from the list and from the disk.
+	Be Careful.
+
+	Using this function on a divider will remove the divider and all
+	the files below that particular divider from the list.
+
+	Notice that when using the gadget, a `Are you sure?' requester 
+	will pop up, but while using the keyboard, no warnings are given.
+
+	Keyboard: [SHIFT+D], [SHIFT+BACKSPACE]
+
+ Prg	Pop up a file requester for selecting a module list file to load.  
+	The existing module list will be cleared.
+
+	Keyboard: [P]
+	Number pad: [.]
+
+
+ Right mousebutton + Prg
+	Save the contents of the list to a module program file.
+	Keyboard: [W]
+
+ M	Remove a module from the list.  To insert it back press [M]
+	again (also play button (symbol: `>', key: [RETURN] or [ENTER]) 
+	will do).
+
+	Keyboard: [M]
+	Number pad: []]
+
+ Right mousebutton + M
+	Insert a list divider into the list.  With list dividers you 
+	can create sections into the list, for example a divided section
+	for each composer etc.  See Prefs.
+
+	Keyboard: [Q]
+
+ S	Sort list alphabetically.  With lot's of files this may be a 
+	bit slow.  Divided sections in list are sorted separatedly.
+	Keyboard: [S]
+
+ Right mousebutton + S
+	Find a text string from the module list according to a 
+	search pattern. [SHIFT+F] acts as a continue search-button.
+
+	Keyboard: [F], [SHIFT+F]
+
+
+ Pr	Pop up the prefs window.  You can also close it with this button.  
+	Note that all the keys work from the activated prefs window too.
+	Keyboard: [R]
+
+ Right mousebutton + Pr
+	Removes & restores the main window filebox.
+
+ The leftmost propgadget
+	You can scroll the module list by dragging this slider around.
+
+
+ LMB on the left 1/3 of the infobox
+	See `i' above.
+
+ RMB on the left 1/3 of the infobox
+	Open and close the scope window.
+	
+Other keys
+----------
+[ARROW UP] and [Number pad 8]: 
+               Select previous module.
+[ARROW DOWN] and [Number pad 2]:
+               Select next module.
+
+[F1-F10]:      Load & play a module or a module program.
+               You can configure the function keys from prefs.
+
+[Z]:           Open/close the scope window.
+
+[O]:           Enter a file comment for the chosen file.
+
+[E:            Execute a file chosen with a file requester.
+
+[7/8/9/0]:     Titlebar info selector:
+               7 = time, pos/len, song number
+               8 = clock, free memory
+               9 = module name
+               0 = time, duration, pos/len
+
+[G/H]:         Quick setting of the play mode:
+               G = Set playmode to `List repeatedly'.
+               H = Set playmode to `Modules in random order'.
+
+[[]:           Join a module program to the end of the module list.
+               See `Prg'.
+	
+[~]:           Zip/unzip window so that only the titlebar is shown
+               and back to the original size.
+
+               You can do the same thing by doing the following:
+               · Click the window zoom gadget.
+               · Click the right mousebutton on something that doesn't
+                 have a RMB function.
+
+               This button can also be used to bring the HiP window 
+               to front with the hotkey. Useful if you have lost
+               it amongst dozens of screens and other windows.			
+
+[LAMIGA+LSHIFT+CONTROL]: The hotkey combination.
+
+Press [HOTKEY]+[key] to use the HiP-keys WITHOUT first activating the
+window.  This is one of the two ways (the other is ARexx) to control HiP
+when it is hidden!
+
+               [HOTKEY] + [H]: Hide the HiP main window completely.
+                               This key also reveals the hidden window.
+                               Also the key [~] will do, see above.
+               [HOTKEY] + [1]: Zip/unzip window for hotkeys. See [~].
+
+
+
+
+Filebox
+-------
+This is the module list.  There are two ways of selecting modules:
+
+· Click left mousebutton on one of the names.
+
+· Use arrow keys up and down to scroll the list. Shift increases
+  scrolling speed.
+
+The selected item will be enclosed in a selection bar.
+
+
+
+Right mousebutton
+-----------------
+Pressing the right mousebutton will shrink the window so that only the
+titlebar is shown.  Press again on the activated window to expand.
+
+
+
+******************************************************************************
+*                              *** Prefs ****				     *
+******************************************************************************
+
+By clicking on the Prefs gadget you can configure HippoPlayer by using the
+gadgets.  Multiple choice requester can be invoked by pressing right
+mousebutton on the cycle gadgets with `ears'.
+
+
+Play
+----
+ · List repeatedly
+   Play module list over and over.
+
+ · List once
+   Play list once and stop.
+
+ · Module repeatedly
+   Play one module over and over.
+
+ · Module once
+   Play one module once and stop.
+
+ · Modules in random order
+   Play  modules  in random order.  When playing has started, same module
+   will not be played twice unless all modules have been played first.
+
+`Play'  only  affects  the  replayers  where  the  end of the song can be
+detected.
+
+
+
+Timeout
+-------
+Set playing time (mins:secs).  Disabled in the leftmost position.  Timeout
+can affect all modules or only those which the end can't be detected from.
+You can select this by pressing 'Timeout'.
+
+Example:  Play Protracker-modules until they end and PSIDs for, say 3
+minutes.  Or you can play all kinds of modules for only 30 secs (intro scan
+:)
+
+
+
+Alarm
+-----
+Set a time for HiP to play a module (same as startup module).  Control
+alarm with the slider, hh:mm.  To enable alarm, set titlebar info to clock.
+To re-enable alarm, switch titlebar info to something else and then back to
+clock.
+
+
+
+Startup
+-------
+When enabled (with the checkbox left to alarm), HiP will start playing
+immediately on startup.  The module or the program to be played can be
+chosen by clicking the 'Startup' gadget.
+
+
+
+Function keys
+-------------
+You can install a module or a module program for each of the function keys
+(F1-F10) by clicking this gadget.  Then when you press a fkey, the
+corresponding module program or module will be loaded and played.
+
+
+
+Hotkeys
+-------
+
+Every key function in HiP can also be invoked by using this hotkey:
+
+[LAMIGA+LSHIFT+CONTROL]+<key>
+
+The purpose of the hotkey is to control HiP when the HiP window isn't
+active.  For example you can draw with a paint program and change the tune
+HiP is playing by pressing the appropriate hotkey combination.
+
+Here you can enable/disable hotkeys.  Note that some other programs might
+use the same hotkey!
+
+
+
+Doubleclick
+-----------
+When enabled, a module can be loaded and played by doubleclicking on its
+name.
+
+
+
+Continue on error
+-----------------
+When this switch is enabled, errors that occur while loading will be
+ignored, file will be skipped and the next one will be loaded.  After five
+errors the procedure will be halted.
+
+
+
+Early load
+-----------
+Select a pattern from end to start loading next module.  Works with formats
+supporting position/length.
+
+Currently this is quite a lame function, because the newly loaded module
+starts to play immediately.
+
+
+
+Divider / dir
+-------------
+When adding directories it is sometimes useful to have a list divider for
+each scanned directory.  This switch enables just that.
+
+
+
+Auto sort
+---------
+When enabled, the module list will always be sorted automatically after
+adding files & dirs via file requester.
+
+
+
+Priority
+--------
+Select a priority for HiP's processes:  -1, 0, +1.  All excluding the
+scopes are affected.
+
+
+
+Show (titlebar information)
+----
+ · Time, pos/len, song
+
+   Show  playing  time,  song  position/length  and  song number/max song
+   (#n/n)  depending of what kind of a module is being played, and module
+   name.
+
+ · Time/duration, pos/len
+
+   This  does  exactly the same as above with all but Protracker modules
+   and audio samples.  If  enabled,  HiP will calculate duration of PT
+   modules and audio samples and show it in the titlebar.
+
+ · Clock, free memory
+
+   Show clock (24h) and free Chip and Fast in kilobytes.
+
+ · Module name
+
+   Show module name only.
+
+
+
+
+Screen
+------
+Select a public screen.  All HiP's windows and requesters will be opened on
+the defined screen.  If the screen is not available, default screen will be
+used (usually Workbench).
+
+
+
+Filebox (size)
+--------------
+Define the number of files shown simultaneously in the main window.
+Minimum is 3 and maximum is 50.  If the value is too big for the current
+screen it will be truncated.
+The filebox can be removed from the window by selecting size 0.
+
+
+
+Module info (size)
+------------------
+Select the amount of lines the module info window can hold.
+
+
+
+Font
+----
+Select a 8x8 pixel font (kick2.0+ only).  All fixed width and 8 pixel high
+fonts will be scanned and only those that are 8x8 pixel fonts are
+displayed.
+
+
+
+Scopes
+------
+Select one of the scopes by clicking the type gadget and the bar gadget.
+The `Scope on/off' button or `z' key or RMB on the 1/3 of the infobox will
+start it up.  You can close a scope by closing it's window, clicking the
+gadget again or clicking RMB on the activated scope window.
+
+These are for Protracker-modules only:
+
+Quadrascope (& bars)
+ - This is just like the one in Protracker.  Channel order:  1,2,3,4.
+Hipposcope (& bars)
+ - Couldn't invent a better name..  Bass-sounds look nice with this one.
+   Channel order: 1,2,3,4.
+Frequency analyzer (& bars)
+ - This one's more processor intensive.  There is one for the left and the
+   right side. It is supposed to display frequencies while not using
+   period values. This is not FFT, but is based on Guru's strange idea...
+   Bass-sounds are on the left and treble-sounds on the right.
+   Bar channel order: 1,4,2,3.
+Patternscope
+ - Protracker-emulator... Shows pattern data, four fake VU-meters and four
+   tiny period boxes.
+   Channels: 1,2,3,4.
+F. Quadrascope (& bars)
+ - F. stands for filled. Inspired by Guru/S2's routine many years ago.
+   Channels: 1,2,3,4.
+Bars
+ - These will try to visualize the volume and the period of each channel.
+   The vertical position represents sample period and the width sample volume.   
+
+There are almost the same scopes for PS3M:  Quadrascope (stereoscope),
+hipposcope, frequency analyzer and filled quadrascope (stereoscope).  No
+bars.
+
+The sample player has monoscope and filled monoscope.
+
+The scopes will need some kilobytes of memory for buffers.  They are run
+with priority of -30 so that they won't interfere with anything important.
+
+
+
+Prefix cut
+----------
+Select filename prefix cut.  Value 3 will cut prefixes like "mod.", "xm."
+etc.  from the names in the filebox.  This will also affect the sorting of
+the names.
+
+
+
+
+Module directory
+----------------
+Select default module directory.
+
+
+
+Program directory
+-----------------
+Same as above but for module programs.
+
+
+
+Archivers (LhA... LZX... Zip...)
+---------
+HiP can decompress and play modules packed with LhA, LZX and Zip.  You need
+to specify a path, a command and options for each.
+
+Archives will be extracted into a temporary directory that will be created
+in the user defined path (RAM:  is always the fastest while HD is good for
+saving memory).  The directory is then scanned for files and the first
+encountered music module will be loaded.
+
+Requirements
+
+ · LhA, LZX or UnZip, according to what kind of packed files you have.
+   Define the exact location of each (eg dh1:bucket/lha)
+
+ · `Run' and `Delete' commands in C: (or in path).
+
+Hints
+
+ · Archived files may be packed with XPK, FImp, Powerpacker or whatever
+   format XFDmaster.library can decrunch.  For example you could use
+   xpkDLTA to encipher a module and then LhA it.  Gives very good
+   compression of sound related data.
+ 
+ · You can store both TFMX mdat.* and smpl.* files in one archive!
+
+Kick 1.2/1.3 note
+
+LhA is probably the only one that works fine.
+If the default unzip command fails you could try something like this:
+'C:unzip >nil: -o -qq "%s" -d '
+
+
+Archiver commands
+-----------------
+
+LhA: c:lha >nil: x -IqmMNXQw "%s"
+
+c:lha           the program lha with complete path
+>nil:           ignore any output
+x               extract files
+-IqmMNXQw	I       ignore LHAOPTS variable
+		q       be quiet
+		m       no messages for query
+		M       no autoshow files
+		N       no progress indicator
+		X       no need to have the .lha suffix in filename
+		Qw      disable wildcards
+"%s"            the %s is the archive to be extracted.
+
+LZX: lzx >nil: -m -q -X0 x "%s"
+
+-m -q -X0       m       no messages for query
+                q       be quiet
+		X0	no need to have the .lzx suffix in filename
+x               extract files
+
+Zip: unzip >nil: -qq "%s"
+
+-qq             qq      be very quiet
+
+
+
+
+Doublebuffering
+---------------
+Normally when loading a module the one that already is playing is first
+ejected.  With this button you can force HiP to play the current module and
+load the next one at the same time.  Useful for floppy users, no delays
+between playing.  If there's not enough memory to hold two mods at the same
+time, the current module will be ejected first.
+
+
+
+XPK identify
+------------
+When on, all XPKed files will be checked if they should be loaded in FAST
+memory.  You should set this if you listen to modules played by PS3M.
+
+
+
+XFDmaster library
+-----------------
+Use  XFDmaster.library  to  load  packed files of almost any packer format.
+xfdmaster.library in Libs:  is needed of course.
+
+
+
+File match pattern
+------------------
+Match pattern for file requesters and for adding files.
+
+
+
+
+Player group
+------------
+Status: 	Player group loaded/not loaded.
+Mode:		Loading conditions
+		- All on startup: load the group immediately on startup
+		- All on demand: load the group when there is demand for
+			         a replayer
+		- Disable: don't load the group and unload if already loaded
+		- Load single: load a single replayer from the group 
+	          when needed
+File:		Player group file.
+
+
+
+Filter control
+--------------
+Filter controlled by module, filter forced off or on.
+
+
+
+Fade volume
+-----------
+This will cause those replayers that support volume to fade music in and
+out.
+
+
+
+Nasty audio
+-----------
+Select allocation priority of the audio channels.  When on, no program
+except HiP can use the channels.  PS3M uses maximum priority at all times.
+
+
+
+VBlank timer
+------------
+Select timing method to be used for playing: VBlank or CIA timer.
+
+Use this switch if you don't want HiP to use one of the four CIA timers.
+VBlank plays with wrong speed on non-50Hz screens.
+
+This switch has no effect on the following:  PS3M, SID, Sonic Arranger,
+TFMX, TFMX 7c, MED, The Player 6.1a, DIGI Booster.  They use their own way
+of timing.
+
+Tempo will be disabled when playing PT mods with VBlank timer.  Double and
+quadruple playing speeds are disabled when using VBlank.
+
+
+
+PT replayer
+-----------
+ · Normal
+
+   Use normal Protracker replayer to play modules from CHIP RAM.
+
+ · Fastram
+
+   Play PT modules from FAST RAM.
+
+ · PS3M
+
+   Use Guru's PS3M to play modules from Chip or Fast.  This way you can
+   use those neat modes, eg listen Protracker modules with real surround.
+
+
+
+Protracker tempo
+----------------
+Enable or disable Protracker tempo command.  Useful for playing old modules
+that use speeds higher than $1F.  Applies also to The Player modules.
+
+
+
+TFMX rate
+---------
+Mixing rate for the 7-channel TFMX replayer.
+
+
+
+
+Sample buffer (size)
+--------------------
+Define the buffer size for the audio sample player.  A small value might be
+good for fast HDs, while big is be better with slower media.
+
+
+
+
+Force sampling rate
+-------------------
+This is a setting for the audio sample player.
+
+Normally the sampling rate is stored in the header of a sample.  This
+slider allows you to override that rate so that HippoPlayer will use this
+value instead of the one found in the sample.
+
+To disable the override move the slider to the leftmost position.
+
+** NOTE!  The sampling rate can be over 28.0 kHz only with some specific
+screenmodes.
+
+
+
+Cybercalibration
+----------------
+Enables the 14-bit Cybercalibrated output for the sampleplayer.
+Better quality, lower volume, needs more cpu.
+
+
+MPEGA quality
+-------------
+Controls the output quality for playing MP?-files.  Smaller number uses
+less cpu and is of worse quality etc.
+
+
+MPEGA freq. div.
+----------------
+Can be used to drop down the quality even more when playing MP?-files.
+Divides the souce sampling rate by this number.
+
+
+MED mode
+--------
+Affects 5-64 channel MED/OctaMED/OctaMEDSS etc modules.  8 means normal
+8-bit low quality output, 14 means 14-bit high quality output.
+
+
+
+PS3M settings
+-------------
+This replayer (by Guru/S2) can play S3Ms, XMs, FTMs, MODs and MTMs.
+Some of these also affect in playing MED modules.
+
+Play mode:	 Playing modes (see the PS3M doc for more info, or just
+				try them out)
+Priority:
+	Pri -10 to +9
+		  Set priority for the system friendly player process.
+	Killer    Disable system and stop most of the DMA to get the best
+                  quality. The blue flickering represents free CPU time.
+		  Stop playing by pressing mousebuttons.  No enforcer!
+
+Mixing buffer size:
+	4kB, 8kB, 16kB, 32kB mixing buffer size.
+	Smaller buffer gives faster response, but decreases the
+	"backup" buffer possibly causing more "skipping".
+
+Mixing rate:
+	Mixing rate in kHz.
+
+Volume boost:
+	Makes the sound clearer and louder (use when 8 or more channels)
+	You will hear the change almost immediately.
+
+Stereo level:
+	Works only with Surround play mode.
+	You can adjust the strength of stereo. 0% is mono, 100% is stereo,
+	and 50% is the normal surround value.
+
+Use S:HippoPlayer.PS3M configuration file:
+	Use a special configuration file for configuring PS3M.
+
+use CyberSound calibration
+	Set the enable switch and the name of the calibration file.
+	CyberSound calibration takes effect when you have also enabled
+	the 14-bit stereo mode. Also the 16-bit sample player will use
+	this output mode if you have enabled it here.
+
+	Creating a machine specific calibration table will decrease 
+	the noise level and increase the sound quality.  This can be 
+	done with 14Bit_Calibration, which can be found in
+	HippoPlayer/Support/  directory.  The program belongs to
+	the CyberSound audio subsystem package by Christian Buchner. Thanks!
+
+	  As default the calibration table will be saved to	
+	  ENVARC:CyberSound/SoundDrivers/14Bit_Calibration.
+
+	  You really should try this out! The sound quality is very good
+	  compared to 8-bit or standard 14-bit output! 
+
+
+
+AHI audio system settings
+-------------------------
+
+Enable AHI:
+  Makes those replayers that support AHI use it for sound output.
+  The replayers that currently support AHI are:
+   · Protracker, Screamtracker 3, Fastracker 1 & 2, Multitracker, 
+     Taketracker, Hippel-COSO.
+
+Disable non-AHI replayers:
+   Do not play non-AHI supporting modules at all. An `Unknown file format'
+   error will be shown.
+
+Mode:
+   Select AHI audio mode.
+
+Mixing rate:
+   The bigger value the better quality and bigger CPU load. 
+   Watch out! It's easy to jam up the system with too high a value.      
+
+Master volume:
+   This value controls the volume level of AHI, just like volume boost
+   with PS3M. Value of 0 means no boost. With too high values the
+   sound will break and turn ugly. :)
+
+Stereo level:
+   Change the stereo level. 0% is full mono, 100% is full stereo.
+
+
+
+Save, Use, Cancel
+-----------------
+I guess you can guess these.  If you close the prefs window it's same as
+'Cancel'ling.  The prefs-file will be saved in the S:  directory.
+
+*** NOTE:  Positions of the windows and some requesters are saved too.
+
+
+
+******************************************************************************
+*                        *** Command line options *** 			     *
+******************************************************************************
+
+Add modules to the list
+-----------------------
+HiP  <file2> <file2> ... <file16>
+
+All the files will be added to the list and the first added one will be
+played.
+
+
+Load a module program
+---------------------
+HiP PRGM <module program>
+
+The program will be loaded and the first module will be played.  If the
+playmode is set as 'Modules in random order', then a random module will be
+picked and played.  Existing list will be cleared.  (The PRGM-keyword is
+not necessary, but is faster in terms of disk activity.)
+
+All filenames must be entered with full paths!
+
+*** NOTE:  You can also do these things while HiP is ALREADY running!  This
+allows you to use HiP as a command line module player.  Eg in Directory
+Opus it makes a good play button.
+
+
+Hide on startup
+---------------
+HiP HIDE [other parameters]
+
+HIDE makes HiP even more a command line player.  It will force HiP not open
+it's window.  Also reqtools.library is not needed (it will be loaded later
+if the window is opened).  HiP can be controlled with hotkeys (if enabled)
+and/or ARexx if the window is not opened.
+
+
+Quit
+----
+HiP QUIT
+
+If there is already one HiP running, it will be terminated.
+
+
+
+******************************************************************************
+*                              *** ARexx *** 			     	     *
+******************************************************************************
+
+HiP has an ARexx port 'HIPPOPLAYER'.  It will be initialized at startup if
+RexxMaster is found running.  There are some simple ARexx-examples in the
+ARexx-dir.
+*** Note!  The ARexx-interface is not very thoroughly tested.
+If there appears any misbehaviour, please tell me!
+
+Parameters in [] may be omitted, parameters in <> may not!
+
+CHOOSE <num>		Choose file number <num> in list.
+ADD [file]		Add file [file] to list. If not specified, open
+			file requester.
+DEL			Delete chosen file from list.
+CLEAR			Clear list.
+MOVE <num>		Move chosen module after file number <num>.
+INSERT <file>		Insert file <file> after chosen file.
+SORT			Sort file list.
+LOADPRG [file]		Load program [file]. If not specified, open
+			file requester.
+
+PLAY [file]		If [file] is given, clear list and play it. Otherwise
+			play chosen file. If there's no files in list then
+			open file requester.
+EJECT			Stop playing and free current module.
+STOP			Stop playing.
+CONT			Continue playing after stop.
+SONGPLAY <num>		Play song number <num>.
+RANDPLAY		Pick a random module and play it.
+FFWD			Jump forwards in song.
+REW			Jump backwards in song.
+VOLUME <vol>		Set volume <vol> (0-64).
+
+QUIT			Close all windows and exit program.
+ZIP <0/1>		0: small main window, 1: normal main window
+HIDE <0/1>		0: hide main window, 1: show main window
+PUBSCREEN <screen>	Set public screen for HiP's windows & requesters.
+			Note that this is case sensitive.
+
+TIMEOUT <secs>		Set timeout (0-600 secs).
+PS3MBOOST <value>	Set PS3M volume boost (0-8).
+PS3MMODE <mode>		Set PS3M mode. 1: surround, 2: stereo, 3: mono,
+			4: real surround, 5: 14-bit stereo.
+PS3MRATE <rate>		Set PS3M mixing rate (5000-56000).
+
+LOADPREFS <file>	Load prefs file. Restart HiP with new settings.
+			HiP only saves prefs to S:HippoPlayer.prefs, so
+			you have to collect them manually somewhere for
+			ARexx-usage.
+
+SAMPLES			Open module info window.
+
+GET <xxxx>	With this command you can get different information from HiP.
+		The <xxxx> can be one of the following:
+		xxxx:	result:
+		PLAY	0 if not playing, 1 if playing.
+		CFIL	Number of chosen file, 0 if none chosen.
+		NFIL	Number of files in list.
+		CURR	Number of loaded module.
+		NAME	Module name.
+		TYPE	Module type.
+		CNAM	Name of chosen file.
+		CSNG	Current song number.
+		NSNG	Number of songs available.
+		CSPO	Current song position.
+		MSPO	Maximum song position.
+		FNAM	Full name of loaded file.
+		COMM	File comment of loaded file.
+		SIZE	Size of loaded file.
+		DURA	Module duration in seconds (returns 0 if Time/
+                        duration is not enabled).
+		HIDS	0 if main window not hidden, 1 if hidden.
+		FILT	0 if filter off, 1 if filter on
+			
+
+******************************************************************************
+*                              *** Developers ***                            *
+******************************************************************************
+	
+HiP has a tiny interface for programmers who want to c0de some scopes of
+their own.  Check out the example source(s)!
+
+What you do is FindPort() "HiP-Port".  If unsuccesful, HiP is not running.
+Otherwise, you get the pointer to HippoPlayer's port.  It looks like this:
+
+	STRUCTURE       HippoPort,MP_SIZE
+	LONG            hip_private1    * Private..
+	APTR            hip_kplbase     * Protracker replayer data area
+	WORD            hip_reserved0   * Private..
+	BYTE            hip_quit        * If non-zero, we must quit
+	BYTE            hip_opencount   * Open count (see below)
+	BYTE            hip_mainvolume  * Main volume, 0-64
+	BYTE            hip_play        * If non-zero, HiP is playing
+	BYTE            hip_playertype  * 33 = Protracker, 49 = PS3M
+	*** Protracker ***
+	BYTE            hip_reserved2
+	APTR            hip_PTch1       * Protracker channel data for ch1
+	APTR            hip_PTch2       * ch2
+	APTR            hip_PTch3       * ch3
+	APTR            hip_PTch4       * ch4
+	*** PS3M ***
+	APTR            hip_ps3mleft    * Buffer for the left side
+	APTR            hip_ps3mright   * Buffer for the right side
+	LONG            hip_ps3moffs    * Playing position
+	LONG            hip_ps3mmaxoffs * Max value for hip_ps3moffs
+	*** Protracker ***
+	BYTE            hip_PTtrigger1
+	BYTE            hip_PTtrigger2
+	BYTE            hip_PTtrigger3
+	BYTE            hip_PTtrigger4
+
+	APTR            hip_private2
+	LONG            hip_playtime    * Module time played in secs
+	LONG            hip_colordiv    * See below.
+	WORD            hip_ps3mrate    * PS3M mixing rate
+
+	*** PT channel data block
+	STRUCTURE       PTch,0
+	LONG            PTch_start      * Start address of sample
+	WORD            PTch_length     * Length of sample in words
+	LONG            PTch_loopstart  * Start address of loop
+	WORD            PTch_replen     * Loop length in words
+	WORD            PTch_volume     * Channel volume
+	WORD            PTch_period     * Channel period
+	WORD            PTch_private1   * Private...
+
+
+
+*** NOTE:  DON'T WRITE ANYTHING TO THE PORT!
+
+*** hip_opencount ***
+
+As soon as you get the pointer to HippoPlayer's port, add 1 to
+hip_opencount.  When you are done, subtract 1 from hip_opencount.
+
+*** hip_quit ***>
+
+If this byte becomes non-zero, your scope (or whatever) must quit.
+
+*** PT hints ***
+
+Each channel has it's own trigger byte:  hip_PTtrigger1, hip_PTtrigger2
+etc..  When a new sample starts to play, the corresponding channel trigger
+is incremented by 1.
+
+PTch_start is updated so that it always points to the current playing
+position of the sample.  PTch_length will decrease until it hits zero.
+When this happens, PTch_start is replaced with PTch_loopstart and
+PTch_length is replaced with PTch_replen.  In other words, the sample
+loops.  If the loop size is 2 bytes (PTch_length = 1, PTch_replen = 1),
+the sample stops (plays null).  Don't read past the sample data; always
+check PTch_length.
+
+The hip_kplbase points to the data area of my Protracker replayer.  This
+makes it possible to do scopes like patternscope.  Contact me if you want
+the structure definition.
+
+*** PS3M hints ***
+
+hip_ps3moffs is an offset from the start of the buffers pointing to the
+current playing position.  Don't read past bufferstart+hip_ps3mmaxoffs.
+
+
+
+******************************************************************************
+*                            *** Known bugs *** 			     *
+******************************************************************************
+
+ · Main  window  refresh  may  get dangerously confused when when zipping
+   window  via zoomgadget while loading module/program, saving program or
+   sorting.  One zip is allowed, two is too much, so be careful.
+
+ · Timeout  and  alarm  don't  work  if  there's  no timer visible in the
+   titlebar.
+	
+ · Some Fred modules cause enforcer hits.
+
+ · Sonic Arranger tunes tend to crash sometimes.
+
+ · Scopes  bug  with  PT  9xx  command.  This  one  originates  from  the
+   Protracker itself (my PT replayer really is 100% PT compatible :)
+
+ · If you click outside the slider but in the gadget area at the same
+   time when activating a window, the gadget might not respond. I've
+   heard that this is a bug in in AmigaOS.
+
+ · Some mysterious bugs in ARexx... (?)
+
+
+
+
+******************************************************************************
+*                              *** History *** 			     	     *
+******************************************************************************
+
+Read this!  Some things are not mentioned elsewhere!
+
+
+v2.00 (19.3.1995)
+-----------------
+	* ARexx support
+	* Public screen support
+	* Keyboard control changes: you can use the keys without activating
+	  the window first by pressing lamiga-lshift-control-<key>.	
+	* New PS3M: support for Fasttracker 2 (XM) modules.
+	* Improved outlook.
+	* Patched playsid.library so that it's possible to play SID-tunes
+	  also on kick1.2/1.3.
+	* Prefs: continue on error, hotkeys, nasty audio, doublebuffering,
+	         program dir selector.
+	* Main window: move, insert, sort (hidden under insert)
+	+ Timeout has now two modes.
+	+ You can 'Add', 'New' and 'In' directories.
+	+ New The Player v6.1a replayer.
+	+ PT replayer causes no serialstops.
+	+ Command line: HIDE, QUIT.
+	+ Prefs: PS3M volume boost has immediate effect on music.
+	+ Included some support progs.
+	· PSID-files are loaded in public mem if possible.
+	· HiP can be hidden with lamiga-lshift-control+h.
+	· Key for toggling current scope.
+	· Uses less CPU than v1.40 when not playing.
+	· Filebox routines optimized & jump scroll with shifts.
+	· New algorithmic random generator (thanks Thomas!).
+	· If PT replayer is set as 'Fastram', modules smaller than
+	  the replayer's chip buffers (256kB) will be loaded in chipram.. :)
+	· Recognizes .Lha .lHa .lHA like suffixes too.
+	· Only 8 channel Oktalyzer-tunes are loaded in fast ram.
+	· Faster gadget disabling/enabling (OffGadget() was sloooow).
+	· Fixed and enforcer hit when toggling prefs window.
+	· Bug fix in the doc: the player table had some wrong info.
+	· General good stuff and nice things.
+		
+v2.05 (3.5.1995)
+----------------
+	* Some fixes and improvements here and there.
+	* Keyboard: K/L swapped back with ARROW LEFT/ARROW RIGHT.
+		    Added lot's of functions to number pad.
+	* MED: multisong support, song position/song length, forward,
+	       rewind, songend. Also no lib-error bug removed.
+	* New PT FAST RAM replayer which uses only 1024 bytes of CHIP RAM.
+	* Replaced GZip support with LZX.
+	* New music formats: Mark II, Maniacs of Noise, David Whittaker,
+			     BP SoundMon v3.0 (v2.2?).
+	* Prefs: VBlank timing selector, switch for scope bars.
+	- Added zoom-gadget (kick2.0+).
+	- Directories are added recursively (kick2.0+).
+	- Fix: PS3M with killer mode caused crashes (my fault).
+	+ Added Humble mode for PS3M: priority = -3.
+	+ PS3M mixing buffer size can be as high as 64kB.
+	- Fix: randomgenerator bugged heavily (jammed the machine).
+	- Fix: PT replayer patterndelay + volslide.
+	- Double buffering: if not enough memory, dump current module and
+	  try again.
+	- When adding modules via AppWindow or commandline they are
+	  added to the end of the list, instead of first clearing the list
+	  and then adding.
+	- Filter status saved in prefs file. Wasn't saved in prev. versions!
+	- File selection bar is always kept visible.
+	- Better init error handling.
+	- The sort routine is six times faster than before.
+	- Priority affects all processes excluding HippoScope.
+	- Windows adapt with different border sizes (works with sysihack).
+	- Titlebar info: clock and free mem shown at the same time.
+	- Keys works from prefs window too.
+	- A new icon by Cyclone.
+
+v2.06 (19.5.1995)
+-----------------
+	* External player group.
+	+ Selectable 8x8 pixel font (kick2.0+).
+	+ Title of the sample name window now contains name, comment and size.
+	+ Timing is done with CIAA timer. Serialstops should finally
+	  be gone now..
+	- Hide had a big bug! Terminated it. (Hi Yolk! (I'm an idiot))
+	- Fixed a bug in HiP-script (LZX extraction).
+	- Pressing 'Use' in prefs window will also change the scope.
+	- Fade volume on exit.
+	- A new icon by Roman Patzner.
+	- Fixed a bug in ZIP (ARexx).
+	- Some PS3M bugs removed.
+	- Some fixes...
+
+v2.07 (26.6.1995)
+-----------------
+Bug fixes:
+- Continue on error no longer causes neverending load and fail-loops.
+- PS3M buffer max size reduced to 32kB (64kB didn't always work well).
+- Removed a bug in the font selector (no more memory and time waste).
+- 'New' clears the list only if some mods were selected.
+- PT fastram player bug removed (the one that jammed the machine).
+- Timeout works with doublebuffering now.
+- LhAed TFMX mdat+smpl loading with doublebuffering had a really
+  serious bug. Killed it.
+- Another bug with LhA and TFMX removed. Probably caused crashes if
+  the length of the MDAT file was odd.
+- Pos/len and NS/PS didn't work with MED MMD2 modules (I don't have the
+  format description!), so I removed them.
+- ARexx command PLAY was documented misleadingly. Corrected.
+	
+Improvements:
+- Little fixes and improvements here and there.
+- Find files in list.
+- Alarm clock! :)
+- New music formats: Old Soundtracker, Hippel, Hippel-COSO.
+- SID-info and sample name windows update when a new module is loaded.
+- Totally new cycle gadget mult.choice requester with right mousebutton!
+- 'Center name' improved so that doubleclicking is more easier.
+- Option to show duration of Protracker modules.
+- MED-player will try to allocate the serial port for playing MIDI
+  modules.
+- New PS3M replay version: 0.951. Lot's of bugs removed.
+- Moved PS3M into player group.
+- Config file for PS3M, like the one in PS3M the player by Guru.
+- PS3M Surround stereo slider.
+- PS3M Humble and Friendly modes replaced with priority selector.
+- PS3M now uses CIAA timer which doesn't cause serial stops like CIAB.
+  (The CIAB can be selected in the PS3M config if the user really wants.)
+- New DMA wait routine for PT replayer by Peter Kunath.
+- Changing scope will have immediate effect.
+- No pop-screen-to-front at startup anymore.
+- Improved LhA, LZX and Zip file indentification.
+- Tools: WaitHiP, HiPlay, PSIDcomment.
+- New MWB icons by Roman Patzner.
+- New NewIcons icon by David Wiles.
+- HiP.guide by Tuomas Lukinmaa.
+
+v2.08 (21.7.1995)
+-----------------
+Bug fixes:
+- 'Play Module once' bug removed.
+- Changed to use the old DMA wait in the PT replayer because the new
+  one didn't always work fine.
+- Added RMB listselector for main program priority.
+- Tried to play MED mods even when an init error occured. Fixd.
+- PT module duration calculation routinetion [:-] locked up in some
+  situations.  Fxd.
+- PT module end-detect fix.
+- PS3M configuration file parser had a bug.  Messed up priorities with
+  killer mode.  Fd.
+- Doublebuffering works with dropped-icon modules.
+- Dropped modules get played immediately even with random play.
+- PSID file identification with .info now recognizes more files.
+- Crashed when couldn't open font.  F.
+- Some problems fxd with song names and PS3M.
+- 'Continue on error' failed with unknown modules.
+- PT sampleoffset now actually works 100% correctly.  Hi Yolk & Guru!  :)
+- Recognizes *.LZH.
+- Major bug removed in random play..
+
+Improvements:
+- Added mouse waitpointer.
+- Better MarkII, Hippel and Hippel-COSO identifying.
+- Included a HiP brush by Roman Patzner.
+- No volume fade on exit.
+- Volume fade works a bit better with PS3M.
+- Scope window is closed when no data is available.
+- List selector in prefs can be cancelled by clicking outside the window.
+- If a module that is played contains subsongs, all of them are played
+  before next module is loaded.  Works with play modes 'List repeatedly' &
+  'List once' and with end-detectable modules, and with timeout.
+
+v2.09 (28.7.1995)
+-----------------
+AARGH!!  v2.08 had an old version of the PS3M!  :-(((((((((( This version
+has the new one (same as the version in v2.07)...
+
+Improvements:
+- New scope
+- A little change in PatternScope concerning VU-meters.
+
+v2.10 (2.9.1995)
+----------------
+Bug fixes:
+- Some little ones here and there.
+- DMA wait bug fixes: Protracker, JamCracker, Soundmon, Hippel-COSO.
+  Lost notes on screenmodes with high refresh rate.
+- Enforcer hit with right mousebutton removed.
+- Commandline stuff bugs removed.
+- Enforcer hits with scopes fixed.
+
+Improvements:
+- List dividers.
+- Filename prefix cut.
+- Early load.
+- New fast forward mode.
+- RMB function indicators (DOpus style).
+- New Prefs organization.
+- Changed the position of 'cursor' in patternscope.
+- IFF 8SVX sample playing.
+- Added SAMPLES ARexx command.
+- ARexx command PLAYSONG bugged. Replaced with SONGPLAY that works.
+- Little interface for programmers.
+- Thickened the quadra/stereoscopes.
+- Moved the info from the title of the sample window into the window itself.
+- The position of the sample name window and the info window are saved.
+- Sample windows not opened by the user no longer inactivate the main
+  window.
+- Join module lists with RMB and 'Lp'.
+- Improved sort routine:
+   * Sorting accuracy 24 characters
+   * Divided sections are sorted separatedly
+   * Prefix cut compatible
+   * Not very fast. I'm still using bubble sort...
+- Skip setting of values in PS3M config file with ?'s.
+- Included Filer-ARexx script by Janne Simonen.
+- Increased PS3M maximum mixingrate from 56 kHz to 58 kHz after finding out
+  it is actually possible.
+- HippoScope for PS3M:  doubled the vertical pixel size, doubled the amount
+  of pixels on 020+ Amigas.
+- NOTE THIS:  The PRG keyword has been changed to PRGM!
+ 
+v2.11 (6.9.1995)
+----------------
+Bug fixes:
+- Some little fixes.
+- v2.10 had a test version Protracker replayer...  Argh!  :( Well it works
+fine and is faster but doesn't always sound the same as the original
+Protracker.  So back to the old replayer in this version.
+
+Improvements:
+- Scope opens again when possible.
+- Dir add with divider/dir now adds dividers to all dirs.
+
+
+v2.12 (16.9.1995)
+-----------------
+Bug fixes:
+- Some.
+
+Improvements:
+- Redone the programmer interface.
+- External scopes included.
+- Example scope source included.
+- Loading progress indicator for XPK files.
+- Filled stereoscope for PS3M.
+- Hipposcope for PS3M:  2x1 pixels instead 1x2 pixels.  Also no extra dots
+with 020+ CPUs anymore.
+
+
+v2.20 (27.10.1995)
+------------------
+Bug fixes:
+- Some..
+- PS3M stereo didn't get updated unless the Prefs window was opened.
+- hip_play in HiP's port wasn't updated!  Fixed.
+- Nasty bug defeated in font requester! Corrupted the archiver commands..
+- Some fixes in PT replayer.
+- Bug fixed in Examplescope-source.
+
+Improvements:
+- New prefs system with paging.
+- Listview for module info (sample names, PSID-info etc)
+- New PS3M:  0.959 (20.9.1995).  NOTE!  The XM player is from the old PS3M,
+  because the new XM player sucked..  Hi Guru!
+- Removed the CIA selector from HippoPlayer.PS3M, currently PS3M always
+  uses CIAA if possible.
+- Pattern match for file requester.
+- XFDmaster.library support for loading all kinds of packed files.
+- Support for Alexis Nasr's combined TFMX mdat+smpl format (TFHD).
+- If there's not enough chip memory, unpacked and XPK packed (with XPK
+  identify) PT modules will be loaded to fast memory.
+- If possible, CIAB is used for DMA wait.  No interrupts included!
+- Better Old Soundtracker idenfication.
+- Max timeout increased to 30 mins.
+- Alarm now has a slider (hh:mm).
+- Included xVUmeter.
+- Included HiPScope with the C source and header file by Thomas Skoldenborg.
+
+v2.21 (16.12.1995)
+------------------
+Bug fixes:
+- Quite a bunch removed.
+- Found & killed many memory mangling bugs.
+- Scope 'data follow speed' problems fixed.  Should work on all the
+  standard monitor drivers.
+
+Improvements:
+- New, fast and amazing LhA/LZX/Zip loader that scans each archive for
+  music modules! Archives with 100 BBS adverts and one module will work
+  fine.  BTW, delete the HiP-script file.  It's no longer needed.
+
+- New mode for player group: Load single.
+
+- Info & main window scrolling now with optimized blitter power.
+- PS3M mixing rate printed into the info window.
+- Info window open/close status saved in prefs file.
+
+- DIGI Booster support.  May be removed from the later releases.  You
+  should try out the tracker, it's great.  Thanks to Tomasz Piast (Tap)
+  for giving me the replayer source.
+
+- Exit the module info by pressing Escape (in the window that is).
+- Nuke key: [BACKSPACE+SHIFT]. Will remove a file from the list as well as
+  from the DISK!
+
+- Bigger jump in PSID fast forward.
+- Two new parameters for ARexx GET: DURA and HIDS.
+
+- Some cosmetic changes.
+
+- Included installer-script by Tomasz Kepa.  Thanks! 
+  Some modifications by me.
+- Included French docs by Alan Guillevic. Thanks!
+- Included HiP-ARexx-Play.rexx script by Marcel Döring
+  <DonDoringo@GURU.rhein-main.de>.  Thanks!
+- Included a Hippo drawer icon by Richard Harris. Thanks!
+
+
+v2.22 (26.12.1995)
+------------------
+Bug fixes:
+- Forgot to fix in the last version:  info window could only open to
+  Workbench screen. 
+- Player group handling had a random memory allocation bug..  :(
+- PS3M is known to cause crashes when writing to floppy.  I did something
+  to the PS3M interrupt servers and the problem seems to be gone now.
+  Who knows for sure...
+- Installer script fixed. Tried to copy the obsolete HiP-script too.
+
+Improvements:
+- MED sample names are shown in the info window if possible.
+- List dividers don't count as files anymore in the about window.
+- Included SPIScope by Tuomas Lukinmaa.
+
+
+
+v2.23 (7.4.1996)
+----------------
+
+Bug fixes:
+- A multitude of major & minor bugs removed.
+- A severe bug in Load Single player group mode removed.
+- Alarm fixed. Probably didn't work at all.
+- Something fixed in VUMeter, shouldn't crash anymore.
+
+Improvements:
+- Quality assurance by a bunch of betatesters (yeah, sure :-)
+
+- New PS3M 0.960.  Bugs fixed in Fasttracker II (XM), Screamtracker III
+  (S3M) and Fasttracker I (FT) replay routines.  Fixed & updated by Peter
+  Kunath / Delirium Softdesign (Hi!  Thanks!)
+
+- SHIFT+BACKSPACE on a divider causes all the files 'under' that particular
+  divider to be deleted from the list.
+- Added RMB function for Del.  The same as SHIFT+BACKSPACE = delete file or
+  delete divider and the files under it.
+
+- RMB on the left 1/3 of the infobox = scope on/off.
+
+- Info window: show the whole filecomment.
+
+- Monoscope and filled monoscope for IFF sample player.
+
+- Will now try CIAA first and then CIAB for timing.  Should work with
+  other apps that require CIAA, like Shapeshifter.
+
+- New DigiBooster replayer v1.4 by Tap.  (BEWARE:  the replayer
+  causes non-lethal enforcer hits!)
+- Added volume control for DigiBooster modules.
+
+- Prefs: Prefs page saved in the prefs file.
+- Prefs: Use/don't use HippoPlayer.PS3M configuration file.
+- Prefs: Save window zip status (big window/title bar).
+- Prefs: Sample buffer size.
+- The file match pattern is now applied to all filenames, not only to those
+  shown in the filerequester (kick2.0+).
+- Filebox size can be set to 0: remove the whole thing from the window.
+
+- LhA archive extraction should work on kick1.3 now.
+
+- Player group mode 'Load all' will load med and psidplayer libraries.
+- Module name in titlebar in all but 'Show clock, free mem'.
+
+- ARexx GET: FILT
+- ARexx: Some new scripts added. Check them out.
+
+- Scopes can be run from WB.
+
+- Included a MWB drawer icon and MWB icons for scopes.  Thanks go to Ilmari
+  Karonen for these.
+- Some history cut from the doc.
+
+
+v2.30 (5.8.1996)
+----------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- Numerous!
+- More urouhack compatible.
+- Fixes in the sort routine and in the recursive file add.
+- Added some security to the PS3M killer mode.  Don't know if it made any
+  difference.
+
+
+Major improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- New GUI look.
+
+- Mega major enchancements in the sample player:  IFF, AIFF, RIFF
+  WAVE, mono/stereo 8/16-bit support, stop cont, end detect, duration
+  calculation. 8/14-bit playing.
+
+- Protracker sample playing in the module info window! Finally after
+  lot's of public pressure :)
+  Click a sample to play. The horizontal position of the mouse pointer
+  defines the note.
+
+- Support for THX Sound System modules.  Great chip tunes!
+  Needs 68020+ to work.
+
+- Archives (LhA, LZX, Zip):
+  · A proper file identification in the archive extraction.
+  · LhA, LZX and Zip archives without the suffix (.lha, .lzx, .zip)
+    can be now loaded. This feature needs some changes in the archiver
+    commands, so be sure to change them!
+
+- CyberSound calibration file support for PS3M. Totally amazing
+  14-bit quality!
+
+- 'About' uses the module info window routines, no more reqtools.
+
+- DIGI Booster sample names can be viewed in the module info window.
+
+- Much improved guide-file. Hi Marius! :)
+
+
+Minor improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Scopes now support quitting when HiP tells them to.  Also the can be quit
+  by clicking right mousebutton on the active scope window.
+
+- Shift + I not only opens the moduleinfo window but also activates it.
+
+- Pressing RMB on the module info window or about window will cause
+  the window to be closed.
+
+- Prefs: the string gadgets are now cyclable with TAB.
+
+- Right mousebutton on the prefs gadget |Pr| will remove/restore the main 
+  window filebox.
+
+- Keyboard changes:
+  · Two new key functions: [G] and [H] for playmodes 'list repeatedly' 
+    and modules in random order'.
+  · New key assignments:
+    · Clear modulelist = [C]
+    · Delete module = [D], [BACKSPACE]
+    · Volume = [V], [B]
+    · New = [N]
+  ·   Prefs = [R]
+
+- A new XPK load progress indicator.
+
+- In 'Play modules in random order' mode the modules already played
+  will be marked with '#' in the list.
+
+- Adding files and dirs works more logically now.
+
+- Added some reason to the init error management.
+
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- New MWB icon by Trevor Morris.
+- New ARexx-script: Suffer.rexx by Marcel Döring. 
+- New ARexx-scripts: hip_play1b.rexx, hip by Filip "Eliot"
+  Oscadal.
+- New version of the HippoPlay.filer ARexx-script by Janne Simonen.
+
+
+
+v2.32 (6.10.1996)
+-----------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- Fixed some problems related with `HIDE' command line parameter.
+- Window didn't refresh properly when zipping shrinked main window. Fixed.
+- When loading archived TFMX modules HiP didn't delete the temp directory.
+  Fxd.
+- Some other little bugs removed. There's no end to these.. :-\
+- Some fixes in the .guide file.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- AHI audio system support. Needs kick2.0+ and (probably) 68020+.
+  
+- New DIGI Booster replayer v1.6. Thanks Tap & Walt!
+
+- PS3M:
+  · 020+ mixing routines optimized a bit.
+  · Some fixes in the replayers.
+
+- Sample player:
+  · 020+ optimizations.
+  · Moved into player group.
+  · The sampling rate can be set from prefs. This overrides the rate
+    got from the sample's header. Hi Icebeat :)
+
+- Auto sort option in Prefs.
+
+- Major byte shaving throughout the source.
+
+- Updated the doc file. It's still as messy as ever.. Guides rule.
+
+- A new and improved installer script. 
+
+- Renamed the ARexx scripts to *.HiP.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- New external scopes:  Small versions of Quadrascope, FQuadrascope and
+  HippoScope.  WeirdScope the weird scope for PT.  A BigScope pattern
+  scroller & quadrascope for the whole screen (needs kick 3.0+).
+
+- Italian docs translated by Valerio Russo. Did you get my letter?
+- Polish docs translated by Tomasz Kepa.
+- New ARexx script: Totalduration.hip by Tomasz Kepa.
+
+  Thanks a lot people! :)
+
+
+
+v2.33 (8.10.1996)
+-----------------
+- A patch released to fix the player group bug (see below).
+
+
+
+v2.34 (12.10.1996)
+------------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- The player group loader only accepted the group if the player group 
+  mode was set to `Load single'. Fixed.
+- The Protracker sampleplaying feature in the infowindow didn't work.
+  Fixed.
+- Some fixes in the AHI support stuff.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Disassembled and fixed the THX replayer so that it now works
+  on 68000/68010 too. 
+
+
+
+
+v2.35 (23.11.1996)
+------------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- Fixed a bug regarding the random play mode and the Play-button.
+- The lame & futile early load function had a bug. Fixed. 
+- A nasty bug fixed in the sample playing stuff conserning the player
+  group. 
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Support for MusiclineEditor modules (using mline.library).
+- Support for OctaMed SoundStudio modules (using octamixplayer.library).
+
+- Optimized the sort routine a bit.
+- Optimized the PT fast ram player (speed up on 68000/010).
+- Find name -function now always scans the whole list.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated French guide by Alan Guillevic. Thanks!
+
+
+
+v2.36 (27.12.1996)
+------------------
+
+** NOTE!  From v2.35 on, HiP requires V6 versions of medplayer.library and
+octaplayer.library, and V7 version of octamixplayer.library.  All the
+required libraries are now included in the archive!
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- Removed the previous fix in random play and play button..
+- Some small bugs removed.
+- Did something with the archive temp dir cleanup.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Modules that are best played from fast ram but are loaded in chip ram
+  will now be moved to fast ram if possible.
+- RMB list selectors in Prefs can be cancelled by clicking RMB again.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Included all the required player libraries in the archive:
+  · medplayer, octaplayer and octamixplayer.library for MED, OctaMED and
+    OctaMED SoundStudio modules.
+  · PlaySID.library for playing PSID modules.
+  · mline.library for playing MusiclineEditor modules.
+  All are installed by the supplied install script.
+
+- German guide by Dominik Deobald. Thanks!
+- Multi-archive-multi-file-player-script HiPPack v1.2a by Jari Karjalainen. 
+  Thanks!
+
+
+
+v2.37 (31.12.1996)
+------------------
+
+A quick bug fix release.  There were two bad bugs:
+One crashed the 68000/68010 CPUs and one crashed the old pre-2.0
+kickstarts.
+
+
+v2.38 (9.2.1997)
+----------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- MusiclineEditor volume problems fixed.
+- Add-files-run-out-of-memory-crash-bug removed.
+- The AHI stereo level bug removed.
+- Bug in the doc: key command for 'Insert files' is [T], not [I], 
+  which is 'Open info window'.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- A new lightning fast sort algorithm: comb sort!  Based on the
+  asm source by Origo/C-Lous^Subspace.  With 2686 files the old
+  bubble sort takes 40 secs where the new comb sort takes only
+  0.5 seconds.. Measured on my Amiga.
+
+- Possibility to enter file comments. Hit [O] for this feature.
+
+- New THX replayer. Some bugs fixed, no more 2x and 4x speeds :-\
+  May not work on 68000. :-\\
+- Info window now shows THX sample names. 
+
+- Sample player is now able to play >28khz samples on screenmodes
+  where this is not normally possible (= horizontal refresh 15kHz). 
+  Needs some more CPU power and memory for scaling the sample data.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- New French guide by Alan Guillevic.
+- Spanish guide by Jose Antonio Diaz (Humphrey/Centolos). Thanks dudez!
+
+
+v2.39 (19.4.1997)
+-----------------
+
+** Do not use <kpk@pcuf.fi> or <kpkoljon@kauhajoki.fi> anymore.
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- 'Error opening file'-bug with THX modules fixed.
+- No need to have audio.device anymore, should work on Draco systems now.
+- A bug removed in archive loader. I suppose.
+- MED library opening fixed. I suppose..
+- Numerous little things.
+- The module name aesthetic preprocessor improved to handle Roman
+  numerals ;)
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- File comment with [O] now displays the old comment for editing.
+- Hopefully more random random routine.
+- RMB + `Play' = play a random module.
+- New key function [E]: execute a file chosen with a file requester.
+- Halved the infobox sample play volume.
+- Hacked the THX replayer (again) to make it 68000 compatible.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated Spanish guide by Humphrey/Centolos.
+- Updated German guide by Dominik Deobald
+- Updated Italian guide by Valerio Russo.
+- New Swedish guide by Johan "S.Duvan" Alfredsson & Henrik "Puh" Nilsson.
+  Thanks a lot fellows! :-]
+
+
+
+
+v2.40 (29.6.1997)
+-----------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- THX subsongs work now.
+- AHI volume problem fixed.
+- Some problems with XMs and AHI fixed.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Support for Digi Booster Pro modules. NOTE! The replayer requires
+  AHI and 68020 or better to work.
+- Support for 4 channel Art Of Noise modules.
+- PC to Amiga charset conversion performed in the moduleinfowindow.
+- When using random play the random markers will be cleared after ALL
+  modules have been played.
+- Faster loading of module programs (needs twice the memory as before).
+- Uses screennotify.library (if available) to watch changes in the
+  Workbench screen.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- New external scope: WaterScope. Needs 020 or better.
+- Updated French guide by Alan Guillevic.
+- Updated Polish guide by Tomasz Kepa.
+- Updated Italian guide by Valerio Russo.
+- PlayNext.HiP by Nils Goers.
+- Two new drawer icons by Tomas Amsrud.
+
+
+
+v2.41 (25.10.1997)
+------------------
+
+- Note that I have new email and www addresses.  Try to use them
+  if possible. The old addresses will continue to work too.
+- Special registration fee for Polish HiPpo users: 6 USD.
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- The infamous 'crash-on-Picasso96-as-well-as-with-MCP' graphics bug
+  fixed! And as a side effect the gfx rendering became a lot faster.
+- Delete file bug removed.
+- Clicking on the empty file box -bug removed.
+- Now should randomize correctly after 'New' when play mode set
+  as 'Play modules in random order'.
+- The unified TFMX mdat+smpl format converter sometimes converts the songs
+  wrongly which causes problems. Should be no problems with HiP now (wasn't
+  a HiP bug, but anyway).
+- Some small fixes.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- THX v2.10 support with pos/len display & forward/backward jump.
+- Better support for MED subsongs.
+- Now converts some module names from PC to Amiga format too.
+- The sample player supports AHI. Yikes to all those who requested it.
+  ** NOTE: This feature has some bugs left in it! I decided to release
+  this version anyway because I didn't want to postpone the release further
+  into the future. Report all weird behaviour pleeze.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated Polish guide by Tomasz Kepa.
+- New ARexx script CopyList.HiP by Tomasz Kepa.
+- Useless scope that's not a scope by me. 020+.
+
+
+
+
+v2.42 (20.12.1997)
+------------------
+
+Bug fixes:
+¯¯¯¯¯¯¯¯¯¯
+- Something.
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated THX replayer.
+- Updated DigiBooster Pro replayer (v2.16).
+- XPK packed sample support.
+- XPK packed module program support.
+- MED song names now shown correctly if available.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated Polish guide by Tomasz Kepa.
+
+
+
+v2.44 (16.8.1998)
+-----------------
+
+Improvements:
+¯¯¯¯¯¯¯¯¯¯¯¯¯
+- Updated THX replayer.
+- MP1, MP2 and MP3 support using mpega.library by Stephane Tavenard.
+- Some new stuff in Prefs for controlling MPEGA and MED.
+- Module programs now saved as normal text files that can be edited
+  by hand.
+- Some changes in HippoPort.
+
+New support stuff:
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+- External spectrum analyzer scope that uses FFT.  The spectrum goes from 0
+  Hz to 8000 Hz, with steps of 125 Hz.  Pretty fast, I think.
+
+- Updated Polish guide by Tomasz Kepa.
+- Updated Swedish guide by Henrik Nilsson.
+- Updated Spanish guide by Jose Antonio Diaz.
+
+
+
+******************************************************************************
+*                               *** Hellos *** 			      	     *
+******************************************************************************
+
+Jarno Paananen (Guru/Sahara Surfers)
+- Thanks for the PS3M etc. :)
+
+Nico François
+ - Thanks for the reqtools.library!
+
+Ron Birk & Per Håkan Sundell
+- Thanks for making almost perfect SID-emulation.
+
+
+Those who have participated more or less, thanks:
+-------------------------------------------------
+The official beta tester bunch, Peter Kunath (Delirium Softdesign), Henryk
+Richter (Buggs/Defect), Tuomas Lukinmaa (Tumu/BFB Team), Janne Simonen,
+Marcel Döring, Tomasz Kepa, Jarkko Vatjus-Anttila (Quaid/BFB Team), Marius
+Sundbakken, Christian Buchner.  Alan Guillevic, Valerio Russo, Dominik
+Deobald, Jose Antonio Diaz, Johan "S.Duvan" Alfredsson, Henrik "Puh"
+Nilsson
+
+
+Icons by:
+---------
+Tommi Lindström, Richard Harris (FOXX), cYClone/nEW-dEAL^PSD PC, Roman
+Patzner, David Wiles, Ilmari Karonen, Trevor Morris
+
+
+Hellos to those who have sent me email and to whom I've talked on IRC.
+
+Thanks to all the ones who have sent me registrations, bug reports &
+suggestions!
+
+@endnode
+
+@Node About "About HippoPlayer"
+
+@{b}@{u}About HippoPlayer@{ub}@{uu}
+
+HippoPlayer was made by using the Asm-One.  Pure tricky optimized
+assembler, source code length without any includes or play routines is
+about 450kB.
+
+Registrations, bug reports, comments & suggestions and C-64 warez are
+welcome! 
+
+Always mention your Amiga configuration and HiP version when sending bug
+reports!
+
+
+ Kari-Pekka Koljonen
+ Torikatu 31
+ FIN-40900 Säynätsalo
+ Finland
+
+
+ E-mail: kpk@cc.tut.fi
+         k-p@s2.org
+
+ WWW:	 http://www.students.tut.fi/~kpk
+
+ IRC:	 K-P
+ 
+ Finns phone: 040-5082803 (cellular)
+              014-3742699 (weekends)

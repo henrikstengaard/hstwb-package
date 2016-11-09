@@ -1,0 +1,76 @@
+Short:        scsi v43.47 beta 1
+Author:       Cosmos
+Uploader:     cosmos.amiga@gmail.com
+Type:         driver/media
+Requires:     WB 3.1+ and 68000+
+Version:      43.47b1
+Architecture: m68k-amigaos
+URL:          http://cosmosamiga.blogspot.com
+
+
+
+Improved scsi.device for Amiga 600 and 1200
+
+
+Need more tests. Please, use a special HD or CF with this
+new version : *NOT* on your current setup !
+
+Set you MaxTansfer to $1FE00
+
+Note : Sfs is not working on partitions beyond the 4 Gb border
+
+
+      
+Installation :
+
+ - 'LoadResident scsi_43.47b1_A600_A1200' at the top of
+    the StartUp-Sequence
+
+ - Or burn into an eprom, the best way !
+
+
+
+
+
+Pfs3ds_000 v18.4
+
+ - 68000+
+ - Compiled with SAS/C 6.58
+ - Last version by Harry Sintonen
+
+No warranties given for this update. You are using this new version on your
+own risk and you are responsible for any damage it could cause to your system.
+
+
+
+
+
+
+
+scsi.device v43.47 (A600 & A1200) beta 1 (14 136 bytes)
+
+ - 43.46 -> 43.47
+ - Complicated subroutine completely reworked
+ - 1804 bytes saved
+
+
+scsi.device v43.46 (A600 & A1200) (14 264 bytes)
+
+ - 43.45 -> 43.46
+ - A600 & A1200 versions unified
+ - Debug code removed
+ - Read/write function completly rewritten
+ - Some subroutines called one time inlined
+ - 100% PC relatif
+ - Wait states for very old HDs removed
+ - Special code for the Conner 20 Mo CP2024 removed
+ - Added Doobrey's hack for a working Pfs3 v18.4+ with partitions beyond 4 Gb
+ - 1676 bytes saved
+
+
+scsi.device v43.45 (15 940 bytes)
+
+ - IORequest structure fixed by Chris Hodge
+ - Some 48-bit LBA commands fixed by Toni Wilen
+
+

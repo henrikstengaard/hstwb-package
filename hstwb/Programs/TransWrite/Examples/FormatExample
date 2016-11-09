@@ -1,0 +1,51 @@
+§cm To view this file as it would appear on your printer, select:
+§cm            "Screen (Preview)"
+§cm on the print requester, which you can access via the Project Menu.
+§cm
+§lm8:rm72:cm Set left and right margins for both odd and even pages
+§pp66:pg60:tm2:cm Set page to 66 lines, 60 lines of text, top margin 2 lines
+§Lm5:Rm75:cm Set left and right header/footer margins for odd and even pages
+§hs3:cm Allow 3 lines for header
+§cm Set header with company name underlined
+§hb""," The Crude Group, 123 Lotus St, Gullibility OK 12121 Tel 555 555-5555 ",""
+§jr:cm Right justify date
+Nov 31, 1988
+
+§jl:cm Left justify recipient's address
+Carrie R. Pigeon
+46 Straight Street
+Five Corners, MT 21212
+
+
+§jc:cm Centre justify heading
+A NEW WAY TO LOSE WEIGHT FAST WHILE EATING LIKE A PIG!!
+
+
+§jf:cm Flush justify text
+Dear Customer:
+
+Do you happen to know what pigs like best? Truffles! And truffles, scrumptious and expensive though they may be, are really just a fungus!
+
+Scientists and doctors have known for years that a steady diet of 100% fungi is a surefire way to shed that excess poundage, but until now no one has made this MODERN MIRACLE FOOD available to the public in a convenient, inexpensive form.
+
+Well, we at the Crude Group decided to do something about that, so we put our top researchers on the job. The result? Wholesome, tasty No-Gane Fungus Crystals, in Strawberry, Chocolate and exotic Tuna'n'Berry flavours, all sealed for freshness in our handy `FungoFoil' one-serving packages.
+
+We think you'll be so delighted with No-Gane Fungus Crystals you'll probably never want to eat anything else again, even after you've achieved your ideal body weight. Don't take our word for it, though. Take a look at this completely unsolicited testimonial (one of thousands we receive at Crude Group Headquarters every day) and decide for yourself!
+
+§lm12:rm68:cm Indent testimonial 4 spaces on both sides
+Dear Sir or Madam:
+
+Just wanted to express to you my delight with your wholesome, tasty No-Gane Fungus Crystals, which I ordered recently in the Strawberry, Chocolate and exotic Tuna'n'Berry flavours, in the handy `Fungofoil' one-serving packages. I don't expect I'll ever want to eat anything else again, even though I've long since achieved my ideal body weight.
+
+T.G., Centrifuge, Iowa
+
+§lm8:rm72:cm Restore original indent
+To experience this PROFOUND EATING SATISFACTION and AMAZING WEIGHT LOSS MIRACLE in your own home, just call our 100% non-toll-free number today! You may never regret it!
+
+Oh so sincerely,
+
+
+
+
+Lester Mortar
+for The Crude Group

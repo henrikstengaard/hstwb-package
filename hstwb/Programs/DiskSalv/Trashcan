@@ -1,0 +1,27 @@
+[1mDiskSalv 4 (V13.6) Publisher Release Notes[0m
+
+This is the 11/26/95 publisher's release package for DiskSalv 4.  This
+release is designed primarily to fix a big in previous versions of 
+DiskSalv 4 that caused an incorrect block zero filesystem type to be 
+written in fix-in-place functions.  Note that the Repair or Unformat
+functions in this version will correct this problem on any disks so
+damaged.  This release version is:
+
+	V13.6s	Release for Stefan Ossowski's Schatztruhe
+	V13.6i	Release for Intangible Assets Manufacturing
+
+[1mRevision History[0m
+
+CHANGES 13.6
+	- Provisional DiskSalv 4 release.
+	- Added AFS modes to disk Search/Analyze function.
+	- Added help prompting and some new help contexts.
+
+CHANGES 13.4
+	- Now called DiskSalv 3.5
+	- Many, many AFS fixes. No dependencies on AFS Root anymore.
+	- New Best-Guess functionality.
+
+CHANGES 13.2 
+	- Basic AFS stuff is working.
+

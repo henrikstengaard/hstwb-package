@@ -1,0 +1,771 @@
+@Database "Intangible Assets Manufacturing"
+@$VER: iam.guide 14-JAN-97
+@(C) Copyright 1994-97 by Intangible Assets Manufacturing.  All Rights Reserved.
+@AUTHOR Dale L. Larson
+@node "Main" "Intangible Assets Manufacturing"
+iam.guide 	Copyright 1994-97 by Intangible Assets Manufacturing
+Last updated 14-JAN-97
+@{i}This file may be freely redistributed but may not be modified.@{ui}
+
+@{b}Intangible Assets Manufacturing@{ub} is a publishing company
+specializing in networking and the Amiga.  Catch our Web site for the
+most up-to-date information available from us, plus other cool stuff at
+@{b}http://www.iam.com@{ub}.
+
+@{b}We've lowered our prices up to 40%@{ub}, and this new version of our catalog
+reflects those lower prices.  See our order form for details on a
+few special bundle prices.
+
+We publish and sell:
+
+        * A @{"book" link "CYA" 0} on Amiga Internet, networking and telecommunications
+	* Dave Haynie's @{"DiskSalv4" link "DiskSalv" 0}
+	* @{"MegaBall4" link "MegaBall4" 0}, a classic Amiga game.
+        * Dave Haynie's "Deathbed Vigil..." @{"video" link "angst" 0} SOLD OUT
+        * @{"Amiga Envoy" link "Envoy" 0} peer-to-peer networking software.
+	* The @{"Amiga link kit" link "amilink" 0} networks amigas through
+	  the floppy port.
+	* @{"DICE" link "dice" 0} Amiga C development environment
+	* @{"MRBackup" link "mrbackup" 0} Amiga harddrive to floppy or tape backup software
+	* @{"Torn Shapes of Desire: Internet Erotica" link "tsod" 0} a book
+
+IAM products are available from your Amiga dealer, or direct from IAM.
+
+@{"Ordering information" link "Ordering" 0} for IAM products is here.
+
+We also provide @{"consulting" link "consulting" 0} services to those who have Amiga
+problems, to companies and individuals with TCP/IP networking needs, and
+general computer consulting.
+
+IAM @{b}does not@{ub} offer free telephone support for any product.
+
+Here is a @{"directory" link "email" 0} of important email addresses at IAM.
+
+Here are additional @{"press releases" link "pr" 0} from IAM.
+
+Contact Intangible Assets Manufacturing as follows:
+
+	http://www.iam.com
+
+	info\@iam.com --  the IAM InfoBot.
+	sales\@iam.com -- the IAM SalesBot. Send order forms here..
+
+	Intangible Assets Manufacturing
+	828 Ormond Avenue
+	Drexel Hill, PA  19026-2604
+	USA
+
+	voice, orders only: +1 610 853 4406
+	fax: +1 610 853 3733
+@endnode
+
+@node "amilink" "Amiga Link Kit"
+The Amiga Link Kit
+
+Two floppy port network adaptors (so it works with any Amiga without using your
+serial or paralell ports!), Amiga Envoy software (requires 2.04+), coaxial
+cable, two T's and terminators.  Everything you need to network two Amigas, at
+half the proce of Ethernet!  Expandable to dozens of machines (for four
+networked Amigas, for example, buy two kits).  Reviewed by Denny Atkin in July
+1994 AmigaWorld.
+
+IAM no longer carries AmigaLink, but it can be obtained from AmiTrix
+Development, who bundle our Amiga Envoy with their package:
+
+AmiTrix Development,
+5312 - 47 Street,
+Beaumont, Alberta, T4X 1H9
+Canada
+
+Phone or Fax: 1+ 403-929-8459
+
+(Please leave your mailing address on phone messages when requesting)
+(information, or contact us via email at the address shown below)
+
+Email: sales@amitrix.worldgate.com
+http://www.ee.ualberta.ca/~ewaniu/amitrix.html
+@endnode
+
+@node "CYA" "Connect Your Amiga!"
+                           "Connect Your Amiga!
+         A Guide to the Internet, LANs, BBSs and Online Services"
+
+                            ISBN 1-885876-02-5
+
+Now US$19!
+
+...256 pages packed with information for networking and for going online.
+From background information for the novice to networking hints and tips
+for advanced users, this book has something for every Amiga owner. The updated
+2nd printing (June, 1996) includes more details about the World Wide Web
+and setting up TCP/IP and Web browsers on the Amiga.
+
+Some of the topics covered include:
+
+  ABOUT THE INTERNET: What it is, what's so great about it, how it works,
+  how to access it, how to join it, how to use it.
+
+  ABOUT TELECOMMUNICATIONS: Selecting and using modems and terminal
+  emulator software; how to find and choose computer bulletin board
+  systems and online services; finding, downloading, decompressing and
+  using public domain and shareware software.
+
+  ABOUT NETWORKING HARDWARE AND SOFTWARE: the SANA-II standard, Ethernet,
+  ARCNet, serial and parallel ports, selecting, configuring and using TCP/IP,
+  SLIP, PPP, Envoy, DECNet, connecting to PCs, Macs and Unix, and more.
+
+The author is an expert on the Amiga and on computer networking. Mr. Larson
+was a Software Engineer in Commodore's Amiga Networking Group. He worked on
+AS225, is one of the principle authors of both the SANA-II Network Device
+Driver Specification and the original Amiga Envoy specification documents,
+and has published several articles about the Amiga and about Amiga
+networking.
+
+"Cool!"
+	­Dave Haynie
+	Senior Systems Engineer, Scala, Inc.
+	(former Senior Hardware Engineer, Commodore-Amiga, Inc.)
+
+"You wouldn't lock your kid in its room, all alone, with nobody to talk to.
+So why do that to your Amiga? Dale Larson's guide is the on-ramp you can use
+to get your Amiga cruising on the Information Superhighway."
+	­Denny Atkin
+	Associate Editor, Omni Magazine
+	Author, "Denny Atkin's Best Amiga Tips and Secrets"
+	(former Editor, COMPUTE's Amiga Resource)
+
+"This should be a great resource for the Amiga user. Until now, it has always
+been difficult to locate information regarding networking an Amiga."
+	­Richard Gerber, Ph.D.
+	Astrophysicist, NASA Ames Research Center
+
+
+"Clear, concise, and supportive."
+	­Janet McIlvaine
+	Administrative Coordinator, Transplant
+	Lankenau Hospital and Medical Research Center
+
+"Jammin'"
+	­Mike Rivers
+	(former Technical Editor, Commodore Magazine)
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "angst" "Haynie Video"
+                   Intangible Assets Manufacturing Announces
+                             The Deathbed Vigil...
+                       and other tales of digital angst
+
+SOLD OUT (the description is now for nostalgia purposes only -- we will
+not be producing more)
+
+Intangible Assets Manufacturing announces "The Deathbed Vigil... and
+other tales of digital angst." Available now and published by IAM, this
+120 minute VHS video tape is a documentary filmed, narrated and produced
+by Dave Haynie. Mr. Haynie is a well-known example of "cool," as well as
+a former Senior Hardware Engineer at Commodore Amiga, Inc. (now Senior
+Systems Engineer at Scala, Inc.)
+
+The video was produced and edited with the Amiga. It shows the famous
+"Deathbed Vigil Party," the last Margarita's layoff party, the West
+Chester facilities of Commodore (including the secret engineering lab),
+and more. It includes interviews with dozens of famous Amiga
+personalities, and offers opinions and explanations of many
+"behind-the-scenes" goings on. Anyone who has ever wondered what really
+went wrong with Commodore (and who wants to remember the best of what
+went right) will be interested. No true Amiga fan can be without this
+video!
+
+WARNING Contains profanity and scenes of graphic violence. NR (Not Rated).
+
+The Deathbed Vigil is available through Amiga dealers worldwide and may
+be ordered directly from the publisher. The price has been drastically
+reduced to @{b}only $19@{ub} for NTSC or PAL! Supplies are limited, so check
+for availability when ordering.
+
+A run of one hundred limited edition, numbered and autographed, copies
+sold out quickly, but the standard edition is still available and is still a
+best-seller.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "DiskSalv" "DiskSalv 3"
+Announcing...
+
+                              @{b}DiskSalv 4@{ub}
+
+                  The Original Amiga Disk Recovery Tool
+
+                          Now Better Than Ever!
+
+
+
+DiskSalv 4 is the second commercial version of DiskSalv.  Developed by
+Dave Haynie and published by Intangible Assets Manufacturing, it is the
+fifth major revision of DiskSalv, and it offers features never before
+found in DiskSalv or other Amiga disk utilities.  While it would be
+difficult to list every new feature of DiskSalv 4 in a reasonably short
+announcement letter, new features since the freely redistributable versions
+include:
+
+* A Hot New Look
+
+  The DiskSalv 2 user interface has been completely reworked. While
+  the best features have been retained, much has been improved.  The
+  font sensitivity is better than ever -- why should a utility tell
+  you which font you must use?  The overall look is cleaner, with
+  graphical queues throughout that enhance operations without making
+  undue demands on your system's memory or pretending to be a video
+  game.  Gadgets and help texts are context sensitive.  Device
+  selection throughout is drag-and-drop, though of course enhanced list
+  selection is still available for the asking.  Interactive AmigaGuide
+  links are provided for every gadget and menu function, available at
+  the press of the HELP key.
+
+* An Ounce of Prevention...
+
+  A disk can now be checked for troubles without actually making any
+  repairs, for extra confidence.  Deleted directories, files, and data
+  can be permanently erased for added security, program releases, etc.
+  Traditional full or incremental backups are supported, in the same
+  style as DiskSalv's recovery functions.
+
+* ...And a Pound of Cure
+
+  You still get traditional DiskSalv functions, only better.
+  Undeletes can often be performed in-place.  A fully redesigned
+  filter mechanism supports pattern matching on full pathnames,
+  file notes, dates, file sizes, and/or protection bits.  Pattern
+  matches can be used to include a file in a scan, exclude it, or stop
+  a scan on a match.  Any number of filter groups may be active at the
+  same time, and such groups may be loaded from disk.
+
+* When Time Counts
+
+  A new intelligent prefetching disk cache, buffered file I/O, and
+  improved internal design makes DiskSalv faster than ever.  The
+  scroll bar calculations have been refined for greater accuracy.
+
+* There's Nothing to Lose
+
+  Device description editing and volume searching functions have been
+  greatly enhanced.  DiskSalv can freely convert between its internal
+  device format, standard Amiga ASCII format (DOSDrivers files), and
+  Rigid Disk Blocks (the standard autoboot format).
+
+* Going by the Book
+
+  A complete, on-line AmigaGuide manual is included to aid both
+  beginner and advanced user.  Details range from the basics through
+  a complete theory of operation.  Decriptions of all DiskSalv file
+  formats and associated C Language "include" files are also supplied.
+
+  Environmental awareness is a DiskSalv tradition.  Back in the
+  DiskSalv 1 days, Dave encouraged folks to "register" the shareware
+  by sending money to Greenpeace.
+
+  After careful consideration of the environmental impact of printed
+  manuals for frequently updated computer software, we have decided to
+  provide only AmigaGuide documentation.  We believe that you will
+  appreciate having completely up-to-date documentation with
+  hypertext links and will appreciate our contribution to the health
+  of our Earth.  Additionally, the entire DiskSalv package is reusable,
+  so there won't be anything you have to throw away or recycle without
+  getting at least one more use from it.
+
+* WHAT A GREAT DEAL!
+
+  All this for only $30 plus shipping and handling.
+
+  For owners of DiskSalv 3: DiskSalv 4 includes limited unofficial support
+  for AFS volumes, but no additional AFS support will be added. It also
+  includes bug fixes and other minor enhancements. The upgrade cost is
+  $10 plus shipping and handling.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "Envoy" "Envoy"
+New for 2.0, Jan '95@{ub}
+
+New features include support of AmigaOS 2.04 DOS packet types (including
+notification and record locking), support for removable media, enhanced
+reliability and robust recovery, localization, AmigaGuide documentation, and
+more.
+
+Amiga Envoy 2.0 is available as an upgrade to any Amiga Envoy user,
+regardless of where they purchased their original Envoy.  The upgrade price
+is US$25, which includes ground shipping world-wide (add US$5 for Priority
+Mail or air).  To upgrade in the US, send proof of purchase with check, money
+order, or Visa/MC number to IAM.  Elsewhere, contact your local distributor.
+The list price of Amiga Envoy is US$45.
+
+			@{b}Amiga Envoy@{ub}
+
+Amiga Envoy is the standard Amiga peer-to-peer networking software developed
+by Commodore's Amiga Networking Group. Its performance, user-interface and
+API are consistent with the philosophy of the Amiga Operating System. Amiga
+Envoy provides a simple messaging interface for the easy development of
+reliable network applications. Included applications enable connected Amiga
+computers to share hard disks, CD-ROMs, and printers transparently.
+Third-party applications can provide functionality such as electronic mail,
+remote computer access, multi-user databases and multi-player games.
+
+To make Amiga Envoy available to end-users immediately, Intangible Assets
+Manufacturing has licensed Amiga Envoy from Commodore. IAM has produced a
+manual written by Dale Larson, one of Amiga Envoy's original designers. The
+manual eases you through the set up and use of a simple network.
+
+Intangible Assets Manufacturing supports the copies of Amiga Envoy it
+distributes. Support is provided through electronic and physical mail and by
+answering questions in such public forums as UseNet's
+comp.sys.amiga.datacomm, on CompuServe, and on Bix.
+
+REQUIREMENTS Workbench 2.04, Kickstart 2.04, 512k RAM, SANA-II compatible
+networking hardware (see COMPATIBILITY).
+
+RECOMENDED Workbench 3.1 or later, Kickstart 3.1 or later, 1MB RAM, Hard disk
+with 300k free in SYS:.
+
+AVAILABILITY version 1.x shipping since December, 1993.  Version 2.0 shipped
+January, 1995.
+
+PRICE List Price: $59.95 (2-user)
+
+COMPATIBILITY Any SANA-II networking hardware may be used with Envoy,
+including Ameristar A2066, AmigaLink, ASDG LanRover, Commodore A2065 or A2060
+and SLIP (serial port).
+
+Additional non-IP, SANA-II compatible networking protocol stacks may be run
+at the same time as Amiga Envoy over the same networking hardware. AS225r2 is
+the version of Commodore's TCP/IP package which is compatible with Envoy
+(through SANA-II compatibility and close cooperation regarding IP packets). It
+is expected to be available from Intangible Assets Manufacturing soon.
+
+LEGAL Amiga is a registered trademark of Commodore-Amiga, Inc. Workbench and
+Kickstart are trademarks of Commodore-Amiga, Inc. Envoy is Copyright 1985-1993
+Commodore-Amiga, Inc., All Rights Reserved. Distributed under license from
+Commodore.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "MegaBall4" "MegaBall4"
+MegaBall4 is classic Amiga brick-busting action in a brand new commercial
+package.  The Mackey Brothers (famous authors of Ball and MegaBall)
+dazzle you with exploding blocks, plus poofing, growing, locking,
+unlocking, and green-sliming bricks as well. The fast-paced play and
+devious interactions will challenge your mind as well as your mouse.
+Experience the thrill that has kept Amiga users glued to their monitors
+for more than half a decade. Includes three disks packed full of new
+action and new music! Compatible with all Amigas (requires 1.3), enhanced
+when used with AGA. Requires 1mb RAM.
+
+US list Price $30 with free "I Have MegaBalls!" T-Shirt in XL.
+
+Note that you can also order the spiffy "I Have MegaBalls!" T-Shirt only
+(size XL) for just US$14.95.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "dice" "dice"
+Upgrades from version 3.x to version 3.2 are available for free
+via FTP (file://ftp.iam.com/biz/iam). For other upgrades, see below.
+
+IAM is the new North American distributor for DICE, which is published by
+OIC. (See, anyone who leaves Commodore and starts a new company is
+supposed to give the new company a TLA as a name.) IAM just sells the
+stuff, all support questions must still directed to
+support@obviously.com. NOTE: OIC formerly held the oic.com domain.
+
+For anyone interested in programming the Amiga computer at any level
+from beginner through expert, DICE C offers an excellent value. For years,
+DICE has been a highly respected name in the Amiga programming community.
+Brought to you half by cool guys who appear in The Deathbed Vigil and
+half by other cool guys who don't: Matt Dillon (freeware author), Andy
+Finkel (AmigaOS), John Toebes (Software Distillery), Bryce Nesbitt
+(AmigaOS and Enforcer)
+
+DICE has always been a good C language compiler. Now the DICE
+compiler is part of an integrated system of programming tools
+designed to ease and speed creating programs for the Amiga. For beginners
+DICE offers an intuitive visual approach to creating programs -- and
+numerous examples. Programmers of all levels will appreciate how
+DICE seamlessly integrates with their favorite text editor,
+offering tools and information at the touch of a button.
+
+The new DICE focuses on productivity. Not just a buzzword,
+the DICE system focuses on getting code from keyboard to execution as
+quickly as possible. We give you a quick development cycle and fast
+compile time so you can try new things quickly. We bring all help online
+so you don't waste time flipping through the manual.
+
+DICE 3.2 includes: ***Complete 450 page manual, including a section on
+avoiding the most common programming pitfalls. ***Full, fast, online
+help. Help in under a second. ***A complete visual compile environment
+(that, incidentally is fully configurable to provide a visual environment
+for any program). ***All the updates, fixes and enhancements you'd
+expect. ***ANSI compatibility.***ROM development and Source code
+management tools. ***A simple source line debugger - with the most asked
+for features to make debugging simple. ***A Compression system for use on
+floppy disk systems. ***Two poerful ARexx-aware programmer's editors
+***Full source code for the libraries and dozens of examples. ***Comes
+with AmigaOS 1.3, 2.0 and 3.0 libraries and include files. ***ANSI, Unix
+compatibility, and Amiga link libraries. ***A package of
+bonus tools to help find bugs in your code. ***Error messages in German,
+French, or English.
+
+DICE is fast inexpensive, easy, fun and works on any Amiga, including
+floppy disk systems. DICE is only US$100 + s/h. Students and/or
+owners of other development systems (including pre 3.x DICE) pay
+only US$75 + s/h.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "mrbackup" "mrbackup"
+
+MRBackup is a hard disk backup program for the Amiga family of computers.
+It provides a wide range of services to support Amiga file management and
+backup/restore of files to/from hard disk. Files can be backed up to:
+
+   Floppy disk, in AmigaDOS format
+   Floppy disk, in a special fast format
+   Any sequential file or device (local or networked) in fast format
+   SCSI streaming tape
+
+MRBackup was originally written by Mark Rinfret nearly ten years ago.
+During the program's long history, with the suggestions of many thousands
+of Amiga users, it has evolved a great deal of stability, functionality,
+and ease-of-use. As of June, 1996, MRBackup is published by IAM, who is
+proud to add MRBackup to its fine line of Amiga products, and to add to
+its stable of outstanding Amiga authors Mr. Robert Hardy of HardKore
+Software. Bob is the new owner of the source code for MRBackup, and will
+be providing support for new and existing customers, bug fixes and future
+development. He has already produced version 2.5 and started work on
+version 3.
+
+MRBackup is designed to behave well in your Amiga's multi-tasking
+environment. It does not take over the machine and will allow you
+to use your Amiga for other activities while backups are being performed.
+MRBackup is controlled by a flexible set of user-configurable parameters
+and offers a wide range of backup and restore options. Its
+Intuition-based user interface is designed for a pleasing appearance and
+ease of operation.
+
+MRBackup uses the Amiga's speech capabilities to provide an effective
+means for presenting prompts, error conditions and requests for floppy
+disk insertions, etc. While DEVS:narrator.device and
+LIBS:translator.library are no longer shipped with the Amiga operating
+system, you can copy them from your older copies of the AmigaDOS
+installation disks and they will work just fine.
+
+MRBackup provides optional data compression which will reduce the number
+of diskettes (or other media) required for a backup. A saveset catalog
+file is created for each saveset, allowing quick retrieval of individual
+files when necessary. Should the catalog file become damaged or lost,
+MRBackup can recreate it by scanning the saveset.
+
+Requirements
+
+The following minimum requirements should be met in order to assure
+proper operation of MRBackup Professional:
+
+   any Amiga system with at least 1 MB memory and AmigaDOS 2.04 or higher
+   1 floppy disk drive or SCSI streaming tape drive (Archive Viper, Wangtek
+      50XX, TEAC 36XX, Sony DAT, etc. )
+   MRBackup will work with any hard drive supported by the AmigaDOS
+      operating system
+
+MRBackup 2.5 sells forUS$60 + s/h (US$10 + s/h for upgrades from
+previous registered versions). It is also available in a special package
+deal with DiskSalv4 for only US$80 -- a savings of $20 on the two
+products!
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+@node "tsod" "tsod"
+
+Torn Shapes of Desire: Internet Erotica
+Mary Anne Mohanraj
+with photographs by Tracy Lee
+
+ISBN 1-885876-03-3
+
+------------------------------------------------------------------------
+"Extremely Cool!" - Dave Haynie
+
+"Mary Anne Mohanraj writes clear, well-built, and finely finished short
+fiction and poetry -- and what she writes is often filled with highly
+charged sexual romanticism Her poetry tends more towards the romantic,
+her fiction towards the unwaveringly steamy. Mohanraj's stories project a
+sense of innocence and wonder about sexuality. Many are about betrayal
+and repression and even violence; yet all have a vibrancy, a positive
+aura of health and strength about them. These are wonderfully young
+stories, from a writer well worth a read" -Penthouse Forum, June, 1996
+
+"I love this author! I'm tempted to make my students read this story for
+English class... Mary Anne Mohanraj may be the best writer to post
+stories on this group. 10,10,10." -Celestial Reviews, alt.sex.stories
+
+More than 500,000 people have viewed Mary Anne and Tracy Lee's work on
+the Internet.
+------------------------------------------------------------------------
+
+Torn Shapes of Desire: Internet Erotica is the first book by Mary Anne
+Mohanraj, who has been publishing erotica on the Internet for five years.
+Her work has also appeared in magazines and anthologies. TSOD is a
+collection of 40 of Mary Anne's best poems and short stories, as well as
+ten of Tracy Lee's best photographs, including some which have never been
+published before. The book includes an interview with other writers of
+Internet erotica and essays on free speech and the Internet, and healthy
+sexuality and communication.
+
+Incredibly, the publication of this book was driven by a misguided United
+States congress. Seriously. Until this book, the publisher of TSOD dealt
+only in computer books, software and videos. Interested in fighting the
+Communications Decency Act (a horrible piece of legislation with severe
+threats to civil rights) and following web links on the subject, the
+publisher came across the essay "Why I Write Erotica" by Mary Anne. The
+rest is history. (If you're interested in cyber-rights, please visit the
+Electronic Frontier Foundation.)
+
+If you've enjoyed Mary Anne's stories and poems on the net, you'll love
+her new book. It also makes a great gift! Bonus: Many people find sharing
+a story with a lover and excellent way to open communications about
+sometimes difficult subjects. Order today.
+
+@{"Ordering information" link "Ordering" 0} for IAM products
+@endnode
+
+
+@node "email" "email"
+info\@iam.com		-- InfoBot: to get information about IAM and its products.
+sales\@iam.com		-- SalesBot: send order forms here.
+registration\@iam.com	-- send email here instead of mailing a physical registration card.
+corrections\@iam.com	-- for any errors you find in "Connect Your Amiga!"
+envoy-help\@iam.com	-- get Envoy support here
+envoy-bugs\@iam.com	-- report Envoy bugs here.
+disksalv-bugs\@iam.com	-- report all DiskSalv bugs here.
+mrbackup\@iam.com	-- for MRBackup bugs and support requests
+support\@obviously.com  -- for DICE bugs and support requests
+mb\@iam.com		-- MegaBall fan mail, bug reports, etc.
+dale\@iam.com		-- Dale L. Larson
+hazy\@iam.com		-- Dave Haynie
+heinz\@iam.com		-- Heinz Wrobel
+jan\@iam.com		-- Janet McIlvaine
+mikec\@iam.com		-- Michael Colligon
+dosioc\@iam.com		-- Claudio Dosio
+al\@iam.com		-- Alan Mackey
+ed\@iam.com		-- Ed Mackey
+adam\@iam.com		-- Adam Edwards
+
+@endnode
+
+@node "Ordering" "Ordering"
+Our products are available from Amiga dealers around the world.  If your
+dealer doesn't carry our products, have him or her contact us or one of
+our distributors.  The order form below is for direct orders to IAM.
+Orders should be made direct to IAM only in North America or in areas
+without Amiga dealers.
+
+@{b}Pennsylvania residents:@{ub} add 6% state sales tax to total, including
+s&h, but excluding shirts.
+@{b}Outside PA:@{ub} Sales tax, VAT, Duty, etc., are your responsibility and
+are not chraged by IAM.
+@{b}In Germany:@{ub} contact @{"DiskSalv from S.O.S." link "Germany" 0}
+@{b}In Sweden:@{ub} contact @{"COMPREX HB" link "Sweden" 0}
+@{b}In Australia:@{ub} contact  @{"Matt Christou" link "Matt" 0}.
+@{b}In Italy:@{ub} contact @{"Euro Digital Equipment" link "Italy" 0}.
+@{b}In South Africa:@{ub} contact @{"ML Systems" link "ML" 0}.
+
+IAM accepts Visa and Mastercard in addition to checks and money orders in
+U.S. dollars.
+
+IAM accepts orders by email, fax, mail and telephone (in that order of
+prefrence).
+
+	info\@iam.com --  the IAM InfoBot.
+	sales\@iam.com -- the IAM SalesBot. Send order forms here.
+
+	Intangible Assets Manufacturing
+	828 Ormond Avenue
+	Drexel Hill, PA  19026-2604
+	USA
+
+	+1 610 853 4406
+	fax: +1 610 853 3733
+
+=-=-=-=-=-=-=-=-=-=-=  CUT HERE  =-=-=-=-=-=-=-=-=-=-=
+(we need your phone number in case we have a question regarding or a
+problem with your order)
+
+NAME:
+
+ADDRESS:
+
+ADDRESS:
+
+ADDRESS:
+
+PHONE:
+
+EMAIL ADDRESS:
+
+========
+PAYMENT
+========
+(  ) Check Money/Order Enclosed		CARD NUBMER:
+(  ) Visa
+(  ) Mastercard 			EXP. DATE:
+
+=========
+PRODUCTS
+=========
+(  ) Connect Your Amiga! book $19
+(  ) Amiga Envoy software $45
+(  ) DiskSalv 3 -> 4 upgrade $10
+(  ) DiskSalv 4 software $30
+(  ) MRBackup 2.5 $45
+(  ) SYA (Save Your Behind) (DiskSalv4 and MRBackup) for only $49
+(  ) MegaBall4 game with T-Shirt $29
+SOLD OUT	The Deathbed Vigil and other tales of digital angst
+(  ) DICE full price $100
+(  ) DICE student or competitive upgrade price $75
+(  ) Torn Shapes of Desire: Internet Erotica $14.95
+
+=========================================================================
+North American Shipping and Handling  (PA residents: remember sales tax!)
+=========================================================================
+(  )  $6 for book or other ground rate (may take weeks)
+(  )  $9 for Priority Mail
+=========================================================================
+Shipping and Handling Outside North America
+=========================================================================
+(  ) $9 for surface mail (may take many weeks)
+(  ) $15 for Air Mail
+
+TOTAL US$:
+
+SIGNATURE: ____________________________________________________
+@endnode
+
+@node "Italy" "Euro Digital Equipment"
+	Euro Digital Equipment
+	Via Dogali 25
+	26013 Crema (CR)
+	Italy
+
+	+30 373 86023
+	fax/bbs: +39 373 86966
+@endnode
+
+@node "Matt" "IAM's Australian Distributor"
+	Matt Christou
+	20 Clotilde St
+	Mt Lawley
+	Perth, Western Australia
+	Australia, 6050
+
+	(09) 271 0624
+	australia\@iam.com
+@endnode
+
+@node "germany" "Germany"
+In Germany, all other IAM products are available from IAM and our dealers, but
+@{b}DiskSalv@{ub} was translated into German by, and is only available from:
+
+	Stefan Ossowski's Schatztruhe
+	Gesellschaft fur Software mbH
+	Veronikastr. 33
+	45131 Essen
+	stefano\@tchest.e.eunet.de
+@endnode
+
+@node "Sweden" "A Swedish Distributor"
+Dealers and users in Sweden can order from:
+
+	COMPREX HB
+	Dr. Lindhs g. 4 I
+	S-413 25  GOTHENBURG
+	SWEDEN
+
+	Phone/Fax: +46 31 822793
+	comprex\@tripnet.se
+@endnode
+
+@node "ML" "A South African Distributor"
+Dealers and users in the Republic of South Africa can order from:
+
+	ML Systems/Mikrolab Stelsies
+	86 Queen Wilhelmina Ave
+	Baileys Muckleneuk
+	Pretoria, Repuplic of South Africa
+
+	phone: (012) 346-1160
+	fax:   (012) 346-1334
+@endnode
+
+
+@node "pr" "Press Releases"
+Intangible Assets Manufacturing Continues Strong Support of Amiga Users
+
+Drexel Hill, PA (4 May, 1994)  Intangible Assets Manufacturing, a software
+development and consulting company in the Amiga marketplace, announces that
+Commodore Electronics Ltd.'s voluntary liquidation in no way affects IAM's
+commitment to the Amiga.
+
+IAM's president, Dale L. Larson, stated, "The Amiga is important. Commodore
+is irrelevant."
+
+Larson elaborated, "Even if Commodore disappears and no one else picks up
+production of the Amiga, there is a large existing base of machines which
+will remain valuable for many years.  We intend to help current Amiga users to
+get the most from those systems. Further, we believe that licensing agreements
+or other arrangements will likely allow production of new machines by
+someone."
+@endnode
+
+@node "consulting" "Consulting Services"
+We offer consulting services of interest to all Amiga users and services
+geared primarily to businesses.
+
+@{b}Amiga@{ub}
+
+As Amiga experts, we can help with any Amiga needs.  Whether you are looking
+for recommendations or searching for solutions, we are there.
+
+Amiga @{b}Telephone consultations@{ub} to provide advice and help are
+available at our standard consulting fee, billable in 15-minute increments.
+New clients have a one-hour minimum, but may get up to four 15-minute calls
+with the intitial fee.
+
+@{b}IAM provides no free telephone support for any products.@{ub}
+
+@{b}Business@{ub}
+
+Computers, communications networks, and other technologies play key roles in
+any modern enterprise. They allow us to accomplish more work with fewer
+resources, enable us to perform work we couldn't dream of doing manually,
+and let us reach those who were previously distant.  Whether you are a
+one-person office or a global corporation, you want technology to amplify
+your abilities and extend your reach.
+
+To ensure that you are getting the most from the technology you have and
+that you are considering appropriate new technologies, you need a high-level
+expert to examine your business and advise you.  When you are ready to
+reevaluate your current use of technology, or to implement the use of new
+technologies, come to IAM.  We'll bring new expertise and creative
+perspectives to your enterprise.
+
+Once we've made our recommendations, we can work with your implementation
+team (or your other external consultants) to assure that the job is done
+right and that you get what you need.
+
+
+IAM's standard fee for consulting services is $125/hour.
+@endnode

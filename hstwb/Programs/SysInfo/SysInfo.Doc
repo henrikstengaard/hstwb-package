@@ -1,0 +1,674 @@
+                            SysInfo 
+                            -------
+            written in Assembler with Macro68 V3.170
+            ----------------------------------------
+                
+Written by      Nic Wilson                
+                Nic Wilson Software
+                P.O. Box 1164             <---***PLEASE NOTE NEW ADDRESS***
+                Toowoomba Queensland 4350
+                
+                Phone +61 76 358539 A/H Voice only
+                 
+                Within Australia (076) 358539
+                      
+        EMAIL  cbmaus!cbmozq!wilson!nicw@cbmvax.commodore.com     
+        CBMNET nicw@wilson.adsp.sub.org
+                      
+PAYMENT
+-------	
+	Even though you may have paid for the disk this program came on, 
+	you have not paid for SysInfo.   Please read the donation and 
+	distribution headings below.
+	                      
+        * * * DONATIONS * * *
+        ---------------------
+        
+        A dontation of $20.00 American or $25.00 Australian is suggested,
+        but if you cannot afford that, any amount will be gratefully accepted.
+        
+        Overseas users, please DO NOT send personal or EuroChecks.  They
+        are very difficult and expensive to cash.  Please send an overseas
+        bank draft in Australian Dollars drawn on any Australian bank.  Your
+        local bank should be able to help you with this.
+        Any cash currency is acceptable as it is very easy to convert to
+        Australian.
+        
+        The following credit cards are accepted.
+        
+        OVERSEAS  -> MASTERCARD, VISA.
+        
+        AUSTRALIA -> BANKCARD, MASTERCARD, VISA.
+        
+        These cards can be accepted by mail, email or phone.  Confidentiality
+        is guaranteed.  If using credit card, please include the card number,
+        the expiry date and the name as it appears on the card. 
+        
+        Donations in the form of software or hardware is also acceptable.  I
+        write many reviews here in Australia and quite often give free plugs
+        to companies that have been generous enough to donate to my work.
+        
+        * * THANK-YOU * *
+        
+        Three companies deserve a special thank-you for their generosity.
+        A big thank-you to Progressive Peripherals and Software and NewTek 
+        Corp.  
+        
+        A thank-you to "Amiga Format" Magazine for being the only magazine 
+        so far to send me a donation for using the program on their cover 
+        disk.
+                      
+        DISTRIBUTION CONDITIONS
+        -----------------------
+        
+        This program may be distributed freely on the condition that
+        no profit is gained from its distribution.  An amount of the
+        average retail price of a single 3.5 inch DSDD disk is permitted
+        for a copying fee. 
+        
+        THIS PROGRAM MAY NOT BE CRUNCHED IN AN EXECUTABLE FORM, DOING SO
+        IS CONSIDERED A VIOLATION OF THIS AGREEMENT.  
+        
+        LHARC'ING IN AN ARCHIVAL FORM IS PERMITTED FOR DISTRIBUTION.
+        
+        Output results from the program may be reprinted without any
+        form of permission.  But please state the SysInfo Version number
+        used to obtain the results.
+        
+        This doc file and the icons must accompany the program unmodified.
+        
+        Additional document files of your own may accompany the program.
+        
+        You may add your autoconfig boards to the sysinfo.boards file
+        distributed with this archive, but please leave the comments
+	at the top of the file intact.        
+
+        Results from different Amiga configurations may be distributed
+        along with the SysInfo files.
+
+        The executable must not be modified in any way, except as specified.
+
+        Further updated versions are distributed as available and as soon 
+        as possible.  You can always obtain an update by modem if you wish.
+        
+        COMMERCIAL COMPANIES 
+        --------------------
+        
+        I would appreciate being informed that you are distributing it 
+        although this is not a requirement, but a donation is requested.
+        
+        If you would like all your products listed by name and manufacturer 
+        in the 'BOARDS' function, then add them to the sysinfo.boards ascii 
+        file included with this archive.  See the READ.ME file for more
+        information on this, or see the BOARDS function in this document.
+        
+INTRODUCTION
+------------
+        
+        This program was originally written due to the lack of such a 
+        program  on the Amiga.  Since that time the response has been
+        terrific.  SysInfo is now even more powerful and has become
+        a standard on the Amiga.
+        
+        I have placed this program on Shareware so that it can be
+        used by everyone.  All code, graphics and documents remain
+        copyright Nic Wilson Software.
+        
+        If you like this program, then help me to help you more by
+        sending a donation.
+
+                      *********************************            
+                      IMPORTANT FOR KICKSTART 1.2 - 1.3
+                      *********************************
+                      
+        Amigas that have a maths co-processor using kickstart 1.3 or 
+        earlier, MUST use SetPatch 1.34 or later otherwise this program
+        will crash.  This program uses 68881 & 68882 instructions and a 
+        bug in the kernal causes a guru.  SetPatch patches this bug.  
+        This is not required for Kickstart V2.04 or greater.
+        
+        Sysinfo is an Amiga Sytem Information program.  It interrogates
+        the Amiga and determines types of hardware, software, modes,
+        speed etc.  Users have found it very useful for determining
+        correct operation of an Amiga before purchase and that the
+        unit actually contains hardware that they are paying for, without
+        having to open it up.  It is under constant revision, and these
+        revisions are available from myself at any time.  My goal is to
+        make SysInfo the most informative and accurate information program
+        on the Amiga.  To do this I need your feedback and suggestions. 
+        
+        This program is tested with the program 'Enforcer'.
+        
+        Please be patient if you are running SysInfo on a standard
+        Amiga as it will take a while to perform its tests.  SysInfo
+        really interrogates your system and has to perform many timing
+        loops to test ram speed, type etc.  Some other programs sacrifice
+        accuracy by speeding the tests up, SysInfo takes time but does
+        an intensive test.  At times it also disables multitasking and may
+        blank the mouse pointer.  It will return to multitasking when
+        finished and the mouse pointer will return.
+        
+        TIMINGS FROM ONE VERSION OF SYSINFO TO THE NEXT
+        -----------------------------------------------
+        
+        If you are wondering how come SysInfo may give different results
+        from one version to the next, this is because it is under 
+        constant revision and accuracy is improved with each version as
+        YOU THE USER gives me feedback on varying models and 
+        configurations.  This feedback is very important, as it allows
+        SysInfo to grow into the most powerful and accurate System
+        information program and an invaluable tool for the Amiga.
+                
+USAGE   
+-----
+     FROM CLI
+     --------
+        run SysInfo <switch>
+                
+<switch>        -p    Print info to standard redirection output
+                      instead of custom screen.
+                      EG.  SysInfo >prt: -p     (for printer)
+                           SysInfo -p           (for CLI window)
+                           SysInfo >filename -p (for a file)
+                                
+                -t    Mainly for internal, time testing use. 
+                      See 'NOTE ON SPEED COMPARISONS' below.    
+                      The custom screen will still open to keep
+                      the timing accurate, but no information will
+                      be printed to it.  On completion the screen
+                      will close and the information printed on the
+                      CLI window or redirected output.
+                      
+     FROM WORKBENCH
+     --------------
+        Double click the SysInfo icon.  After launch and various information
+        has been printed to the window you will be able to access one of the
+        eight gadgets on the main window.  These are QUIT, MEMORY, BOARDS, 
+        DRIVES, SPEED, PRINT, LIBRARIES, and EXPAND.  At the top of the window 
+        in the SOFTWARE section, there is a proportional gadget for scrolling
+        the software display.  The 'DHRY' gadget is not used at this time and
+        is planned for different tests in future versions.
+        
+    GADGETS
+    -------    
+        
+        
+LIBRARY This gadget toggles the SOFTWARE display between libraries,
+	device drivers, resources, ports and Tasks.  The proportional gadget 
+	to the right of the display allows you to scroll through the list if 
+	there is more that will fit on the screen at one time.
+	
+EXPAND  This gadget toggles between expand and 'SHRINK'.  This allows the
+	graph area to be expanded, using a smaller scale.  This permits
+	users of slower Amigas to more easily see the differences.  The
+	scales are 0 - 40 thousand dhrystones and 0 - 10 thousand dhrystones
+	respectively.  If one of the graphic bars is too large for display
+	on the expanded scale, it will be shown as full size with a plus (+)
+	sign on the very right of the display bar.
+		
+DHRY    At this point in time, this gadget does not function.  I am planning
+	different types of tests that will be available from this gadget.	
+        
+QUIT    Does just that, exits the program completely. 
+
+SPEED   Runs the speed comparisons and displays the result accordingly. 
+        This can be selected as many times as you wish so the results
+        can be averaged.  
+        
+PRINT   Will open a window and prompt for a filename and an optional
+        heading string,  This heading string will be printed at the
+        top of the page and can have a maximum of 100 characters.
+        
+        Enter a path and filename to save to, or to choose the default 
+        'PRT:' for output to a printer by clicking the 'OK' gadget.
+        
+MEMORY  Is explained below
+
+BOARDS  Is explained below. 
+
+DRIVES GADGET
+-------------
+        When this gadget is clicked another window will open and display
+        a gadget for each floppy, hard or rad drive you have connected
+        to your Amiga.  In the middle of the window you will see Information
+        on the particular drive that has its gadget highlighted.  To select
+        a particular drive, just click on its gadget.  To re-read the same
+        drive, click in its gadget again (useful for re-reading a floppy
+        after a disk change).
+    
+    SCSI GADGET
+    -----------                                   
+                NOTE This function may not work on some brands device
+                ---- drivers and may possibly crash on others.  This is
+                     due to the fact it may not support the required 
+                     commands.  If this happens you may just see an 
+                     error message in the window for each device it 
+                     found that failed to respond to the direct scsi 
+                     command. Each device's unit number will still be
+                     displayed at the start of each error string under
+                     the 'ID' heading.  In this case contact the  
+                     manufacturer of your hard disk controller and 
+                     enquire if they have an update that supports CBM's 
+                     'HD_SCSICMD' command and RigidDiskBlock structure.
+                     
+
+        This gadget will be ghosted for drives that are obviously not
+        SCSI drives,  The SCSI function will display info on all drives
+        that are operated through a single device driver, there is 
+        no need to click the SCSI gadget for all drives, unless some
+        use a different device driver name as shown in the 'drives window'.
+        Select one of the drives and click the SCSI gadget.  A new window
+        will open an attempt to read all SCSI drives on LUN (Logical Unit
+        Number) zero.  If valid drive is found, various information will be
+        displayed.  This information consists of the drive 'ID', its 'TYPE',
+        the 'MANUFACTURER', 'MODEL', and 'VERSION'.  Also displayed is the
+        ANSI version of the device and the number of blocks the drive has.  
+        
+        The drive's REAL size is displayed and if the drive supports CBM's
+        RigidDiskBlock, the formatted size is also displayed beside the 
+        actual size.  This allows you to see if a larger drive than you 
+        thought you had is in the computer.  I have seen some A2500's with 
+        a formatted size of 40MB that actually had QUANTUM 52 Meg hard drive.  
+        
+        If your drive's supplier has not followed CBM's RigidDiskBlock then 
+        the formatted size will not be displayed, but most users already know 
+        the size they beleive is in the system.  If these sizes are different 
+        then your hard drive will require partitioning and re-formatting 
+        correctly.  If the 'REAL' size is smaller than your formatted size then you will 
+        eventually have problems so your drive will still need formatting 
+        correctly.  
+        
+        It is often the case that the REAL size will be 1MB larger than
+        FORMATTED.  This is normal and due to the fact that the chosen
+        number of cylinder, heads etc, will hardly ever exactly match the 
+        total block available on the disk, and this remainder can somtimes
+        show up on the REAL display, if it is large enough.
+        
+    SPEED
+    -----
+    
+    	This gadget will perform a 'read' speed test on the selected 
+    	drive.  It is very safe as it does not write at all.  The result
+    	of the test is displayed on the last line.  Timing for this test
+    	is done via timer.device for best accuracy. The test can be done
+    	on any drive in the gadget list.  To test a particular drive, select
+    	its gadget and then click the 'SPEED' gadget.  If a floppy is selected, 
+    	and it does not have a disk in the drive, or the particular drive 
+    	cannot be 'locked' for some reason, the SPEED gadget will be ghosted,
+    	and not selectable.
+    	
+    	The size and length of the test, depends on the partition or disk.
+    	The entire drive will be read, unless the partition is 15megs or 
+    	greater, in those cases, 7 megs will will be read.  I have found 
+    	that reading more that this is not necessary as the results do not 
+    	change significantly. 
+    	
+    	This function has been tested all forms of drives on various
+    	Amigas, including the CDROM drive in the CDTV, and the IDE drive
+    	in the A600.
+        
+
+BOARDS GADGET
+-------------
+        When this gadget is clicked another window will open and display
+        various information on any AutoConfig  boards found in the
+        system.  This information consists of the memory address of where
+        the board was configured, its size, and the type of board.  The
+        types to date, can be ZORRO II or ZORRO III, any others are
+        not yet defined by Commodore and will be displayed as UNDEFINED.
+        The boards Product number, manufactures ID and the serial
+        number will also be displayed.  If SysInfo recognises the 
+        manufacturer of the card and or the product itself it will display 
+        the names instead of the numbers.  Note that a standard A3000 has 
+        no AutoConfigure  boards as such,  its extra hardware is known 
+        by the special Kickstart files and its memory and hard drive are 
+        added to the system by this kickstart.  A2000 users using zkick to 
+        load V2.0 will also notice that their memory boards will not show 
+        in the AutoConfig list, as they were actually configured by 1.3 and 
+        zkick patches them in to the memory list. 
+        
+LEARN ABILITY
+-------------
+	If Sysinfo does not recognise a board by name, it used to only
+	print the Manufacturer and Product numbers.  Since version
+	3.22 it now looks in an external file (if it exists) in  the S: 
+	directory called "sysinfo.boards" in an attempt to match each of 
+	these unknown board numbers with strings that you have supplied 
+	within the file.
+ 
+	
+CREATING THE EXTERNAL BOARD IDENTIFICATION FILE
+-----------------------------------------------
+
+	The file *MUST* be called sysinfo.boards and *MUST* be in
+	the S: directory.
+
+	The file must have a strict specific format as shown below.
+
+	Comments are allowed but *MUST* only be at the top of the file,
+	and the first character on the beginning of each line *MUST*
+	be a semi-colon (;)  Blank lines are not allowed and will cause
+	errors unless preceded with a semi-colon. 
+
+	Each different board must be on a new line and the
+	manufacturer must be given for each product number, even
+	if they are the same.  For example, Commodore cards are
+	known by Sysinfo, but if they were not, and you had a 
+	A2091 card, Sysinfo would have displayed it as Manufacturer 514
+	and Product 3, and the memory portion of the board as 
+	Manufacturer 514 with Product 10.  These two entries would
+	be in the ascii file as :-
+
+514 COMMODORE 3 A2901/A590
+514 COMMODORE 10 A2091-MEMORY
+
+	See the example sysinfo.boards file with this archive
+	for a complete working example.
+
+	***************
+	***IMPORTANT***
+	***************
+
+	Each name that follows each number **MUST** not contain 
+	spaces, if you want to seperate two names then use
+	hyphens, periods or slashes etc., as shown in the example 
+	above. The total length of the name strings for both manufacturer
+	and product should not be greater than 13 characters else
+	overwriting may occur.	
+
+	There must be at least one space between each of the numbers 
+	and the name strings on every line, as these are used
+	as delimiters for seperating numbers from the names and also 
+	used to null terminate the strings for printing. 
+
+MEMORY GADGET
+-------------
+        When this gadget is clicked another window will open and display
+        various information on any memory in the system.  The first section
+        displayed will be the first memory section that was configured by
+        the system.  At the bottom left of the display are two gadgets,
+        'NEXT' and 'EXIT'.  The next gadget changes the display to show the
+        next memory section, until no more sections are found.  At that time
+        the window will close and return to the main window.  The exit gadget
+        exits immediately to the main window.
+        
+
+SPEED COMPARISONS
+-----------------
+        If SysInfo does not have a test that you would like to see, let
+        me know and I will do my best to add it in for you.
+	
+        THE SPEED COMPARISON CODE HAS BEEN WRITTEN TO GIVE A FAIR INDICATION
+        OF THE SPEED OF A PARTICULAR AMIGA.  IT USES A COMBINATION OF ALL
+        MOTOROLA INSTRUCTIONS TO BOTH REGISTERS AND MEMORY IN A PERCENTAGE
+        THAT POPULAR AMIGA PROGRAMS AND COMPILERS HAVE USED. 
+
+        The A500 - A600 STD comparison is against a PAL A500 or A600 totally 
+        unexpanded or expanded to 1 Meg chip only (ie. no Fast Ram).
+
+        The B2000 EXTRA RAM comparison is against a PAL B2000 Rev 4.4 with
+        a Microbotics 8-UP Fast Ram board fitted with 80ns DRAMS. 
+        
+        The A1200 68EC020 comparison is against a standard PAL A1200 as
+        shipped from Commodore with cache enabled. The reason for the
+        difference in speed to the A2500, is because the A1200 is shipped
+        with CHIP ram only.  There will be a significant speed increase
+        when fast memory is added, especially 32 bit memory such as the
+        Microbotics MBX 1200 board.
+        
+        The A2620 comparison is against a standard A2500 with a A2620
+        card running at 14.3 MHZ.  All caches and bursts on.
+        
+        The A3000 25 MHZ comparison is against a standard PAL A3000/25 MHZ
+        with 4 Megs of 1MX4 SCRAMS 80ns 32 bit wide, and 2 Megs of CHIP. 
+        Caches and Bursts on except Data Burst (default under V2.04 V37+).   
+        Ramsey mode was set at default, BURST ON and STATIC COLUMN OFF.
+        
+        The A4000/040 25MHZ is against a standard PAL A4000 with the
+        standard configuration of 2 Meg Chip and 4 Meg Fast memory.
+        All cache modes are at boot default under 68040.library 37.10
+        under AmigaDOS V3.00 - Kickstart 39.106, with setpatch 39.7 
+        installed.
+                                                                     
+        CPU MIPS (Million Instructions per Second) This test calculation
+        has been coded from all information I have been able to find
+        to date.  It seems quite debatable how this is supposed to be
+        coded and I received different information from people.  It does 
+        a very large loop performing a total of 4.25 million instructions
+        ranging from general instructions, divide, multiply, logic shifts,
+        rotations etc.  I CANNOT AND DO NOT GUARANTEE ITS ACCURACY, except
+        to say it is accurate to the point, it did do the number of 
+        instructions per second that it stated.  Comments on this approach 
+        or a better one are most welcome.
+        
+        FPU MFLOPS (Million Floating Operations per Second)  This test
+        calculation was similar to the above one, in that information
+        on the recognised way was very sketchy.  If an Amiga does not
+        have an FPU, N/A will be shown in this field as any performance
+        test would be meaningless.  The final code shows known boards
+        to be at or around thier advertised speeds.  It does a very large
+        loop performing instructions that take an average number of 
+        clock cycles, times the loop then displays the result.  I CANNOT 
+        AND DO NOT GUARANTEE ITS ACCURACY.  If anyone has a better 
+        routine for this I would be very interested.  This routine is
+        not compatible with a 68881 on a 68000 system such as the Phoenix
+        board and will show N/A.
+
+CACHE GADGETS
+-------------
+	These gadgets require AmigaDOS V2.0 or later, otherwise all
+	the gadgets will be ghosted and unavailable.
+	
+	These are a group of six gadgets.  Modes that are unavailable
+	for the CPU type fitted in your Amiga, will be ghosted and
+	not available.  Clicking these gadgets changes the cache modes
+	for the Instruction and Data caches of the CPU and allows you
+	to compare the difference in speed with different cache
+	settings.
+	
+	The 'ALL' toggle gadget (lower right side) inverts all settings
+	from their current state and vice versa.
+	
+	Some cache manipulation will still be done automatically by the 
+	program for some tests (IE. MHZ test).  Caches will always be 
+	enabled temporarily for test such as this, otherwise the results 
+	would be meaningless.
+	
+	-------------------------------------------------------
+	Remember that if you disable the caches and then exit
+	the proram before enabling them again, they will still
+	be off and you will need to re-enable them will the CPU
+	command or such.
+	-------------------------------------------------------
+	
+	A4000 and other 68040 OWNERS NOTE
+	---------------------------------
+	
+	Under 37.10 and greater of 68040.library it is no longer
+	possible to turn CopyBack off.  If you click the gadget you
+	will notice that the mode does not change.  This is normal.
+	However as CopyBack is a Data Cache mode, if the Data Cache is 
+	off, the CopyBack setting has no effect.
+	
+INTERNAL HARDWARE
+-----------------
+        This shows internal harware as the program has found it.
+        
+        HARDWARE CLOCK only looks for the standard A500, A600, A2000,
+        A3000, CDTV  or fully compatible hardware clock.  It does not look 
+        for the multitude of different clocks that were available for 
+        the 1000 or other models.
+
+        DMA/Gfx  This will show all current versions of Agnus, and the
+        newer Alice chip.  ECS stands for ENHANCED CHIP SET. 
+        The program is also able to tell the difference between the 1MB & 
+        2MB versions of Super Agnus.  Many users have queried the possibility 
+        of doing this and they beleive I check the memory amount.  The 1MB 
+        and the 2MB Agnus chips do not have any different signature registers 
+        so in order to tell them apart I used a trick of the hardware design.  
+        The 1MB Agnus only decodes the first meg space and so the second meg 
+        space has a 'ghost' image of the first.  A 2MB Agnus does decode the 
+        second meg space so no ghost image is present.  SysInfo checks for this 
+        and reports the difference.  This theory I beleive is quite sound, and 
+        has been tested on many 1MB and 2MB Amiga's. 
+        
+        MODE  This shows the current display MODE.  Under kickstart 1.2 or 1.3
+        this will show either PAL or NTSC.  Under version 2.04+ is has the
+        capability of showing all the various modes.  This will mainly be
+        the case using the '-p' option of SysInfo.  This is because of the
+        custom screen that SysInfo uses will normally force the display back
+        to your default mode, except for AGA Amigas that have 'Promotion'
+        enabled, this will usually force the Sysinfo screen to DBLPAL or
+        DBLNTSC mode.  This will be reflected in the screen display.
+        
+        CPU's  68000, 68010, 68020, 68030 and 68040 are supported
+        and will be displayed if found.  If Exec is incorrect then
+        a window will open, and ask you if you want exec to be updated
+        to reflect the correct hardware.  This is mainly for Kickstart
+        1.3, as it is not normally aware of later processors.
+        
+        FPU's or Floating Point Units 68881 and 68882 and internal 68040
+        are supported and will be displayed if found.  These chips are 
+        also often referred to as maths co-processors.  Wether or not you 
+        have one is tested by the program, and if Exec is incorrect a 
+        window will open and ask you if you want Exec corrected. 
+        If a 68040 is found and a CORRECTLY working 68882 emulation then
+        the FPU string will show '68040+68882'.  If yours does not show
+        this then contact your board manufacturer and ask for a copy
+        of Commodore's V37.4 (or greater) 68040 software. 
+
+        MMU's or Memory Management Units 68851 or the internal 68030 and
+        68040 are supported.  These are actually tested for as Exec does not 
+        carry this info.  The 68451 never became very popular so is not 
+        supported.  It will also reflect if the MMU is currently enabled
+        or disabled.
+        
+        VBR is the Vector Base Register.  This is applicable to all processors
+        except the 68000.  The VBR contains the base address of the exception 
+        vector table in memory.  The displacement of an exception vector is 
+        added to the value in this register to access the vector table.  On 
+        the 68000 processor the vector table is always located at address zero.  
+        
+        MHZ is a rough indication of the clock speed.  This is not totally 
+        accurate but is a good indication.  It at least allows you to know 
+        if your system is 7MHZ, 16MHZ or 25MHZ etc.  All caches, bursts and 
+        copyback modes are temporarily enabled during the test for greater 
+        stability, but this should be transparent to the user and they will 
+        be returned to their original state after the tests.  Clock Speed is 
+        normally difficult to find out unless you take the unit apart and even 
+        then is difficult.  Fast ram must be available for this to be anywhere 
+        near accurate, as the timing loops were all based on machines with some 
+        Fast ram available.  For a 68000 based Amiga, the program will take into 
+        account if no fast ram is available and calculate the correct speed 
+        accordingly. 
+        
+        HORIZ Khz  This is the horizontal scan frequency of the current
+        display.  Early kickstarts will show 15.60 for PAL and 15.72 for
+        NTSC.   Kickstart 2.04 or above will show correctly the horizontal
+        frequency.  This will normally only show other than PAL or NTSC
+        when using the '-p' option, because of the reasons specified in the
+        MODE description above.
+        
+        ECLOCK Hz is the frequency of the EClock, as reflected in execbase.
+        This clock is used for the CIA chips.
+        
+        CBACK is an abbreviation for CopyBack.  It is only applicable to 
+        the 68040 currently.  This shows if it is enabled or disabled.  This 
+        is rather a difficult mode, because with the MMU it is possible that 
+        it may be enabled somewhere within the memory map and not others.  
+        The test here uses the OS function to determine if it is enabled. 
+        CopyBack is a cache mode of the CPU and when enabled, the CPU only 
+        updates the cache on writes and memory is only updated when 
+        absolutely necessary or it is forced to do so.
+        
+        INS. CACHE or Instruction Cache is applicable to 68020, 68030 and
+        68040 processors.  This shows if it is currently enabled or
+        disabled.  
+        
+        INS. BURST or Instruction Burst is applicable to 68030 processor.  
+        This shows if it is currently enabled or disabled.  It will
+        however show 'ON' if a 68040 is detected due to requests I received
+        from certain 68040 board manufacturers.
+        
+        DAT. CACHE or Data Cache is only applicable to 68030 and 68040
+        processors.  This shows if it is currently enabled or disabled.  
+        
+        DAT. BURST or Data Burst is only applicable to 68030 processor.  
+        This shows if it is currently enabled or disabled.  It will
+        however show 'ON' if a 68040 is detected due to requests I received
+        from certain 68040 board manufacturers.
+
+        
+        **************************************************************
+        THE NEXT TWO ARE FOR THE A3000 ONLY. AS I HAVE NOT YET FOUND
+        A 100% GUARANTEED WAY TO DETERMINE AN A3000, ON SOME NON-A3000 
+        AMIGAS THIS INFORMATION MAY BE DISPLAYED BUT WILL BE USELESS,
+        AT THE PRESENT TIME THE PROGRAM LOOKS FOR A WORKING RAMSEY 
+        CHIP IN ORDER TO IDENTIFY A 3000 SERIES AMIGA, BUT THIS 
+        REQUIRES FURTHER TESTING BEFORE I CAN GUARANTEE ITS ACCURACY.
+        **************************************************************
+        
+        RAMSEY ver is only applicable to the A3000 series of computers.
+        It will display the revision value of this chip in hexadecimal.
+        Currently there are only two I know of.  Type '$D' is the
+        standard A3000 Ramsey and has a bug that causes failure of the
+        'Page Detect Mode', the other is '$E'.  This is a newer chip
+        that has this bug corrected.
+        
+        GARY ver is only applicable to the A3000 series of computers,
+        even though other Amigas do have a GARY chip, I do not know
+        of a way to identify them as I do for the A3000 series.  It will 
+        show the revision number in hexadecimal.  Currently there are only
+        two I know of, type '$0' is the standard A3000 chip and type
+        '$90' which is a newer chip.
+        
+        CARD SLOT is the new "PCMCIA" card slot in the A600.  SysInfo
+        looks for the slot and displays if an A600 style card slot is 
+        found.
+        
+        SUPPLY Hz is the frequency of the power supply as relected in
+        Execbase.  This will normally be either 50 or 60 Hz.
+        
+        VERT Hz is the frequency of the Vertical Frames.  All modes are
+        catered for, including the programmable ones of the later custom
+        chips.  See the decription for MODE above for restrictions on these
+        displays.
+        
+
+        THINGS I WOULD LIKE TO ADD
+        --------------------------
+        
+        1. I have been receiving conflicting reports about the AT/XT
+           bridgeboards.  Could you please check your card and let
+           me know how the current routine works.  I have added the new
+           386SX brideboard, but is also untested.  Please report, preferably
+           by email.
+
+        3. Your ideas!
+        
+        If you supply suggestions in code form, I would prefer assembler,
+        or C but I can translate other languages if I must.  
+                      
+                
+NOTE ON SPEED COMPARISONS
+-------------------------
+If you have any of the machines listed above, or even a totally 
+different configuration, run the program with -t option (eg. sysinfo -t )
+then phone or email with the resulting numbers that will be printed to the 
+screen.  My phone number, email address or fax is at the top of this file.
+ 
+                      
+Happy Computing
+
+Nic Wilson
+
+Amiga, AutoConfig, AutoConfigure and Intuition are TradeMarks of 
+Commodore Amiga Inc.
+
+MC68000, MC68010, MC68020, MC68EC020, MC68030, MC68040 are trademarks of
+Motorola Ltd.
+
+Macro68 is a trademark of DigiSoft.
+
+
+

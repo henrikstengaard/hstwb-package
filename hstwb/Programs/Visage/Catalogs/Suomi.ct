@@ -1,0 +1,366 @@
+## version $VER: visage.catalog 39.15 (4.9.97)
+## codeset 0
+## language suomi
+;
+; Päivittänyt/kääntänyt Mika Lundell <c71829@uwasa.fi> / ATO
+;
+MSG_BY
+\x9b1m%s - Tekijä Magnus Holmgren\n\x9b0m
+; \x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Tila ei käytettävissä»
+; «Mode name not available»
+;
+MSG_ABORTED
+Keskeytetty.\n
+; Aborted.\n
+;
+MSG_BREAK
+***Keskeytys\n
+; ***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Varoitus: Virhe tulkittaessa ympäristömuuttujaa:\n%s
+; Warning: Error parsing environment variable:\n%s
+;
+MSG_WARN_NO_WBMON
+Varoitus: WBMONITOR ei löytänyt Workbenchiä
+; Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Varoitus: Näyttötyyppiä '%s' ei löydy
+; Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Varoitus: Tilaa '%s' ei löydy
+; Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Varoitus: Ylinäytön tyyppi '%s' tuntematon
+; Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Ei voitu avata: %s versio %ld (tai uudempi)
+; Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Tarvitset OS 3.0:n tai uudemman
+; You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Virhe tulkittaessa argumentteja:\n%s
+; Error parsing arguments:\n%s
+;
+MSG_ERR_FILEREQ
+Tiedostovalitsimen avaus ei onnistunut:\n%s
+; Couldn't open file requester:\n%s
+;
+MSG_ERR_SMREQ
+Näyttötilavalitsimen avaus ei onnistunut:\n%s
+; Couldn't open screen mode requester:\n%s
+;
+MSG_ERR_MONITORREQ
+Näyttötyyppivalitsimen avaus ei onnistunut:\n%s
+; Couldn't open monitor requester:\n%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Palaa asiakasohjelmaan
+; Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Kutsukoukku puuttuu
+; Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Ei ole IFF-tiedosto
+; Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Virhe IFF-tiedostossa
+; Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Virheellinen IFF-tiedosto
+; Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Hakuvirhe
+; Seek error
+;
+MSG_ERR_IFF_WRITE
+Kirjoitusvirhe
+; Write error
+;
+MSG_ERR_IFF_READ
+Lukuvirhe
+; Read error
+;
+MSG_ERR_IFF_MEM
+Muisti loppu
+; Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Ominaisuudelle ei sopivaa tietuetta
+; No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Tietue loppu
+; End of context
+;
+MSG_ERR_IFF_EOF
+Tiedosto loppu
+; End of file
+;
+MSG_ERR_SCR_MONITOR
+Pyydetty näyttötyyppi ei käytettävissä
+; Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Tarvitset uudemmat erikoispiirit
+; You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Muisti loppu
+; Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Grafiikkamuisti loppu
+; Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Sisäinen virhe
+; Internal error
+;
+MSG_ERR_SCR_MODE
+Tuntematon näyttötila
+; Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Laitteisto ei tue näin syvää näyttöä
+; Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Ikkunan avaus ei onnistunut
+; Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Näyttötila ei käytettävissä
+; Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF-tiedosto ei ole ILBM-tyyppiä
+; IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Tuntematon tiedostotyyppi
+; Unknown format
+;
+MSG_ERR_NO_DATA
+Tietoa puuttuu
+; Missing data
+;
+MSG_ERR_BAD_DATA
+Tieto virheellistä
+; Bad data
+;
+MSG_ERR_EOF
+Ennenaikainen tiedoston loppu
+; Premature end of file
+;
+MSG_ERR_RENDER
+Kuvan piirto ei onnistunut
+; Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Tietoa ei tuettu
+; Unsupported data
+;
+MSG_ERR_LIB
+Ulkoinen kirjasto puuttuu
+; External library missing
+;
+MSG_ERR_FORMAT
+Tuntematon tiedostotyyppi
+; Unknown format
+;
+MSG_ERR_UNKNOWN
+Tuntematon virhe numero %ld. Ole hyvä ja ilmoita virheestä.
+; Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tVirhe kuvassa: %s
+; \tError in picture: %s
+;
+MSG_ERR_SHOW
+Kuvan '%s' näyttäminen ei onnistunut: %s
+; Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Visage-tietoa
+; Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Valitse näyttötila
+; Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Valitse näyttötyyppi
+; Select monitor
+;
+MSG_FILE_REQ_TITLE
+Valitse näytettävät tiedostot
+; Select files to view
+;
+MSG_GAD_OK
+Ok
+;  Ok 
+;
+MSG_CLIPBOARD
+«Leikekirja»
+; «Clipboard»
+;
+MSG_EXTRA_LOW_RES
+Erityis-matala tarkkuus
+; Extra-Low Res
+;
+MSG_LOW_RES
+Matala tarkkuus
+; Low Res
+;
+MSG_HIGH_RES
+Korkea tarkkuus
+; High Res
+;
+MSG_SUPER_HIGH_RES
+Erityis-korkea tarkkuus
+; Super-High Res
+;
+MSG_LACED
+ Lomitettu
+;  Laced
+;
+MSG_DOUBLE
+ Kaksois
+;  Double
+;
+MSG_HAM
+ HAM
+;  HAM
+;
+MSG_EHB
+ EHB
+;  EHB
+;
+MSG_DPF2
+ DPF2
+;  DPF2
+;
+MSG_DPF
+ DPF
+;  DPF
+;
+MSG_WARN_NO_DITHER
+Varoitus: Rasterointityyli '%s' tuntematon
+; Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Varoitus: Arvo %ld ei sovi %s-alueeseen (%ld - %ld)
+; Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Varoitus: timer.devicen avaus ei onnistunut
+; Warning: Couldn't open timer.device
+;
+MSG_CYCLE_TASK
+Visage värikierrätin
+; Visage color cycler
+;
+MSG_ERR_FILE_EMPTY
+Tiedosto on tyhjä
+; File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Varoitus: Virhe tulkittaessa asetustiedostoa\nhakemistossa '%s':\n%s
+; Warning: Error parsing configuration file\nin drawer '%s':\n%s
+;
+MSG_WARN_BAD_CFGPATH
+Varoitus: ConfigPath-hakemistoa ei löytynyt\n'%s':\n%s
+; Warning: Couldn't locate ConfigPath drawer\n'%s':\n%s
+;
+MSG_TESTED_OK
+Kuva ok
+; Picture ok
+;
+MSG_ALL_TESTED_OK
+Kaikki testatut kuvat olivat ok\n
+; All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Yksi tai useampi testattu kuva virheellinen\n
+; One or more tested pictures failed\n
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;  (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage-valitsin
+; Visage request
+;
+MSG_ASK_PASSWORD
+Anna salasana tiedostolle\n\"%s\":
+; Enter password for\n\"%s\":
+;
+MSG_ERR_NO_PASSWD
+Salasana väärä tai puuttuu kokonaan
+; Password incorrect or missing
+;
+MSG_ERR_NO_DRAWER
+Ei voitu siirtyä hakemistoon '%s':\n%s
+; Couldn't move to drawer '%s':\n%s
+;
+MSG_ERR_SCR_ATTACH
+Näyttöjen kiinnitys ei onnistunut
+; Couldn't attach screens
+;
+MSG_ERR_BBLANK
+Varoitus: Kehyksen tummennustyyppi '%s' tuntematon
+; Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Varoitus: Väritila '%s' tuntematon
+; Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+Listatiedostoa '%s' ei voitu avata:\n\
+%s
+; Couldn't open list file '%s':\n\
+; %s
+;
+MSG_ERR_READ_LIST
+Listatiedostoa '%s' ei voitu lukea:\n\
+%s
+; Couldn't read list file '%s':\n\
+; %s
+;
+MSG_WARN_OPEN_FONT
+Varoitus: Kirjasimen '%s' avaus ei onnistunut
+; Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Varoitus: Argumentissa '%s' annettu epäkelpo kirjasinkoko
+; Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Varoitus: Argumentista '%s' puuttuu kirjasinkoko
+; Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Varoitus: Järjestystyyppi '%s' tuntematon
+; Warning: Order mode '%s' not known
+;

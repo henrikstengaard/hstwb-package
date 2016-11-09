@@ -1,0 +1,18 @@
+;note that all comments must be at the top and must have semicolons
+;This is an expmple of a valid boards file
+;note that each board is on a line of its own
+;note that there is at least one space between each number and name
+;
+;note the blank line above must have the semi-colon.
+;note that each name does not contain any spaces
+;note that the manufacturer number and name is first then the product
+;note that each name should not be greater than 13 characters
+;note that the blank line below must have a semi-colon
+;
+;The first number is the er_Manufacturer number in decimal
+;following it is the manufacturers name <= 13 characters
+;The second number on each line is the er_Product number in decimal
+;and following it is the name of the board <= 13 characters.
+514 COMMODORE 3 A2091/A590
+2017 GVP 11 SERIES-2-SCSI
+2017 GVP 32 IV-24-GFX

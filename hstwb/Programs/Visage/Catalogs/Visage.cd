@@ -1,0 +1,330 @@
+; $VER: Visage.cd 39.20 (22.2.98)
+;
+MSG_BY (1//)
+\x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE (//)
+«Mode name not available»
+;
+MSG_ABORTED (//)
+Aborted.\n
+;
+MSG_BREAK (//)
+***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS (//)
+Warning: Error parsing environment variable:\n\
+%s
+;
+MSG_WARN_NO_WBMON (//)
+Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR (//)
+Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE (//)
+Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN (//)
+Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB (//)
+Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3 (//)
+You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS (//)
+Error parsing arguments:\n\
+%s
+;
+MSG_ERR_FILEREQ (//)
+Couldn't open file requester:\n\
+%s
+;
+MSG_ERR_SMREQ (//)
+Couldn't open screen mode requester:\n\
+%s
+;
+MSG_ERR_MONITORREQ (//)
+Couldn't open monitor requester:\n\
+%s
+;
+; - Replaced with MSG_ERR_SHOW
+;MSG_ERR_PATTERN (//)
+;Error parsing pattern\n\
+;'%s':\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN (+1//)
+Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK (//)
+Call-back hook missing
+;
+MSG_ERR_IFF_IFF (//)
+Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX (//)
+Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED (//)
+Mangled IFF file
+;
+MSG_ERR_IFF_SEEK (//)
+Seek error
+;
+MSG_ERR_IFF_WRITE (//)
+Write error
+;
+MSG_ERR_IFF_READ (//)
+Read error
+;
+MSG_ERR_IFF_MEM (//)
+Not enough memory
+;
+MSG_ERR_IFF_SCOPE (//)
+No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT (//)
+End of context
+;
+MSG_ERR_IFF_EOF (//)
+End of file
+;
+MSG_ERR_SCR_MONITOR (//)
+Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS (//)
+You need newer custom chips
+;
+MSG_ERR_SCR_MEM (//)
+Not enough memory
+;
+MSG_ERR_SCR_GFXMEM (//)
+Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL (//)
+Internal error
+;
+MSG_ERR_SCR_MODE (//)
+Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH (//)
+Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW (//)
+Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL (//)
+Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM (//)
+IFF but not ILBM
+;
+MSG_ERR_NOT_PIC (//)
+Unknown format
+;
+MSG_ERR_NO_DATA (//)
+Missing data
+;
+MSG_ERR_BAD_DATA (//)
+Bad data
+;
+MSG_ERR_EOF (//)
+Premature end of file
+;
+MSG_ERR_RENDER (//)
+Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA (//)
+Unsupported data
+;
+MSG_ERR_LIB (//)
+External library missing
+;
+MSG_ERR_FORMAT (//)
+Unknown format
+;
+MSG_ERR_UNKNOWN (//)
+Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE (//)
+\tError in picture: %s
+;
+MSG_ERR_SHOW (//)
+Couldn't show '%s': %s
+;
+MSG_REQ_TITLE (//)
+Visage information
+;
+MSG_SCREENMODE_REQ_TITLE (//)
+Select screen mode
+;
+MSG_MONITOR_REQ_TITLE (//)
+Select monitor
+;
+MSG_FILE_REQ_TITLE (//)
+Select files to view
+;
+MSG_GAD_OK (//)
+ Ok \
+
+;
+MSG_CLIPBOARD (//)
+«Clipboard»
+;
+; The following strings are used for the algorithmic mode names.
+; See the manual for more information about these.
+;
+MSG_EXTRA_LOW_RES (//)
+Extra-Low Res
+;
+MSG_LOW_RES (//)
+Low Res
+;
+MSG_HIGH_RES (//)
+High Res
+;
+MSG_SUPER_HIGH_RES (//)
+Super-High Res
+;
+MSG_LACED (//)
+ Laced
+;
+MSG_DOUBLE (//)
+ Double
+;
+MSG_HAM (//)
+ HAM
+;
+MSG_EHB (//)
+ EHB
+;
+MSG_DPF2 (//)
+ DPF2
+;
+MSG_DPF (//)
+ DPF
+;
+; ** Version 39.1 **
+;
+MSG_WARN_NO_DITHER (//)
+Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE (//)
+Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER (//)
+Warning: Couldn't open timer.device
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+; - Replaced with MSG_NEWTIME
+;
+;MSG_TIME (//)
+;%2d.%03ds)\n
+;
+; ** Version 39.2 **
+;
+; Well, this string isn't *that* important to translate.. ;)
+;
+MSG_CYCLE_TASK (+1//)
+Visage color cycler
+;
+MSG_ERR_FILE_EMPTY (//)
+File is empty
+;
+MSG_WARN_BAD_FILE_ARGS (//)
+Warning: Error parsing configuration file\n\
+in drawer '%s':\n\
+%s
+;
+MSG_WARN_BAD_CFGPATH (//)
+Warning: Couldn't locate ConfigPath drawer\n\
+'%s':\n\
+%s
+;
+MSG_TESTED_OK (//)
+Picture ok
+;
+MSG_ALL_TESTED_OK (//)
+All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK (//)
+One or more tested pictures failed\n
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+MSG_NEW_TIME (//)
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE (//)
+Visage request
+;
+MSG_ASK_PASSWORD (//)
+Enter password for\n\
+\"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD (//)
+Password incorrect or missing
+;
+; ** Version 39.5 **
+;
+MSG_ERR_NO_DRAWER (//)
+Couldn't move to drawer '%s':\n\
+%s
+;
+; ** Version 39.6 **
+;
+MSG_ERR_SCR_ATTACH (//)
+Couldn't attach screens
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK (//)
+Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR (//)
+Warning: Color mode '%s' not known
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST (//)
+Couldn't open list file '%s':\n\
+%s
+;
+MSG_ERR_READ_LIST (//)
+Couldn't read list file '%s':\n\
+%s
+;
+MSG_WARN_OPEN_FONT (//)
+Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE (//)
+Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE (//)
+Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER (//)
+Warning: Order mode '%s' not known
+;
+; ** Version 39.18
+;
+MSG_ERR_INFO (//)
+Couldn't get information for '%s': %s
+;
+; ** Version 39.20
+;
+MSG_WARN_RANGE_FLOAT (//)
+Warning: Value %s for %s is out of range (%s - %s)
+;

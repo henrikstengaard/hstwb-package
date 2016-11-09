@@ -1,0 +1,111 @@
+.KEY menusystem/a,menuitemindexname/a,menuitemfilename/a
+.BRA {
+.KET }
+
+; Favourites Script
+; -----------------
+
+; Clear screen
+echo "*ec"
+
+
+; End script, if favourites mode is off
+IF NOT EXISTS ENV:favouritesmode
+	SKIP end
+ENDIF
+
+
+; AGS2
+IF "{menusystem}" EQ "ags2"
+	IF EXISTS "$menupath/(Favourites).ags/"
+		IF $favouritesmode EQ "add"
+			SKIP ags2favouritesadd
+		ENDIF
+		IF $favouritesmode EQ "addrun"
+			SKIP ags2favouritesadd
+		ENDIF
+		IF $favouritesmode EQ "remove"
+			SKIP ags2favouritesremove
+		ENDIF
+	ENDIF
+ENDIF
+
+; AMS
+IF "{menusystem}" EQ "ams"
+	IF EXISTS "$menupath/(Favourites)/"
+		IF $favouritesmode EQ "add"
+			SKIP amsfavouritesadd
+		ENDIF
+		IF $favouritesmode EQ "addrun"
+			SKIP amsfavouritesadd
+		ENDIF
+		IF $favouritesmode EQ "remove"
+			SKIP amsfavouritesremove
+		ENDIF
+	ENDIF
+ENDIF
+
+SKIP end
+
+
+; Add to AGS2 favourites
+LAB ags2favouritesadd
+
+IF NOT EXISTS "$menupath/(Favourites).ags/{menuitemfilename}.run"
+	IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+		CD "$menupath/(Favourites).ags/"
+		COPY >NIL: "$menupath/{menuitemindexname}.ags/{menuitemfilename}.#?" ""
+		ECHO "Added '{menuitemfilename}' to favourites"
+		WAIT 1
+	ENDIF
+ENDIF
+
+SKIP end
+
+
+; Add to AMS favourites
+LAB amsfavouritesadd
+
+IF NOT EXISTS "$menupath/(Favourites)/{menuitemfilename}.start"
+	IF EXISTS "$menupath/{menuitemindexname}/{menuitemfilename}.start"
+		CD "$menupath/(Favourites)/"
+		COPY "$menupath/{menuitemindexname}/{menuitemfilename}.#?" ""
+		ECHO "Added '{menuitemfilename}' to favourites"
+		WAIT 1
+	ENDIF
+ENDIF
+
+SKIP end
+
+
+; Remove from AGS2 favourites
+LAB ags2favouritesremove
+
+IF NOT EXISTS S:RemoveAgs2Favourites
+	ECHO "CD *"$menupath/(Favourites).ags/*"" > S:RemoveAgs2Favourites
+ENDIF
+ECHO "DELETE >NIL: *"{menuitemfilename}.#?*"" >> S:RemoveAgs2Favourites
+ECHO "Queued '{menuitemfilename}' to be removed from favourites"
+WAIT 3
+
+SKIP end
+
+
+; Remove from AMS favourites
+LAB amsfavouritesremove
+
+IF NOT EXISTS S:RemoveAmsFavourites
+	ECHO "CD *"$menupath/(Favourites)/*"" > S:RemoveAmsFavourites
+ENDIF
+ECHO "DELETE >NIL: *"{menuitemfilename}.#?*"" >> S:RemoveAmsFavourites
+ECHO "Queued '{menuitemfilename}' to be removed from favourites"
+WAIT 3
+
+SKIP end
+
+
+; End
+LAB end
+
+; Clear screen
+echo "*ec"

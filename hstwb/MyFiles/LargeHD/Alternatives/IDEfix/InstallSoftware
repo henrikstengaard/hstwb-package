@@ -1,0 +1,1267 @@
+;$VER: IDEfix Install 49.6 (13.02.99)
+;Copyright ©1993-1997 Elaborate Bytes, Oliver Kastl
+
+( set #ControlDefault 1 )
+
+(onerror
+	(makeassign "CacheCDFSInst" (safe))
+	(makeassign "CacheCDFS" (safe))
+)
+
+(set #autoMount 1)
+(set #CDDevice_NC "CD" )
+(set #instEjectCD 1)
+(set #instEject 1)
+(set #ReplaceOld 1 )
+(set #DeleteOld 1 )
+
+(set #wbversion (getversion "libs:version.library"))
+(set #wbversion (/ #wbversion 65536) )
+
+(complete 0)
+
+(if (< #wbversion 37)
+	(abort "\n\nAmigaDOS 2.04 or higher is required for CacheCDFS! "
+			 "\n\nAn upgrade will be needed for your Amiga." )
+)
+
+
+;(if (< (getdiskspace "SYS:") 409600)
+;	(abort "\n\nApproximately 400K of disk space is needed on your SYS: volume."
+;			 "\n\nYou only have " (/ (getdiskspace "SYS:") 1024)	"K free.\n\n"
+;			 "Delete or transfer some files from the SYS: volume and try again." )
+;)
+
+(makeassign "CacheCDFSInst" "" ( safe) )
+
+
+(set #theirlevel @user-level )
+
+(set #Match ( NOT ( run "CacheCDFSInst:C/CheckIDEfix" ( safe ) ) ) )
+
+(user 2)
+
+(message "\nWelcome to IDE-fix, CacheCDFS2, CD32-Emulator and PlayCD!"
+			"\n\nThis package is the complete solution for all your IDE and CD-ROM problems! " 
+         "\n\n"
+         "IDEfix allows you to use 4 harddisks and SyQuest drives with your IDE port, "
+         "ATAPI controls IDE CD-Roms, "
+         "CacheCDFS, PlayCD and CD32-Emulator power any IDE or SCSI-II CD-Rom!"
+         "\n\nEnjoy it! " )
+
+
+( if (NOT @pretend )
+   (
+   (if ( run "CacheCDFSInst:Register/Register" )
+	   (
+	   (abort)
+	   )
+	)
+))
+
+(set #DefaultDir
+	(askdir
+		(prompt "\n\nSpecify the place, where the IDEfix97 directory will be created:" )
+		(help "\n\nIDE-fix and CacheCDFS contain a number of support programs. "
+		"This directory will specifiy where the IDEfix97 directory will be placed.")
+		(default @default-dest)
+		(newpath)
+	)
+)
+
+(user #theirlevel)
+
+(set #CDFSDir (tackon #DefaultDir "IDEfix97"))
+
+(if (NOT (exists #CDFSDir ))
+	(
+	(makedir #CDFSDir
+		(safe)
+		(infos)
+	)
+	)
+)
+
+(set @default-dest #CDFSDir)
+
+
+(makeassign "CacheCDFS" #CDFSDir (safe))
+
+(copyfiles
+	(source "CacheCDFSInst:C/UnInstall")
+	(prompt )
+	(help )
+	(infos)
+	(dest "CacheCDFS:")
+)
+
+(if (NOT (exists "CacheCDFS:Backup" ))
+	(
+
+	(copyfiles
+		(source "CacheCDFSInst:C/BackupIDEFixInstall")
+		(prompt )
+		(help )
+		(infos)
+		(dest "CacheCDFS:")
+	)
+
+	(working "\nBacking up old installation ..." )
+
+	
+	( if (NOT @pretend )
+	   (
+		(if ( run "CacheCDFS:BackupIDEfixInstall CacheCDFS:Backup save" )
+			(
+			(abort)
+			)
+		)
+	))
+	)
+)
+
+(textfile
+	(dest  "CacheCDFS:CacheCDFSUninstall.dat" )
+	(append "DO NOT DELETE THIS FILE!\n"
+			  "IT IS NEEDED TO UNINSTALL IDE-FIX '97!\n")
+)
+
+
+(if (exists "CacheCDFSInst:Installer" )
+	(
+	(copylib
+		(source "CacheCDFSInst:Installer")
+		(dest "SYS:Utilities")
+	)
+))
+
+(working "\nUpdating your System ..." )
+
+( if (NOT @pretend )
+   (
+	(if ( run "CacheCDFSInst:C/CopyIDELibs CacheCDFSInst:" )
+		(
+		(message "\n\nPlease reboot your Amiga and start this installation program again!" )
+		(makeassign "CacheCDFSInst" (safe))
+		(makeassign "CacheCDFS" (safe))
+		(exit (quiet ))
+		))
+	)
+)
+
+(copyfiles
+	(source "CacheCDFSInst:Register")
+	(prompt )
+	(help )
+	(infos)
+	(all)
+	(dest "CacheCDFS:Register")
+)
+	
+(tooltype
+	(dest "CacheCDFS:Register" )
+	(noposition)
+)
+
+(copylib
+	(prompt "This will copy the FormatATAPI program to your C: directory.")
+	(help "This will copy the FormatATAPI program to your C: directory.")
+	(source "CacheCDFSInst:C/FormatATAPI")
+	(confirm)
+	(dest "C:")
+)
+
+(copyfiles
+	(prompt "This will copy Icons for the FormatATAPI and MountLS120 programs "
+		"to your Harddisk.")
+	(help "This will copy Icons for the FormatATAPI and MountLS120 programs "
+		"to your Harddisk.")
+	(source "CacheCDFSInst:LS120")
+	(infos)
+	(all)
+	(confirm)
+	(dest "CacheCDFS:LS120")
+)
+	
+(copyfiles
+	(source "CacheCDFSInst:C/InstallLS120")
+	(prompt )
+	(help )
+	(infos)
+	(dest "CacheCDFS:")
+)
+
+(protect "CacheCDFS:FindDevice" "rwed" )
+(protect "CacheCDFS:FindDevice.info" "rwed" )
+
+(copylib
+	(prompt "\n\nCopying the FindDevice program to the "
+			  "CacheCDFS: directory.\n" )
+	(source "CacheCDFSInst:FindDevice")
+	(dest "CacheCDFS:")
+	(infos)
+	(safe)
+	(help "\n\nThis will copy over the FindDevice "
+			"program to your CacheCDFS: directory\n\nIf you do not "
+			"wish the FindDevice program to be transferred to your system, "
+			"skip this step." )
+)
+
+(tooltype
+	(dest "CacheCDFS:FindDevice" )
+	(noposition)
+)
+
+
+	(copyfiles
+		(prompt "This will copy additional documentation "
+			"to your Harddisk. ")
+		(help "This will copy additional documentation "
+			"to your Harddisk. ")
+		(source "CacheCDFSInst:Docs")
+		(infos)
+		(all)
+		(confirm)
+		(dest "CacheCDFS:Docs")
+	)
+	
+(tooltype
+	(dest "CacheCDFS:Docs" )
+	(noposition)
+)
+
+
+(if (exists "CacheCDFS:FindCD" )
+	(
+	(protect "CacheCDFS:FindCD" "rwed" )
+	(delete "CacheCDFS:FindCD" )
+	)
+)
+
+(if (exists "CacheCDFS:FindCD.info" )
+	(
+	(protect "CacheCDFS:FindCD.info" "rwed" )
+	(delete "CacheCDFS:FindCD.info" )
+	)
+)
+
+(if (exists "L:TandemCacheCDFS" )
+	(
+	((set #DeleteOld
+		(askbool
+		(prompt "\n\n\"L:TandemCacheCDFS\" is present from an earlier installation."
+		        "\n\nDelete \"L:TandemCacheCDFS\" ?" )
+		(help "\n\nClick \"YES\" if \"L:TandemCacheCDFS\" should be "
+		      "deleted and \"NO\" if not!")
+		(default 1)
+		)
+	))
+
+	(if #DeleteOld
+	((protect "L:TandemCacheCDFS" "rwed" )
+	(delete "L:TandemCacheCDFS" )
+	))
+))
+
+(if (exists "L:DemoCacheCDFS" )
+	(
+	((set #DeleteOld
+		(askbool
+		(prompt "\n\n\"L:DemoCacheCDFS\" is present from an earlier installation."
+		        "\n\nDelete \"L:DemoCacheCDFS\" ?" )
+		(help "\n\nClick \"YES\" if \"L:DemoCacheCDFS\" should be "
+		      "deleted and \"NO\" if not!")
+		(default 1)
+		)
+	))
+
+	(if #DeleteOld
+	((protect "L:DemoCacheCDFS" "rwed" )
+	(delete "L:DemoCacheCDFS" )
+	))
+))
+
+(if (= #Match 0)
+
+	(
+
+	( working "\nStarting AddIDEfixStartup ..." )
+
+	( run "CacheCDFSInst:C/AddIDEfixStartup" )
+
+	(copylib
+		(prompt "This will copy the Ship program to your C: directory.")
+		(help "This will copy the Ship program to your C: directory.")
+		(source "CacheCDFSInst:C/Ship")
+		(confirm)
+		(dest "C:")
+	)
+
+	(copylib
+		(prompt "This will copy the ActivateCrossIDEfix program to your C: directory.")
+		(help "This will copy the ActicateCrossIDEfix program to your C: directory.")
+		(source "CacheCDFSInst:C/ActivateCrossIDEfix")
+		(confirm)
+		(dest "C:")
+	)
+
+	(startup "ActivateCrossIDEfix"
+		(command "ActivateCrossIDEfix ALL\n" )
+		(prompt "\n\nInserting ActivateCrossIDEfix into the user-startup")
+		(help "\n\nInserting ActivateCrossIDEfix into the user-startup")
+	)
+
+	(copylib
+		(prompt "This will copy the MountIDE program to your C: directory.")
+		(help "This will copy the MountIDE program to your C: directory.")
+		(source "CacheCDFSInst:C/MountIDE")
+		(confirm)
+		(dest "C:")
+	)
+
+	(copylib
+		(prompt "This will copy the ConvertDrive program to your C: directory.")
+		(help "This will copy the ConvertDrive program to your C: directory.")
+		(source "CacheCDFSInst:C/ConvertDrive")
+		(confirm)
+		(dest "C:")
+	)
+
+	(copylib
+		(prompt "This will copy the AutoParkPrefs program to your SYS:Prefs directory.")
+		(help "This will copy the AutoParkPrefs program to your SYS:Prefs directory.")
+		(source "CacheCDFSInst:Prefs/AutoParkPrefs")
+		(infos)
+		(confirm)
+		(dest "SYS:Prefs")
+	)
+
+	(tooltype
+		(dest "SYS:Prefs/AutoParkPrefs" )
+		(noposition)
+	)
+
+	(copylib
+		(prompt "This will copy the IDEfixPrefs program to your SYS:Prefs directory.")
+		(help "This will copy the IDEfixPrefs program to your SYS:Prefs directory.")
+		(source "CacheCDFSInst:Prefs/IDEfixPrefs")
+		(infos)
+		(confirm)
+		(dest "SYS:Prefs")
+	)
+
+	(tooltype
+		(dest "SYS:Prefs/IDEfixPrefs" )
+		(noposition)
+	)
+
+	(copyfiles
+		(prompt "This will copy Icons for the Ship and MountIDE programs "
+			"to your Harddisk. You can copy these Icons wherever you like, e.g. in your "
+			"SYS:WBStartUp drawer.")
+		(help "This will copy Icons for the Ship and MountIDE programs "
+			"to your Harddisk. You can copy these Icons wherever you like, e.g. in your "
+			"SYS:WBStartUp drawer.")
+		(source "CacheCDFSInst:Harddisk")
+		(infos)
+		(all)
+		(confirm)
+		(dest "CacheCDFS:Harddisk")
+	)
+	
+
+	(tooltype
+		(dest "CacheCDFS:Harddisk" )
+		(noposition)
+	)
+
+	(user 2)
+
+;	(message "\nIMPORTANT:\n\n"
+;				"IDEfix and LoadIDE are installed in your C: "
+;         	"directory, but You MUST start IDEfix manually, as this program "
+;         	"will NOT alter your startup-sequence! "
+;         	"\n\nEnter \"IDEfix\" or \"LoadIDE reset\" behind SetPatch in your startup-sequence "
+;         	"to use IDEfix! "
+;         	"\n\nPlease click PROCEED now.")
+
+	(message "\nNote:\n\nYou can use \"AutoParkPrefs\" in you SYS:Prefs directory to adjust autoparking "
+         	"of your harddrives. Autoparking switches off the motor of a drive, if the drive is "
+         	"not used for a certain amount of time."
+         	"\n\nPlease click PROCEED now.")
+
+	(message "\nNote:\n\nYou can use \"ConvertDrive\" to convert drives formatted with old controllers "
+         	"like Apollo AT or GVP AT!\n\n"
+         	"Enter \"ConvertDrive <device> <unit>\" from the Shell. "
+         	"\n\nPlease click PROCEED now.")
+
+	(message "\nNote:\n\n"
+         	"Use \"Ship\" to park your harddisks!\n\n"
+         	"Use \"MountIDE force\" to mount additional SyQuest cartridges!"
+         	"\n\n\nClick PROCEED to install CD-ROMs.\n\nClick ABORT to quit.")
+
+
+;	( run "C:IDEfix" )
+	)
+
+)
+
+(user 2)
+
+(message "\n\nNow the FindDevice program will be launched to find "
+         "the Device and Unit of your CD-Rom..."
+         "\n\nYou may let the program scan for CD-Roms by clicking \"SCAN\"."
+         "\n\nChoose the device and unit and click \"USE\"!"
+         "\n\nIf FindDevice hangs: Reboot, start the installation again and "
+         "click CANCEL within FindDevice!")
+
+(working "\n\nLaunching the FindDevice program to find "
+         "the Device and Unit of your CD-Rom..."
+         "\n\nYou may let the program scan for CD-Roms by clicking \"SCAN\"."
+         "\n\nChoose the device and unit and click \"USE\"!"
+         "\n\nIf FindDevice hangs: Reboot, start the installation again and "
+         "click CANCEL within FindDevice!")
+
+(set #Product ( run "CacheCDFS:FindDevice" ( safe ) ) )
+
+
+(if (= #Product 0 )
+	(
+	( set #CDROM_Device (getenv "CDROM_Device" ))
+	( set #CDROM_Unit (+ (getenv "CDROM_Unit" )))
+	( set #CDROM_NumLuns (+ (getenv "CDROM_NumLuns" )))
+	)
+
+	(
+	( set #CDROM_NumLuns 1)
+	(set #CDROM_Device
+		(askstring
+			(prompt "\n\nWhat is the name for the exec device driver? " )
+			(default "scsi.device" )
+			(help "\n\nThis is the name of the device driver to use. "
+					"The name is different for different configurations. "
+					"\n\nConsult the manual of your SCSI/CD-Rom host adapter "
+					"if you don't know the name!" )
+		)
+	)
+
+	(set #CDROM_Unit
+		(asknumber
+			(prompt "\n\nWhat is the Unit number of your CD-Rom drive?" )
+			(default 5 )
+			(help "\n\nThis is the unit # of the CD-Rom drive.  This is usually a "
+					"numerical value between 0 and 7." )
+		)
+	)
+
+	)
+)
+
+	(set #CDROM_NumLuns
+		(asknumber
+			(prompt "\n\nHow many discs fit in your CD-Rom drive?" )
+			(default #CDROM_NumLuns )
+			(help "\nThis is the number of logical units of the CD-Rom drive. This is usually a "
+					"numerical value between 1 and 8.\n\n"
+					"If you have a normal CD-Rom, set this to 1.\n\n"
+					"If you have a CD-Rom changer, enter the number of discs that fit in your drive!" )
+		)
+	)
+
+(user #theirlevel)
+
+(set #DevFlags 0)
+
+(set #Match ( run "CacheCDFSInst:MatchPattern NAME="#CDROM_Device" PATTERN=(telmexatapi#?|#?pcmcia#?)" ( safe ) ) )
+
+(if (= #Match 0)
+	(
+	(set #DevFlags 1)
+	)
+)
+
+(set #Match ( run "CacheCDFSInst:MatchPattern NAME="#CDROM_Device" PATTERN=(tandem#?|#?atapi#?|oktagon#?)" ( safe ) ) )
+
+(if (= #Match 0)
+	((set #ControlDefault 2))
+)
+
+(set #Match ( run "CacheCDFSInst:MatchPattern NAME="#CDROM_Device" PATTERN=(scsi.#?|???.scsi.#?)" ( safe ) ) )
+
+(if (= #Match 0)
+	((set #ControlDefault 5))
+)
+
+(if (= #CDROM_Device "gvpscsi.device")
+	((set #ControlDefault 8))
+)
+
+
+(complete 20 )
+
+(user 2)
+
+(set #ControlMask 
+	(askoptions
+		(prompt "FileSystem -> Controller Configuration")
+		(choices "Use SCSI Direct" 
+					"Use Diskchange Interrupt"
+					"Use 24 Bit-DMA"
+					"Use Motor off" )
+		(help	"Here You may define the behaviour of the CacheCDFS accessing the " 
+		      #CDROM_Device ". If you are "
+				"not sure what option is correct, leave the default settings as they "
+				"are. They should work in most cases.\n"
+				"These options may later be altered using the CDFSprefs program. "
+				"However, wrong settings may lead to crashes if you mount the "
+				"FileSystem!\n"
+				"IF YOU HAVE A TANDEMCD / CD1200: YOU MUST DISABLE \"USE SCSI DIRECT\"!\n\n"
+
+				"\"Use SCSI Direct\"\n"
+				"Choose this option if the SCSI controller using "
+				#CDROM_Device " cannot handle DoIO reads with 2048 bytes sectorsize "
+				"correctly (e.g. ALFII, controllers from Progressive Peripherals, Emplant).\n"
+				"Do NOT choose this option if your controller is a modern, well designed "
+				"SCSI controller (ALFIII, Oktagon, A2091, A3000, A4091) or if it is "
+				"NO SCSI controller at all (TandemCD)!\n\n"
+
+				"\"Use Diskchange Interrupt\"\n"
+				"Choose this option if the controller using "
+				#CDROM_Device " does properly handle TD_ADDCHANGEINT and TD_REMCHANGEINT. "
+				"All modern controllers should do this (ALFIII, Oktagon, TandemCD, "
+				"GVP Series-II)\n"
+				"Do NOT choose this option if your controller has problems with diskchange "
+				"Interrupts (old ROM versions of A2091, A3000, A4091, controllers from "
+				"Progressive Peripherals, Emplant)\n\n"
+
+				"\"Use 24 Bit-DMA\"\n"
+				"Choose this option if the SCSI or CD controller using "
+				#CDROM_Device " is a 24-Bit (Zorro II) DMA device "
+				"(e.g. A2091 from Commodore).\n"
+				"Do NOT choose this option if your controller is a 32-Bit "
+				"(Zorro III) device (e.g. FastLane, A3000, A4091), or a non-DMA controller "
+				"like the majority of controllers (e.g. ALFII/III, Oktagon, "
+				"TandemCD, Golem, IVS TrumpCard, Supra) as it will lead to "
+				"decreased performance!\n\n"
+
+				"\"Use Motor off\"\n"
+				"Choose this option if the SCSI controller using "
+				#CDROM_Device " is a GVP controller with \"Faaast\" roms.\n"
+				"Do NOT choose this option if your controller is anything else."
+			)
+		(default #ControlDefault)
+	)
+)
+
+(set #BufMemType  "1 /* MEMF_PUBLIC */\n" )
+(set #BufMemInt  1 )
+
+(if (IN #ControlMask 2)
+	(
+	(set #BufMemType  "513 /* MEMF_PUBLIC|MEMF_24BITDMA */\n")
+	(set #BufMemInt  513 )
+	)
+)
+
+(set #Control "\"MD=0 LC=1 DC=8 L LV AL LFC=1")
+
+
+(if (IN #ControlMask 0)
+	(
+	(set #Control (cat #Control " S"))
+	)
+)
+
+(if (NOT (IN #ControlMask 1))
+	(
+	(set #Control (cat #Control " NC"))
+	)
+)
+
+(if (IN #ControlMask 3)
+	(
+	(set #Control (cat #Control " M"))
+	)
+)
+
+
+(set #Control (cat #Control "\"\n"))
+
+
+(set #autoMount
+	(askbool
+		(prompt "\n\nWould you like the CD-Rom drive automatically mounted upon bootup?\n\n"
+		        "NOTE: If you are unsure if your controller will work correctly with "
+		        "the controller settings, you should select \"NO\"!" )
+		(help "\n\nIf you would like, the appropriate commands will be added to your user-startup file to automatically mount CacheCDFS.")
+		(default 1)
+	)
+)
+
+
+(if #autoMount
+	(set #mountDirectory "DEVS:DOSDrivers")
+)
+
+(if (not #autoMount)
+	(set #mountDirectory "SYS:Storage/DOSDrivers")
+)
+
+(complete 30 )
+
+(user 1)
+
+(set #tempCDDevice_NC #CDDevice_NC )
+(set #CDROM_ID (/ #CDROM_Unit 100 ))
+(set #CDROM_ID (- #CDROM_Unit (* #CDROM_ID 100 )))
+
+(if (> #CDROM_NumLuns 1 )
+	(
+	(if
+	( NOT (askbool
+		(prompt "\nYour CD-Rom changer has " #CDROM_NumLuns " discs.\n\n"
+		        "Do you wish to access them through different device names?" )
+		(help "\n\nClicking YES will mount every disc individually.")
+		(default 1)
+	))
+	(set #CDROM_NumLuns 1 )
+	)
+	)
+)
+
+(set #SlotNumber 0 )
+
+( until (= #CDROM_NumLuns #SlotNumber )
+
+(set #CD_DeviceUnit (+ #CDROM_ID (* #SlotNumber 10 )))
+(set #CDDevice_NC (cat #tempCDDevice_NC #CD_DeviceUnit))
+
+(user 2)
+
+(set #CDDevice_NC
+	(askstring
+		(prompt "\n\nWhat is the name for the AmigaDOS device?\n\n"
+		"(The trailing colon MUST NOT be present)" 
+		)
+		(default #CDDevice_NC )
+		(help "\n\nThis is the name under which AmigaDOS will reference the "
+				"CD-Rom as.  While usually "
+				#CDDevice_NC
+				", it can be any name you choose. "
+				"\n\nThe trailing : (colon) MUST NOT be present." )
+	)
+)
+
+(user #theirlevel)
+
+(set #CDDevice (cat #CDDevice_NC ":") )
+
+(if (< #wbversion 38)
+	((set #startupCommand (cat "mount " #CDDevice " from devs:MountList." #CDDevice_NC "\n") )
+
+	(if #autoMount
+		(
+
+		(if (NOT (EXISTS "S:IDEfixUserStartup" ))
+		((textfile
+			(dest "S:IDEfixUserStartup" )
+			(append "; IDEfix User Startup\n"
+					  "; © 1997 Elaborate Bytes, O. Kastl\n"
+					  "\n")
+			)
+		(protect "S:IDEfixUserStartup" "srwed" )
+		))
+
+		(startup "CacheCDFS"
+			(command "IF EXISTS S:IDEfixUserStartup\n"
+	   		      "   EXECUTE S:IDEfixUserStartup\n"
+	      		   "ENDIF\n" )
+			(prompt "\n\nInserting IDEfix User Startup into the user-startup")
+			(help "\n\nInserting IDEfix User Startup into the user-startup")
+		)
+
+		(textfile
+		(dest "S:IDEfixUserStartup" )
+		(include "S:IDEfixUserStartup" )
+		(append #startupCommand )
+		)
+		)
+	)
+
+	(if (exists (cat "devs:MountList." #CDDevice_NC ) )
+		((set #ReplaceOld
+			(askbool
+			(prompt "\n\nDEVS:MountList." #CDDevice_NC" already exists!\n\n"
+			        "Do you want to replace it?" )
+			(help "\n\nClick \"YES\" if DEVS:MountList."#CDDevice_NC" should be "
+			      "replaced and \"NO\" if not!")
+			(default 1)
+			)
+		))
+	)
+
+	(if #ReplaceOld
+
+	((protect (cat "devs:MountList." #CDDevice_NC) "rwed" )
+
+	(textfile
+		(dest (cat "devs:MountList." #CDDevice_NC) )
+		(append "/***************************************************************/\n"
+				  "/*  CacheCDFS mountlist entry © 1993 Elaborate Bytes, O. Kastl */\n"
+				  "/***************************************************************/\n")
+		(append #CDDevice "\n")
+		(append "	FileSystem     = L:CacheCDFS /* The name of the game */\n" )
+		(append "	Device         = \""#CDROM_Device"\" /* Name of exec device driver */\n" )
+		(append "	Unit           = " #CD_DeviceUnit " /* exec device unit */\n" )
+		(append "	Flags          = " #DevFlags " /* OpenDevice flags */\n")
+		(append "	BlocksPerTrack = 351000 /* Unused */\n")
+		(append "	BlockSize      = 2048 /* True, but unused */\n")
+		(append "	Mask           = 0x7ffffffe /* Memory mask for direct read */\n")
+		(append "	MaxTransfer    = 0x1000000 /* Maximum amount of bytes for direct read */\n")
+		(append "	Reserved       = 0 /* Unused */\n")
+		(append "	Interleave     = 0 /* Unused */\n")
+		(append "	LowCyl         = 0 /* Unused */\n")
+		(append "	HighCyl        = 0 /* Unused */\n")
+		(append "	Surfaces       = 1 /* Unused */\n")
+		(append "	Buffers        = 50 /* Number of cache lines */\n")
+		(append "	BufMemType     = " #BufMemType )
+		(append "	BootPri        = 2 /* Boot priority for MountCD */\n")
+		(append "	GlobVec        = -1 /* Do not change! */\n")
+		(append "	Mount          = 1 /* Mount it immediately */\n")
+		(append "	Priority       = 10 /* Priority of FileSystem task */\n")
+		(append "	DosType        = 0x43443031 /* Currently unused */\n")
+		(append "	StackSize      = 3000 /* Minimum stack required is 3000! */\n")
+		(append "	Control        = "#Control)
+		(append "   /* The Control field is for special adjustments */\n")
+		(append "   /* L/S convert all file names to lowercase */\n")
+		(append "   /* LV/S convert volume names to lowercase */\n")
+		(append "   /* AL/S Auto-Lower converts only non-Amiga CDs */\n")
+		(append "   /* LFC/N start converting at this character */\n")
+		(append "   /* LC/N/A number of blocks per cache line */\n")
+		(append "   /* DC/N/A number of cache lines for the data cache */\n")
+		(append "   /* MD/N/A number of blocks, when starting direct read, not using */\n")
+		(append "   /* the cache. 0 will be a reasonable default (LC*DC+1) */\n")
+		(append "   /* S/S Do SCSI direct commands, no Trackdisk like commands! */\n")
+		(append "   /* NC/S Do NOT use TD_ADDCHANGEINT, poll for DiskChange! */\n")
+		(append "   /* M/S Issue a TD_MOTOR (OFF) command after read */\n")
+		(append "#\n")
+	)
+	(protect (cat "devs:MountList." #CDDevice_NC) "-e" )
+	)
+	)
+))
+
+
+
+(if (> #wbversion 37)
+	(
+
+	(if (exists (tackon #mountDirectory #CDDevice_NC ) )
+		((set #ReplaceOld
+			(askbool
+			(prompt "\n\n" (tackon #mountDirectory #CDDevice_NC) " already exists!\n\n"
+			        "Do you want to replace it?" )
+			(help "\n\nClick \"YES\" if " (tackon #mountDirectory #CDDevice_NC) " should be "
+			      "replaced and \"NO\" if not!")
+			(default 1)
+			)
+		))
+	)
+
+	(if #ReplaceOld
+
+	((protect (tackon #mountDirectory #CDDevice_NC) "rwed" )
+
+	(textfile
+		(dest (tackon #mountDirectory #CDDevice_NC) )
+		(append "/***************************************************************/\n"
+				  "/*  CacheCDFS mountlist entry © 1993 Elaborate Bytes, O. Kastl */\n"
+				  "/***************************************************************/\n")
+		(append "	FileSystem     = L:CacheCDFS /* The name of the game */\n" )
+		(append "	Device         = \""#CDROM_Device"\" /* Name of exec device driver */\n" )
+		(append "	Unit           = " #CD_DeviceUnit " /* exec device unit */\n" )
+		(append "	Flags          = " #DevFlags " /* OpenDevice flags */\n")
+		(append "	BlocksPerTrack = 351000 /* Unused */\n")
+		(append "	BlockSize      = 2048 /* True, but unused */\n")
+		(append "	Mask           = 0x7ffffffe /* Memory mask for direct read */\n")
+		(append "	MaxTransfer    = 0x1000000 /* Maximum amount of bytes for direct read */\n")
+		(append "	Reserved       = 0 /* Unused */\n")
+		(append "	Interleave     = 0 /* Unused */\n")
+		(append "	LowCyl         = 0 /* Unused */\n")
+		(append "	HighCyl        = 0 /* Unused */\n")
+		(append "	Surfaces       = 1 /* Unused */\n")
+		(append "	Buffers        = 50 /* Number of cache lines */\n")
+		(append "	BufMemType     = " #BufMemType )
+		(append "	BootPri        = 2 /* Boot priority for MountCD */\n")
+		(append "	GlobVec        = -1 /* Do not change! */\n")
+		(append "	Mount          = 1 /* Mount it immediately */\n")
+		(append "	Priority       = 10 /* Priority of FileSystem task */\n")
+		(append "	DosType        = 0x43443031 /* Currently unused */\n")
+		(append "	StackSize      = 3000 /* Minimum stack required is 3000! */\n")
+		(append "	Control        = "#Control)
+		(append "   /* The Control field is for special adjustments */\n")
+		(append "   /* L/S convert all file/volume names to lowercase */\n")
+		(append "   /* LV/S convert volume names to lowercase */\n")
+		(append "   /* AL/S Auto-Lower converts only non-Amiga CDs */\n")
+		(append "   /* LFC/N start converting at this character */\n")
+		(append "   /* LC/N/A number of blocks per cache line */\n")
+		(append "   /* DC/N/A number of cache lines for the data cache */\n")
+		(append "   /* MD/N/A number of blocks, when starting direct read, not using */\n")
+		(append "   /* the cache. 0 will be a reasonable default (LC*DC+1) */\n")
+		(append "   /* S/S Do SCSI direct commands, no Trackdisk like commands! */\n")
+		(append "   /* NC/S Do NOT use TD_ADDCHANGEINT, poll for DiskChange! */\n")
+		(append "   /* M/S Issue a TD_MOTOR (OFF) command after read */\n")
+	)
+
+	(protect (tackon #mountDirectory #CDDevice_NC) "-e" )
+
+	(copyfiles
+			(prompt "\n\nCopying Mountlist icon")
+			(source "CacheCDFSInst:Devs/DOSDrivers/CD0.info")
+			(dest #mountDirectory)
+			(newname (cat #CDDevice_NC ".info"))
+			(help "\n\nThis will copy over an icon for the mountlist file.")
+			(confirm)
+
+	))
+	)
+
+	(protect "S:User-Startup" "srwed" )
+	(startup "CacheCDFS"
+		(prompt "\n\nRemoving MOUNT command from the startup-sequence")
+		(help "\n\nThe command \"MOUNT " #CDDevice " FROM DEVS:MOUNTLIST." #CDDevice_NC "\" will be removed from your "
+				"\"S:Startup-Sequence\" or \"S:User-Startup\" file if it is present from "
+				"an earlier installation." )
+		)
+
+	(if ( exists ( cat "devs:MountList." #CDDevice_NC ) )
+
+		((protect (cat "devs:MountList." #CDDevice_NC) "rwed " )
+		(delete (cat "devs:MountList." #CDDevice_NC)
+			(prompt "\n\nDeleting file \"DEVS:MOUNTLIST." #CDDevice_NC "\"" )
+			(help "\n\nThe file \"DEVS:MOUNTLIST." #CDDevice_NC "\" will be deleted "
+					"if it is present from an earlier installation." )
+			(confirm)
+			)
+		))
+	)
+)
+
+(set #SlotNumber (+ #SlotNumber 1 ))
+
+(set #doMount
+	(askbool
+	(prompt "\n\nMount " #CDDevice " now ?")
+	(help "Select, if your CD-Rom should be mounted now, or not.")
+	(default 1)
+	)
+)
+
+( if @pretend ((set #doMount 0))) 
+
+(if #doMount
+	(
+	(working "\n\nMounting CD-Rom...."
+	         "\n\nPlease Wait!")
+
+		( run (cat "CacheCDFSInst:KillDev " #CDDevice " Quiet"))
+
+		(if (< #wbversion 38)
+			(
+			(run (cat "C:Mount " #CDDevice " from devs:MountList." #CDDevice_NC ))
+			)
+		)
+
+		(if (> #wbversion 37)
+			(
+				(run (cat "C:Mount " #CDDevice  ))
+			)
+		)
+))
+
+)
+
+(complete 40 )
+
+(if ( NOT (= #theirlevel 2 ) )
+	(
+	(set #instChanger ( NOT ( run "CacheCDFSInst:Changer DEVICE="#CDROM_Device" UNIT="#CDROM_Unit" TEST" ( safe ) ) ) )
+	)
+)
+
+(if (= #theirlevel 2 )
+	(
+	(set #instChanger 1)
+	)
+)
+
+(if #instChanger
+	((set #instChanger
+		(askbool
+			(prompt "\n\nShould the ATAPI Changer utility be installed?\n\n"
+					  "NOTE: This program is only required, if you have an ATAPI "
+					  "CD-ROM changer!" )
+			(help "\n\nThis will copy over the ATAPI Changer utility "
+					"to your harddisk.\n\nIf you do not "
+					"wish the Changer program to be transferred to your system, "
+					"skip this step.\n" )
+			(default 1)
+		)
+	)
+))
+
+(if #instChanger
+	(
+	(if (exists "CacheCDFS:AtapiChanger" )
+		(
+		(protect "CacheCDFS:AtapiChanger" "rwed" )
+		(delete "CacheCDFS:AtapiChanger" )
+		)
+	)
+
+	(if (exists "CacheCDFS:AtapiChanger.info" )
+		(
+		(protect "CacheCDFS:AtapiChanger.info" "rwed" )
+		(delete "CacheCDFS:AtapiChanger.info" )
+		)
+	)
+
+	(protect "CacheCDFS:Changer" "rwed" )
+	(protect "CacheCDFS:Changer.info" "rwed" )
+	(copylib
+		(prompt "\n\nCopying the Changer program to the "
+				  "CacheCDFS: directory." )
+		(source "CacheCDFSInst:Changer")
+		(dest "CacheCDFS:")
+		(help "\n\nThis will copy over the ATAPI Changer utility "
+				"to your harddisk.\n\nIf you do not "
+				"wish the Changer program to be transferred to your system, "
+				"skip this step.\n" )
+		(infos)
+		(confirm)
+	)
+
+	(tooltype
+		(dest "CacheCDFS:Changer" )
+		(settooltype "DEVICE" #CDROM_Device )
+		(settooltype "UNIT" ("%ld" #CDROM_Unit ))
+		(noposition)
+	)
+))
+
+(complete 50 )
+
+(set #instCDFSprefs
+	(askbool
+		(prompt "\n\nShould the CDFSprefs utility be installed?")
+		(help "\n\nThis will copy over the CDFSprefs utility "
+				"to your SYS:Prefs directory\n\nIf you do not "
+				"wish the CDFSprefs program to be transferred to your system, "
+				"skip this step.\n" )
+		(default 1)
+	)
+)
+
+(if #instCDFSprefs
+	((protect "SYS:Prefs/CDFSprefs" "rwed" )
+	(protect "SYS:Prefs/CDFSprefs.info" "rwed" )
+	(copylib
+		(prompt "\n\nCopying the CDFSprefs program to the "
+				  "SYS:Prefs directory." )
+		(source "CacheCDFSInst:Prefs/CDFSprefs")
+		(dest "SYS:Prefs")
+		(infos)
+		(help "\n\nThis will copy over the CDFSprefs "
+				"program to your SYS:Prefs directory\n\nIf you do not "
+				"wish the CDFSprefs program to be transferred to your system, "
+				"skip this step." )
+		(confirm)
+	)
+
+	(tooltype
+		(dest "SYS:Prefs/CDFSprefs" )
+		(noposition)
+	)
+))
+
+(complete 60 )
+
+(set #instKillDev
+	(askbool
+		(prompt "\n\nShould the KillDev utility be installed?")
+		(help "\n\nThis will copy over the KillDev utility "
+				"to your CacheCDFS directory\n\nIf you do not "
+				"wish the KillDev program to be transferred to your system, "
+				"skip this step." )
+		(default 1)
+	)
+)
+
+(if #instKillDev
+	((protect "CacheCDFS:KillDev" "rwed" )
+	(protect "CacheCDFS:KillDev.info" "rwed" )
+	(copylib
+		(prompt "\n\nCopying the KillDev program to the "
+				  "CacheCDFS: directory.\n" )
+		(source "CacheCDFSInst:KillDev")
+		(dest "CacheCDFS:")
+		(infos)
+		(help "\n\nThis will copy over the KillDev "
+				"program to your CacheCDFS: directory\n\nIf you do not "
+				"wish the KillDev program to be transferred to your system, "
+				"skip this step." )
+		(confirm)
+	)
+
+	(tooltype
+		(dest "CacheCDFS:KillDev" )
+		(settooltype "DOSDEV" #CDDevice )
+		(noposition)
+	)
+))
+
+(if #instEject
+	(
+	(set #instEject
+	(askbool
+		(prompt "\n\nShould the Eject utility be installed?")
+		(help "\n\nThis will copy over the Eject utility "
+				"to your CDFS directory\n\nIf you do not "
+				"wish the Eject program to be transferred to your system, "
+				"skip this step.\n" )
+		(default 1)
+	)
+	))
+)
+
+(if #instEject
+	((protect "CacheCDFS:Eject" "rwed" )
+	(protect "CacheCDFS:Eject.info" "rwed" )
+	(copylib
+		(prompt "\n\nCopying Eject program to the "
+				  "CacheCDFS: directory.\n" )
+		(source "CacheCDFSInst:Eject")
+		(dest "CacheCDFS:")
+		(help "\n\nThis will copy over the Eject utility "
+				"to your CacheCDFS directory\n\nIf you do not "
+				"wish the Eject program to be transferred to your system, "
+				"skip this step.\n" )
+		(infos)
+		(confirm)
+	)
+
+))
+
+(complete 70 )
+
+
+(if #instEjectCD
+	(
+	(set #instEjectCD
+	(askbool
+		(prompt "\n\nShould the EjectCD utility be installed?")
+		(help "\n\nThis will copy over the EjectCD utility "
+				"to your CDFS directory\n\nIf you do not "
+				"wish the EjectCD program to be transferred to your system, "
+				"skip this step.\n" )
+		(default 1)
+	)
+	))
+)
+
+(if #instEjectCD
+	((protect "CacheCDFS:EjectCD" "rwed" )
+	(protect "CacheCDFS:EjectCD.info" "rwed" )
+	(copylib
+		(prompt "\n\nCopying EjectCD program to the "
+				  "CacheCDFS: directory.\n" )
+		(source "CacheCDFSInst:EjectCD")
+		(dest "CacheCDFS:")
+		(help "\n\nThis will copy over the EjectCD utility "
+				"to your CacheCDFS directory\n\nIf you do not "
+				"wish the EjectCD program to be transferred to your system, "
+				"skip this step.\n" )
+		(infos)
+		(confirm)
+	)
+
+	(tooltype
+		(dest "CacheCDFS:EjectCD" )
+		(settooltype "DEVICE" #CDROM_Device )
+		(settooltype "UNIT" ("%ld" #CDROM_Unit ))
+		(noposition)
+	)
+))
+
+(set #instPlayCD 0)
+
+(if (exists "CacheCDFSInst:PlayCD.lha")
+
+((set #instPlayCD
+	(askbool
+		(prompt "\n\nShould the PlayCD Audio Player be installed?")
+		(help "\n\nThis will copy over the PlayCD drawer "
+				"to your CacheCDFS directory\n\nIf you do not "
+				"wish the PlayCD drawer to be transferred to your system, "
+				"skip this step." )
+		(default 1)
+	)
+)))
+
+(if #instPlayCD
+	(
+
+	(working "\n\nDecrunching PlayCD...."
+	         "\n\nPlease Wait!")
+
+	( if (NOT @pretend )
+	(( if ( run "CacheCDFSInst:c/lhex -afFqw=CacheCDFS: e CacheCDFSInst:PlayCD.lha" )
+		(
+		(abort "\n\nUnable to decrunch PlayCD!")
+		)
+	)))
+
+
+	(tooltype
+		(dest "CacheCDFS:PlayCD/PlayCD" )
+		(settooltype "DEVICE" #CDROM_Device )
+		(settooltype "UNIT" ("%ld" #CDROM_Unit ))
+		(settooltype "BUFMEMTYPE" ("%ld" #BufMemInt ))
+	)
+	)
+)
+
+(complete 80 )
+
+
+(set #instJukebox 0)
+
+(if (exists "CacheCDFSInst:JukeBox.lha")
+((set #instJukebox
+	(askbool
+		(prompt "\n\nShould the JukeBox Audio Player be installed?")
+		(help "\n\nThis will copy over the JukeBox drawer "
+				"to your CacheCDFS directory\n\nIf you do not "
+				"wish the JukeBox drawer to be transferred to your system, "
+				"skip this step." )
+		(default 1)
+	)
+)))
+
+(if #instJukebox
+	(
+	(protect "CacheCDFS:JukeBox" "rwed" )
+	(protect "CacheCDFS:JukeBox.info" "rwed" )
+	(makedir "CacheCDFS:JukeBox" 
+		(infos)
+		(prompt "\n\nCreating drawer for JukeBox\n")
+		(help "\n\nThis will create a drawer for the JukeBox "
+				"Audio Player." )
+	)
+
+
+(working "\n\nDecrunching Jukebox...."
+         "\n\nPlease Wait!")
+
+	( if (NOT @pretend )
+	(( if ( run "CacheCDFSInst:c/lhex -qafFw=CacheCDFS:Jukebox e CacheCDFSInst:JukeBox.lha" )
+		(
+		(makeassign "JukeBox")
+		(abort "\n\nUnable to decrunch JukeBox!")
+		)
+	)))
+
+
+	(tooltype
+		(dest "CacheCDFS:Jukebox/JukeBox" )
+		(settooltype "DEVICE" #CDROM_Device )
+		(settooltype "UNIT" ("%ld" #CDROM_Unit ))
+	)
+
+))
+
+
+(if (AND (> #wbversion 38) (exists "CacheCDFSInst:CD32.lha"))
+
+	((complete 90 )
+
+	(set #instCD32
+		(askbool
+			(prompt "\n\nShould the CD32-Emulator be installed?"
+			        "\n\nNote that the CD32-Emulator is completely useless "
+			        "if you don't have an Amiga with AA/AGA chipset and "
+			        "at least Kickstart version 3.0!")
+			(help "\n\nThis will copy over the CD32 drawer "
+					"to your CacheCDFS directory\n\nIf you do not "
+					"wish the CD32 drawer to be transferred to your system, "
+					"skip this step.")
+			(default 1)
+		)
+	)
+
+	(if #instCD32
+		(
+		(working "\n\nDecrunching CD32...."
+		         "\n\nPlease Wait!")
+
+		( if (NOT @pretend )
+		(( if ( run "CacheCDFSInst:c/lhex -afFqw=CacheCDFS: e CacheCDFSInst:CD32.lha" )
+			(
+			(abort "\n\nUnable to decrunch CD32!")
+			)
+		)))
+
+	
+		(if (exists "CacheCDFSInst:CD32" )
+			((copylib
+				(prompt "This will copy the CD32 program.")
+				(help "This will copy the CD32 program.")
+				(source "CacheCDFSInst:CD32")
+				(infos)
+				(dest "CacheCDFS:CD32")
+				(confirm)
+			))
+		)
+
+
+		( set #CDROM_Blocks 2 )
+
+		(if (= #CDROM_Device "tandemcd.device")
+			(
+			( set #CDROM_Blocks 4 )
+			)
+		)
+
+		(if (= #CDROM_Device "tandemat.device")
+			(
+			( set #CDROM_Blocks 4 )
+			)
+		)
+
+		(if (= #CDROM_Device "tandemcd_pcmcia.device")
+			(
+			( set #CDROM_Blocks 4 )
+			)
+		)
+
+		(if (= #CDROM_Device "tandemcd_come.device")
+			(
+			( set #CDROM_Blocks 4 )
+			)
+		)
+
+		(tooltype
+			(dest "CacheCDFS:CD32/CD32" )
+			(settooltype "BLOCKS" ("%ld" #CDROM_Blocks ) )
+			(settooltype "DOSDEV" #CDDevice_NC)
+			)
+
+	))
+))
+
+(complete 100 )
+
+
+(makeassign "CacheCDFSInst" (safe))
+(makeassign "CacheCDFS" (safe))
+

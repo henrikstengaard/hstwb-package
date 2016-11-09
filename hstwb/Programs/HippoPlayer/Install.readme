@@ -1,0 +1,16 @@
+
+- Copy HiP and HiP.info to wherever you keep your tools.
+
+- Copy HippoPlayer.group into S:
+
+- Copy HippoPlayer.PS3M into S:
+
+- reqtools.library is required! 
+  (A kick1.3 version is included in the support archive.)
+
+- Copy the player libraries you need into Libs:.
+  The following libraries are located in the support archive:
+   * medplayer, octamixplayer and octaplayer for MED/OctaMED/SS modules.
+   * mline for MusicLineEditor modules.
+   * PlaySID for playing PSIDs.
+

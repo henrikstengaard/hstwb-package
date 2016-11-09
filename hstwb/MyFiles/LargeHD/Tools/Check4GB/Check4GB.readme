@@ -1,0 +1,148 @@
+Short:        Check if your HD setup is 4GB-ready
+Uploader:     thomas-rapp@web.de (Thomas Rapp)
+Author:       thomas-rapp@web.de (Thomas Rapp)
+Type:         disk/misc
+Version:      1.6
+Architecture: m68k-amigaos >= 2.0.4
+
+
+New in this release
+===================
+
+- TD64 test didn't work in all cases
+- SCSI test didn't work
+- version information about FFS in check4gb.filesys was wrong
+- output "ok?" instead of "ok" for drives larger than 128 GB.
+
+
+
+Introduction
+============
+
+Amiga  Computers  with  Kickstart  3.1  and below cannot handle hard drives
+greater  than  4GB. Although there are many solutions and even OS3.5+ claim
+to  be  compatible  with large hard drives, it is sometimes difficult to be
+sure.
+
+
+
+Background
+==========
+
+The  standard  interface  between  a device driver (e.g. scsi.device) and a
+file  system  (e.g. FastFileSystem) addresses blocks on a drive by a 32 bit
+address. With 32 bits you can address 2^32 bytes = 4GB.
+
+There are three solutions to expand this border:
+
+-  TD64  is  a  64 bit command set invented by Phase5 and other third-party
+   vendors.
+
+-  NSD is a new style to communicate with a device driver.  It also adds 64
+   bit commands similar to TD64.
+
+-  Direct-SCSI is a method to send raw device commands directly to the SCSI
+   bus.  Most IDE drivers understand and emulate these commands, too.
+
+To  bypass  the  4GB border you need a device driver and a file system that
+both support the same command set out of the above.
+
+
+
+Usage
+=====
+
+The  program can be run from a Shell window or from the Workbench. When run
+from Workbench or without Shell parameters, the GUI opens.
+
+It checks every partition that is mounted in the system if it resides above
+the  4GB  border  or  overlaps  it,  and  if yes, compares the command sets
+available with those supported by the file system used.
+
+The window lists all partitions found along with the informations inquired.
+The last column is the most important: it reads either "ok" or "***". If it
+is  ***,  this  partition must not be used ! After the *** the command sets
+supported by the device driver are listed.
+
+If  the  last  column is "ok?" this means that the partition lies partially
+above  the  128  GB border. Check4GB is not yet able to test if a device is
+IDE  or  SCSI  and if IDE if it supports LBA 48 for drivers larger than 128
+GB.
+
+
+
+Configuration
+=============
+
+It is not possible to test which command set a file system uses. Because of
+this, Check4GB needs a configuration file that lists the file systems along
+with the supported command sets.
+
+The  configuration  file  is called check4gb.filesys and is searched in the
+current directory, in Check4GB's program directory and in S:.
+
+Every file system not listed in the configuration file is considered to not
+support any of the new command sets.
+
+The config file looks as follows:
+
+<filesystem> <version> <command set 1> <set 2> <set 3> <comment>
+
+One line for each file system.
+
+filesystem     the  first  three  characters  of  the  DosType. E.g. if the
+               DosType is 444f5303 (DOS\3) the filesystem column is DOS.
+
+version        the  lowest  version  that supports the listed command sets.
+               If  the  same  file  system  is  listed  multiple times with
+               different  version  numbers,  the higher versions must apear
+               before the lower ones.
+
+command set    Up to three command sets this file system supports.  Options
+               are one of TD64, NSD and SCSI.
+
+comment        Everything after the third command set is ignored.
+
+
+The example check4gb.filesys contains all modern file systems that I know.
+
+
+
+Shell Parameters
+================
+
+When  started  from  the  Shell with parameters, it can test either one DOS
+device or an Exec device driver.
+
+Usage:       check4gb <drive|device> [unit]
+
+Examples:    check4gb scsi.device 0
+             check4gb scsi.device
+             check4gb dh0:
+
+Parameters:  drive    The name of the DOS device to test.
+
+             device   The name of the Exec device driver of your hard drive.
+
+             unit     The unit number (or SCSI id) of your hard drive.
+                      If no unit is given, all units of <device> are checked.
+
+Output:     xxx.device unit y supports NSD commands
+            xxx.device unit y supports TD64 commands
+            xxx.device unit y supports SCSI-Direct commands
+            xxx.device unit y does not support harddisks larger than 4GB
+
+             Self explaning, I hope
+
+            cannot open xxx.device unit y
+
+             The device/unit combination you specified is invalid.
+
+
+WARNING
+=======
+
+This  program  was only tested on my machine with my harddisks. There is no
+guarantee  that it runs on others. I am not responsible for any damage. Use
+them on your own risk.
+

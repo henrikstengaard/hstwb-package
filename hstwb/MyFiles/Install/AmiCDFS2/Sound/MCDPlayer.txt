@@ -1,0 +1,207 @@
+
+
+
+                             MultiCDPlayer
+                                V 1.01
+                              14.01.1996
+                           - Public Domain -
+
+                                MANUAL
+
+
+1. Preface
+
+MCDPlayer is public domain, meaning that you can use and spread the
+program as you want.
+
+You are using MCDPlayer on your own risk. I cannot be held responsible
+for any damage caused by MCDPlayer. This includes system crashes, bugs
+in the program or this documentation.
+
+This will be the only distribution of MCDP done by me. It works fine
+with some SCSI2-CDROMs (i.e. Toshiba 4101, 3401, SONY CDU-554) but
+refuses to run on others (NEC). I don't have the time to search for
+bugs that occurs in combination with hardware that I do not own.
+I hope there's anyone who will continue development of MCDP.
+
+                                               Boris Jakubaschk
+                                               Im Öschle 28
+                                               78727 Oberndorf
+                                               Germany
+
+                                               FIDO 2:246/1115.2
+                                 EMail Boris@alice.tynet.sub.org
+
+Thanks to:
+  - Gary Duncan and Heiko Rath for SCSIUtil
+  - Matt Dillon for DICE
+  - Jan van den Baard for GadToolsBox
+
+
+2. The purpose of this program...
+
+...is to play audio CDs (CDDAs) on your CD-ROM drive. Therefore it must
+be connected to a SCSI-host.
+
+MCDP has some special features:
+
+- Very compact GUI on your Workbench screen
+- GUI is designed like a CD player
+- direct access of first 20 titles of every CD
+- automatically detects CDs and displays the interpreter, the CDs title
+  and the name of the title currently played.
+- automatically detects the change of the CD.
+- Editor to add new CDs to your database.
+- Editor for programming
+- Configuration using tooltypes: SCSI-device and -unit, window position
+  and path of CD database
+- Commodoty with hotkeys for start/stop/title selection
+
+
+3. Installation:
+
+Before you start it for the first time, you should adapt the tooltypes
+of MCDPs icon to your hardware configuration:
+
+FONTNAME=<name>.font
+   Replace <name> with the name of the font you want to use in the
+   display. There are 4 Fonts in the MCDP archive:
+   - MCDP_DOT.font : Looks like a dot matrix LCD display
+   - MCDP_LCD.font : Looks like a segmented LCD display
+   - MDCP_LC2.font : LCD display font including lower case characters
+   - MCDP_STD.font : Best readable but somehow boring
+   You must copy at least one of these fonts to your FONTS: drawer and
+   set its name in the tooltypes.
+
+SCSI_DEV=<name>.device
+   Insert the device name of your SCSI host as <name>. Commodore uses
+   scsi.device as device name for their hosts. This is the default value.
+
+SCSI_ID=<nr>
+   SCSI-ID of your CD-ROM drive. As this number must be in the range of
+   0 to 6, you can detect it by "try and error" if you don't know it.
+   Default value is 1.
+
+SONGPATH=<path>
+   Use this tooltype to determine the path where MCDP will save its CD
+   database. Default is the actual drawer at startup.
+
+WND_POS=<path>
+   MCDP opens its window on the default publicscreen. You can determine
+   the position:
+   0: Centered to the visual part of your screen (if your screen doesn't
+      auto scroll: centered to the screen)
+   1: right upper corner of the screen
+   2: left upper corner of the screen
+   3: left lower corner of the screen
+   4: right lower corner of the screen
+   The editor windows always open in the screen center.
+
+Wrong settings lead to the following results:
+
+- MCDP refuses to start: Wrong device name or unoccupied SCSI-ID.
+- MCDP starts, but only shows the "breadless arts" logo: The ID doesn't
+  belong to a CD-ROM drive or it is not operable.
+- MCDP opens its window and closes it instantly: The font can't be
+  found.
+
+Now you can start MCDP from Workbench. It is also possible to start it
+from Shell by using the tooltypes as parameters:
+
+MCDP "SCSI_DEV=gvpscsi.device" "SCSI_ID=1" "SONGPATH=Music:CDs/"
+
+
+4 Bedienung:
+
+The "Look & Feel" of MCDP is almost identical to a CD player. So there
+should be no problems.
+
+I'll describe the gadgets below the display first, beginning at the
+left edge:
+
+Play ( > ):
+  Play CD, beginning with the first title. In program mode, playing
+  starts with the first title of the program. In both cases the CD-ROM
+  must have been in idle state before, the play symbol ( ">", right
+  lower corner of display ) mustn't have been visible.
+
+Pause ( || ):
+  Pauses playing until this Gadget is klicked again.
+
+Stop ( [] ):
+  Stops playing and quits program mode.
+
+Skip backwards ( |< ):
+  Skips to the title that has been played before the actual one.
+
+Skip forward ( >| ):
+  Skips to the next title.
+
+Search backward ( << ):
+  Jumps 20 seconds backwards in the actual title.
+
+Search forward ( >> ):
+  Jumps 20 seconds forward in the actual title.
+
+Eject ( ^ ):
+  Eject CD.
+
+
+At the right side of the display you find some more gadgets:
+
+Number gadgets ( 1-19 ):
+  In standard mode you can select the first 19 titles of the CD
+  directly. In program mode the keys 1-8 select the actual pro-
+  gram, the others are unused.
+
+Direct input ( + ):
+  Now you can type in the title number using the number gadgets
+  1 to 10 (= 0).
+
+Edit title list ( LIST ):
+  You see a window with some gadgets to put in the interpreters
+  and the CDs name and the names of all titles. To leave this
+  window you find the same gadgets as in the preferences pro-
+  grams of your workbench.
+  After you saved the title list of a CD, this CD will be iden-
+  tified whenever you insert it. The titles are displayed.
+
+Edit programs ( PGM ):
+  In the program window, you see two big lists: On the left side,
+  all titles of the actual CD are displayed. The list on the
+  right side is empty. It will hold the programmed titles. The
+  gadgets between the two lists are used to clear the actual
+  program (New), to select the selection mode of the program
+  list and to select the actually edited program.
+
+  The programming system is very simple: Whenever you select a
+  title of the left list, it is appended to the program list. If
+  you select a title in the right list, the action depends on
+  the selection mode: It can be deleted or moved up, down, to
+  the top or to the bottom of the program list.
+
+Start program mode ( PG# ):
+  This gadget activates the program mode of MCDP. The display shows
+  "PGM" then. If you klick on "Play" now, the first title of the
+  start program will be played. Alternatively, you can select the
+  number of a program using the number gadgets before.
+
+
+5. Keyboard control:
+
+MCDP uses the numeric keypad in conjunction with Ctrl and the left
+Alt key as hotkeys for all basic functions. Therefore, the window
+doesn't necessarily have to be selected.
+
+The keys are assigned as follows:
+   __ __ __ __
+  |  |  |^ |+ |
+  |__|__|__|__|  Enter  Start
+  |7 |8 |9 ||<|  .      Stop and quit program mode
+  |__|__|__|__|  1-9    Play title 1-9
+  |4 |5 |6 |>||  0      Play title 10
+  |__|__|__|__|  +      Play next title
+  |1 |2 |3 |> |  -      Play previous title
+  |__|__|__|  |  /      Eject CD
+  |10   |[]|  |  *      Direct input
+  |_____|__|__|

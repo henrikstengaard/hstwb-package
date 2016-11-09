@@ -1,0 +1,458 @@
+@database "Professional File System 3 documentation"
+@author "Michiel Pelt"
+@(c) "Copyright 1999 by Great Effects Development"
+@$VER: diskvalid.guide 1.9 (18/05/98)
+@master diskvalid.guide
+
+@rem --------------------------------------------------------------------
+@node "Main" "DiskValid"
+
+@{jcenter}@{b}DiskValid@{ub}
+Copyright (c) 1999 by GREat Effects Development
+
+Documentation version 1.4 1-7-1999
+Diskvalid version 1.18 17-5-1999
+
+Diskvalid is a tool to analyse a PFS3 volume. Its main function is to check
+the disk for errors. If it finds any, it can be instructed to try to fix
+them. Diskvalid also has an analyse mode which collects some statistics about
+the volume, like fragmentation and number of files and directories.
+
+@{"Using diskvalid" LINK DV_Use}
+@{"Analyse mode" LINK DV_Analyse}
+@{"Fix mode" LINK DV_Fix}
+@{"Invoking Diskvalid" LINK DV_Invoke}
+@{"Diskvalid messages" LINK DV_Messages}
+
+@{"Goto PFS3 documentation" LINK pfs3.guide/main}
+@endnode
+@rem --------------------------------------------------------------------
+@node "DV_Use" "Using DiskValid"
+@{jcenter}@{b}Using DiskValid@{ub}
+@{jleft}
+
+Simply run diskvalid from the command line with one argument: the device that
+is to be checked. For example:
+
+1.Workbench:> diskvalid main:
+
+The program will give summarised information of what it is doing. On a valid
+disk this will look something like this:
+
+checking reserved tree
+getting rootblock
+checking disk Workbench
+checking .deldir
+checking anode tree
+checking anode indexblock 0
+checking anode indexblock 1
+checking anode indexblock 2
+checking bitmap tree
+checking bitmap indexblock 0
+starting directory tree check
+finished directory tree check 
+checking reserved bitmap
+checking main bitmap
+checking anode bitmap
+disk ok
+
+It starts with checking the 'rootblock', where it finds out the name of the
+disk, in this case 'Workbench'. Then the delete directory is checked.
+
+PFS3 has a collection of blocks on the disk which store information about
+files and the allocation of data etc.  This collection of blocks is stored
+in a hierarchical tree-like structure called the 'reserved tree'.  Diskvalid
+starts with the tree of allocation nodes, or 'anode tree', and the tree of
+bitmap blocks or 'bitmap tree'. In this phase the integrity of the bitmap
+blocks is tested.
+
+What follows is the main task of checking the complete directory tree, the
+hierarchy of files and directories on the disk.
+
+Finally the bitmaps are checked. The bitmaps are used by PFS3 to check which
+blocks are in use and which are available. In this phase diskvalid checks if
+the bitmap is correct. It will check if blocks marked as used in the bitmap
+are really used, and those that are marked available are really available.
+
+Diskvalid exits with the message 'disk ok', indicating everything was all right.
+
+
+@{jcenter}@{b}Errors@{ub}
+@{jleft}
+
+If diskvalid detects a problem somewhere, error messages will be printed. For
+an explanation what these messages mean, see @{"Diskvalid messages" LINK DV_Messages}.
+At the bottom will be the message
+
+encountered <number> errors
+
+If you get this message you can try to fix the problems with the @{"FIX option" LINK DV_Fix}.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "DV_analyse" "DiskValid Analyse mode"
+@{jcenter}@{b}DiskValid Analyse mode@{ub}
+@{jleft}
+
+In analyse mode diskvalid collects statistics while scanning the disk. Every
+file is checked for type and fragmentation. Enable analyse mode by adding
+the 'ANALYSE' option when invoking diskvalid.
+
+If a fragmented file is found a message showing its name and the
+number of fragments is shown.  At the end of the scan, a summary
+is printed. This summary looks like this:
+
+ANALYSE RESULTS
+
+number of files ............. 5130
+number of directories ....... 132
+number of soft links ........ 32
+number of hard links ........ 11
+number of rollover files .... 3
+number of fragmented files .. 74
+anodes used ................. 8332
+reserved area size .......... 11512
+reserved blocks free ........ 10274
+
+The extra messages diskvalid can show in ANALYSE mode are
+
+@{b}disk formatted under PFS version <version>@{ub}
+
+Version of PFS the disk was formatted with. This information will be asked
+when you contact support.
+
+@{b}NOTE: directory <directory> contains an empty directoryblock@{ub}
+@{b}NOTE: directory <directory> has an empty leading directoryblock@{ub}
+
+Empty directory blocks are a sign of inefficiency. It can sometimes happen if
+a directory has been very extensively used. The first block in the chain of
+directoryblocks forming the directory is called the 'leading directoryblock'.
+An empty leading directory block is extra inefficient, since it is always the
+first block that will be read when scanning the directory.
+
+@{b}fragmented file Workbench:data/mydatabase (4 fragments)@{ub}
+
+the specified file is fragmented. This means the file has been split in several
+pieces spread on the disk. The more fragments a file has, the less
+efficient accessing it becomes. PFS tries to prevent having to do this, but
+sometimes there just is no way to prevent it.
+
+Don't worry if some files are fragmented. However, you can try to defragment
+a file by using the 'PFS auto defragmentation on overwrite':
+
+PFS will try to defragment the file for you when you overwrite it. You can do
+this by copying it to the RAM: disk and then back. Afterwards you can use
+diskvalid again to check if it worked.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "DV_fix" "DiskValid Fix mode"
+@{jcenter}@{b}DiskValid Fix mode@{ub}
+@{jleft}
+
+In Fix mode diskvalid will try to fix every error that it finds. Enable Fix
+mode by adding the 'FIX' option when invoking diskvalid. Now, if an error is
+encountered, and diskvalid manages to fix it, it will add ' ... fixed' to
+the message. The final message 'encountered <number> errors' changes to
+
+encountered <number> errors of which <number> were fixed.
+
+The errors diskvalid can fix are:
+
+  � anode <anodenumber> not used but allocated
+  � <blocknr> not used but allocated
+  � <blocknr> used but not allocated
+  � rootblock claims <number> blocks free
+    actual number of blocks free is <number>
+  � rootblock claims <number> reserved blocks free
+    actual number of blocks free is <number>
+  � reserved blocknr <number> not used but allocated
+  � reserved blocknr <number> used but not allocated
+
+
+It is recommended to use diskvalid without the fix option first. If there
+are errors, add the fix option and run diskvalid again. It is also a good
+idea to recheck the disk after it has been fixed with the fix option.
+
+If there is reason to believe the problems encountered are caused by a bug in
+PFS, contact support. This includes problems that are fixable!
+
+See @{"Messages" LINK DV_Messages} for detailed information about what all the
+messages mean.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "DV_Invoke" "Invoking Diskvalid"
+@{jcenter}@{b}Invoking DiskValid@{ub}
+@{jleft}
+
+The syntax for running the diskvalid tool is:
+
+Format:     Diskvalid <device> [VERBOSE] [FIX] [ANALYSE] [TD64]
+Template:   DEVICE/A,VERBOSE/S,FIX/S,ANALYSE/S,TD64/S
+
+The options are:
+
+DEVICE      The device that is to be analysed
+
+VERBOSE     Normally diskvalid gives a summarised output of what it is
+            doing, and only reports errors. In verbose mode every individual
+            file that is tested will be printed. This can become a very long
+            list.
+
+FIX         Enables @{"fix mode" link DV_fix}
+
+ANALYSE     Enables @{"analyse mode" link DV_analyse}
+
+TD64        Enables @{"TD64" link pfs3.guide/td64} mode. Only needed if your device is larger
+            than 4G and does not support direct scsi.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "DV_Messages" "Diskvalid Messages"
+@{jcenter}@{b}Overview of DiskValid messages@{ub}
+@{jleft}
+
+This is an overview of the diskvalid messages. Some error messages look
+very complicated. They are intended for helping members of our support
+team to find the cause of the problem. If there is reason to believe the
+problems encountered are caused by a bug in PFS, contact support. This
+includes problems that are fixable!
+
+@{b}anodeblock <number> blocknr <number> could not be loaded@{ub}
+@{b}anodeblock <number> blocknr <number> has an incorrect id@{ub}
+@{b}anodeblock <number> blocknr <number> has non-matching seqnr@{ub}
+  Problem with an anodeblock. Can affect whole filesystem.
+
+@{b}anode <anodenumber> not used but allocated@{ub}
+  Anode problem. Fixable with the FIX option.
+
+@{b}anode <anodenumber> used but not allocated@{ub}
+  Anode problem.
+
+@{b}bitmapblock <number> blocknr <number> could not be loaded@{ub}
+@{b}bitmapblock <number> blocknr <number> has an incorrect id@{ub}
+@{b}bitmapblock <number> blocknr <number> has non-matching seqnr@{ub}
+  Problem with a bitmapblock. Can affect whole filesystem.
+
+@{b}bitmap allocation failed@{ub}
+  Out of memory. Free some memory and try again.
+
+@{b}blocknr <number> not used but allocated@{ub}
+@{b}blocknr <number> used but not allocated@{ub}
+  Bitmap problem. Fixable with the FIX option
+
+@{b}bootblock could not be loaded@{ub}
+  Could be a device error. Check if there are other messages.
+
+@{b}buffer memory allocation of <number> bytes failed@{ub}
+@{b}couldn't allocate memory for rootblock@{ub}
+@{b}couldn't create cache!!@{ub}
+  Out of memory. Free some memory and try again.
+
+@{b}couldn't find device!!@{ub}
+  Diskvalid couldn't find the device you specified. Check the name you entered,
+  and don't forget the ':' at the end.
+
+@{b}couldn't inhibit device@{ub}
+@{b}couldn't open device@{ub}
+  If these messages appear, reset your computer and try again.
+
+@{b}deldir disabled but reference to deldirblock found@{ub}
+  The deldir does exist, but is not enabled. 
+
+@{b}deldir is invalid@{ub}
+  An error was found in the delete directory. PFS automatically disables the
+  delete directory if it is invalid. This is not serious, it just means the
+  delete directory cannot be used. 
+
+@{b}deldir could not be read@{ub}
+@{b}deldirblock has wrong id@{ub}
+@{b}deldirentry anode <number> error@{ub}
+@{b}deldirentry <filename>: filesize of <number> does not match allocation of <number> sectors@{ub}
+  Error in the delete directory
+
+@{b}directory block <number> node <number> parent <number>@{ub} messages:
+- @{b}could not be loaded
+- has an incorrect id
+- has wrong anodenr
+- has wrong parent reference@{ub}
+  Problem with a directory. Can affect the whole directory and sub directories.
+
+@{b}disk ok@{ub}
+  Your disk is valid. No errors were found.
+
+@{b}disk formatted under PFS version <version>@{ub} @{i}- ANALYSE MODE@{ui}
+  Include this when sending in a bug report.
+  See also @{"Analyse Mode" LINK DV_Analyse}
+
+@{b}element <number> is outside bitmap@{ub}
+@{b}element <number> is double allocated@{ub}
+  Bitmap problem. 
+
+@{b}encountered <number> errors@{ub}
+@{b}encountered <number> errors of which <number> were fixed@{ub}
+  The number of problems diskvalid detected. 
+  Check if the other error messages, and if they are fixable with the Fix option,
+  try it.
+
+@{b}error: <file> messages@{ub}
+- @{b}anode <number> belonging to linkchain <name> is empty
+- one of the nodes in the linkchain of this object has an invalid directory reference
+- odd directory entry length
+- invalid filename
+- <number> character filename detected
+- invalid filenote
+- illegal filetype
+- invalid directory
+- first block could not be loaded
+- anode of first block could not be loaded
+- <blocks> allocated sectors doesn't match filesize of <number> bytes
+- invalid rollover fields
+- invalid hardlink
+- invalid linknode directory reference@{ub}
+  Problems with a file. Affects the file in question only.
+
+@{b}ERROR: blocks free exceeds disksize by <number> blocks@{ub}
+  There are more blocks free than there are on the disk, which is not possible ..
+
+@{b}ERROR: illegal reserved area size <number>@{ub}
+@{b}ERROR: illegal rootblock size of <number> sectors@{ub}
+@{b}ERROR: reserved free exceeds reserved size by <number>@{ub}
+  Problem with rootblock.
+
+@{b}ERROR: postponed operation field <number> set to <number>@{ub}
+  On a valid disk all 'postponed operation fields' should be cleared. If they
+  aren't, PFS will clear then at startup. If you get this message, restart
+  the system and try again. Report to support that this occurred.
+
+@{b}ERROR: rootblock error@{ub}
+  The rootblock has errors. This message is usually combined with other
+  messages giving details about the problem.
+
+@{b}ERROR: unsupported blocksize of <blocksize>@{ub}
+  PFS only support 512 byte and 1024 byte blocks. If another number appears
+  here, check you RDB or mountlist configuration. After correcting the
+  blocksize the partition has to be completely reformatted. Trying to use a
+  wrong blocksize can be dangerous!
+
+@{b}ERROR: wrong options@{ub}
+  The options set are illegal.
+
+@{b}fragmented file <filename> (<number> fragments)@{ub} @{i}- ANALYSE MODE@{ui}
+  See @{"analyse mode" link DV_Analyse}
+
+@{b}illegal anodenr:<number>@{ub}
+  The datablocks belonging to a file or directory cannot be found.
+
+@{b}indexblock <number> blocknr <number> could not be loaded@{ub}
+@{b}indexblock <number> blocknr <number> has an incorrect id@{ub}
+@{b}indexblock <number> blocknr <number> has non-matching seqnr@{ub}
+@{b}indexblock <number>: invalid reference@{ub}
+@{b}indexblock <number>: child failure@{ub}
+  Problem with an indexblock. Can affect the whole filesystem.
+
+@{b}maximum anode clustersize of <number> surpassed by <number>@{ub}
+  Problem with datablocks of a file.
+
+@{b}no block for deldir allocated@{ub}
+  The deldir is enabled, but does not exist. 
+
+@{b}no block for rootblock extension allocated@{ub}
+  Rootblock extension is enabled, but not present.
+
+@{b}not a PFS disk@{ub}
+  The disk is not a PFS or AFS disk. Diskvalid only works on PFS and AFS disks.
+
+@{b}NOTE: directory <directory> contains an empty directoryblock@{ub} @{i}- ANALYSE MODE@{ui}
+@{b}NOTE: directory <directory>  has an empty leading directoryblock@{ub} @{i}- ANALYSE MODE@{ui}
+  Analyse mode messages. See @{"analyse" link dv_analyse}
+
+@{b}out of buffers@{ub}
+  Diskvalid has no buffers left to place a requested block in. This is an
+  internal error message, indicating a problem with diskvalid.
+
+@{b}read attempt outside partition@{ub}
+  Block allocation error.
+
+@{b}read error <number> on block <number>@{ub}
+  The device has an error, a block could not be accessed. This indicates
+  that the device has errors. Make a backup of the partition and
+  reformat the device. If this doesn't help, consider replacing the
+  device.
+
+@{b}reserved odd blocknr@{ub}
+  Blocks in the reserved area are always even. Diskvalid found an odd block.
+
+@{b}reserved blocknr <number> not used but allocated@{ub}
+@{b}reserved blocknr <number> used but but allocated@{ub}
+  Problem with reserved bitmap. Fixable with the FIX option.
+
+@{b}rootblock claims <number> blocks free
+actual number of blocks free is <number>@{ub}
+  Rootblock problem. Fixable with the FIX option.
+
+@{b}rootblock claims <number> reserved blocks free
+actual number of blocks free is <number>@{ub}
+  Rootblock problem. Fixable with the FIX option.
+
+@{b}rootblock could not be loaded@{ub}
+  Could be a device error. Check if there are other messages.
+
+@{b}rootblock could not be written@{ub} @{i}- FIXMODE@{ui}
+  The rootblock, fixed in the Fix mode, could not be written. This means writing
+  back the fixes made on the rootblock failed, so the errors were not fixed.
+  Try again after restarting the computer.
+
+@{b}rootblock extension could not be read@{ub}
+@{b}rootblock extension has wrong id@{ub}
+  Error reading the rootblock extension
+
+@{b}rootblock extension disabled,
+but reference to extension found@{ub}
+  The rootblock extension does exist, but is not enabled.
+
+@{b}rootblock extension is invalid@{ub}
+  The rootblock extension is a block which contains miscellaneous
+  information about the disk.
+
+@{b}sorry, diskvalid cannot fix this disk@{ub} @{i}- FIXMODE@{ui}
+  Diskvalid found an error it cannot fix.
+ 
+@{b}trying to read block -1@{ub}
+@{b}trying to write block -1@{ub}
+  Block allocation error.
+
+@{b}unknown extrafield flags found@{ub}
+  Your diskvalid is probably obsolete. Check if there a newer one is available.
+
+@{b}WARNING: overfull disk. Please delete at least <number> blocks worth of files@{ub}
+  Your disk is ok, but it contains too much data. PFS needs some free
+  diskspace to play with in order to maintain the atomic update principle
+  and keep the disk from getting fragmented. If this message appears PFS
+  has been forced to compromise performance and safety. Delete some files to
+  fix the problem.
+
+@{b}WARNING: unknown options enabled
+this can cause spurious error reports@{ub}
+  A flag is set for all features that have been added to PFS over time. Every
+  time a new feature is implemented, a flag is added. This message indicates a
+  flag has been found which diskvalid doesn't know about. In other words: PFS
+  uses a new feature which diskvalid does not support.
+
+  This new feature could change the disk in such a way that diskvalid interprets
+  it as errors. So diskvalid could start reporting errors, while the disk is
+  really ok.
+
+  Solution: get the latest version of diskvalid.
+
+@{b}write error <number> on block <number>@{ub}
+  The device has an error, a block could not be accessed. This indicates
+  that the device has errors. Make a backup of the partition and
+  reformat the device. If this doesn't help, consider replacing the
+  device.
+
+@{b}write attempt outside partition@{ub}
+  Block allocation error.
+
+@endnode

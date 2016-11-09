@@ -1,0 +1,438 @@
+@database "Professional File System 3 documentation"
+@author "Michiel Pelt"
+@(c) "Copyright 1999 by Great Effects Development"
+@$VER: PFSLS.guide 1.1 (01/07/1999)
+@master pfsls.guide
+
+@rem --------------------------------------------------------------------
+@node "Main" "PFSLS"
+
+@{jcenter}@{b}PFSLS@{ub}
+Copyright (c) 1999 by GREat Effects Development
+
+PFSLS is a directory lister like 'dir' and 'list'. It is used to display
+the contents of directories on any volume, not just PFS or AFS volumes.
+However, PFSLS is the only directory lister tool that can display PFS3
+specific information, like rollover file settings. PFSLS also has some
+advanced features like batch processing and multi level sorting.
+
+The tool is called 'LS' because it works like an Unix tool by that name. Most
+of the switches are compatible with the Unix ls command.
+
+@{"Using PFSLS" LINK LS_Use}
+@{"Invoking PFSLS" LINK LS_Invoke}
+@{"Using PFSLS with the multiuser version" LINK LS_Multiuser}
+
+@{"Goto PFS3 documentation" LINK pfs3.guide/main}
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Use" "Using PFSLS"
+@{jcenter}@{b}Using PFSLS@{ub}
+@{jleft}
+
+Without arguments pfsls will list the contents of the current directory.
+If another directory has to be listed, simply add it as first argument.
+
+The output will look like this:
+
+1.Workbench:> pfsls c:
+directory @{b}"c:"@{ub}
+AddBuffers       DiskChange       Lock             SetDate          
+AddDataTypes     Ed               MagTape          SetFont          
+Assign           Edit             MakeDir          SetKeyboard      
+Avail            Eval             MakeLink         SetPatch         
+BindDrivers      Execute          Mount            Sort             
+Break            Filenote         Protect          Status           
+ChangeTaskPri    IconX            Relabel          Type             
+ConClip          Info             RemRAD           Version          
+Copy             Install          Rename           Wait             
+CPU              IPrefs           RequestChoice    Which            
+Date             Join             RequestFile      
+Delete           List             Search           
+Dir              LoadWB           SetClock  
+134 files - 0 directories - 1888109 bytes used
+
+The files are listed in columns. PFSLS automatically adapts the
+columns to the width of your window and the size of the filenames.
+At the bottom of the listing is a summary line which shows the number
+of files listed, the number of directories listed and the total size of
+the files listed.
+
+@{"continued on next page" LINK LS_Use2}
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Use2" "Using PFSLS part 2"
+@{jcenter}@{b}Using PFSLS part 2@{ub}
+@{jleft}
+
+Sometimes filenames are printed bold, coloured and italic like in
+this example:
+
+1.Workbench:foodir> pfsls
+directory @{b}""@{ub}
+@{fg highlight}mydir@{fg text}            foo2             @{b}hardlink_to_foo@{ub}  @{i}softlink_to_foo@{ui}  
+foo              foo3             @{fg fill}mylogfile@{fg text}  
+6 files - 1 directories - 15534 bytes used
+
+These different colours indicate what kind of file is printed:
+� file            files are printed in the default character colour. 'foo',
+                  'foo2' and 'foo3' are files.
+
+� @{fg highlight}directory@{fg text}       directories are printed in system colour 2. 'mydir' is a
+                  directory.
+
+� @{fg fill}rollover file@{fg text}   rollover files are printed in system colour 3. 'mylogfile'
+                  is a rollover file.
+
+� @{i}softlink@{ui}        softlinks are printed in italics. 'softlink_to_foo' is a
+                  softlink.
+
+� @{b}hardlink@{ub}        hardlinks are printed in bold. 'hardlink_to_foo' is a
+                  hardlink.
+
+Note: colours may be different dependent on your Workbench and Amigaguide
+settings
+
+@{"continued on next page" LINK LS_Use3}
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Use3" "Using PFSLS part 3"
+@{jcenter}@{b}Using PFSLS part 3@{ub}
+@{jleft}
+
+To get a more detailed listing add the -l switch. Used on the directory
+from the previous example the output could look like this:
+
+6.Workbench:AFS/docs> pfsls -l
+directory ""
+@{fg highlight}----rwed        0 Today     19:19:06 mydir@{fg text}
+----rwed     3440 Today     19:16:10 foo
+----rwed     5108 Today     19:19:24 foo2
+----rwed     1496 Today     19:19:30 foo3
+@{b}----rwed     3440 Today     19:18:28 hardlink_to_foo ->Workbench:PFS3/docs/test/foo@{ub}
+@{fg fill}----rwed     2047 Today     19:16:54 mylogfile@{fg text}
+@{i}----rwed        3 Today     19:18:43 softlink_to_foo -> foo@{ui}
+6 files - 1 directories - 15534 bytes used
+
+Notice the order at which information is printed: first the protection bits,
+then the filesize, then the datestamp and finally the filename. For hardlinks
+and softlinks the file that is linked to is indicated with an arrow '->', like
+with the hardlink_to_foo and softlink_to_foo files in the example.
+
+For a short overview of all the options PFSLS supports, try 'pfsls -h'.
+For a more detailed overview read the section @{"Invoking PFSLS" LINK LS_Invoke}.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Multiuser" "Using PFSLS with the multiuser version"
+@{jcenter}@{b}Using PFSLS with the multiuser version@{ub}
+@{jleft}
+
+PFSLS has two options specially for the multiuser version of PFS. They
+work with the multiuser version of FFS too. These options are:
+
+-m      multiuser protection 
+        default: off
+        Multiuser protection bits are shown if this flag is enabled. This
+        flag only works in a long listing (-l option enabled).
+
+-M      multiuser info
+        default: off
+        With this flag the owner and group of files are listed in a long
+        listing (-l option enabled)
+
+Full multiuser information is listed with pfsls -lMm
+An output line will look something like this:
+
+----r---rw--rwed        5        1    54420 23-Apr-98 22:49:41 foo
+
+The protection bits are listed with special bits 'tspa' first, then other,
+then group and finally owner. So this file is fully accessable by the
+owner, read-write for the group and read-only for others.
+
+The second column is the id of the owner, the third column is the id of
+the group. After that follows the normal line of size, date and filename.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Invoke" "Invoking PFSLS"
+@{jcenter}@{b}Invoking PFSLS@{ub}
+@{jleft}
+
+The syntax for invoking pfsls is:
+
+@{fg highlight}pfsls [-<option>(<arguments..>)]... [path]...@{fg text}
+
+All options start with a minus (-) sign. After the minus sign follows
+a letter indicating the option. There are three types of options:
+standard options, extended options and long options. 
+
+  @{"standard options" LINK LS_standard} consist of a single letter. They
+  control sorting, what information to show, how to show it etc.
+
+  @{"extended options" LINK LS_extended} are options with arguments. They
+  also consist of one character, but a set of arguments is added between
+  brackets ().
+
+  @{"long options" LINK LS_Long} are options consisting of a full word.
+
+
+@{b}order of options@{ub}
+
+Options and directories can be mixed in the argument string. So
+pfsls c: -l workbench: -t
+will display the c: and workbench: directories in a long, date
+ordered listing. All options work on all directories listed, no
+matter how directories and options are mixed.
+
+The options are parsed left to right. So if two options conflict,
+the right-most works. For example: pfsls -l1 -l0
+will show a short listing.
+
+All standard and extended options can be 'glued' together. Example:
+pfsls -cFlm(m)
+will give you case significant sorting (c), filenotes (F), a long
+listing (l) and a mixed listing (m(m)).
+
+
+@{b}patterns@{ub}
+
+The directories and files to be listed can contain all the standard AmigaDos
+patterns. All parts of the path may contain patterns. Examples:
+
+pfsls #?.guide
+all files with extension '.guide' are listed
+
+pfsls m#?/#?.(guide|doc)
+all files with extension '.guide' or '.doc' in directories starting with
+a 'm' are listed.
+
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Standard" "PFSLS standard options"
+@{jcenter}@{b}PFSLS standard options@{ub}
+@{jleft}
+
+Standard options consist of a single letter optionally followed by
+a '1' or a '0'. With a '1' the option is enabled, with a '0' it is
+disabled. Adding no number is the same as adding a '1', enabling the
+option. So, for example, 'ls -l' or 'ls -l1' will generate a long
+listing, 'ls -l0' will generate a short listing.
+
+What follows is the list of standard options. For each option a short
+description, the default and a long description is given. The default
+is what happens if you @{i}don't@{ui} add the switch. Example:
+The -T switch is default enabled, so 'ls' is the same as 'ls -T', showing
+totals.
+
+An option with 'no negative' has no negative. For these options you
+cannot add a '0' or '1' to enable or disable it.
+
+
+-a      list all
+        default: disabled
+        For Unix compatibility only. This option does nothing.
+
+-c      case significant sorting
+        default: off
+        If enabled the files are sorted case significant. So upper case
+        characters will be sorted before lower case characters.
+
+-d      directories as files
+        default: off
+        If enabled directories are shown as file instead of listing them.
+        Example: pfsls -d workbench:libs will result in
+        @{fg highlight}Libs@{fg text}
+        instead of listing the contents of the libs directory.
+
+-f      sort by filename
+        default: on
+        no negative
+        If enabled files are sorted by filename. This is short for the
+        extended option -s(f)
+
+-F      show filenotes
+        default: off
+        If enabled filenotes are shown. This flag only works in a long
+        listing (-l option enabled). The filenotes are printed in system
+        colour 4.
+
+-h      help
+        no negative
+        Display an option overview.
+
+-l      long listing
+        default: off
+        If enabled results in a long listing. A long listing includes
+        creation time, filesize and protection bits.
+
+-m      multiuser protection 
+        default: off
+        Multiuser protection bits are shown if this flag is enabled. This
+        flag only works in a long listing (-l option enabled). Only useful
+        with the multiuser version of PFS or FFS.
+
+-M      multiuser info
+        default: off
+        This switch is multiuser only and only works in a long listing (-l
+        option enabled). If enabled, the owner and group of files are
+        printed.
+
+-o      one per line
+        default: off
+        If enabled the files will be listed one per line. This is only useful
+        in a short listing, since a long listing already is one per line.
+
+-p      plain
+        default: off
+        Normally colours, bold and italics are used in the listing. This switch
+        disables all use of such fancy output, resulting in plain output.
+
+-P      paginate
+        default: off
+        If enabled pfsls pages the output. When the window is full pfsls will
+        wait for you to press a key before continuing with the next page.
+
+-r      reverse sort
+        default: off
+        If enabled the listing will be sorted in the reverse order.
+
+-R      recursive listing
+        default: off
+        If enabled pfsls will show a recursive listing. This means that every
+        directory it finds will be entered and listed. Directories in that
+        child directory will also be listed, etc.
+
+-S      sort by size
+        default: off
+        no negative
+        If enabled the listing will be sorted by filesize. This is short for
+        the extended option -s(sf)
+
+-t      sort by time
+        default: off
+        no negative
+        If enabled the listing is sorted by creation time. This is short for
+        the extended option -s(tf)
+
+-T      show totals
+        default: on
+        If enabled a summary of the listing, including number of files and
+        directories listed and their total size is listed. With -T0 the
+        printing of this summary line can be disabled.
+
+-X      sort by extension
+        default: off
+        no negative
+        If enabled the listing is sorted by extension. The extension of a file
+        are all the characters after the @{i}last@{ui} dot ('.') in the filename.
+        This is short for the extended option -s(Xf).
+
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Extended" "PFSLS extended options"
+@{jcenter}@{b}PFSLS extended options@{ub}
+@{jleft}
+
+Extended options consist of a single letter, like the standard options,
+followed by an argument between brackets ().
+
+-c()    which objects to list
+        default: -c(fd)
+        With this option you can define which entries should appear in
+        the listing.
+
+        The different types of entries are:
+        h   hidden (not used)
+        f   files
+        d   directories
+        Each type specified is listed. Example: pfsls -c(f) will only
+        list files, pfsls -c(fd) will list files and directories.
+
+-m()    entry separation
+        default: -m(d)
+        With this option the order in which directories and files are
+        printed can be set.
+
+        The argument is one of the following:
+        d   directories first. First directories are listed, then files.
+        f   files first. First files are listed, then directories.
+        m   mixed. Files and directories are mixed.
+
+-s()    multi-level sorting
+        default: -s(f)
+        With this option the sorting of the listing can be specified in
+        up-to 4 levels. In each level files are sorted based on an
+        criterion (e.g. datestamp). If two files are equal (e.g. created
+        on the same date), the next level is used. If that's equal,
+        the third level is used, etc. So pfsls -s(dsf) will sort on
+        creation day, all files created on the same day will be sorted
+        on size, and all files which are created on the same day and
+        have the same size will be sorted on filename.
+
+        Supported criteria are:
+        d   day.        Entries are sorted on creation day.
+        f   filename.   Entries are sorted on filename
+        n   none.       The listing is @{i}not@{ui} sorted, but
+                        appears in the order it was read from disk.
+        s   size.       Entries are sorted on filesize.
+        t   time.       Entries are sorted on creation time.
+        x   extension   
+        X   extension   Entries are sorted on extension
+
+        The 'n' criterion is special: it overrules all other criteria. If
+        the argument contains a 'n' the whole listing is unsorted.
+
+-w()    screen width
+        default: read from system
+        With this option the width of the output can be set. For example,
+        pfsls -w(40) will result in a 40 character wide listing.
+        Normally pfsls uses the width of the current window to determine
+        the output width. This option is only used in a short listing (-l
+        option disabled)
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "LS_Long" "PFSLS long options"
+@{jcenter}@{b}PFSLS long options@{ub}
+@{jleft}
+
+Long options consist of two minus signs ('--') followed by a word and
+arguments between brackets (). Long options have to be specified in
+full and as separate options. For example: a long listing of all the files
+created since yesterday is done with pfsls --since(yesterday) -l
+
+--since()   Only list files created on or after the specified date. The
+            date is specified as an AmigaDos datestring. For example:
+            pfsls --since(yesterday) -lt
+            pfsls --since(10-feb-94) -lt
+            pfsls --since(10-february-94) -lt
+            pfsls --since(yesterday 16:10) -lt
+            pfsls --since(today 16:10:07) -lt
+
+            If pfsls doesn't understand the date you specified, it will
+            simply list everything.
+
+--upto()    Only list files created before the specified date. The date is
+            specified as an AmigaDos datestring. For example:
+            pfsls --upto(yesterday) -lt
+
+--batch()   Batch processing. Instead of listing the directory, a command
+            is executed with each file as argument. The command is specified
+            as argument to the batch option. Examples:
+
+            pfsls #?.guide --batch(multiview)
+            view all amigaguide files in the current directory with multiview.
+
+            pfsls -c(d) --batch(pfsls)
+            show a 'one deep' listing
+
+            pfsls --upto(yesterday) --batch(delete)
+            delete all files older then yesterday
+
+@endnode

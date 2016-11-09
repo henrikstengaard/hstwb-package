@@ -1,0 +1,822 @@
+@database AmiCDFS.guide
+@master AmiCDFS.guide
+@$VER: AmiCDFS.guide 2.40 (14.12.97)
+@author "Martin Berndt"
+@(c) "1997"
+
+@node "Main" "AmiCDFS-Guide Main"
+@{b}------------------------------------------------------------------------
+                   AmiCDFS (AmiCDROM) 2.40 (14.12.97)
+
+                            by Martin Berndt
+
+                The ultimate Amiga CD-ROM Filing System
+------------------------------------------------------------------------@{ub}
+
+This old goodie by Frank Munkert has been reworked to be the fastest and
+            most compatible CD-ROM Filesystem for the Amiga!
+
+  @{i}Just give it a try, and you will never want to be without it again!@{ui}
+
+
+                        @{"      Introduction      " link "Intro" 0}
+                        @{" How to install AmiCDFS " link "Install" 0}
+                        @{"        Details         " link "Details" 0}
+                        @{"     Bugs & Quirks      " link "Bugs&Quirks" 0}
+
+                        @{"      Legal Stuff       " link "Legal" 0}
+                        @{"      Who did it?       " link "Author" 0}
+                        @{"        History         " link "History" 9999}
+                        @{"        Credits         " link "Credits" 0}
+
+                        @{"    Read old Manual     " link "AmiCDROM.guide/Main"}
+
+
+@{b}------------------------------------------------------------------------
+                   !!! AmiCDFS 2.40 is SHAREWARE !!!
+------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Intro" "Introduction to AmiCDFS"
+@{b}------------------------------------------------------------------------
+                              Introduction
+------------------------------------------------------------------------@{ub}
+
+AmiCDFS  2.40 is a CD-ROM disk filing system for the Amiga.  It supports
+the  ISO-9660  standard  (single  and multiple sessions), the Rock Ridge
+Interchange Protocol and the Macintosh HFS format.
+
+The old and obsolete HighSierra Protocol is NOT supported!
+
+The  CD-ROM  drive  is  mounted  as  a DOS device (e.g.  CD0:).  You can
+access  files and directories on a CD-ROM disk by the usual syntax, e.g.
+"type cd0:foo/readme.txt".
+
+AmiCDFS  2.40  has  been developed with kind permission of Frank Munkert
+using  his  old  AmiCDROM  1.15  source files, and would have never been
+possible  without  his  great  work.   Nevertheless it was a lot of hard
+work,  and  so I think it's fair enough to ask you for a small amount of
+money  for  MY  work.  If you agree pay the share, otherwise just let it
+be, but don't expect any support from me.
+
+AmiCDFS  2.40 is more compatible and faster than any other CD-ROM filing
+system  for  the Amiga including commercial ones, so I really think it's
+worth this small amount of money...
+
+@{b}------------------------------------------------------------------------
+             @{i}The future of this product depends on @{b}YOU @{ub}!!!@{ui}
+------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Install" "How to install AmiCDFS"
+@{b}------------------------------------------------------------------------
+                      How to install AmiCDFS 2.40
+------------------------------------------------------------------------@{ub}
+
+@{b}Step 1:@{ub}        Copy the supplied @{b}Mount@{ub} and @{b}SetPatch@{ub} commands to @{b}C:@{ub}.
+               Read the @{"Disclaimer" link "Disclaimer" 0} notice!
+
+@{b}Step 2:@{ub}        Copy @{b}SetCDFS@{ub} to your @{b}C:@{ub} drawer.
+
+@{b}Step 3:@{ub}        Copy @{b}AmiCDFS@{ub} to @{b}L:@{ub}. If you own a 68020 or better copy
+               AmiCDFS.030 instead and rename it.
+
+@{b}Step 4:@{ub}        Copy the @{b}CD0:@{ub} mount entry file to @{b}DEVS:DOSDrivers/@{ub} and
+               edit it as described in the next section.
+
+@{b}Step 5:@{ub}        Copy @{b}def_CDDAdisk.info@{ub} to @{b}ENVARC:sys/@{ub} if you wish to
+               use CDDA disks. Set the Default Tool as described in a
+               later section of this manual.
+               If you are still using Kickstart 2.x copy @{b}WBStart-Handler@{ub}
+               to @{b}L:@{ub}, else copy @{b}wbstart.library@{ub} to @{b}LIBS:@{ub}.
+
+@{b}Step 6:@{ub}        Copy @{b}MCDPlayer@{ub} wherever you want.
+
+@{b}Step 7:@{ub}        Reboot your machine.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Disclaimer" "Disclaimer"
+@{b}------------------------------------------------------------------------
+                               Disclaimer
+------------------------------------------------------------------------@{ub}
+
+SetPatch 40.16 (c) Copyright 1990-1995, Escom AG. All Rights Reserved.
+Mount 40.4 (c) Copyright 1990-1995, Escom AG. All Rights Reserved.
+
+Escom  AG  makes  no  warranties  or representations, either express, or
+implied,  with  respect  to  the  information  set  forth  herein, which
+information  is being supplied on an "AS IS" basis, expressly subject to
+change  without  notice.   The  entire  risk  as  to  the  use  of  this
+information is assumed by the user.
+
+IN  NO  EVENT  WILL  ESCOM  AG  BE  LIABLE  FOR  ANY  DIRECT,  INDIRECT,
+INCIDENTAL,  OR  CONSEQUENTIAL  DAMAGES RESULTING FROM ANY CLAIM ARISING
+OUT  OF THE INFORMATION PRESENTED HEREIN, EVEN IF IT HAS BEEN ADVISED OF
+THE  POSSIBILITIES  OF  SUCH  DAMAGES.   SOME  STATES  DO  NOT ALLOW THE
+LIMITATION  OF  IMPLIED  WARRANTIES OR DAMAGES, SO THE ABOVE LIMITATIONS
+MAY NOT APPLY.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Details" "Details"
+@{b}------------------------------------------------------------------------
+                                Details
+------------------------------------------------------------------------@{ub}
+
+                       @{"   Important Changes    " link "Changes" 0}
+
+                       @{"       Mount File       " link "Mount File" 0}
+                       @{"    SetCDFS Command     " link "SetCDFS" 0}
+                       @{"   Audio Disks (CDDA)   " link "Audio Disks" 0}
+                       @{"      Hybrid Disks      " link "Hybrid Disks" 0}
+
+                       @{"       Benchmarks       " link "Benchmarks" 0}
+                       @{" Some Technical Details " link "Technical" 0}
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Changes" "Important Changes"
+@{b}------------------------------------------------------------------------
+                           Important Changes
+------------------------------------------------------------------------@{ub}
+
+- "cdrom-handler" has been renamed to "AmiCDFS"
+
+- Many obsolete features and parameters have been removed.
+
+- The "Startup" field has been replaced by "Control" (needs Mount v39+).
+
+  New template: LC=LOWERCASE/S,CS=CASESENSE/S,
+                HF=HFSFIRST/S,TD=TRACKDISK/S,
+                BL=BUFFERLINES/K/N,FB=FILEBUFFERS/K/N,
+                DC=DISKCHANGE/K/N,MT=MOTORTIME/K/N,
+                SD=STARTDELAY/K/N,TDC=TDCHANGE/S,
+                TOSHIBA/S,OLDMODE/S
+
+- The mount files have changed significantly, so it's better to delete
+  the old ones before installing AmiCDFS 2.40.
+
+- The code is fully reentrant now, and will only be loaded once as long
+  as the DosType is the same.
+
+- AmiCDFS has a real LRU-Cache now!
+
+  The standard buffers ("Buffers" entry in mount file) are split into
+  BufferLines. One BufferLine will always be read completely (Prefetch).
+  If you do not specify BufferLines or set it to 1 the Buffers are
+  handled as before.
+
+  Example: Buffers = 64 and BufferLines = 8 results in
+           8 Caches with 8 Blocks (8*2048 Bytes) each.
+
+- CDControl will no longer work, replaced by SetCDFS command.
+
+- DosPacket handling routines have been completely rewritten and should
+  be much more compatible now.
+
+- "AddBuffers" now returns the number of StdBuffers + FileBuffers.
+
+- FileBuffer routines rewritten, should be much faster now with very
+  large files.
+
+- The FileBuffer is a Circular Cache now and though able holding more
+  than one file at a time.
+
+- Implemented motor control code for some bad device drivers.
+
+- Diskchange polling is no longer needed with hostadaptors which
+  support diskchange interrupts (like A3000, Mastercard MC702 etc.).
+  If your hardware does not support these you should set DC=3.
+
+- Diskchange polling may optionally be done using trackdisk commands.
+
+- The CDDA icon is loaded as "ENV:sys/def_CDDAdisk.info" now. Its
+  Default Tool is the command to be executed if the user doubleclicks
+  the CDDA icon. If you put a "#" in front of the command it will be
+  executed as a WB application (WBStart-Handler).
+
+- Added a nice 256 color icon for CDDA, normal and NewIcon type.
+  Copy it to "ENVARC:sys/" and set your Default Tool.
+
+- Improved handling of Audio/Data Hybrid CD's.
+
+- Extension for HFS resource forks always is ".rs" now.
+
+- Improved HFS character conversion.
+
+- Holding the CONTROL key while inserting a medium temporary toggles
+  the HFSFIRST option.
+
+- Fixed Lock/Unlock routines and structures.
+
+- DosList handling rewritten to prevent deadlocks.
+
+- Implemented a special DOSPacket for remote control.
+
+- Removed some obsolete vendor specific routines.
+
+- Included a bugfixed version of MCDPlayer.
+
+- Replaced some routines by fast assembler code.
+
+- Created 68030/68060 versions.
+
+- Recompiled with SAS/C 6.58.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Mount File" "The Mount File"
+@{b}------------------------------------------------------------------------
+                             The Mount File
+------------------------------------------------------------------------@{ub}
+
+Your CD-ROM Mount file (e.g. DEVS:DosDrivers/CD0) should look like this:
+
+
+        /* $VER: CD0 2.40 (14.12.97)
+         *
+         * CD-ROM filesystem mount entry
+         */
+
+        Device          = scsi.device                           1)
+        Unit            = 1                                     2)
+        FileSystem      = L:AmiCDFS
+        Flags           = 0
+        BlocksPerTrack  = 32
+        BlockSize       = 2048
+        Reserved        = 0
+        LowCyl          = 0
+        HighCyl         = 11000
+        Surface         = 1
+        Buffers         = 64                                    3)
+        BufMemType      = 1                                     4)
+        Mask            = 0x7fffffff                            5)
+        GlobVec         = -1
+        Priority        = 10
+        DosType         = 0x43444653
+        StackSize       = 600
+        Mount           = 1
+
+        Control         = "LC BL=8 FB=32"                       6)
+
+        /* Control field template:
+         *
+         * LC=LOWERCASE/S,CS=CASESENSE/S,
+         * LN=LONGNAMES/S,HF=HFSFIRST/S,TD=TRACKDISK/S,
+         * BL=BUFFERLINES/K/N,FB=FILEBUFFERS/K/N,
+         * DC=DISKCHANGE/K/N,MT=MOTORTIME/K/N,
+         * SD=STARTDELAY/K/N,TDC=TDCHANGE/S,
+         * TOSHIBA/S,OLDMODE/S
+         */
+
+@{b}------------------------------------------------------------------------@{ub}
+
+1)      Insert your Device name here, e.g. "MASOBOSHI.device".
+
+2)      Insert the Unit number of your CD-ROM drive here.
+
+3)      Number of Standard Buffers (LRU-Cache).
+
+4)      Memory type for SCSI Transfers:
+
+        1               means all Public Memory
+        3               means Public Chip Memory only
+        5               means Public Fast Memory only
+
+        DO NOT USE ANY OTHER VALUES !!!
+
+5)      Set the Mask to "0xffffff" if your Device is only able to do
+        transfers to 24Bit DMA Memory. You needn't care about alignment,
+        because all buffers are always Quad Longword aligned.
+
+6)      The following options may be used:
+
+        LC              Map ISO 9660 names to lower case.
+        LOWERCASE
+
+        CS              Handle RockRidge names case-sensitive.
+        CASESENSE
+
+        LN              Allow longer filenames than 30 chars for
+        LONGNAMES       RockRidge protocol
+                        (AmigaDOS still only supports 30 chars!)
+
+        HF              Mount HFS part when inserting a ISO/HFS hybrid,
+        HFSFIRST        without this option the ISO part would be
+                        mounted.
+
+        TD              Use trackdisk commands instead of SCSI-direct
+        TRACKDISK       calls. Only needed for VERY bad device drivers
+                        and most often AmiCDFS 2.40 will detect these
+                        automatically.
+
+        BL              Sets the number of lines for the LRU-Cache.
+        BUFFERLINES     The Standard Buffers are split into BufferLines,
+                        and one line will always be read completely.
+                        This will speed up all operations significantly!
+                        If you don't specify a value or set it to 1 the
+                        Buffers are handled as before.
+
+                        Example:
+
+                        Buffers = 64 and BL = 8 results in
+                        8 caches with 8 blocks (8*2048 Bytes) each.
+
+        FB              Sets the number of buffers for file operations
+        FILEBUFFERS     using the AmigaDOS Read() call.
+
+        DC              Enables old diskchange polling, set it to 3 or
+        DISKCHANGE      any other useful value if your device does not
+                        recognize diskchange interrupts.
+
+        MT              Sets MotorOff timeout in seconds for some rare
+        MOTORTIME       drives which do not switch off their motors
+                        automatically. Default is 2 seconds, setting
+                        this parameter to 0 switches off MotorControl.
+
+        SD              Some devices need a short delay while mounting
+        STARTDELAY      the filesystem if a CD is already inserted.
+                        Only try to use this option if you get "NDOS"
+                        disks when booting up with a disk in your drive.
+                        Default value is 1 second.
+
+        TDC             Use trackdisk instead of SCSI direct calls for
+        TDCHANGE        all diskchange scans. Some devices may work better
+                        using this option, but you should only try it
+                        if you have weird problems with diskchanges.
+
+        TOSHIBA         Some Toshiba drives have difficulties switching
+                        between Data and XA-Mode. If you encounter any
+                        problems with PhotoCDs try setting this switch.
+
+        OLDMODE         Some very old SCSI Host-Adaptors do not work
+                        correctly with CMD_READ and blocksizes above
+                        512 bytes. If this option is set AmiCDFS does
+                        all reading via SCSI-Direct calls, just like
+                        the old AmiCDROM. But this switch should only
+                        be used if nothing else works!
+
+        DO NOT TRY TO USE ANY OTHER OPTION !!!
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "SetCDFS" "SetCDFS"
+@{b}------------------------------------------------------------------------
+                            SetCDFS Command
+------------------------------------------------------------------------@{ub}
+
+The  supplied  @{b}SetCDFS@{ub}  command  enables  you to change some of AmiCDFS'
+parameters while up and running.
+
+@{b}------------------------------------------------------------------------@{ub}
+
+Syntax: @{b}SetCDFS DRIVE/A,LC=LOWERCASE/S,CS=CASESENSE/S,HF=HFSFIRST/S,
+                LONGNAMES/S,QUIET/S,DEBUG/S@{ub}
+
+The parameters are:
+
+        DRIVE               The drive which options shall be changed
+
+        LOWERCASE or LC     Toggle LOWERCASE option
+
+        CASESENSE or CS     Toggle CASESENSE option
+
+        HFSFIRST  or HF     Toggle HFSFIRST option
+
+        LONGNAMES or LN     Toggle LONGNAMES option
+
+        QUIET               Just change the options, no output
+
+        DEBUG               Some special debug information, report them
+                            if you have any trouble with AmiCDFS
+
+Output format:
+
+        cd0: using AmiCDFS v2.40        <- just some infos
+
+        Current Protocol: RockRidge     <- current protocol being used
+
+        LOWERCASE ON
+        CASESENSE OFF                   <- new settings AFTER SetCDFS
+        HFSFIRST  OFF
+        LONGNAMES OFF
+
+        DEBUG: 01010100                 <- debugging information
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Audio Disks" "Audio Disks"
+@{b}------------------------------------------------------------------------
+                           Audio Disks (CDDA)
+------------------------------------------------------------------------@{ub}
+
+Whenever an audio disk is inserted in your CD-ROM drive, an AppIcon will
+be  displayed  on  your  Workbench  screen.   If  it exists the iconfile
+@{b}ENV:sys/def_CDDAdisk.info@{ub} will be used.
+
+If  the  @{b}Default Tool@{ub} of the icon contains a command name,  then AmiCDFS
+will  try  to  start  that  program (which should be a CDDA Player) when
+double-clicking  the  AppIcon.  Otherwise the disk simply starts playing
+from track 1.
+
+If  the  first character of the @{b}Default Tool@{ub} entry is a @{b}# (Hash)@{ub} symbol,
+the  according  program will be started as a Workbench application using
+@{b}wbstart.library@{ub} (OS 3.x) or @{b}L:WBStart-Handler@{ub} (OS 2.x).
+
+A  bugfixed  version of @{b}MCDPlayer@{ub} by Boris Jakubaschk is included in the
+AmiCDFS 2.40 distribution archive.
+
+These  features are not available if the @{"TRACKDISK" link "Mount File" 0} option is selected or
+the drive doesn't support the needed commands.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Hybrid Disks" "Hybrid Disks"
+@{b}------------------------------------------------------------------------
+                              Hybrid Disks
+------------------------------------------------------------------------@{ub}
+
+Sometimes  disks  are  dual-format (ISO-9660 and HFS).  In this case the
+ISO-9660  part  will  always be prefered.  If you wish to force mounting
+the  HFS  part of such a disk, simply hold the @{b}CONTROL@{ub} key pressed while
+inserting the disk in your CD-ROM drive or use the @{b}HFSFIRST@{ub} option.
+
+If  a  Sound & Data (ISO-9660 or HFS) hybrid disk is inserted, two icons
+will  be  placed  on  your Workbench.  You can access the data part like
+usual while using the audio part with a CDDA Player program.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Benchmarks" "Benchmarks"
+@{b}------------------------------------------------------------------------
+                               Benchmarks
+------------------------------------------------------------------------@{ub}
+
+The  following  benchmark script has been used to evaluate several Amiga
+CD-ROM filing systems:
+
+           c:makedir ram:tools
+           c:date
+           c:copy AMINET9:Tools ram:tools all quiet
+           c:date
+           c:delete ram:tools all quiet
+
+The benchmark system configuration:
+
+           Amiga 2000 ECS, 68030-50, 68882-50
+           2 MB ChipRAM, 20 MB 32Bit FastRAM
+           Masoboshi MC702 with SANYO CRD-254SH QuadSpeed CD-ROM
+           AmigaOS 3.1, Kickstart 40.70, Workbench 40.42
+
+Results:
+
+@{b}     AmiCDROM 1.15   AmiCDFS 2.40    AsimCDFS 3.8    CacheCDFS 2.6
+------------------------------------------------------------------------
+
+         72 sec         32 sec          56 sec          44 sec
+
+------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Technical" "Technical Details"
+@{b}------------------------------------------------------------------------
+                           Technical Details
+------------------------------------------------------------------------@{ub}
+
+The  whole  code  is fully reentrant now, so that it may be shared among
+multiple  instances  of  the  filing  system  as  long as the @{"DosType" link "Mount File" 0} is
+identical.
+
+AmiCDFS  2.40 is now able to read any type of physical device, so it may
+be used to read Macintosh HFS floppy disks as well.
+
+The  drivers  task stack is handled by the filing system code itself now
+to  make  sure that it is always big enough.  So AmiCDFS 2.40 could even
+be installed as part of a Rigid Disk Block (RDB).
+
+All  DOS  packet  handling code has been rewritten in order to eleminate
+problems  with  unknown packet types and to allow implementation of some
+extra functions. Packets like ACTION_MORE_CACHE now return valid results
+even if they do nothing.
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Bugs&Quirks" "Bugs & Quirks"
+@{b}------------------------------------------------------------------------
+                             Bugs & Quirks
+------------------------------------------------------------------------
+
+                      @{i}No real bugs are known, yet! @{ui}@{ub}
+
+
+AmiCDFS 2.40  has been tested on many different hardware configurations,
+including IDE/ATAPI drives, PCMCIA adaptors and several SCSI drives.
+
+If you encounter any difficulties, please check the following topics:
+
+
+- Are you using a IDE/ATAPI CD-ROM drive?
+
+  Every device has to emulate a SCSI-2 drive, so everything depends on
+  how good this emulation is. Try setting "TD" in Control field if
+  nothing seems to work.
+
+- Diskchanges are not recognised properly?
+
+  It is possible that your device driver does not support diskchange
+  interrupts. Report it to the manufacturer and try setting "DC=3"
+  and/or "TDP" in Control field.
+
+- PhotoCDs are not recognised properly on a Toshiba drive?
+
+  Try setting the "TOSHIBA" switch in Control field.
+
+- All data CDs are "NDOS" and cannot be read?
+
+  If you are using a very old SCSI Host-Adaptor (HardFrame, Supra etc.)
+  try setting the "OLDMODE" switch in Control field.
+
+- CDs are "NDOS" when already inserted while booting your machine?
+
+  Try setting "SD=3" in Control field.
+
+- Are you using any bad software?
+
+  If you're using very nasty hacks or programs like MCP, please don't
+  report any bugs. It is useless to expect any program to work properly
+  while trashing important functions of your Operating System!
+
+- Anything else?
+
+  Send me a mail describing your problems and your configuration!
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Legal" "Legal"
+@{b}------------------------------------------------------------------------
+                              Legal Stuff
+------------------------------------------------------------------------
+
+
+                     AmiCDFS 2.40 is SHAREWARE !!!@{ub}
+
+
+ If you use it permanently please send me a donation of US$ 15 (DM 20).
+   Please add $5 when you send me a cheque to cover clearing charges.
+
+                    Bank Account for money transfer:
+
+ Martin Berndt   Konto 4185180009   BLZ 35060386   Vereinsbank Duisburg
+
+
+                      @{b}THANK YOU FOR YOUR SUPPORT !@{ub}
+
+
+@{b}------------------------------------------------------------------------@{ub}
+
+Copyright
+---------
+AmiCDFS 2.40 is written and copyright © 1997 by @{"Martin Berndt" link "Author"}.  No parts
+of  this  program  may  be  altered by any means (this includes editing,
+reprogramming, crunching, resourceing etc.), except archiving.
+
+Disclaimer
+----------
+The  author  is in no way liable for any changes made to any part of the
+program,  or  consequences thereof as he is in no way liable for damages
+or loss of data directly or indirectly caused by this software.
+
+Distribution
+------------
+Neither fees may be charged nor profits may be made by distributing this
+piece  of  software.  Only a nominal fee for costs of magnetic media may
+be  accepted,  the  amount  of  US  $5  shouldn't be exceeded for a disk
+containing  AmiCDFS.  CD Manufactures are specifically granted the right
+to  include  this program on CD collections, as long as they are for the
+Public Domain. But the user still has to pay the Shareware fee!
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Author" "Author"
+@{b}------------------------------------------------------------------------
+                                 Author
+------------------------------------------------------------------------@{ub}
+
+       Version 1.15   03-Nov-94   (C) 1993,1994 by Frank Munkert
+
+@{b}------------------------------------------------------------------------@{ub}
+
+       Version 2.40   13-Dec-97   (C) 1997 by Martin Berndt
+
+
+                             Martin Berndt
+
+                          Fr.-Alfred-Str. 115
+                             47226 Duisburg
+                                Germany
+
+                         Phone: +49-2065-73904
+
+                    E-Mail: m_berndt@wanderer.gun.de
+
+
+                  Support BBS: WANDERER +49-211-226223
+
+                        Login: MBS
+
+          Use 'download <number>' to get the archive you want
+
+
+      AmiCDFS 2.40 was developed using SAS/C 6.58 by SAS Institute
+           SetCDFS was developed using DevPac 3.14 by HiSoft
+
+@{b}------------------------------------------------------------------------@{ub}
+
+ SetPatch 40.16 (c) Copyright 1990-1995, Escom AG. All Rights Reserved.
+   Mount 40.4 (c) Copyright 1990-1995, Escom AG. All Rights Reserved.
+          WBStart-Handler 1.4 Copyright (C) 1993 Stefan Becker
+          wbstart.library 2.2 Copyright (C) 1996 Stefan Becker
+
+@{b}------------------------------------------------------------------------@{ub}
+                    Have you tried @{i}MultiCX @{ui}already ?
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "History" "History"
+@{b}------------------------------------------------------------------------
+                                History
+------------------------------------------------------------------------@{ub}
+
+1.0 - 1.15              old AMICDROM versions by Frank Munkert
+
+2.0  (14-Feb-96)        first public release of new AmiCDFS
+
+2.1  (01-Mar-96)        - fixed serious bug in Prefetch code
+                        - fixed problems with uncleared buffers
+                        - fixed Control field template
+                        - implemented MOTORCONTROL
+                        - implemented @{"TDPOLLING" link "Mount File" 0}
+                        - improved some routines
+
+2.2  (04-Mar-96)        - fixed some small bugs in Cache handling code
+                        - removed all old vendor specific routines
+                        - fixed bug in SCSI classification code
+
+2.3  (05-Mar-96)        - fixed potential problem with illegal sector
+                          accesses
+
+2.4  (10-Mar-96)        - fixed problems with CDDA AppIcon handling
+
+2.5  (13-Mar-96)        - removed some more obsolete routines
+                        - easier access to @{"Support BBS" link "Author" 0}
+
+2.6  (15-Mar-96)        - added support for wbstart.library (OS 3.x)
+                        - changed format of version string
+
+2.7  (24-Mar-96)        - removed MOTORCONTROL flag, will be handled
+                          automatically now
+                        - added @{"TOSHIBA" link "Mount File" 0} switch to avoid problems with
+                          PhotoCDs on Toshiba drives
+
+2.8  (27-Mar-96)        - fixed small bug in SCSI classification code
+                        - the FileBuffer is a Circular Cache now
+
+2.9  (30-Mar-96)        - added @{"OLDMODE" link "Mount File" 0} switch to support some very
+                          old SCSI Host-Adaptors (HardFrame, Supra etc.)
+
+2.10 (07-Apr-96)        - AmiCDFS now really works with HFS floppy disks
+                          and HFS harddisk partitions
+                        - included example mount file for MAC0
+                        - fixed some small bugs
+
+2.11 (10-Apr-96)        - improved and bug-fixed HFS handling routines
+                        - DosEnvec will now always have valid entries if
+                          SCSI_ReadCapacity was successful
+                        - LineCache will be switched off when mediumsize
+                          cannot be determined or when using a SCSI
+                          device in Trackdisk mode
+
+2.12 (13-Apr-96)        - fixed bug in Symbolic link handling
+                        - fixed bug in SCSI_ReadCapacity
+
+2.13 (16-Apr-96)        - implemented support for Protection bits
+                        - improved Symbolic link handling
+
+2.14 (20-Apr-96)        - DosList handling completely rewritten in order
+                          to prevent deadlock problems
+
+2.15 (24-Apr-96)        - improved Diskchange routines
+                        - replaced TDPOLLING switch by @{"TDCHANGE" link "Mount File" 0}
+
+2.16 (25-Apr-96)        - LineCache Prefetch will be switched off on
+                          Audio/Data hybrid disks now to avoid illegal
+                          sector accesses
+                        - improved LineCache efficiency
+
+2.17 (05-May-96)        - hopefully fixed a problem with some device
+                          drivers causing a disk to become NDOS when it
+                          was already inserted while mounting
+
+2.18 (27-May-96)        - improved and optimised Cache routines making
+                          AmiCDFS another 10% faster
+
+2.19 (29-May-96)        - added character conversion for RockRidge file
+                          names containing colons
+                        - small improvements in startup code
+
+2.20 (30-May-96)        - fixed serious bug in DosList handling
+
+2.21 (06-Jun-96)        - improved routine for initial media check
+
+2.22 - 2.29             internal test versions
+
+2.30 (15-Jul-96)        - implemented some Rockridge extensions
+                        - implemented support for muFS Protection bits
+                        - implemented @{"MOTORTIME" link "Mount File" 0}
+
+2.31 (16-Jul-96)        - fixed bug in Protection bits handling
+
+2.32 (20-Jul-96)        - fixed small bug in Rockridge extensions
+
+2.33 - 2.34             internal test versions
+
+2.35 (18-Aug-96)        - included new @{"SetCDFS" link "SetCDFS" 0} command
+                        - implemented @{"CASESENSE" link "Mount File" 0}
+                        - implemented @{"HFSFIRST" link "Mount File" 0}
+                        - implemented @{"STARTDELAY" link "Mount File" 0}
+
+2.36 (22-Aug-96)        - fixed deadly bug in DosList handling
+
+2.37 (06-Sep-96)        - improved @{"SetCDFS" link "SetCDFS" 0} command
+                        - improved Audio/Data hybrid handling
+                        - removed some dead code
+
+2.38 (13-Nov-96)        - some code cleanup
+                        - recompiled with SAS/C 6.57
+                        - changed @{"account number" link "legal" 0} for money transfer
+
+2.39 (20-Aug-97)        - optimised some routines
+                        - included 68060 version
+                        - recompiled with SAS/C 6.58
+                        - changed @{"account number" link "legal" 0} for money transfer
+
+2.40 (13-Dec-97)        - fixed bug in fib_NumBlocks calculation
+                        - implemented @{"LONGNAMES" link "Mount File" 0} for RockRidge
+                        - extended @{"SetCDFS" link "SetCDFS" 0} command
+
+@{b}------------------------------------------------------------------------@{ub}
+                           IMPORTANT NOTICE !
+
+    SetPatch and Mount are missing in Aminet release due to some new
+            upload restrictions. So please don't complain...
+@{b}------------------------------------------------------------------------@{ub}
+@endnode
+
+@node "Credits" "Credits"
+@{b}------------------------------------------------------------------------
+                                Credits
+------------------------------------------------------------------------@{ub}
+
+The  following  persons  deserve  special  thanks from me as they made a
+significant contribution to the development of AmiCDFS 2.40:
+
+- Frank Munkert                 for his wonderful AmiCDROM 1.15
+
+- Nicola Salmoria               for some good ideas in AmiCDFS v37
+
+- Boris Jakubaschk              for MCDPlayer 1.0
+
+- Olaf "Olsen" Barthel          for his good advice in many cases
+
+- Angela Schmidt                for some technical support
+
+- Ralph Babel                   for the Amiga Guru Book
+
+- Stefan Becker                 for WBStart-Handler and wbstart.library
+
+- all my Beta-Testers           for reports and constructive criticism
+
+- Mike Oldfield                 for the best music on this little planet
+
+- the TNG crew                  for the greatest adventures in universe
+
+- my girlfriend Heike           for everything and for just being there
+
+- my sons Daryl and Joey        for moral support
+
+- my coffee machine             for coffee support   ;-)
+
+@{b}------------------------------------------------------------------------@{ub}
+@endnode

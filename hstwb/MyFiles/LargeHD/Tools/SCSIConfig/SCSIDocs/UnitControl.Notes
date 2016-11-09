@@ -1,0 +1,72 @@
+UnitControl 2.13
+- Fixed a devide by 0 exception in the synchronize calculation.
+
+UnitControl 2.12
+- Added WIDE cli parameter
+- Fixed some error check
+
+UnitControl 2.11
+- Widedevice now has 16 units in the prefs window
+- Fixed Rescan(CLI) enforcer hit
+- Cleaned up some non wide unit id usage in the cli output stage
+- Relayouted the cli output
+
+UnitControl 2.10
+- Fixed synchron > 10MB limitation in commandline mode
+- Changed the MB gauge to show the real transfer bandwidth, instead of
+  the synchron clock speed. So now it also cares for wide mode.
+
+UnitControl 2.9
+- Fixed synchron > 10MB limitation
+
+UnitControl 2.8
+- Added new UnitID support
+- Added Wide support
+- Added Ultra support
+- minor changes
+
+UnitControl 2.7
+- Copyright Text changes
+
+UnitControl 2.6
+- Added Motor Off for SCSIDirect Calls
+- Rescan should ignore Luns for Scanners from now on
+  like the Device Boot Scan....MUSTEK Cludge
+
+UnitControl 2.5
+- Support fuer LunReselection Switch in prefs
+
+UnitControl 2.4
+- Fixed Rescan Crash with device= startup
+
+UnitControl 2.3
+- Improved Verbose output...now it shows more unit settings
+
+UnitControl 2.2
+- Minor changes
+
+UnitControl 2.1
+- Fixed Window size problem
+
+UnitControl 2.0
+- Changed "Special" to "Options"
+- Removed SCSIDirektPolling command and gadget because V7 doesn't support this
+  anymore
+- Added new Prefs Window for device options
+- Added new CLI commands for Prefs settings
+- Added new output to "Verbose"
+- Added Rescan command and gadget to include units that couldn't be detected
+  on device startup
+
+UnitControl 1.7
+- Phase5 name change
+- Lun activated for new MultiLun scsi device
+
+UnitControl 1.6
+- Some bug fixes
+
+UnitControl 1.5
+
+- Fixed a wrong status result
+- Improved Error Output of the cli interface
+- fixed wrong Removeable setting

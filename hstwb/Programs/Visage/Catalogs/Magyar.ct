@@ -1,0 +1,235 @@
+## version $VER: Visage.catalog 39.4 (13.12.97)
+## codeset 0
+## language magyar
+;
+MSG_BY
+\x9b1m%s - Készítette Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«A módhoz nincs név»
+;
+MSG_ABORTED
+Leállítva.\n
+;
+MSG_BREAK
+***Megszakítás\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Figyelem: Hiba a környezeti változó elemzésekor:\n%s
+;
+MSG_WARN_NO_WBMON
+Figyelem: A WBMONITOR nem találja a Workbench-et
+;
+MSG_WARN_NO_MONITOR
+Figyelem: A '%s' monitor nem található meg
+;
+MSG_WARN_NO_MODE
+Figyelem: A '%s' mód nem található meg
+;
+MSG_WARN_NO_OVERSCAN
+Fiygelem: A '%s' tipusú képmezô nem ismert
+;
+MSG_ERR_NO_LIB
+Nem tudom megnyitni a %s %ld, vagy újabb verzióját
+;
+MSG_ERR_NEED_OS3
+Legalább OS 3.0 vagy újabb szükséges
+;
+MSG_ERR_BAD_ARGS
+Hiba az argumentum elemzésekor:\n%s
+;
+MSG_ERR_FILEREQ
+Nem tudom megnyitni a fájl kérdezôt:\n%s
+;
+MSG_ERR_SMREQ
+Nem tudom megnyitni a képernyômód kérdezôt:\n%s
+;
+MSG_ERR_MONITORREQ
+Nem tudom megnyitni a monitor kérdezôt:\n%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+visszatérés az indítóhoz
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+a call-back hook elveszett
+;
+MSG_ERR_IFF_IFF
+nem IFF file
+;
+MSG_ERR_IFF_SYNTAX
+szintaktikai hiba az IFF fájlban
+;
+MSG_ERR_IFF_MANGLED
+megcsonkított IFF fájl
+;
+MSG_ERR_IFF_SEEK
+seek-elési hiba
+;
+MSG_ERR_IFF_WRITE
+írás hiba
+;
+MSG_ERR_IFF_READ
+olvasási hiba
+;
+MSG_ERR_IFF_MEM
+kevés a memória
+;
+MSG_ERR_IFF_SCOPE
+nincs érvényes terület a tulajdonsághoz
+;
+MSG_ERR_IFF_CONTEXT
+context vége
+;
+MSG_ERR_IFF_EOF
+vége a fájlnak
+;
+MSG_ERR_SCR_MONITOR
+a kért monitor nem elérhetô
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+újabb custom chip-ek kellenek
+;
+MSG_ERR_SCR_MEM
+kevés a memória
+;
+MSG_ERR_SCR_GFXMEM
+kevés a grafikus memória
+;
+MSG_ERR_SCR_INTERNAL
+belsô hiba
+;
+MSG_ERR_SCR_MODE
+ismeretlen képernyômód
+;
+MSG_ERR_SCR_DEPTH
+a képernyô színmélysége nagyobb, mint amit a hardver tud
+;
+MSG_ERR_SCR_WINDOW
+nem tudom megnyitni az ablakot
+;
+MSG_ERR_SCR_MODEAVAIL
+a képernyômód nem elérhetô
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF, de nem ILBM
+;
+MSG_ERR_NOT_PIC
+ismeretlen formátum
+;
+MSG_ERR_NO_DATA
+hiányzó adat
+;
+MSG_ERR_BAD_DATA
+rossz adat
+;
+MSG_ERR_EOF
+túl hamar vége a fájlnak
+;
+MSG_ERR_RENDER
+nem tudom elkészíteni a képet
+;
+MSG_ERR_UNKNOWN_DATA
+nem támogatott adat
+;
+MSG_ERR_LIB
+hiányzik a külsô library
+;
+MSG_ERR_FORMAT
+ismeretlen formátum
+;
+MSG_ERR_UNKNOWN
+ismeretlen hiba: %ld. Kérlek tudass róla
+;
+MSG_ERR_PICTURE
+\tHiba a képben: %s
+;
+MSG_ERR_SHOW
+Nem tudom '%s'-t megjeleníteni, mert %s
+;
+MSG_REQ_TITLE
+Visage információ
+;
+MSG_SCREENMODE_REQ_TITLE
+Válassz képernyômódot
+;
+MSG_MONITOR_REQ_TITLE
+Válassz monitort
+;
+MSG_FILE_REQ_TITLE
+Válaszd ki a megjelenítendô fájlokat
+;
+MSG_GAD_OK
+ Ok
+;
+MSG_CLIPBOARD
+«Tûtábla»
+;
+MSG_EXTRA_LOW_RES
+Extra-Alacsony felb.
+;
+MSG_LOW_RES
+Alacson felb.
+;
+MSG_HIGH_RES
+Nagy felb.
+;
+MSG_SUPER_HIGH_RES
+Szuper Nagy felb.
+;
+MSG_LACED
+ Fûzött
+;
+MSG_DOUBLE
+ Dupla
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Figyelem: A '%s' dither tipust nem ismerem
+;
+MSG_WARN_RANGE
+Figyelem: A %ld érték nincs a %s tartományában (%ld - %ld)
+;
+MSG_WARN_TIMER
+Figyelem: Nem tudom megnyitni a timer.device-ot
+;
+MSG_CYCLE_TASK
+Visage színgörgetô
+;
+MSG_ERR_FILE_EMPTY
+A fájl üres
+;
+MSG_WARN_BAD_FILE_ARGS
+Figyelem: Hiba a konfigurációs fájl elemzésekor,\namely a '%s' könyvtárban van:\n%s
+;
+MSG_WARN_BAD_CFGPATH
+Figyelem: Nem találom a ConfigPath által megadott\n'%s' nevû könyvtárat:\n%s
+;
+MSG_TESTED_OK
+A kép jó
+;
+MSG_ALL_TESTED_OK
+Minden tesztel kép jó\n
+;
+MSG_ALL_TESTED_NOT_OK
+Egy vagy több tesztelt kép hibás\n
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage kérdezô
+;
+MSG_ASK_PASSWORD
+Add meg a kódszót a\n\"%s\" fájlhoz:
+;

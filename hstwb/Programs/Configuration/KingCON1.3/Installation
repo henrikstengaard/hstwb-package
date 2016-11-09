@@ -1,0 +1,99 @@
+; $VER: Installation 1.3 (31.05.94)
+
+FailAt 21
+
+Echo "*E[4mKingCON v1.3 installation-script. Copyright © 1993 David Larsson*E[0m"
+Echo ""
+
+
+; We shouldn't install an earlier or identical version of KingCON-handler
+; without asking first.
+Version >NIL: L:KingCON-handler VERSION 1 REVISION 3
+IF NOT WARN
+	Echo "You are trying to install an older or identical version of KingCON-handler."
+	Ask  "Do you still want to continue (Y/N)?"
+
+	IF NOT WARN	; User aborts!
+		Echo ""
+		Echo "Installation aborted."
+		SKIP End
+	ENDIF
+	Echo ""
+ENDIF
+
+CPU >NIL: CHECK 68020		; This checks for the presence of
+				; a faster processor and copies
+				; the appropriate file
+				; Note that KingCON-handler.020
+				; is renamed!!
+IF WARN
+	Echo "Copying 68000-version of *E[1mKingCON-handler to L:*E[0m..." NOLINE
+	Copy Handler/KingCON-handler L: CLONE
+ELSE
+	Echo "Copying 68020-version of *E[1mKingCON-handler to L:*E[0m..." NOLINE
+	Copy Handler/KingCON-handler.020 L:KingCON-handler CLONE  ; Renamed!
+ENDIF
+
+Echo "Done"
+
+
+Echo "Copying *E[1mKingCON-mountlist to DEVS:*E[0m..." NOLINE
+Copy Handler/KingCON-mountlist DEVS: CLONE
+Echo "Done"
+
+; Remove the previous version of KCON:
+Assign KCON: DISMOUNT
+Assign KRAW: DISMOUNT
+
+Echo "Mounting *E[1mKCON:*E[0m and *E[1mKRAW:*E[0m..." NOLINE
+Mount KCON: from DEVS:KingCON-mountlist
+Mount KRAW: from DEVS:KingCON-mountlist
+Echo "Done"
+Echo ""
+Echo "The script has mounted KCON: and KRAW: for you. For a more permanent"
+Echo "installation, you would probably like them to be mounted automatically"
+Echo "every time you start your Amiga. In that case, the startup-sequence"
+Echo "must be modified, by adding these lines to s:user-startup"
+Echo "   Mount KCON: from DEVS:KingCON-mountlist"
+Echo "   Mount KRAW: from DEVS:KingCON-mountlist"
+Echo ""
+
+; We should never add any Mount-commands to the user-startup if
+; it is already done. This checks for the presence of the commands.
+; (Well, if we find the word "DEVS:KingCON-mountlist", we can be pretty
+;  sure that KCON: or CON: are mounted in that script.)
+Search >NIL: FROM s:user-startup SEARCH DEVS:KingCON-mountlist
+
+IF WARN ; No commands were found
+	Ask  "Do you want these Mount-commands to be added to s:user-startup (Y/N)?"
+
+	IF WARN ; Yes!
+		Echo ""
+		Echo "Adding to *E[1ms:user-startup*E[0m..." NOLINE
+		Echo "" >>s:user-startup
+		Echo "; This mounts KCON and KRAW" >>s:user-startup
+		Echo "Mount KCON: from DEVS:KingCON-mountlist" >>s:user-startup
+		Echo "Mount KRAW: from DEVS:KingCON-mountlist" >>s:user-startup
+		Echo "Done"
+	ENDIF
+ENDIF
+
+Echo ""
+Echo "To replace old CON and RAW, add the following lines to S:user-startup"
+Echo "BEFORE the Mount-commands:"
+Echo "   Assign CON: DISMOUNT"
+Echo "   Assign RAW: DISMOUNT"
+Echo "Then change the words 'KCON:' and 'KRAW:' to 'CON:' and 'RAW:'"
+Echo "respectively in the Mount-commands."
+
+
+Echo ""
+Echo "Installation has completed. If no errors occured, you should now be"
+Echo "able to access a device called 'KCON:' (and one called 'KRAW:')."
+
+LAB End
+
+Echo ""
+Echo ""
+Echo ""
+Echo "                                    *E[0 p*E[3mClose the window or wait forever!*E[0m" NOLINE

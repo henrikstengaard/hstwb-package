@@ -1,0 +1,41 @@
+
+Connecting MS-DOS Formatted Drives
+==================================
+
+The  MS-DOS  program  MSDOSMount  is a utility program which allows volumes
+formatted with an MSDOS compatible partition sector, to be addressed like a
+normal AmigaDos disk drive on the AMIGA.
+
+As  a  prerequisite  for using the program, the CROSSDOS filesystem must be
+located  in  the L directory of the boot drive.  The CROSSDOS filesystem is
+supplied  with  Workbench  3.x  and  should  already  be  located in the L:
+directory  in  standard  installation.  If this is not the case then please
+copy  the appropriate data file from the installation diskette to your hard
+disk.
+
+The MSDOSMount program can now be started from the Shell by giving the Unit
+Number to be connected (the SCSI-ID of the device which should be connected
+as MSDOS formatted volume):
+
+	1> MSDOSMount <devicename> <unit>
+
+if,  as in this example, the MSDOS formatted volume has the SCSI-ID 3.  The
+current  Version  0.91 issues different values which have no meaning to the
+user  and  which  are  processed  further  in a graphical user interface in
+Version 1.0, to demonstrate possible faults.
+
+With  removable  media, MSDOSMount automatically recognises if a new medium
+has  been  inserted  with  the  same  geometry  as the mounted medium.  If,
+however,  you  use  a  medium  that  displays another geometry (e.g.  other
+partitions) then MSDOS must be re-executed.
+
+Due  to  the  numerous  possible format parameters of MSDOS computers it is
+unfortunately not possible to format the volumes on the Amiga.  If you want
+to  work  with  the  MSDOSMount program for data exchange, the volume to be
+used  must  be  partitioned  on  an MSDOS compatible target system with the
+program  FDISK  (check  in  the  appropriate  MSDOS documentation) and then
+formatted under MSDOS.
+
+
+Tech Support phase 5 digital products   May 96
+

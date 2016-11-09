@@ -1,0 +1,20 @@
+FileSystem	= l:floppyPFS
+Device		= trackdisk.device
+Priority	= 10
+Unit		= 1
+Flags		= 0x0
+Surfaces	= 2
+BlockSize	= 512
+BlocksPerTrack  = 11
+Reserved	= 2
+Interleave	= 0
+LowCyl		= 0
+HighCyl		= 79
+StackSize	= 600
+Buffers		= 5
+BufMemType	= 1
+GlobVec		= -1
+DosType		= 0x50465300
+MaxTransfer 	= 2097152
+Mask		= 0x7ffffffe
+#

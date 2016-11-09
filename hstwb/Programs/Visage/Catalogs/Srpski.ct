@@ -1,0 +1,364 @@
+## language srpski
+## version $VER: Visage.catalog 39.46 (12.6.98)
+## chunk AUTH Ljubomir Jankoviá
+## chunk ANNO Preveo Ljubomir Jankoviá, proverio Andrija Antonijeviá
+MSG_BY
+\x9b1m%s - Magnusa Holmgrena\n\x9b0m
+; \x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Ime moda nije dostupno»
+; «Mode name not available»
+;
+MSG_ABORTED
+Prekinuto.\n
+; Aborted.\n
+;
+MSG_BREAK
+***Prekid\n
+; ***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Paänja: Greãka pri tumaàenju environment promenljive:\n%s
+; Warning: Error parsing environment variable:\n%s
+;
+MSG_WARN_NO_WBMON
+Paänja: WBMONITOR nije mogao da naâe Workbench
+; Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Paänja: Monitor '%s' nije naâen
+; Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Paänja: Mod '%s' nije naâen
+; Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Tip overskena '%s' nije poznat
+; Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Ne mogu da otvorim %s verzija %ld ili viãa
+; Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+Treba Vam OS 3.0 ili noviji
+; You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Greãka pri tumaàenju argumenata:\n%s
+; Error parsing arguments:\n%s
+;
+MSG_ERR_FILEREQ
+Ne mogu da otvorim fajl upitnik:\n%s
+; Couldn't open file requester:\n%s
+;
+MSG_ERR_SMREQ
+Ne mogu da otvorim upitnik za mod ekrana:\n%s
+; Couldn't open screen mode requester:\n%s
+;
+MSG_ERR_MONITORREQ
+Ne mogu da otvorim monitor upitnik:\n%s
+; Couldn't open monitor requester:\n%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Povratak klijentu
+; Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Nedostaje povratni hook
+; Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Nije IFF fajl
+; Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Greãka u sintaksi IFF fajla
+; Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Poremeáen IFF fajl
+; Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Greãka u traäenju
+; Seek error
+;
+MSG_ERR_IFF_WRITE
+Greãka pri upisivanju
+; Write error
+;
+MSG_ERR_IFF_READ
+Greãka pri isàitavanju
+; Read error
+;
+MSG_ERR_IFF_MEM
+Nema dovoljno memorije
+; Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+No valid scope for property
+; No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Kraj sadräaja
+; End of context
+;
+MSG_ERR_IFF_EOF
+Kraj fajla
+; End of file
+;
+MSG_ERR_SCR_MONITOR
+Traäeni monitor nije dostupan
+; Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Trebaju Vam noviji kastom àipovi
+; You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Nema dovoljno memorije
+; Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Nema dovoljno grafiàke memorije
+; Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Interna greãka
+; Internal error
+;
+MSG_ERR_SCR_MODE
+Nepoznat mod ekrana
+; Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Ekran je dublji nego ãto dopuãta hardver
+; Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Ne mogu da otvorim prozor
+; Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Mod ekrana nije dostupan
+; Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF, ali ne ILBM
+; IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Nepoznat format
+; Unknown format
+;
+MSG_ERR_NO_DATA
+Nedostaju podaci
+; Missing data
+;
+MSG_ERR_BAD_DATA
+Loãi podaci
+; Bad data
+;
+MSG_ERR_EOF
+Preran kraj fajla 
+; Premature end of file
+;
+MSG_ERR_RENDER
+Ne mogu da iscrtam sliku
+; Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Nepodräani podaci
+; Unsupported data
+;
+MSG_ERR_LIB
+Spoljna biblioteka nedostaje
+; External library missing
+;
+MSG_ERR_FORMAT
+Nepoznat format
+; Unknown format
+;
+MSG_ERR_UNKNOWN
+Nepoznat kod greãke %ld. Molim Vas prijavite.
+; Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tGreãka u slici: %s
+; \tError in picture: %s
+;
+MSG_ERR_SHOW
+Ne mogu da prikaäem '%s': %s
+; Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Visage informacije
+; Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Odaberite mod ekrana
+; Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Odaberite monitor
+; Select monitor
+;
+MSG_FILE_REQ_TITLE
+Odaberite fajlove za prikaz
+; Select files to view
+;
+MSG_GAD_OK
+ OK 
+;  Ok 
+;
+MSG_CLIPBOARD
+«Beleänica»
+; «Clipboard»
+;
+MSG_EXTRA_LOW_RES
+Ekstra niska rez.
+; Extra-Low Res
+;
+MSG_LOW_RES
+Niska rez.
+; Low Res
+;
+MSG_HIGH_RES
+Visoka rez.
+; High Res
+;
+MSG_SUPER_HIGH_RES
+Super visoka rez.
+; Super-High Res
+;
+MSG_LACED
+ sa preplitanjem
+;  Laced
+;
+MSG_DOUBLE
+ dupla
+;  Double
+;
+MSG_HAM
+ HAM
+;  HAM
+;
+MSG_EHB
+ EHB
+;  EHB
+;
+MSG_DPF2
+ DPF2
+;  DPF2
+;
+MSG_DPF
+ DPF
+;  DPF
+;
+MSG_WARN_NO_DITHER
+Paänja: Tip senàenja '%s' nije poznat
+; Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Paänja: Vrednost %ld za %s je izvan granica (%ld - %ld)
+; Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Paänja: Ne mogu da otvorim timer.device
+; Warning: Couldn't open timer.device
+;
+MSG_CYCLE_TASK
+Visage color cycler
+; Visage color cycler
+;
+MSG_ERR_FILE_EMPTY
+Fajl je prazan
+; File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Paänja: Greãka pri tumaàenju fajla sa podeãavanjima\nu fioci '%s':\n%s
+; Warning: Error parsing configuration file\nin drawer '%s':\n%s
+;
+MSG_WARN_BAD_CFGPATH
+Paänja: Ne mogu da naâem ConfigPath fioku\n'%s':\n%s
+; Warning: Couldn't locate ConfigPath drawer\n'%s':\n%s
+;
+MSG_TESTED_OK
+Slika je u redu
+; Picture ok
+;
+MSG_ALL_TESTED_OK
+Sve testirane slike su u redu\n
+; All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Jedna ili viãe slika nije u redu\n
+; One or more tested pictures failed\n
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;  (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage zahtev
+; Visage request
+;
+MSG_ASK_PASSWORD
+Unesite ãifru za \n\"%s\":
+; Enter password for\n\"%s\":
+;
+MSG_ERR_NO_PASSWD
+Ãifra je loãa ili nedostaje
+; Password incorrect or missing
+;
+MSG_ERR_NO_DRAWER
+Ne mogu da preâem u fioku '%s':\n%s
+; Couldn't move to drawer '%s':\n%s
+;
+MSG_ERR_SCR_ATTACH
+Ne mogu da zakaàim ekrane
+; Couldn't attach screens
+;
+MSG_ERR_BBLANK
+Paänja: Borderblank mod '%s' nije poznat
+; Warning: Borderblank mode '%s' not known
+;
+MSG_WARN_NO_COLOR
+Paänja: Kolor mod '%s' nije poznat
+; Warning: Color mode '%s' not known
+;
+MSG_ERR_OPEN_LIST
+Ne mogu da otvorim listu fajlova '%s':\n%s
+; Couldn't open list file '%s':\n%s
+;
+MSG_ERR_READ_LIST
+Ne mogu da proàitam listu fajlova '%s':\n%s
+; Couldn't read list file '%s':\n%s
+;
+MSG_WARN_OPEN_FONT
+Paänja: Ne mogu da otvorim font za '%s'
+; Warning: Couldn't open font for '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Paänja: Loãa veliàina fonta u '%s'
+; Warning: Bad font size in '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Paänja: Nedostaje veliàina fonta u '%s'
+; Warning: Missing font size in '%s'
+;
+MSG_WARN_NO_ORDER
+Paänja: Naàin reâanja '%s' nije poznat
+; Warning: Order mode '%s' not known
+;
+MSG_ERR_INFO
+Ne mogu da naâem informacije za '%s': %s
+; Couldn't get information for '%s': %s
+;
+MSG_WARN_RANGE_FLOAT
+Upozorenje: Vrednost %s za %s je izvan granica (%s - %s)
+; Warning: Value %s for %s is out of range (%s - %s)
+;

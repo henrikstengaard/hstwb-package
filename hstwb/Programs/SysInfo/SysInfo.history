@@ -1,0 +1,166 @@
+SysInfo HISTORY (HISTORY PRIOR TO V3.10 HAS BEEN DELETED)
+---------------
+4.0     19 years later, a new release. (tnx Nic Wilson)
+	Crasch due to assumed accessable memory at $2000 changed
+	to $4000. (tnx Piru)
+	Updated memory size calculation in Memory Info to handle
+	64MB+ sizes correctly.
+	Updated board size calculation to handle 64MB+ correctly,
+	added MB suffix for sizes greater than 2MB.
+	Several small corrections in the code.
+	Added some support for 68060, more to do.
+	Added identification of UAE Autoconfig&trade; boards.
+	Added identification of Individual Computers GmbH Germany
+	(www.icomp.de) Autoconfig&trade; boards. (tnx Jens Sch&ouml;nfeld)
+	New contact information: http://sysinfo.d0.se SysInfo@d0.se.
+
+
+3.24    The DRIVES/SCSI function was not 'Close'ing each drive
+	that it 'Open'ed after the function was finished.
+	
+	
+3.23    Some invalid or strange devices could cause the DRIVES
+	function to guru.  This has been corrected.
+	
+	Added the ANSI version number of scsi drives to the
+	SCSI function within the DRIVES function.  This tells
+	you if your drive is a SCSI-1 or SCSI-2 etc.  
+	NOTE, on A1200 or A4000 the IDE drive will return info
+	that the Operating system interperets.  I suppose it
+	returns inforation, correctly translated as if it were
+	a scsi drive.  I will attempt to find out and report
+	next version. Sysinfo displays the information given as 
+	if it were a SCSI drive.
+	
+	Added a SCSI 'TYPE' of '3' a processor device to the
+	SCSI function.  This was ommited from previous versions
+	because of dispute as to the type of device a '3' was.
+	
+
+
+3.22    Fixed a MAJOR bug in the display info.  The bug would 
+	occur if for example the system was booted without a 
+	startup-sequence.  This caused the program to totally 
+	hang or crash. 
+
+	Added a new function in the BOARDS section as many
+	users have asked for.  If SysInfo does not recognise
+	a board by name, SysInfo will look in an external
+	ascii file that you create, and try to find a match
+	for each unknown card.  Please see the README file for 
+	specific info on creating this file.
+
+	Added the ability to split the 68020 and 68EC020 CPU's.
+	So who said it couldn't be done eh?.  Tests so far
+	seem to indicate the routine works fine.
+	
+	Replaced the "DISABLED" and "ENABLED" strings for the 
+	MMU display with "NOT IN USE" AND "IN USE" respectively
+	as some users seems to think that disabled, meant 
+	permanently disabled or a less than working version.
+	Remember though that just because SysInfo states that
+	you may have one, does not necessarily meant it is
+	in a fully working state, some 68EC030's have an less
+	than operational MMU that will partially work and
+	SysInfo sees this as a working MMU.
+	
+	Added the ability to recognise kickstart that have
+	been "ReKicked" and kickstarts larger than 512k.  This
+	information if found will be displayed in the scroll
+	area beside the kickstart version.
+
+3.21    There was an error in the string for 25Mhz Amigas and
+	this was forcing it to show as "25000".  This has now
+	been corrected and shows correctly as "25.00" 
+
+3.20    Even though the -p Print routine was working fine the
+	internal print gadget routine was broken.  I have fixed
+	this and now it prints ok.
+
+3.19    Thanks to a good friend of mine, Andy Clay, a blatant
+	bug has been fixed that has been in SysInfo since
+	V3.00.  The priority display in the Task and Port lists
+	was shown as values between 0 and 255 instead of -128
+	to +127.  This has been corrected and it now shows the
+	correct value.  Strange how it took this long for someone
+	to notice such an obvious error.  Thanks Andy.
+	
+	The Total Size memory field inside the Memory function
+	was inaccurate and losing half a meg on some setups, this
+	has been corrected.
+
+3.18    Corrected a problem for some IDE drives in the A4000.
+	It seems that some brands of IDE drives do not like
+	reads of 128K or greater at once and some users have 
+	not set their "MAXTRANSFER" value to $FFFF.  The SPEED function
+	of SysInfo tried to use a 128K read, so I have changed
+	this to 64K.  It fixes the problem for a Quantum IDE LP52
+	drive and I expect it should fix all others.
+
+3.17    Corrected an error in the drives function.  It always
+	used a read size of TD_SECTOR in order to fetch the 
+	first block of the boot sector.  CD-ROM drives with 2048
+	bytes per sector did not like this.  I have changed the
+	read size to the id_BytesPerSector of the particular device
+        being read.
+
+3.16    Fixed a bug in the dhrystones printing routine, any
+	subsequent printing of the number could be wrong if
+	it was much smaller (eg. caches off) because the 
+	number was not erased first, and part of the old
+	number was left behind.
+
+3.15    Fixed the "lies" of CLOCK function, it should now 
+	correctly report if you have a Commodore compatible
+	hardware clock or not.  Older versions lied on the
+	A1200 and A600.
+
+3.14    Fixed an error for the 68020 CPU.  The "DCACHE" gadget
+	was still enabled, even though the string correctly
+	showed N/A.  
+	
+	Now I have access to an A1200 I made the A1200 speed 
+	comparison slightly more accurate.
+
+3.13	Added a "You" string to make it more obvious which
+	computer the red bar was for as some users were 
+	confused by this.  (Sheeesh!!)
+
+V3.12   Since re-arranging some of the strings in the main display
+	I neglected the print strings and subsequently they
+	were all mixed up.  I have now corrected this.
+
+V3.11   Was unfinished and I never personally released this version 
+ 	but some local person posted it and it ended up on Fish, I 
+ 	was most annoyed at this.
+
+	Fixed a bug on the A3000, where a guru would result
+	from using any of the cache gadgets after doing a speed
+	test.
+	
+	Due to massive public demand, the Comment is back.  Please
+	take this as a tongue-in-cheek comment, it is not to be
+	taken seriously.
+
+V3.10   When the program loads my Logo is in the centre of the 
+	screen.  The logo is a map of Australia, and if you look 
+	to right of the 'S' in 'NWS' you will see a star burst in 
+	the location of my home town 'Toowoomba'.
+	Thanks to Kurt Boulter from Don Quixote Software for the
+	logo graphics.		
+	
+	Removed all the Memory amount displays from the main screen 
+	as it was rather redundant with the 'Memory' function gadget.  
+	This also allowed for larger and better strings for some of 
+	the other displays.
+	
+	Removed the DMAC display, as it looks like the revised
+	chip will not be released.  It seemed pointless to look for
+	a newer chip if they are not going to release it.
+	
+	Six new gadgets to manipulate cache modes.  This requires
+	V2.0 AmigaDOS or later.  See main doc for more info.
+	
+	Chip memory comparison has changed so the comparison
+	is done against a standard A600 instead of an A3000.
+

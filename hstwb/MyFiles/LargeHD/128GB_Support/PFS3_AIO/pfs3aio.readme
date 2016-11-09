@@ -1,0 +1,88 @@
+Short:        PFS3 All-In-One
+Author:       Toni Wilen
+Uploader:     twilen@winuae.net (Toni Wilen)
+Type:         disk/misc
+Version:      2.3
+Architecture: m68k-amigaos
+
+This is improved all-in-one 100% OS 1.x/2.x/3.x/68000+ compatible
+port of recently open sourced Professional File System III (PFS3),
+SVN version. Sources available in AROS source tree.
+
+Changes:
+
+2.3
+---
+
+- ROM resident priority increased. GVP tekscsi driver (that
+  normally can't load filesystems from RDB due to a driver bug)
+  can now automount PFS3 partitions if PFS3 is in ROM.
+- Fixed very old PFS3 bug that caused Wrong Index Block ID
+  error message. Only affected partitions larger than 5G.
+
+2.2
+---
+
+- Handler is now rommable.
+- Reverted SVN rev#9 commit, it is not compatible with AmigaDOS and
+  can break some programs. ACTION_FINDOUTPUT must use exclusive lock.
+- 1.3 compatibility fix, AddSemaphore() is broken under 1.x.
+  Caused crash under 1.3 if more than one partition was mounted.
+- Added custom version for braindead boot ROMs that don't support
+  hunk relocation entries(!) One confirmed is some versions of
+  pbscsi.device. It also can be used safely on non-braindead systems.
+  Custom version is not rommable.
+
+2.1
+---
+
+- Fixed access fault when booting under KS 1.3.
+
+2.0
+---
+
+- Improved version of PFS3 for KS1.x
+- Direct SCSI merged with standard PFS3.
+- NSD support added.
+- Autodetects block access mode (TD, TD64, NSD, DirectSCSI),
+  does not mount any partitions that can't be fully or partially
+  accessed due to driver limits.
+- >256 block transfer ROM IDE driver bug workaround included.
+  ("Max Transfer" bug)
+
+Includes also all PFS3 for KS1.X updates:
+
+1.1
+---
+
+- Merged latest official SVN updates.
+- Compatible with KS 1.3 + 2.x extended ROM CDTV with v37 exec.
+- Enabled removable media support.
+- Fixed ACTION_DIE (unmount) crash.
+- WB 1.x C:Info reports correct state information.
+
+Read official PFS3 package documentation before using!
+
+Autodetection details:
+----------------------
+
+If last block of partition is inside of first 4G of drive:
+
+- Test if standard CMD_READ can access last block.
+- Test if HD_SCSICMD Read(10) can access last block.
+
+If both tests failed, do not mount, show error requester.
+
+HD_SCSICMD test is needed because A590 pre-7.0 and CDTV SCSI
+CMD_READ have 1G limit, HD_SCSICMD does not have any limits.
+(Other old SCSI controllers may have similar restrictions.)
+
+If last block of partition is outside of first 4G of drive:
+
+- Test if NSD is supported and can access last block.
+- Test if TD64 is supported and can access last block.
+- Test if HD_SCSICMD Read(10) can access last block.
+
+If all tests failed: do not mount, no requester shown.
+
+If DOSType = PDSx: test HD_SCSICMD Read(10) first.

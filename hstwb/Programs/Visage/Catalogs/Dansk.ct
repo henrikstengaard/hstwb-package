@@ -1,0 +1,293 @@
+## version $VER: visage.catalog 39.20 (14.3.98)
+## codeset 0
+## language dansk
+;
+MSG_BY
+\c1m%s - af Magnus Holmgren\n\
+\c0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Skærm-opløsning er ikke tilgængeligt»
+;
+MSG_ABORTED
+Afbrudt.\n\
+
+;
+MSG_BREAK
+***Afbrudt\n\
+
+;
+MSG_WARN_BAD_ENV_ARGS
+Advarsel: Fejl i Environmet variabel:\n\
+%s
+;
+MSG_WARN_NO_WBMON
+Advarsel: WBMONITOR kan ikke finde Workbench
+;
+MSG_WARN_NO_MONITOR
+Advarsel: Kan ikke finde skærm '%s'
+;
+MSG_WARN_NO_MODE
+Advarsel: Kan ikke finde opløsning '%s'
+;
+MSG_WARN_NO_OVERSCAN
+Advarsel: Overscan-type '%s' ukendt
+;
+MSG_ERR_NO_LIB
+Kan ikke åbne %s version %ld eller højere
+;
+MSG_ERR_NEED_OS3
+Du behøver OS 3.0 eller højere
+;
+MSG_ERR_BAD_ARGS
+Fejl i argumenterne:\n\
+%s
+;
+MSG_ERR_FILEREQ
+Kan ikke åbne fil vælgeren:\n\
+%s
+;
+MSG_ERR_SMREQ
+Kan ikke åbne skærm-opløsningsvælgeren:\n\
+%s
+;
+MSG_ERR_MONITORREQ
+Kan ikke åbne skærm vælgeren:\n\
+%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Returnerer til klient
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Call-back hook mangler
+;
+MSG_ERR_IFF_IFF
+Ikke en IFF fil
+;
+MSG_ERR_IFF_SYNTAX
+Syntaksfejl i IFF fil
+;
+MSG_ERR_IFF_MANGLED
+Defekt IFF fil
+;
+MSG_ERR_IFF_SEEK
+Søgefejl
+;
+MSG_ERR_IFF_WRITE
+Skrivefejl
+;
+MSG_ERR_IFF_READ
+Læsefejl
+;
+MSG_ERR_IFF_MEM
+Ikke mere hukommelse
+;
+MSG_ERR_IFF_SCOPE
+Fejl i IFF-fil (Ugyldig egenskab på sted?)
+;
+MSG_ERR_IFF_CONTEXT
+Slut på sammenhæng
+;
+MSG_ERR_IFF_EOF
+Slut på fil
+;
+MSG_ERR_SCR_MONITOR
+Valgte skærm er ikke tilgængelig
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Du behøver nyere custom chips
+;
+MSG_ERR_SCR_MEM
+Ikke mere hukommelse
+;
+MSG_ERR_SCR_GFXMEM
+Ikke mere grafik hukommelse
+;
+MSG_ERR_SCR_INTERNAL
+Intern fejl
+;
+MSG_ERR_SCR_MODE
+Ukendt skærm-opløsning
+;
+MSG_ERR_SCR_DEPTH
+Den ønskede skærmdybde kræver bedre hardware
+;
+MSG_ERR_SCR_WINDOW
+Kan ikke åbne vindue
+;
+MSG_ERR_SCR_MODEAVAIL
+Skærmopløsning er ikke tilgængelig
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF, men ikke ILBM
+;
+MSG_ERR_NOT_PIC
+Ukendt format
+;
+MSG_ERR_NO_DATA
+Data mangler
+;
+MSG_ERR_BAD_DATA
+Defekt data
+;
+MSG_ERR_EOF
+For tidlig slut på fil
+;
+MSG_ERR_RENDER
+Kan ikke gengive billedet
+;
+MSG_ERR_UNKNOWN_DATA
+Ukendt dataformat
+;
+MSG_ERR_LIB
+Eksternt library mangler
+;
+MSG_ERR_FORMAT
+Ukendt format
+;
+MSG_ERR_UNKNOWN
+Ukendt fejlnummer: %ld. Rapporter venligst
+;
+MSG_ERR_PICTURE
+\tFejl i billede: %s
+;
+MSG_ERR_SHOW
+Kunne ikke vise '%s': %s
+;
+MSG_REQ_TITLE
+Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Vælg skærm-opløsning
+;
+MSG_MONITOR_REQ_TITLE
+Vælg skærm
+;
+MSG_FILE_REQ_TITLE
+Vælg filer at vise
+;
+MSG_GAD_OK
+ Ok
+;
+MSG_CLIPBOARD
+«Clipboard»
+;
+MSG_EXTRA_LOW_RES
+Ekstra-Lav opløsning
+;
+MSG_LOW_RES
+Lav opløsning
+;
+MSG_HIGH_RES
+Høj opløsning
+;
+MSG_SUPER_HIGH_RES
+Super-Høj opløsning
+;
+MSG_LACED
+ Interl.
+;
+MSG_DOUBLE
+ dobbelt
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Advarsel: Rasteringstype '%s' er ukendt
+;
+MSG_WARN_RANGE
+Advarsel: Værdi %ld for %s er ikke tilladt\n\
+(må være imellem %ld og %ld)
+;
+MSG_WARN_TIMER
+Advarsel: Kunne ikke åbne timer.device
+;
+MSG_CYCLE_TASK
+Visage farve ruller
+;
+MSG_ERR_FILE_EMPTY
+Fil er tom
+;
+MSG_WARN_BAD_FILE_ARGS
+Advarsel: Fejl i konfigurationsfilen\n\
+i skuffen '%s':\n\
+%s
+;
+MSG_WARN_BAD_CFGPATH
+Advarsel: Kan ikke finde ConfigPath-skuffen\n\
+'%s':\n\
+%s
+;
+MSG_TESTED_OK
+Billede OK
+;
+MSG_ALL_TESTED_OK
+Alle testede billeder var OK\n\
+
+;
+MSG_ALL_TESTED_NOT_OK
+Et eller flere testede billeder fejlede\n\
+
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage forespørgsel
+;
+MSG_ASK_PASSWORD
+Indtast kodeord for\n\
+"%s":
+;
+MSG_ERR_NO_PASSWD
+Kodeord mangler eller er forkert
+;
+MSG_ERR_NO_DRAWER
+Kunne ikke flytte til skuffen '%s':\n\
+%s
+;
+MSG_ERR_SCR_ATTACH
+Kunne ikke knytte skærmene
+;
+MSG_ERR_BBLANK
+Advarsel: Borderblank tilstand '%s' er ukendt
+;
+MSG_WARN_NO_COLOR
+Advarsel: Farve opløsning '%s' er ukendt
+;
+MSG_ERR_OPEN_LIST
+Kunne ikke åbne list fil '%s':\n\
+%s
+;
+MSG_ERR_READ_LIST
+Kunne ikke læse list fil '%s':\n\
+%s
+;
+MSG_WARN_OPEN_FONT
+Advarsel: Kunne ikke åbne font til '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Advarsel: Forkert font størrelse i '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Advarsel: Mangler font størrelse i '%s'
+;
+MSG_WARN_NO_ORDER
+Advarsel: Sorteringstilstand '%s' er ukendt
+;
+MSG_ERR_INFO
+Kunne ikke få information om '%s': %s
+;
+MSG_WARN_RANGE_FLOAT
+Advarsel: Værdi %s for %s er uden for området (%s - %s)
+;

@@ -1,0 +1,9 @@
+/* $VER: SPEAK 40.1 (6.6.02)
+ *
+ * Speak-Handler mount entry
+ */
+
+Handler        = L:Speak-Handler
+StackSize    = 6002
+Priority    = 5
+GlobVec        = -1

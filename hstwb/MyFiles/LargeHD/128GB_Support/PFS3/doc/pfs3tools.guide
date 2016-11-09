@@ -1,0 +1,377 @@
+@database "Professional File System 3 documentation"
+@author "Michiel Pelt"
+@(c) "Copyright 1998 by Great Effects Development"
+@$VER: pfs3tools.guide 1.2 (7/6/1999)
+@master pfs3tools.guide
+
+@rem --------------------------------------------------------------------
+@node "Main" "PFS3 Tools"
+
+@{jcenter}@{b}PFS3 Tools@{ub}
+
+Rollover file tools
+@{"MakeRollover" link makerollover}
+@{"SetRollover" link setrollover}
+
+Format and Configuration tools
+@{"PFSFormat" link format}
+@{"SetFnSize" link setfnsize}
+@{"SetDeldir" link setdeldir}
+
+Misceleanous
+@{"Makelink" link makelink}
+@{"RemoveDirEntry" link removedirentry}
+
+PFSLS, PFSDoctor and DiskValid
+@{"PFSLS" link pfsls.guide/main}
+@{"PFSDoctor" link pfsdoctor}
+@{"DiskValid" link diskvalid.guide/main}
+
+Go to
+@{"PFS3 documentation" link pfs3.guide/main}
+
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "MakeRollover" "MakeRollover"
+
+@{jcenter}@{b}MakeRollover@{ub}
+Version 1.1
+Copyright (c) 1998 by GREat Effects Development
+@{jleft}
+
+With MakeRollover @{"rollover files" Link pfs3.guide/rollover} are created.
+
+The syntax for running the Makerollover tool is:
+
+Format:     Makerollover <file> <size>
+Template:   FILE/A,SIZE/N/A
+
+Options:
+<file>      The name of the new rollover file.
+<size>      The 'rollover size' of the new rollover file in blocks.
+
+Initially the rollover file will be empty, it has size 0. 
+The rolloversize is the maximum size the rollover file can become. It always
+is a multiple of blocks minus one for the end of file marker. 
+
+Example:
+1.Workbench:> Makerollover mylogfile 2
+
+will create a rollover file named 'mylogfile' with rollover size
+2*512-1 = 1023 byte.
+
+Makerollover always creates a new file, it cannot transform an existing file
+into a rollover file. To transform a normal file into a rollover file, you
+have to copy it into a rollover file.
+
+Example: turning mybiglog into a 1023 byte rollover file:
+1.Workbench:> rename mybiglog temp
+1.Workbench:> makerollover mybiglog 2
+1.Workbench:> copy temp mybiglog
+1.Workbench:> delete temp
+
+MakeRollover is specific for PFS3 and only works on PFS3, PFS2 and AFS volumes.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "SetRollover" "SetRollover"
+
+@{jcenter}@{b}SetRollover@{ub}
+Version 1.1
+Copyright (c) 1998 by GREat Effects Development
+@{jleft}
+
+SetRollover is a tool to manipulate @{"rollover files" Link pfs3.guide/rollover}.
+This tool is for advanced users only.
+
+The syntax for running Setrollover is:
+
+Format:     SetRollover <rolloverfile> [SET]
+            [REALSIZE <realsize>] [VIRTUALSIZE <virtualsize>]
+            [ROLLPOINTER] <rollpointer>
+
+Template:   ROLLOVERFILE/A,SET/S,REALSIZE/K/N,VIRTUALSIZE/K/N,ROLLPOINTER/K/N
+
+Options:
+SET         If supplied realsize, virtual size and rollpointer are set,
+            otherwise they are read.
+
+REALSIZE    The size the file takes on disk in bytes. This is the rollover
+            size plus 1. It must be a multiple of the block size, otherwise
+            it will be rounded down to the first valid size. Changing this
+            value will clear the virtual size and the rollpointer, unless
+            specified otherwise.
+
+VIRTUALSIZE The virtual size is the number of bytes that are in use. The
+            maximum virtual size is the rollover size. Changing this value
+            will clear the rollpointer, unless specified otherwise.
+
+ROLLPOINTER The rollpointer is the 'start of file' offset. Changing this
+            value will clear the virtual size, unless specified otherwise.
+
+
+Examples:
+1.Workbench:> setrollover foo
+real size = 1024
+virtual size = 400
+rollpointer = 12
+
+1.Workbench:> setrollover foo set virtualsize 200 rollpointer 220
+real size = 1024
+virtual size = 200
+rollpointer = 220
+
+1.Workbench:> setrollover foo set realsize = 512
+real size = 512
+virtual size = 0
+rollpointer = 0
+
+SetRollover is specific for PFS3 and only works on PFS3, PFS2 and AFS volumes.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "Format" "Format"
+
+@{jcenter}@{b}PFSFormat@{ub}
+Version 1.1
+Copyright (c) 1999 by GREat Effects Development
+@{jleft}
+
+PFSFormat is a replacement for the AmigaDos format command. It can be used
+to format any PFS3 disk. It also supports full format on large disks and
+the PFS3 features deldir size and filename size.
+
+The syntax for running PFSFormat is:
+
+Format:     PFSFormat DEVICE <devicename> NAME <name>
+            [NOICONS] [QUICK] [DELDIRBLOCKS <deldirsize>]
+            [FILENAMESIZE <filenamesize>] [VERIFY]
+
+Template:   DEVICE=DRIVE/K/A,NAME/K/A,NOICONS/S,QUICK/S,DELDIRBLOCKS=DD/K/N,
+            FILENAMESIZE=FNSIZE/K/N,VERIFY/S
+
+Options:
+DEVICE      Name of device to format
+
+NAME        Label of the new volume
+
+NOICONS     By default the trashcan directory and the disk.info and
+            trashcan.info icons are created. This flag prevents this
+            from happening.
+
+QUICK       Quick formatting. The disk is directly reinitialised, without
+            wiping or checking it first.
+
+DELDIRBLOCKS    The number of deldirblocks to create. This can be anything
+            between 0 and 32. One deldirblock contains 31 deldirentries.
+            So, if 31 is specified, the deldir will have a capacity of
+            31*32 = 992 files. The deldir can be completely disabled by
+            specifying 0 deldirblocks. The default is 2. The number of
+            deldirblocks can also be changed on an already formatted volume
+            by using the SetDeldir command.
+
+FILENAMESIZE    The maximum length of filenames. The maximum is 107.
+            Warning: After formatting the filenamelength can only be
+            increased, not reduced. Default is 31.
+
+VERIFY      Enables verify on full format. Does not work in combination
+            with the QUICK option.
+
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "SetFnSize" "SetFnSize"
+
+@{jcenter}@{b}SetFnSize@{ub}
+Version 1.1
+Copyright (c) 1999 by GREat Effects Development
+@{jleft}
+
+With SetFnSize the maximum length of filenames can be set or retrieved.
+Use this command carefully: the filename length can only be increased,
+not reduced. The only way to set the filename length back to 31 after
+it has been increased is by reformatting the disk.
+
+The syntax for running SetFnSize is:
+
+Format:     SetFnSize <volume> [<filenamesize>]
+
+Template:   VOLUME/A,FILENAMESIZE/N
+
+Options:
+VOLUME      The volume on which the filenamesize is to be changed or
+            displayed.
+
+FILENAMESIZE    The new filenamesize. Must be between 31 and 107 and must
+            be larger or equal the current size. If not supplied, the
+            current filenamesize will be displayed.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "SetDeldir" "SetDeldir"
+
+@{jcenter}@{b}SetDeldir@{ub}
+Version 1.2
+Copyright (c) 1999 by GREat Effects Development
+@{jleft}
+
+With SetDelDir the size of the deletedirectory can be set or displayed.
+The size of the deldir can be anything from 0 to 32 deldir blocks. Each
+deldir block holds 31 deldirentries. With the maximum of 32 deldirblocks
+there are upto 992 deldirenties.  With 0 deldirblocks the deldir is
+disabled.
+
+The syntax for running SetDeldir is:
+
+Format:     SetDeldir <device> [<deldirsize>]
+
+Template:   DEVICE/A,DELDIRSIZE/N
+
+Options:
+DEVICE      The device/volume on which the size of the deldir is to be
+            set or displayed.
+
+DELDIRSIZE  The new size of the deldir in deldirblocks. Must be
+            between 0 (disabled) and 32 (maximum of 992 entries).
+            If not supplied, the current settings will be displayed.
+
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "Makelink" "Makelink"
+
+@{jcenter}@{b}Makelink@{ub}
+Version 1.2
+Copyright (c) 1998 by Great Effects Development
+@{jleft}
+
+Makelink is a replacement for the standard Workbench makelink. The standard
+makelink has a bug with softlinks. This version should be used instead.
+
+The syntax for running Makelink is:
+
+Format:     Makelink <from> <to> [SOFT] [HARD] [FORCE]
+Template:   FROM/A,TO/A,SOFT/S,HARD/S,FORCE/S
+
+Makelink makes a link from <from> to <to>.
+
+Options:
+SOFT        Creates a soft link
+
+HARD        Creates a hard link (default)
+
+FORCE       Normally makelink refuses to make links to directories. With
+            FORCE you can force the filesystem to create the link.
+
+See the AmigaDos manual for more details. Makelink works with any filesystem
+that supports hardlink and softlinks, including FFS and PFS2.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "RemoveDirEntry" "RemoveDirEntry"
+
+@{jcenter}@{b}RemoveDirEntry@{ub}
+Version 1.0
+Copyright (c) 1998 by Great Effects Development
+@{jleft}
+
+Removedirentry is a tool to force files to be removed. It can be used when
+normal delete fails.
+
+Format:     Removedirentry <file>
+Template:   FILE/A
+
+The specified file or directory is removed. PFS3 performes no validity checks
+and the diskspace is not freed.
+
+WARNING: diskspace allocated by files removed with Removedirentry is NOT
+freed and lost forever. It can only be recovered with Diskvalid or by
+reformatting the volume.
+
+Removedirentry is specific for PFS3 and only works on PFS3, PFS2 and AFS volumes.
+
+@endnode
+@rem --------------------------------------------------------------------
+@node "PFSDoctor" "PFSDoctor"
+
+@{jcenter}@{b}PFSDoctor@{ub}
+Version 1.3
+Copyright (c) 1999 by GREat Effects Development
+@{jleft}
+
+PFSDoctor is the new repair and recovery tool for PFS volumes. It can
+repair almost all corrupted disks and can even locate delocated partitions.
+The tool has a wizard like GUI.
+
+@{b}Start window@{ub}
+
+Here you can choose to Repair or to Check a disk. In Check mode
+the disk will be write protected during the scan, so errors are
+shown but nothing will be fixed. In Repair mode the disk will
+be repaired.
+
+@{b}Device/Volume window@{ub}
+
+Next the device or volume to scan has to be selected. The Back
+button takes you back to the start screen.
+
+@{b}Option window@{ub}
+
+The options window lets you configure some settings.
+
+Access Type  Sets the method used to access the disk. This is only
+             relevant if the disk is larger then 4G.
+
+-AUTO        Automatic detection. Doctor will automatically detect
+             if TD64 or direct scsi is required. Recommended for
+             most cases.
+-TD64        Doctor will use td64 commands
+-Direct-SCSI Doctor will use direct-scsi commands.
+
+Verbose      Sets verbose mode. More messages will be generated if
+             this is enabled. We recommend @{i}not@{ui} to use this
+             unless the standard output is unsufficient.
+
+Enable       Enables logfile. The logfile specified will contain 
+Logfile      exactly all the messages displayed in the repair
+             window. PFSDoctor overwrites the logfile on each
+             session. Make sure you don't select a logfile that
+             is one the same volume as the volume being checked.
+
+The repair/check is started by selecting the START button.
+
+@{b}Check and Repair window@{ub}
+
+The check and repair window contains some counters and progress bars and
+a message area. The size of the message area can be changed with the
+sizing gadget at the lower right corner. The different components are:
+
+Pass         Each time the disk is scanned is called a 'pass'. Usually
+             one pass is sufficient. If more passes are necessary this
+             will be indicated by the pass number.
+
+Progress     The upper progress bar indicates the progress of a checking
+bars         process. The currently checked object will be shown on top
+             of the progress bar. The bottom progress bar is only used
+             for special repair/recovery operations like the search for
+             lost blocks.
+
+Checked      The number of blocks checked so far
+Errors       The number of errors found so far
+Fixed        The number of errors fixed so far
+Files        The number of files found so far
+Dirs         The number of directories found so far
+Hardl        The number of hardlinks found so far
+Softl        The number of softlinks found so far
+Roll         The number of rollover files found so far
+
+Message      In the message area information of the repair process, disk,
+area         and errors are shown.
+
+
+When the repair is finished a requester will be displayed. Ok the
+requester. Now you can go back to the start window by closing the
+repair window, or quit by using the menu.
+
+@endnode

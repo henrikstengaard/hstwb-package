@@ -1,0 +1,73 @@
+kickstart/fs
+
+    Added 64 bit support according to the new style device based
+    trackdisk64 standard. Notification should work well now for
+    SetComment, SetFileDate, SetProtection, and SetOwner.
+    Added UID/GID identification support via Envoy for symmetry.
+    Will use TD_ADDCHANGEINT instead of TD_REMOVE. This may help
+    some devices! I am not sure yet if we should ignore
+    non IOERR_NOCMD devices and simply try a query and
+    TD_GETGEOMETRY on the device. Handles cylinder numbers >64K for
+    special types of devices now. Reworked half a ton of signed
+    compares. Should no longer mess up on comment lengths or
+    filename lengths >=128. No longer sets the dircache pointer in
+    the root block for non dircache modes. There is a slight chance
+    that files could be sized from 0 to 4GB-2 bytes now. This has not
+    been tested and you must make sure that any SW trying to use
+    this checks for -1 as error code exactly as positions are
+    obviously unsigned in that case. Froze 43.11.
+    If there was an early startup problem, it didn't always fail
+    correctly. This should be better now. Note well that the V43
+    FFS tends to rely on the trackdisk device feature set defined
+    for >=V36, so with very old hardware and/or bad drivers, you
+    may have problems. Incidentally, none have been reported yet.
+    Froze 43.12.
+    In a low memory situation, the fs could set a wrong disk type.
+    Fixed a failure path that I had added in a messed up state and
+    a restart should work as expected again now. For an underlying
+    NSD device, FFS will use TD_GETGEOMETRY now if needed.
+    Currently, the NSD query is only activated for >4GB partitions.
+    Maybe this should change. This needs further research though.
+    Froze 43.13.
+    Envoy accounts support is only available if accounts.library is
+    already loaded.
+    Froze 43.14.
+    When Inhibit is turned on/off, the filesystem should now
+    try harder to trigger a disk change event as appropriate.
+    The validator and the standard bitmap check could report free
+    blocks that were different by one. The bit[map] for the last block
+    in the partition was not checked correctly and the disk could
+    have appeared to contain one more free block than was actually
+    there. This bug must have been in there for a long time.
+    Incidentally, it has not been found with a small partition,
+    but while using a 4.6GB partition. The NSD functionality was
+    not fully NSD conforming which caused NSDPatch to reject
+    certain FFS requests (correctly) with an error. Froze 43.18.
+    With a 512 byte block size, the upper unchecked(!) limit on
+    FFS file size was 2.25 GB due to internal extension block count
+    limitations. OFS had problems with files >32MB. The validator
+    did not clean up bad dircache entries correctly which could
+    confuse dircache management completely. Froze 43.19.
+    ACTION_END should now have the correct return value.
+    Froze 43.20.
+
+Use HDToolBox to test this filesystem. Note that partitions
+exceeding the 32 bit range may confuse some SW like Info,
+Workbench, HDToolBox in some areas. Please note well that Amiga
+International, Inc. supports only the New Style Device API for future
+enhancements to devices in general as documented on the Developer
+CD, with updates distributed via ftp.amiga.de. The V43 FFS uses NSD
+to determine device capabilities and will not use 64 Bit commands
+on non NSD devices. As the OS drivers and many 3rd party devices
+tend to get upgraded to use NSD right now, this is not expected to
+be a problem. It is also expected that this filesystem may fail on
+some very old/bad harddisk controllers that don't even implement
+the V37 device specifications correctly. Bug reports on this are
+welcome.
+
+For details on requirements for underlying devices, please check
+the included documents, the DevInfo section of the current Amiga
+Developer CD and/or ftp.amiga.de for the current versions of the
+included documents.
+
+Heinz Wrobel

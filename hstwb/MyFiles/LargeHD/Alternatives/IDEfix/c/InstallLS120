@@ -1,0 +1,119 @@
+;$VER: IDEfix InstallLS120 48.1 (24.02.97)
+;Copyright ©1997 Elaborate Bytes, Oliver Kastl
+
+(onerror
+	(makeassign "CacheCDFSInst" (safe))
+	(makeassign "CacheCDFS" (safe))
+)
+
+
+(complete 0)
+
+(makeassign "CacheCDFSInst" "" ( safe) )
+(makeassign "CacheCDFS" "" ( safe) )
+
+
+(set #theirlevel @user-level )
+
+(user 2)
+
+(message "\n\nNow the FindDevice program will be launched to find "
+         "the Device and Unit of your LS-120 ATAPI Floppy..."
+         "\n\nYou may let the program scan for LS-120 units by clicking \"SCAN\"."
+         "\n\nChoose the device and unit and click \"USE\"!"
+         "\n\nIf FindDevice hangs: Reboot, start the installation again and "
+         "click CANCEL within FindDevice!")
+
+(working "\n\nLaunching the FindDevice program to find "
+         "the Device and Unit of your LS120 ATAPI Floppy..."
+         "\n\nYou may let the program scan for LS-120 units by clicking \"SCAN\"."
+         "\n\nChoose the device and unit and click \"USE\"!"
+         "\n\nIf FindDevice hangs: Reboot, start the installation again and "
+         "click CANCEL within FindDevice!")
+
+(set #Product ( run "CacheCDFSInst:FindDevice TYPE=0 ATAPI" ( safe ) ) )
+
+
+(if (= #Product 0 )
+	(
+	( set #CDROM_Device (getenv "CDROM_Device" ))
+	( set #CDROM_Unit (+ (getenv "CDROM_Unit" )))
+	( set #CDROM_NumLuns (+ (getenv "CDROM_NumLuns" )))
+	)
+
+	(
+	(set #CDROM_Device
+		(askstring
+			(prompt "\n\nWhat is the name for the exec device driver? " )
+			(default "scsi.device" )
+			(help "\n\nThis is the name of the device driver to use. "
+					"The name is different for different configurations. "
+					"\n\nConsult the manual of your SCSI/IDE host adapter "
+					"if you don't know the name!" )
+		)
+	)
+
+	(set #CDROM_Unit
+		(asknumber
+			(prompt "\n\nWhat is the Unit number of your LS-120 drive?" )
+			(default 5 )
+			(help "\n\nThis is the unit # of the LS-120 drive.  This is usually a "
+					"numerical value between 0 and 7." )
+		)
+	)
+
+	)
+)
+
+
+(user #theirlevel)
+
+(protect "S:User-Startup" "srwed" )
+
+(set #startupCommand (cat "MountLS120 DEVICE=" #CDROM_Device " UNIT=" #CDROM_Unit" QUIET\n") )
+
+(startup "MountLS120"
+	(command #startupCommand )
+	(prompt "\n\nInserting IDEfix User Startup into the user-startup")
+	(help "\n\nInserting IDEfix User Startup into the user-startup")
+)
+
+(complete 50 )
+
+	(tooltype
+		(dest "CacheCDFS:LS120/MountLS120" )
+		(settooltype "DEVICE" #CDROM_Device )
+		(settooltype "UNIT" ("%ld" #CDROM_Unit ))
+		(noposition)
+	)
+
+(complete 100 )
+
+(set #doMount
+	(askbool
+	(prompt "\n\nMount LS-120 floppy now ?")
+	(help "Select, if your ATAPI floppy should be mounted now, or not.")
+	(default 1)
+	)
+)
+
+( if @pretend ((set #doMount 0))) 
+
+(if #doMount
+	(
+	(working "\n\nMounting LS-120...."
+	         "\n\nPlease Wait!")
+
+	( run "MountLS120 DEVICE="#CDROM_Device" UNIT="#CDROM_Unit )
+	)
+)
+
+(makeassign "CacheCDFSInst" (safe))
+(makeassign "CacheCDFS" (safe))
+
+(user 2)
+ 
+(message "\n\nLS-120 installed!" ) 
+
+(exit (quiet ))
+

@@ -1,0 +1,13 @@
+FFT v1.1 scope for HippoPlayer
+------------------------------
+
+External spectrum analyzer scope that uses FFT to extract spectral
+components out of music.  The spectrum goes from 0 Hz to 8000 Hz, with
+steps of 125 Hz.  The display is updated every frame.  It's quite fast on
+my A1200/030/28MHz, faster than the FFTs in Deli and Eagle.  It even runs
+quite smooth on A500+kick13.  Tested with WinUAE :)
+
+Requirements: any Amiga with 300kB free memory, HippoPlayer
+
+68000-030 optimized assembler k0dez by K-P, based on a C++ source by
+Guru/S2.

@@ -1,0 +1,26 @@
+; ACA Accelerator Card Startup Script
+; -----------------------------------
+
+; ACA maprom A600 Kickstart 3.1
+IF EXISTS S:MapRom-ACA-A600-KS31
+   C:ACATune >NIL: -maprom SYS:devs/kickstarts/kick40063.A600 -cache on -burst on
+   
+   SKIP status
+EndIf
+
+; ACA maprom A1200 Kickstart 3.1
+IF EXISTS S:MapRom-ACA-A1200-KS31
+   C:ACATune >NIL: -maprom SYS:devs/kickstarts/kick40068.A1200 -cache on -burst on
+
+   SKIP status
+EndIf
+
+; ACA maprom to fastmem
+C:ACATune >NIL: -maprom * p -cache on -burst on
+
+LAB status
+
+; Write ACA status to RAM:
+C:ACATune -status >RAM:aca-status
+
+LAB end

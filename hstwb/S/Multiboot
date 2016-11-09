@@ -1,0 +1,4 @@
+; Multiboot script
+; ----------------
+
+C:MultiBoot > NIL: "  Games" "  Demos" "Workbench" "" "" "" "" "" "" "" "" "" 5 "Multiboot Selector" 3

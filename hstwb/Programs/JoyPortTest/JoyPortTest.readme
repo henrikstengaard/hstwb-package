@@ -1,0 +1,26 @@
+Short : Test your joystick/CD32 joypad/mouse
+Uploader: psygore@whdload.de (Psygore)
+Author: psygore@whdload.de (Psygore)
+Type : util/misc
+Version: 0.1
+Architecture: m68k-amigaos >= 1.1
+
+
+Description
+-----------
+JoyPortTest  is an utility to test and check your joystick, CD32 joypad and
+mouse connected on amiga port 0 and 1.  You will know what button is pushed
+or direction selected into a nice intuition window.
+Joystick with 2-button and 3-button are supported too.
+If  the  lowlevel library  is  available,  it  will  use  the ReadJoyPort()
+function  (this  option  can be swithed on/off).  The return value and some
+custom DMA registers are also displayed.
+
+
+JoyPortTest is Copyright © 2014 Pysgore.
+
+History
+-------
+0.1 (20.06.2014)
+- first released
+

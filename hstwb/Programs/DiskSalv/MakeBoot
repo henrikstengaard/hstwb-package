@@ -1,0 +1,321 @@
+;======================================================================
+;
+; DiskSalv boot disk generator -- $VER: MakeBoot 11.4 (12.8.93)
+;
+; 11.4	Added additional libraries for copy.
+;	Now copies "Devs:system-configuration" for better preferences
+;	   support.
+;	Better checks in place for existance of locale archives.
+; 11.3	Bugs fixed in library copy pattern.
+;
+;======================================================================
+;
+; Some basic strings
+
+(set #disksalv-install 
+     (cat "\nDiskSalv Boot Disk Generator\n"
+          "\nThis utility will format a floppy disk and install DiskSalv"
+          " and its support files based on your hard disk setup.  The"
+          " result is a bootable floppy with DiskSalv on it.  Proceed?"))
+
+(set #disksalv-install-help
+     (cat "\nIn the case of a severe hard disk failure, DiskSalv isn't"
+          " going to be real useful on your hard disk.  This utility"
+          " builds a bootable floppy that may be used in such cases to"
+          " streamline such repair activity." ))
+
+(set #which-disk
+     "In which floppy disk drive should DiskSalv be installed?")
+
+(set #any-locale
+     (cat "\nInstall DiskSalv Localizations\n"
+          "\nYou may install the DiskSalv locale files for various"
+          " languages in the Locale directory.  Proceed?"))
+
+(set #any-locale-help
+     (cat "\nDiskSalv can be operated in different languages."
+          "\n\nIf you choose to proceed, you will be asked to"
+          " select the translations you want available on your"
+	  " system."))
+
+(set #which-language "\nWhich catalogs should be installed?")
+
+(set #which-language-help
+     (cat "\nDiskSalv can be operated in many different"
+          " languages. One file will be copied to your "
+          " hard drive for each language supported.\n\n"
+          "To reduce the amount of space consumed by the"
+          " language files, you can select only the"
+          " files of specific languages to be copied.\n\n"
+          "Check the boxes of the languages you wish to"
+	  " have available on your system.\n\n"
+         @askoptions-help))
+
+(set #subdir-catalog "locale/catalogs"
+     #outdisk-name   "DiskSalv Boot"
+     #dscatname      "DiskSalv.catalog"
+     #tmp-dir        "T:DiskSalv")
+
+(set #get-dearchiver
+     (cat "\nPlease specify the file name of a de-archiver "
+          "program for \"LHA\"-type files."))
+
+(set #ds-done
+     (cat "\nDiskSalv boot disk construction is complete.\n"
+          "\nPlease be aware that, while every effort has been made"
+          " to support your particular setup, it is possible that"
+          " some files you need for a simple bootup have not been"
+          " copied to the boot disk.  Please try this disk out now,"
+          " rather than waiting until you actually need it."))
+
+;======================================================================
+;
+; This function does the actual formatting of the given "outputdisk".
+;
+
+(procedure FORMATDISK
+    (if (askbool (prompt (cat "Please insert a floppy disk to be formatted "
+                              "in drive " outputdisk))
+                     (choices "Ok" "Cancel")
+                     (help "\nPlease select the floppy disk unit for the installation.\n")
+                     (default 1))
+        ((working "Formatting disk " outputdisk " as \"" #outdisk-name "\"")
+         (run (cat "SYS:System/Format <NIL: >\"CON:10/10/500/50/Formatting...\" DRIVE " 
+                   outputdisk " NAME \"" #outdisk-name "\" NOICONS"))
+         (run (cat "C:Install DRIVE " outputdisk)))
+        (exit "Operation cancelled")))
+
+;======================================================================
+;
+; This function makes all the important directories for the DiskSalv
+; boot disk.
+;
+
+(procedure MAKESYS
+   (working "Creating System Directories")
+   (copyfiles (source  "C:")
+              (dest    (tackon outputdisk "C"))
+              (pattern (cat "(AddBuffers|AddDataTypes|Assign|BindDrivers|"
+                            "ConClip|Copy|Delete|Dir|Execute|IPrefs|List|"
+                            "LoadWB|MagTape|MakeDir|Mount|SetClock|"
+                            "SetPatch|Version|Wait)")))
+   (makedir (tackon outputdisk "Classes"))
+   (makedir (tackon outputdisk "Devs"))
+   (makedir (tackon outputdisk "Devs/DataTypes"))
+   (makedir (tackon outputdisk "Devs/Printers"))
+   (copyfiles (source  "Devs:DOSDrivers")
+              (dest    (tackon outputdisk "Devs/DOSDrivers"))
+              (pattern "#?"))
+   (copyfiles (source  "Devs:Keymaps")
+              (dest    (tackon outputdisk "Devs/Keymaps"))
+              (pattern "#?"))
+   (copyfiles (source  "Devs:Monitors")
+              (dest    (tackon outputdisk "Devs/Monitors"))
+              (pattern "((Dbl|%)(PAL|NTSC)|MultiScan|VGAOnly)")
+              (infos))
+   (copyfiles (source  "Devs:")
+              (dest    (tackon outputdisk "Devs"))
+              (pattern "system-configuration"))
+   (copyfiles (source  "SYS:Expansion")
+              (dest    (tackon outputdisk "Expansion"))
+              (pattern "#?"))
+   (makedir (tackon outputdisk "Fonts"))
+   (copyfiles (source  "L:")
+              (dest    (tackon outputdisk "L"))
+              (pattern "#?FileSystem"))
+   (copyfiles (source  "Libs:")
+              (dest    (tackon outputdisk "Libs"))
+              (pattern "(68040|amigaguide|asl|diskfont|iffparse|locale|version).library"))
+   (makedir (tackon outputdisk "Locale"))
+   (makedir (tackon outputdisk "Locale/Catalogs"))
+   (copyfiles (source  "Locale:Countries")
+              (dest    (tackon outputdisk "Locale/Countries"))
+              (pattern "#?"))
+   (copyfiles (source  "Locale:Languages")
+              (dest    (tackon outputdisk "Locale/Languages"))
+              (pattern "#?"))
+   (makedir (tackon outputdisk "Prefs"))
+   (makedir (tackon outputdisk "Prefs/Env-Archive"))
+   (copyfiles (source  "ENVARC:Sys")
+              (dest    (tackon outputdisk "Prefs/Env-Archive/Sys"))
+              (pattern "(pointer|locale|palette|wbconfig).(ilbm|prefs)"))
+   (copyfiles (source  "S:")
+              (dest    (tackon outputdisk "S"))
+              (pattern "Startup-Sequence"))
+   (makedir (tackon outputdisk "System"))
+   (makedir (tackon outputdisk "T"))
+   (makedir (tackon outputdisk "Tools"))
+   (makedir (tackon outputdisk "Utilities"))
+   (makedir (tackon outputdisk "WBStartup"))
+)
+
+;======================================================================
+;
+; This function asks about the language, and sets the global "lang" to
+; the language bit mask returned by the request.
+;
+
+(procedure ASKLANGUAGE
+    (set lang (askoptions (prompt #which-language)
+                          (help #which-language-help)
+                          (choices "dansk"
+                                   "deutsch"
+                                   "english"
+                                   "français"
+                                   "italiano"
+                                   "norsk"
+                                   "suomi"
+                                   "svenska")
+                          (default 0))))
+    
+;======================================================================
+;
+; This function finds a de-archiver in the user's system, resulting to
+; a panic "ask-the-user" if none can be found.
+;
+
+(procedure FINDARCPROG
+   (set n 0)
+   (while (set test (select n "lharc"
+                              "lha"
+                              "lz"
+                              ""))
+      (if (not (run (cat "which " test)))
+          (set arcprog test))
+      (set n (+ n 1)))
+
+   (if (= arcprog "")
+       (set arcprog (askfile (prompt #get-dearchiver)
+                             (help @askfile-help)
+                             (default "C:"))))
+)
+
+;======================================================================
+;
+; This function gets the locale file information.  We mark the occasion
+; with bit 0 set for the availability of the subdirectory, bit 1 set 
+; for the availability of the archive file. 
+;
+
+(procedure ANYLOCALE
+   (set localecode 0)
+   (if (exists locale-catalogs)
+       (set localecode 1))
+   (if (exists locale-archive)
+       (set localecode (+ localecode 2)))
+   localecode)
+
+;======================================================================
+;
+; This function transfers a locale file from the appropriate archive
+; entry to the proper LOCALE:Catalogs subdirectory.
+;
+
+(procedure DOCATARCS
+   (if (= arcprog "") (FINDARCPROG))
+   (if (<> arcprog "")
+       ((working "\nDe-archiving selected catalogs\n")
+	(makedir #tmp-dir)
+        (set arcsfiles (cat #subdir-catalog "/(" arclst ")/#?"))
+        (set dearc-com (cat arcprog " >NIL: <NIL: e " locale-archive " "
+                            arcsfiles))
+        (set script (tackon #tmp-dir "de-archive-script"))
+        (textfile (dest script)
+                  (append (cat "cd " #tmp-dir "\n" dearc-com "\n")))
+        (execute script)
+        (copyfiles (source (tackon #tmp-dir #subdir-catalog))
+                   (dest   output-catalog)
+                   (pattern "#?"))
+        (run (cat "Delete >NIL: <NIL: " #tmp-dir " all")))))
+
+;======================================================================
+;
+; This function transfers the locale files from the appropriate 
+; existing subdirectories (in "sublst")  to the corresponding
+; LOCALE:Catalogs subdirectories.
+;
+
+(procedure DOCATSUBS
+   (copyfiles (source locale-catalogs)
+              (dest   output-catalog)
+              (pattern (cat "(" sublst ")"))))
+
+;======================================================================
+;
+; This function selects the language to be installed.
+;
+
+(procedure DOLOCALE
+   (set n      0
+        sublst ""
+        arclst "")
+   (while (set language (select n "dansk"
+                                  "deutsch"
+                                  "english"
+                                  "français"
+                                  "italiano"
+                                  "norsk"
+                                  "suomi"
+                                  "svenska"
+                                  ""))
+     (if (AND (IN lang n) (<> n 2))
+        (if (exists (tackon locale-catalogs (tackon language #dscatname)))
+            (if (= sublst "") (set sublst language) (set sublst (cat sublst "|" language)))
+            (if (= arclst "") (set arclst language) (set arclst (cat arclst "|" language)))))
+     (set n (+ n 1)))
+   (if (AND (IN localecode 0) (<> sublst "")) (DOCATSUBS))
+   (if (AND (IN localecode 1) (<> arclst "")) (DOCATARCS)))
+
+;======================================================================
+;
+; This procedure asks about installation of catalogs.
+;
+
+
+(procedure ASKLOCALE
+    (if (ANYLOCALE)
+        (if (askbool (prompt #any-locale)
+                     (help #any-locale-help)
+                     (choices "Yes" "Skip This Part")
+                     (default 1))
+                  
+            ((set askmode 0)
+             (ASKLANGUAGE)
+             (DOLOCALE)))))
+
+;======================================================================
+;
+; The main program
+
+(set inputdir          (pathonly @icon))
+(set locale-archive    (tackon inputdir "DSLocale.lha")
+     locale-catalogs   (tackon inputdir #subdir-catalog)
+     arcprog           ""
+     @default-dest     "DF0:")
+
+; First, lets put the DiskSalv stuff in place on a formatted disk.
+
+(if (askbool (prompt #disksalv-install)
+	     (help #disksalv-install-help)
+             (choices "Ok" "Cancel")
+             (default 1))
+   ((set outputdisk  
+          (askdir (prompt  #which-disk)
+		  (help    @askdir-help)
+		  (default @default-dest)))
+     (set @default-dest outputdisk)
+     (FORMATDISK)
+     (copyfiles (source inputdir)
+                (dest outputdisk)
+                (pattern "DiskSalv")
+                (files)
+                (infos))
+     (tooltype  (dest (tackon outputdisk "DiskSalv"))
+                (noposition))
+     (MAKESYS)
+     (set output-catalog (tackon outputdisk #subdir-catalog))
+     (ASKLOCALE)
+     (message #ds-done))
+    (set @default-dest ""))
+
+

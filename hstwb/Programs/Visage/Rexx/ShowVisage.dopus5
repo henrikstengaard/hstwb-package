@@ -1,0 +1,194 @@
+/* $VER: ShowVisage.dopus5 1.1 (6.8.98)
+ *
+ * Public domain by Magnus Holmgren.
+ *
+ * Shows the files selected in the source listers, by creating a temporary
+ * file list, and passing this to Visage via the LIST argument. This
+ * requires Visage 39.15 or better to work.
+ *
+ * Usage: ShowVisage.dopus5 PortName Lister VisageOpts
+ *
+ * PortName   : Name of Opus ARexx port.
+ * Lister     : Handle for lister to show files for. Use 0 to display files
+ *              for all current source listers.
+ * VisageOpts : Any options to pass to Visage.
+ *
+ * Select "Run Asyncronously" if you like...
+ *
+ *
+ * Version 1.0:
+ *     Initial release.
+ *
+ * Version 1.1:
+ *     Improved error message if there were no source listers available.
+ *
+ *     Can now show files for a certain lister only. Note that you need to
+ *     call the script a bit differently, even if you don't use this
+ *     feature.
+ *
+ *     Now makes the current lister busy while processing the entries. The
+ *     script should never leave a disabled lister behind, but...
+ */
+
+
+/* ---- Config section start ---- */
+
+/* Complete path to the Visage executable. */
+VisagePath = 'Tools:View/Visage'
+
+/* Path to drawer for the temporary list file. Must end with ':' or '/'. */
+TempPath   = 'T:'
+
+/* ---- Config section end ---- */
+
+
+/* Initialize */
+Lf = '0a'x
+Handle = ''
+
+OPTIONS RESULTS
+PARSE ARG Port ' ' ListerHandle ' ' VisageOpts
+
+/* Make sure arguments are reasonable */
+IF Port = '' | ~Show( 'P', Port ) THEN DO
+	/* Might not be visible when started incorrectly from Opus. ;) */
+	SAY 'ShowVisage.dopus5:'
+	SAY 'Not correctly called from Directory Opus 5.'
+	SAY 'See the ARexx-script for more information.'
+	RETURN
+END
+
+/* Talk to Directory Opus */
+ADDRESS VALUE Port
+
+/* Activate break handling, since the script can take a while to finish */
+SIGNAL ON BREAK_C
+
+/* Open temporary file, using a unique name */
+TempName = TempPath'ShowVisage.'Pragma( 'ID' )'.list'
+
+IF ~Open( 'List', TempName, 'Write' ) THEN DO
+	CALL OpusMessage 'Couldn''t open temporary list file.'
+	RETURN
+END
+
+IF ListerHandle = 0 THEN DO
+	/* Get all source listers */
+	Lister Query Source
+
+	IF RC ~= 0 THEN DO
+		CALL OpusMessage 'Couldn''t find any source listers.'
+		SIGNAL Terminate
+	END
+
+	Listers = RESULT
+END
+ELSE DO
+	/* Use argument lister handle */
+	Listers = ListerHandle
+END
+
+
+/* Process the source listers one by one */
+DO WHILE Listers ~= ''
+	PARSE VAR Listers Handle ' ' Listers
+
+	IF ~SaveListerEntries( Handle ) THEN DO
+		SIGNAL Terminate
+	END
+END
+
+/* Close generated file */
+IF ~Close( 'List' ) THEN DO
+	CALL OpusMessage 'Couldn''t write to temporary list file.'
+	SIGNAL Terminate
+END
+
+/* We are now ready to display the files */
+ADDRESS COMMAND VisagePath' LIST "'TempName'" 'VisageOpts
+Command Delete '"'TempName'"' QUIET
+
+RETURN
+
+
+Failed:
+	CALL OpusMessage 'Couldn''t get needed information.'
+	/* Fall through */
+
+
+/* Make a clean exit after break or error */
+BREAK_C:
+Terminate:
+	IF Handle ~= '' THEN DO
+		Lister Set Handle Busy Off
+	END
+
+	CALL Close( 'List' )
+	Command Delete '"'TempName'"' QUIET
+	RETURN
+
+
+/* Save all selected entries in the specified lister to a file, and deselect
+ * the entries as we go
+ */
+SaveListerEntries:
+	PROCEDURE
+
+	Handle = Arg( 1 )
+
+	/* Get lister path. */
+	Lister Query Handle Path
+	FilePath = RESULT
+
+	IF RC ~= 0 THEN DO
+		CALL OpusMessage 'Couldn''t get lister path.'
+		RETURN 0
+	END
+
+	/* Make sure path is properly terminated */
+	IF Right( FilePath, 1 ) ~= ':' & Right( FilePath, 1 ) ~= '/' THEN DO
+		FilePath = FilePath'/'
+	END
+
+	/* Get the selected entries */
+	Lister Query Handle SelEntries
+
+	IF RC ~= 0 THEN DO
+		CALL OpusMessage 'Couldn''t get selected entries.'
+		RETURN 0
+	END
+
+	Files = RESULT
+
+	Lister Set Handle Busy On Wait
+
+	/* Iterate over all selected entries */
+	DO WHILE Files ~= ''
+		/* Extract one entry name */
+		PARSE VAR Files . '"' Name '"' Files
+
+		/* Write name to file */
+		IF WriteLN( 'List', FilePath||Name ) = 0 THEN DO
+			CALL OpusMessage 'Couldn''t write to temporary list file.'
+			Lister Set Handle Busy Off
+			Lister Refresh Handle
+			RETURN 0
+		END
+
+		/* And deselect the file */
+		Lister Select Handle '"'Name'"' Off
+	END
+
+	Lister Set Handle Busy Off
+	Lister Refresh Handle
+	RETURN 1
+
+
+/* Show a message in an Opus requester, with a suitable "header" */
+OpusMessage:
+	PROCEDURE
+
+	Lf = '0a'x
+	Message = 'ShowVisage.dopus5:'Lf||Lf||Arg(1)
+	DOpus Request '"'Message'"' 'OK'
+	RETURN

@@ -1,0 +1,22 @@
+PFS  0.0  TD64 -   -       Professional File System
+PDS  0.0  -    -   SCSI    Professional File System Direct SCSI
+DOS 45.0  -    NSD -       FastFileSystem OS 3.5
+DOS 44.0  TD64 -   SCSI    FastFileSystem TD64 commitee patch
+DOS 43.0  -    NSD -       FastFileSystem Amiga Inc. beta
+SFS 1.187 TD64 NSD -       SmartFileSystem by Joerg Strohmayer
+SFS  0.0  TD64 NSD SCSI    SmartFileSystem by John Hendrikx
+FAT  0.0  TD64 -   SCSI    Win95/98 compatible file system
+SWP  0.0  TD64 NSD SCSI    Linux Swap Partition
+LNX  0.0  TD64 NSD SCSI    Linux Root Partition
+USR  0.0  TD64 NSD SCSI    Linux User Partition
+*
+* The following entries are for those who don't read manuals and
+* install all file systems with HDToolbox's default 0x434653 (CFS)
+*
+CFS 19.0  -    -   -       unknown file system
+CFS 17.0  TD64 -   -       Professional File System
+* Note: PFS2/3ds cannot be recognized by version !
+CFS  2.0  -    -   -       unknown file system
+CFS 1.187 TD64 NSD -       SmartFileSystem by Joerg Strohmayer
+CFS 1.61  TD64 NSD SCSI    SmartFileSystem by John Hendrikx
+CFS  0.0  -    -   -       unknown file system

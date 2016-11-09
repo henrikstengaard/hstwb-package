@@ -1,0 +1,35 @@
+/* $VER: CD0 2.40 (14.12.97)
+ *
+ * CD-ROM filesystem mount entry
+ */
+
+Device		= scsi.device
+Unit		= 1
+FileSystem	= L:AmiCDFS
+Flags		= 0
+BlocksPerTrack	= 32
+BlockSize	= 2048
+Reserved	= 0
+LowCyl		= 0
+HighCyl		= 11000
+Surfaces	= 1
+Buffers		= 64
+BufMemType	= 1
+Mask            = 0x7fffffff
+GlobVec		= -1
+Priority	= 10
+DosType		= 0x43444653
+StackSize	= 600
+Mount		= 1
+
+Control		= "LC BL=8 FB=32"
+
+/* Control field template:
+ *
+ * LC=LOWERCASE/S,CS=CASESENSE/S,
+ * HF=HFSFIRST/S,LN=LONGNAMES/S,TD=TRACKDISK/S,
+ * BL=BUFFERLINES/K/N,FB=FILEBUFFERS/K/N,
+ * DC=DISKCHANGE/K/N,MT=MOTORTIME/K/N,
+ * SD=STARTDELAY/K/N,TDC=TDCHANGE/S,
+ * TOSHIBA/S,OLDMODE/S
+ */

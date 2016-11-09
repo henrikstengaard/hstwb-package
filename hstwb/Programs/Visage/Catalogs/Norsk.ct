@@ -1,0 +1,263 @@
+## version $VER: visage.catalog 39.9 (8.10.96)
+## codeset 0
+## language norsk
+; ## chunk AUTH Norwegian translation by Jan-Tore Eliassen
+;
+MSG_BY
+\x9b1m%s - Av Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Skjermmodus ikke tilgjengelig»
+;
+MSG_ABORTED
+Avbrutt.\n
+;
+MSG_BREAK
+***Avbrudd\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Advarsel: Feil i miljøvariabel:\n%s
+;
+MSG_WARN_NO_WBMON
+Advarsel: WBMONITOR kan ikke finne Workbench
+;
+MSG_WARN_NO_MONITOR
+Advarsel: Kan ikke finne skjerm '%s'
+;
+MSG_WARN_NO_MODE
+Advarsel: Kan ikke finne modus '%s'
+;
+MSG_WARN_NO_OVERSCAN
+Advarsel: Overscan-type '%s' ikke kjent
+;
+MSG_ERR_NO_LIB
+Kan ikke åpne %s versjon %ld eller høyere
+;
+MSG_ERR_NEED_OS3
+Du trenger OS 3.0 eller høyere
+;
+MSG_ERR_BAD_ARGS
+Feil i argumentene:\n%s
+;
+MSG_ERR_FILEREQ
+Kan ikke åpne fil-forespørsel:\n%s
+;
+MSG_ERR_SMREQ
+Kan ikke åpne skjermmodus-forespørsel:\n%s
+;
+MSG_ERR_MONITORREQ
+Kan ikke åpne skjerm-forespørsel:\n%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Returner til klient
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Anrops-hook mangler
+;
+MSG_ERR_IFF_IFF
+Ikke en IFF fil
+;
+MSG_ERR_IFF_SYNTAX
+Syntaksfeil i IFF fil
+;
+MSG_ERR_IFF_MANGLED
+Defekt IFF fil
+;
+MSG_ERR_IFF_SEEK
+Søkefeil
+;
+MSG_ERR_IFF_WRITE
+Skrivefeil
+;
+MSG_ERR_IFF_READ
+Lesefeil
+;
+MSG_ERR_IFF_MEM
+Ikke nok minne
+;
+MSG_ERR_IFF_SCOPE
+Ugyldig egenskap på sted
+;
+MSG_ERR_IFF_CONTEXT
+Slutt på sammenheng
+;
+MSG_ERR_IFF_EOF
+Fileslutt
+;
+MSG_ERR_SCR_MONITOR
+Valgte skjerm er ikke tilgjengelig
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Du trenger nyere grafikkretser
+;
+MSG_ERR_SCR_MEM
+Ikke nok minne
+;
+MSG_ERR_SCR_GFXMEM
+Ikke nok grafikkminne
+;
+MSG_ERR_SCR_INTERNAL
+Intern feil
+;
+MSG_ERR_SCR_MODE
+Ukjent skjermmodus
+;
+MSG_ERR_SCR_DEPTH
+Den ønskede skjermdybde krever bedre hardvare
+;
+MSG_ERR_SCR_WINDOW
+Kan ikke åpne vindu
+;
+MSG_ERR_SCR_MODEAVAIL
+Skjermmodus ikke tilgjengelig
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF, men ikke ILBM
+;
+MSG_ERR_NOT_PIC
+Ukjent format
+;
+MSG_ERR_NO_DATA
+Data mangler
+;
+MSG_ERR_BAD_DATA
+Defekt data
+;
+MSG_ERR_EOF
+For tidlig filslutt
+;
+MSG_ERR_RENDER
+Kan ikke rendre bilde
+;
+MSG_ERR_UNKNOWN_DATA
+Ukjent dataformat
+;
+MSG_ERR_LIB
+Eksternt library mangler
+;
+MSG_ERR_FORMAT
+Ukjent format
+;
+MSG_ERR_UNKNOWN
+Ukjent feilnummer: %ld. Vennligst rapporter
+;
+MSG_ERR_PICTURE
+\tFeil i bilde: %s
+;
+MSG_ERR_SHOW
+Kan ikke vise '%s': %s
+;
+MSG_REQ_TITLE
+Visage informasjon
+;
+MSG_SCREENMODE_REQ_TITLE
+Velg skjermmodus
+;
+MSG_MONITOR_REQ_TITLE
+Velg skjerm
+;
+MSG_FILE_REQ_TITLE
+Velg filer å vise
+;
+MSG_GAD_OK
+ Ok
+;
+MSG_CLIPBOARD
+«Utklippsbord»
+;
+MSG_EXTRA_LOW_RES
+Extra-Lavoppløsning
+;
+MSG_LOW_RES
+Lavoppløsning
+;
+MSG_HIGH_RES
+Høyoppløsning
+;
+MSG_SUPER_HIGH_RES
+Super-Høyoppløsning
+;
+MSG_LACED
+ lace
+;
+MSG_DOUBLE
+ dobbel
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Advarsel: Mønster type '%s' er ukjent
+; Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Advarsel: Verdi %ld for %s er ikke tillatt\n(må være mellom %ld og %ld)
+; Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Advarsel: Kan ikke åpne timer.device
+; Warning: Couldn't open timer.device
+;
+;MSG_TIME
+;%2d.%03ds)\n
+; %2d.%03ds)\n
+;
+MSG_CYCLE_TASK
+Visage fargesykler
+;
+MSG_ERR_FILE_EMPTY
+Fil er tom
+;
+MSG_WARN_BAD_FILE_ARGS
+Advarsel: Feil i konfigurasjonsfil\ni skuff '%s':\n%s
+;
+MSG_WARN_BAD_CFGPATH
+Advarsel: Kan ikke finne KonfigSti-skuff\n'%s':\n%s
+;
+MSG_TESTED_OK
+Bilde ok
+;
+MSG_ALL_TESTED_OK
+Alle testede bilder var ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+En eller flere testede bilder feilet\n
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Visage forespørsel
+;
+MSG_ASK_PASSWORD
+Tast inn passord for\n\"%s\":
+;
+MSG_ERR_NO_PASSWD
+Feil passord eller mangler
+;
+MSG_ERR_NO_DRAWER
+Kan ikke flytte til skuff '%s':\n%s
+;
+MSG_ERR_SCR_ATTACH
+Kan ikke koble skjermer
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Warning: Borderblank mode '%s' not known
+; Warning: Borderblank mode '%s' not known
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Advarsel: Farge modus '%s' ikke kjent
+;

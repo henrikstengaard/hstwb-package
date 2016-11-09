@@ -1,0 +1,26 @@
+; Furia A600 Accelerator Card Startup Script
+; ------------------------------------------
+
+; Furia maprom A600 Kickstart 3.1
+IF EXISTS S:MapRom-Furia-A600-KS31
+	; Check for Kickstart 40.63
+	version >RAM:kickstart
+	search RAM:kickstart "Kickstart 40.63" >NIL:
+
+	; If "Kickstart 40.63" was not found, then maprom and reboot
+	If WARN
+	  C:furiatune maprom SYS:devs/kickstarts/kick40063.A600 reboot
+	EndIf
+EndIf
+
+; Turn on fast ide
+C:furiatune ide on >NIL:
+
+; Turn on shadowrom (ignored, when maprom is used)
+C:furiatune shadowrom on >NIL:
+
+; Add 1.5MB fastram
+C:furiatune addmem >NIL:
+
+; Write Furia status to RAM:
+C:furiatune status >RAM:furia-status

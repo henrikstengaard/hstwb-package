@@ -1,0 +1,9 @@
+These are old common viewers that have been replaced with renamed 
+executables in the "C" and "Utilities" directories.
+
+This has the advantage of causing any text files calling for these 
+old viewers in their icon "default tool" opening superior programs 
+instead.
+
+The original executable files are here in case any one needs them for
+reasons such as installing stand alone viewers on Workbench disks.

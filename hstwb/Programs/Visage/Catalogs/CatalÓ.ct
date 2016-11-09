@@ -1,0 +1,296 @@
+## version $VER: visage.catalog 39.20 (22.10.98)
+## codeset 0
+## language català
+;
+MSG_BY
+\c1m%s - Per Magnus Holmgren\n\
+\c0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+«Nom del Mode no disponible»
+;
+MSG_ABORTED
+Avortat.\n\
+
+;
+MSG_BREAK
+***Execució interrompuda
+;
+MSG_WARN_BAD_ENV_ARGS
+Avís: Error tractant la variable d'entorn:\n\
+;Warning: Error parsing environment variable:\n\
+;%s
+;
+MSG_WARN_NO_WBMON
+Avís: WBMONITOR no pot trobar Workbench
+;
+MSG_WARN_NO_MONITOR
+Avís: Monitor '%s' no trobat
+;
+MSG_WARN_NO_MODE
+Avís: Mode '%s' no trobat
+;
+MSG_WARN_NO_OVERSCAN
+Avís: Tipus Overscan '%s' no conegut
+;
+MSG_ERR_NO_LIB
+No puc obrir %s versió %ld o superior
+;
+MSG_ERR_NEED_OS3
+Necessites el OS 3.0 o superior
+;
+MSG_ERR_BAD_ARGS
+Error tractant arguments:\n\
+;Error parsing arguments:\n\
+;%s
+;
+MSG_ERR_FILEREQ
+No puc obrir la finestra de petició de fitxers:\n\
+;Couldn't open file requester:\n\
+;%s
+;
+MSG_ERR_SMREQ
+No puc obrir la finestra de petició de mode de pantalla:\n\
+;Couldn't open screen mode requester:\n\
+;%s
+;
+MSG_ERR_MONITORREQ
+No puc obrir la finestra de petició de monitor:\n\
+;Couldn't open monitor requester:\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Retornant al client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Resort de retorn desaparegut
+;
+MSG_ERR_IFF_IFF
+No és un fitxer IFF
+;
+MSG_ERR_IFF_SYNTAX
+Error de sintaxi en el fitxer IFF
+;
+MSG_ERR_IFF_MANGLED
+Fitxer IFF fet malbé
+;
+MSG_ERR_IFF_SEEK
+Error de recerca
+;
+MSG_ERR_IFF_WRITE
+Error d'escriptura
+;
+MSG_ERR_IFF_READ
+Error de lectura
+;
+MSG_ERR_IFF_MEM
+No hi ha memòria suficient
+;
+MSG_ERR_IFF_SCOPE
+Camp d'acció invàlid per a la propietat
+;
+MSG_ERR_IFF_CONTEXT
+Fi de context
+;
+MSG_ERR_IFF_EOF
+Fi de fitxer
+;
+MSG_ERR_SCR_MONITOR
+Monitor demanat no disponible
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Necessites nous custom xips
+;
+MSG_ERR_SCR_MEM
+No hi ha memòria suficient
+;
+MSG_ERR_SCR_GFXMEM
+No hi ha memòria gràfica suficient
+;
+MSG_ERR_SCR_INTERNAL
+Error intern
+;
+MSG_ERR_SCR_MODE
+Mode de pantalla desconegut
+;
+MSG_ERR_SCR_DEPTH
+Pantalla més profunda del que el hardware suporta
+;
+MSG_ERR_SCR_WINDOW
+No puc obrir finestra
+;
+MSG_ERR_SCR_MODEAVAIL
+Mode de pantalla no disponible
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF pero no ILBM
+;
+MSG_ERR_NOT_PIC
+Format desconegut
+;
+MSG_ERR_NO_DATA
+Dades desaparegudes
+;
+MSG_ERR_BAD_DATA
+Dades incorrectes
+;
+MSG_ERR_EOF
+Fi de fitxer prematur
+;
+MSG_ERR_RENDER
+No puc rendir el gràfic
+;
+MSG_ERR_UNKNOWN_DATA
+Dades no suportades
+;
+MSG_ERR_LIB
+Llibreria externa desapareguda
+;
+MSG_ERR_FORMAT
+Format desconegut
+;
+MSG_ERR_UNKNOWN
+Codi d'error %ld desconegut. Si us plau enviame'l
+;
+MSG_ERR_PICTURE
+\tError a la imatge: %s
+;
+MSG_ERR_SHOW
+No puc mostrar '%s': %s
+;
+MSG_REQ_TITLE
+Informació de Visage
+;
+MSG_SCREENMODE_REQ_TITLE
+Selecciona mode de pantalla
+;
+MSG_MONITOR_REQ_TITLE
+Selecciona monitor
+;
+MSG_FILE_REQ_TITLE
+Selecciona fitxers a visualitzar
+;
+MSG_GAD_OK
+D'acord
+;
+MSG_CLIPBOARD
+«Portapapers»
+;
+MSG_EXTRA_LOW_RES
+Extra-Baixa Res
+;
+MSG_LOW_RES
+Baixa Res
+;
+MSG_HIGH_RES
+Alta Res
+;
+MSG_SUPER_HIGH_RES
+Super-Alta Res
+;
+MSG_LACED
+ Entrellaçat
+;
+MSG_DOUBLE
+ Doble
+;
+MSG_HAM
+ HAM
+;
+MSG_EHB
+ EHB
+;
+MSG_DPF2
+ DPF2
+;
+MSG_DPF
+ DPF
+;
+MSG_WARN_NO_DITHER
+Avís: Tipus de dither (difuminat) '%s' no conegut
+;
+MSG_WARN_RANGE
+Avís: Valor %ld per %s està fora del camp (%ld - %ld)
+;
+MSG_WARN_TIMER
+Avís: No puc obrir el timer.device
+;
+MSG_CYCLE_TASK
+Cicle de color de Visage
+;
+MSG_ERR_FILE_EMPTY
+El fitxer està buit
+;
+MSG_WARN_BAD_FILE_ARGS
+Avís: Error tractant el fitxer de configuració\n\
+en el calaix '%s':\n\
+%s
+;
+MSG_WARN_BAD_CFGPATH
+Avís: No puc localitzar el calaix ConfigPath\n\
+'%s':\n\
+%s
+;
+MSG_TESTED_OK
+Imatge correcte
+;
+MSG_ALL_TESTED_OK
+Totes les imatges provades estan bé\n\
+
+;
+MSG_ALL_TESTED_NOT_OK
+Una o més imatges provades han fallat\n\
+
+;
+MSG_NEW_TIME
+ (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Petició de Visage
+;
+MSG_ASK_PASSWORD
+Introdueix clau d'accés per\n\
+"%s":
+;
+MSG_ERR_NO_PASSWD
+Clau d'accés incorrecte o desapareguda
+;
+MSG_ERR_NO_DRAWER
+No puc moure al calaix '%s':\n\
+%s
+;
+MSG_ERR_SCR_ATTACH
+No puc vincular pantalles
+;
+MSG_ERR_BBLANK
+Avís: Mode Borderblank '%s' no conegut
+;
+MSG_WARN_NO_COLOR
+Avís: Mode Color '%s' no conegut
+;
+MSG_ERR_OPEN_LIST
+No puc obrir la llista de fitxers '%s':\n\
+%s
+;
+MSG_ERR_READ_LIST
+No puc llegir la llista de fitxers '%s':\n\
+%s
+;
+MSG_WARN_OPEN_FONT
+Avís: No puc obrir font per '%s'
+;
+MSG_WARN_BAD_FONT_SIZE
+Avís: Tamany de font incorrecte a '%s'
+;
+MSG_WARN_NO_FONT_SIZE
+Avís: Tamany de font inexistent a '%s'
+;
+MSG_WARN_NO_ORDER
+Avís: Mode Order '%s' no conegut
+;
+MSG_ERR_INFO
+No puc obtenir informació per '%s': %s
+;
+MSG_WARN_RANGE_FLOAT
+Avís: Valor %s per %s està fora del camp (%s - %s)
+;

@@ -1,0 +1,128 @@
+; Reset Startup Script
+; --------------------
+; Author: Henrik Noerfjand Stengaard
+; Date: 2016-09-13
+;
+; This script reset configuration setup of hardware, devices, boot sequence and whdload.
+
+
+; Reset configuration
+setenv continue `RequestChoice "Reset setup" "Are you sure you want to reset configuration setup?" "Yes|No"`
+If $continue eq "0" 
+	SKIP end
+EndIf
+
+
+; Reset Blizzard
+; --------------
+IF EXISTS S:Use-Blizzard
+	delete >NIL: S:Use-Blizzard
+EndIF
+IF EXISTS S:MapRom-Blizzard-A1200-KS31
+	delete >NIL: S:MapRom-Blizzard-A1200-KS31
+EndIF
+
+
+; Reset ACA
+; ---------
+IF EXISTS S:Use-ACA
+	delete >NIL: S:Use-ACA
+EndIF
+IF EXISTS S:MapRom-ACA-A600-KS31
+	delete >NIL: S:MapRom-ACA-A600-KS31
+EndIF
+IF EXISTS S:MapRom-ACA-A1200-KS31
+	delete >NIL: S:MapRom-ACA-A1200-KS31
+EndIF
+
+
+; Reset Furia
+; -----------
+IF EXISTS S:Use-Furia
+	delete >NIL: S:Use-Furia
+EndIF
+IF EXISTS S:MapRom-Furia-A600-KS31
+	delete >NIL: S:MapRom-Furia-A600-KS31
+EndIF
+
+
+; Reset CPU
+; ---------
+IF EXISTS S:Use-020
+	delete >NIL: S:Use-020
+EndIF
+Copy >NIL: SYS:Programs/Configuration/KingCON1.3/Handler/KingCON-handler L:KingCon-handler
+Copy >NIL: SYS:Programs/Configuration/iconlib_46.4/icon.library_68000 Libs:icon.library
+
+
+; Reset FPU
+; ---------
+IF EXISTS S:Use-FPU
+	delete >NIL: S:Use-FPU
+EndIF
+Copy >NIL: SYS:Programs/Configuration/guigfx_render_nofpu/ Libs:
+
+
+; Reset OS patches
+; ----------------
+IF EXISTS S:Use-OS-Patches
+	delete >NIL: S:Use-OS-Patches
+EndIF
+
+
+; Reset scsi.device
+; ------------------
+IF EXISTS S:Load-ScsiDevice
+	delete >NIL: S:Load-ScsiDevice
+EndIF
+
+
+; Reset icon.library
+; ------------------
+IF EXISTS S:Load-IconLibrary
+	delete >NIL: S:Load-IconLibrary
+EndIF
+
+
+; Reset scsi.device
+; -----------------
+delete >NIL: scsi.device
+
+
+; Reset Amiga Boot Selector
+; -------------------------
+IF NOT EXISTS S:Start-ABS
+	echo "" >S:Start-ABS
+EndIF
+
+
+; Reset AGS2 Games
+; ----------------
+IF EXISTS S:Start-AGS2Games
+	delete >NIL: S:Start-AGS2Games
+EndIF
+
+
+; Reset Multiboot
+; ---------------
+IF EXISTS S:Start-Multiboot
+	delete >NIL: S:Start-Multiboot
+EndIF
+copy >NIL: S:StartUp.Games S:StartUp.Default
+
+
+; Reset AGS2 Demos
+; ----------------
+IF EXISTS S:Start-AGS2Demos
+	delete >NIL: S:Start-AGS2Demos
+EndIF
+
+
+; Reset WHDLoad
+; -------------
+Copy >NIL: SYS:Programs/Configuration/WHDLoad/WHDLoad.prefs S:
+
+
+; End
+; ---
+LAB end

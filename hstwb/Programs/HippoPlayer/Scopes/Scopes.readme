@@ -1,0 +1,19 @@
+Scope-files are external scopes for HippoPlayer v2.12 and higher.  To use
+them, load HippoPlayer and start playing a PT or a PS3M module, then run
+one or more scopes.
+
+My scopes:
+----------
+FQuadraScope, FreqAnalyzer, QuadraScope, VUMeter, PatternScope, HippoScope,
+WeirdScope and the small versions of some of these.  They work on all
+Amigas and can be run from WB.
+
+The BigScope needs at least kickstart 3.0 and probably quite a lot of CPU
+to work smoothly.  Press ESC on the screen to exit. Works with PT modules.
+
+WaterScope needs 020 or better and kick 1.2 or better :).  Works with PT
+modules.
+
+BurningWindow needs 020+ and is not a scope at all, just an experiment :)
+
+There are also some sources here.

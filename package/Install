@@ -1,0 +1,12 @@
+; HstWB Package Install Script
+; ----------------------------
+;
+; Author: Henrik Noerfjand Stengaard
+; Date: 2016-11-08
+;
+; This script extracts and installs zip archives for HstWB Package. 
+
+unzip >NIL: -o -x PACKAGEDIR:hstwb.zip -d INSTALLDIR:
+
+; Fix read write execute flags
+protect >NIL: INSTALLDIR:C/#? +rwe

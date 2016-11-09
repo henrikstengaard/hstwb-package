@@ -1,0 +1,26 @@
+# SMakefile for SAS/C 6.51
+#
+#
+
+SCOPTS = debug=symbolflush nostackcheck noicons # define=DEBUG
+
+all: cdromemu.device cdromemu
+
+cdromemu.device: cdromemu.o cdromemu.fd
+     slink from lib:devent.o lib:devinitr.o cdromemu.o \
+     	lib lib:sc.lib lib:amiga.lib \
+	to cdromemu.device \
+	libfd cdromemu.fd noicons
+     copy cdromemu.device devs:
+
+cdromemu.o: cdromemu.c cdromemu.h
+   sc libcode $(SCOPTS) cdromemu.c
+
+cdromemu: main.c cdromemu.h
+   sc link to cdromemu $(SCOPTS) main.c
+
+dist:
+	rm -f *.o *.lnk
+
+clean:
+	rm -f *.o *.lnk cdromemu.device cdromemu

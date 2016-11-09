@@ -1,0 +1,1421 @@
+HD Installation Tools
+
+1. Software Installation of a Harddisk
+
+1.1 General Information
+
+This chapter guides you through the software installation of
+your harddisk. If you purchased an entire system, your harddisk
+is already installed. In that case, you may start using your
+harddisk right away, and this chapter is not of importance to
+you.
+
+1.2 Starting the Amiga
+
+Insert the included disk into your Amigas floppy drive and
+start up your computer. All files needed for startup are on the
+disk.
+
+1.3 Starting the Program
+
+The installation program »HDInstTools« is located in the root
+directory of the disk included. To start the program, open the
+disk window first, by double-clicking the disk icon with the
+left button of your mouse. The disk window opens immediately,
+displaying all icons of the programs on it. Double-click the
+»HDInstTools«-icon to start the program. After loading the
+program from disk, the main window and another window above
+appears. The controller searches for connected devices in the
+upper window. A filling bar indicates the status of progress.
+As soon as the search process is completed, the window
+disappears automatically.
+
+1.4 Choosing a Language
+
+By default, the program starts in English. If you would like to
+use the program in a different language, please select the item
+SETTINGS/LANGUAGE in the pull down menu. A list of languages
+will be displayed immediately for you to choose from. Leave the
+window with USE. The main window should now appear in the
+selected language.
+
+1.5 Installing the Harddisk
+
+The main window displays a list of all devices found as
+desribed in section 3.3. Please double-click the harddisk that
+you would like to install. You can distinguish between them
+using the displayed list. A window appears asking you to
+confirm your choice. Please click OK if this the harddisk that
+you would like to install.
+
+All parameters of the harddisk are determined and selected
+automatically and a partition is created. All data is written
+to the harddisk and the partition is formatted.
+
+1.6 Copying Disks
+
+Last but not least, a requester appears asking whether you
+would like to copy the contents of a disk to the partition and
+if so, requests you to insert a disk in the disk drive »df0:«.
+Just insert your Workbench-disk and click OK. However, if you
+would like to copy your own software to the partition, please
+abort at this point.
+
+Important! If you want to install a Workbench 2.0 or higher
+from the beginning you have to use the installation program of
+the Workbench. Therefor please read the Workbench manual. It
+isn't enough to copy only the Workbench disk onto the harddisk.
+
+1.7 The Final Step
+
+That's all. You have now installed your harddisk. Please reboot
+your computer by clicking the REBOOT gadget and your system
+will start the Workbench from your new harddisk, provided that
+you copied it as described in the section above.
+
+2. HDInstTools
+
+2.1 System Requirements
+
+This program requires an Amiga with at least 512 kByte of RAM -
+memory and an Amiga operating system 1.3 or higher. Of course a
+controller with at least one mass media storage device is
+required for sensible use. This program supports all controllers,
+which use the Amiga Rigid-Disk-Block (RDB or RDSK) standard.
+
+2.2 Installation
+
+In order to install the program on your harddisk you must drag
+the »HDInstTools«-icon from the disk window to the harddisk
+window. This requires of course, that you have already
+installed your harddisk. Until then you can use the program
+from the disk. If you like, you may also create a directory for
+the »HDInstTools« to copy the program into that drawer. This
+completes the installation.
+
+2.3 Compatability
+
+Please note: A harddisk installed with the »HDInstTools« from
+scratch may not be altered with the ALF-programs »InstallAlf«
+and »AlfPrefs« anymore. The »HDInstTools« install the harddisks
+in such an optimized form, that the ALF-programs cannot cope
+with them anymore. If you do not obey this, the ALF-program will
+remove the installation of your harddisk and all your data is
+lost. However, if you installed your harddisk with
+»InstallALF« or »ALFPrefs«, you can use »HDInstTools« without
+problems. This applies in most cases and probably also in
+yours. If that is so, you do not need to reinstall your
+harddisk.
+The program is fully compatible with harddisks installed with
+the Amiga HDToolBox program. Harddisks installed with HDInstTools
+can safely altered with HDToolBox and vice versa.
+
+2.4 Operation Instructions
+
+The program is controlled with a mouse. In many cases you can
+also use your keyboard by pressing the corresponding key of the
+underlined letter in the gadget you wish to select.
+
+2.5 The Procedure
+
+The following steps given in short form give you an idea of
+what it takes to install your harddisk.
+
+   Prepare the device: In most cases you will not need to
+   change the settings determined by the program.
+
+   Filesystem: You may decide which type of filesystem you
+   would like to save on the device.
+
+   Partition drive: You may create a new partition with Add
+   Partition.
+
+   Edit partitions: This allows you to rename a partition, to
+   make a partition smaller or to add another partition.
+
+   Saving changes to disk: The selections you made in the last
+   four steps are saved to the RigidDiskBlock on your harddisk.
+
+   Formatting DOS: Prepares a partition for the use of
+   AmigaDOS.
+
+   Copy disk: Copies the contents of an entire disk to a
+   partition.
+
+Naturally you do not have to execute all of the steps described
+above. Just use whatever is necessary when installing your
+harddisk. In case you would like to change the partitions, like
+the names or the buffers for example, all you need to do is
+edit the partition and save the changes to your harddisk.
+
+2.6 Pull Down Menu
+
+Many of the items in the pull down menu can be selected using a
+key combination. To select an item press the <right Amiga> key
+and the key displayed next to the function in the pull down
+menu.
+
+2.6.1 Project/Scan
+
+This function searches for devices connected to the controller.
+You do not need to restart the computer and the program, if you
+connected one or more devices during operation. After selection
+of the item a display appears giving the status of the search
+process. You may stop the process by clicking Cancel.
+
+If a device is found, the program tries to identify it and
+determine its parameters. The devices found are then displayed
+in the list of all available devices in the main window, as
+well as their status.
+
+2.6.2 Project/Info
+
+An information window displays the currently used driver name,
+the current installation mode, whether logical IDs are
+supported and whether controllers of the same kind are also
+searched for. It also displays the size of the main memory, the
+graphic memory and the largest available block of free memory.
+You can quit this window by selecting OK. When this window is
+open, no other function can be selected.
+
+2.6.3 Project/About
+
+This window contains the program name, the version number,
+copyright information and the names of the authors. Quit this
+window with OK. When this window is open, no other function can
+be selected.
+
+2.6.4 Project/Quit
+
+It was hard to guess, but with Quit you leave the program. You
+may also quit the program by clicking the close gadget in the
+upper left hand corner of the main window. Before the program
+quits, you are asked to confirm your choice. Click YES if you
+like to quit, or NO if you would like to continue using the
+program.
+
+2.6.5 Settings/Language
+
+You may choose one of the available languages with this
+function. As soon as you have selected this item, a list of
+languages will be displayed immediately for you to choose from.
+The current language is highlighted. Select a language and
+click USE to leave the window. If you select Cancel you'll
+leave the window without using the changes made. In order to
+save the changes for later use, select Settings/Save.
+
+2.6.6 Settings/Mode
+
+With mode you may select between one of two installation modes.
+Depending on the selected mode some functions in the main
+window or in the pull down menues are disabled and can
+therefore not be selected.
+
+In the automatic mode all decisions concerning the installation
+and selection of parameters for your harddisk are taken by the
+program. This way you aren't given a chance to make any
+mistakes. The manual mode gives you access to all parameters.
+Please note that in this mode you have access to parameters
+that my lead to serious problems or malfunction, if they are
+set wrong.
+
+2.6.7 Settings/Save
+
+This lets you save all changes made in the settings. You will
+not be asked to confirm your choice. The settings are saved in
+the »ToolTypes« of the icon.
+
+2.6.8 Extras
+
+All functions mentioned above, are described in further detail
+in later sections.
+
+2.7 Main Window
+
+This window displays a list of all available devices, as well
+as several gadgets used to access the different parts of the
+program.
+
+2.7.1 Devices in System
+
+This list contains all devices which can be accessed by the
+driver set in »ToolTypes«.
+
+PIC:
+
+This number distinguishes between several controllers connected
+to one computer. In case you have only one controller in your
+computer this will always be set »0«. The support of several
+controllers is enabled or disabled with the keyword »PIC« in
+the »ToolTypes«.
+
+LUN:
+
+The logic unit number distinguishes between possible installed
+logical sub-devices in the computer. The support of several
+logical sub-devices is disabled with the keyword »LUN« in the
+»ToolTypes«.
+
+TID:
+
+This states the identification number (Target ID) of the listed
+devices. This number is set via jumpers or switches directly at
+the device. It is recommended to start counting with the
+identification number zero.
+
+Manufacturer:
+
+The heading »Manufacturer« lists the name of the devices'
+manufacturers. The program itself determines this information
+from the devices directly.
+
+Name:
+
+This lists the names of all devices in the system.
+
+Status:
+
+This indicates the status of the listed devices. Unmodified:
+These devices are installed correctly and completely. The
+device specifications could be determined and the examination
+of the determined data showed no faults. Modified: If a device
+is listed as modified, there may be several reasons for this.
+The device may be installed partially or not at all, or the
+environment has changed. For example: The identification number
+of the controller is stored in the devices data. In case you
+changed the ID-number of the controller, the device will also
+be marked as changed in the list. In this particular case the
+examination of the device data would show that the
+identification number of the controller does not match the
+system data of the device. Not ready: This status indicates
+that the device is basically okay, but is not ready for
+operation yet due to some kind of problem, e.g. disk drive
+without medium. Unknown: Devices with this label cannot be
+installed by the program, e.g. streamers or CD-ROM drives.
+
+2.7.2 Automatic Installation
+
+If you activated the automatic mode in the settings function of
+the pull down menu, you can have a device installed
+automatically, by double-clicking it in the list. The
+installation process will proceed as described under
+»Procedure«.
+
+Before the installation is performed, you are requested for
+confirmation. Then everything else is done automatically. You
+will also be asked to insert a disk, e.g. a Workbench - disk,
+into the first disk drive. The contents of the disk will then
+be copied to the partition. Finally, a display panel informs
+you that the device is completely installed. The device now has
+a partition for you to work with.
+
+2.7.3 Close Gadget
+
+In order to leave the program, simply click the close gadget in
+the upper left hand corner of the main window.
+
+Before you actually leave the program, you are requested to
+confirm whether you really want to quit the program. Click YES
+if you are sure and NO if you would like return to the program.
+
+2.8 Setup Drive...
+
+This function is only available when working in the manul mode.
+Otherwise the gadget is disabled and ghosted.
+
+When clicking on Setup Drive... a new window opens. This window
+displays various data of the device selected. If the device was
+previously installed, the data is read from the
+»RigidDiskBlock«. In case the device does not have a
+»RigidDiskBlock« yet, all necessary data is requested with an
+»Inquiry« from the device and is partially compiled by the
+program.
+
+All data concerning the devices is stored in the
+»RigidDiskBlock« on the device and is partially evaluated by
+the driver and the Amiga upon booting.
+
+Use:
+
+Click Use and all changes of data are adopted or maintained.
+Finally these changes can be saved by using the function SAVE
+CHANGES TO DRIVE.
+
+Cancel:
+
+If you do not want to keep your changes or you were just
+peeking, choose Cancel to leave the window again. All changes
+are lost.
+
+2.8.1 Information
+
+This data is saved in the »RigidDiskBlock« (RDSK block),
+however, it will not be used unless you reinstall the device.
+In that case all of the stored data in the RDSK block is
+retrieved and displayed.
+
+Type:
+
+This indicates what kind of device it is, e.g. hard disk,
+removable disk, CD-ROM, streamer, scanner, etc.
+
+Manufacturer:
+
+This field contains the name of the manufacturer, e.g.
+»Quantum«. This information is determined during initial
+start-up via direct »Inquiry« from the device. In case no name
+could be found, or the name makes no sense, you may alter the
+name. In order to do so, simply click the text gadget.
+
+Name:
+
+This field contains the name of the device, e.g. »LPS240S«.
+This information is determined during initial start-up via
+direct »Inquiry« from the device. In case no name could be
+found, or the name makes no sense, you may alter the name. In
+order to do so simply click the text gadget.
+
+Version:
+
+This field contains the release verion number of the device,
+e.g. »1234.5678«. This information is determined during initial
+start- up via direct »Inquiry« from the device. The version
+number is usually also printed on the case of the device.
+
+Size:
+
+Size or memory capacity of the device is indicated in kilo- or
+megabytes. One kilobyte corresponds to 1,024 bytes and one
+megabyte corresponds to 1024 kilobytes. The actual size of the
+device is calculated according to the number of blocks and the
+size of each block. The number of blocks must be supplied by
+the device according to SCSI standard specifications. In case
+the device does not supply a value of the block size, the
+controller will adapt 512 bytes as a standard value (please
+also refer to Capacity/Block Size).
+
+Please note that the value of the megabytes can differ from the
+information supplied by the manufacturer. Many manufacturers of
+harddisks define a megabyte differently. To their advantage
+they define one megabyte with only 1000 kbyte, and this results
+in a higher total capacity of megabytes.
+
+2.8.2 Capacity
+
+These are the physical values of a device. They do not
+necessarily correspond to the actual capacity. Do not get
+confused by values listed that can not be possible on first
+sight. The values are ignored anyway.
+
+Cylinders:
+
+Basically a cylinder is one track. In case a device has several
+heads, one cylinder consists of so many tracks, as the device
+has heads.
+
+Sectors:
+
+As stated above a cylinder may consist of several tracks. The
+number of sectors indicates the number of blocks per track.
+
+Heads:
+
+Number of heads of your harddisk. The number of heads
+determines the number of tracks of a cylinder. The number of
+tracks per cylinder is analogous to the number of heads.
+
+Block Size:
+
+The block size represents the fourth and last value for
+determining the storage capacity of a device and its
+partitions. The devices block size is determined via a direct
+»Inquiry« by the program.
+
+Usually a block on a harddisk is the size of 512 bytes. Sony
+Magneto-Optical drives may have sizes of 512 bytes or 1024
+bytes and CD-ROMS can even have 2 kilobytes per block. If the
+device does not return a value upon »Inquiry«, the program uses
+512 bytes as a default setting.
+
+2.8.3 Control
+
+The first three control flags »last unit:«, »last TID« and
+»last LUN« are especially evaluated by the system programs upon
+startup. The system programs read these three values and know
+up to where they have to scan for devices. If a device is
+specified as the last one, the scanning process stops with that
+device and devices connected thereafter will not be mounted to
+the system. Please not that this function is only supported by
+the latest operating system versions.
+
+last unit:
+
+The program automatically sets the flag to the correct
+position. It defines that the device that you are installing is
+last device to be mounted to the system.
+
+By setting this flag no further devices are mounted to the
+system.
+
+last TID:
+
+The program automatically sets the flag to the correct
+position. It defines that the device that you are installing is
+last device of that controller, to be mounted to the system. Up
+to seven devices may be connected to a SCSI-controller. If you
+have only connected one harddisk, you can activate this flag.
+This prevents the system programs from looking for other
+additional devices upon booting and may save some time.
+
+last LUN:
+
+The program automatically sets the flag to the correct
+position. This switch defines whether this is the last logical
+unit of a or »in« a device.
+
+Reselection:
+
+Using RESELECTION you can define whether the controller should
+accept and use the function Disconnect/Reconnect for this
+device.
+
+Synchronous:
+
+Defines whether data should be transferred with a less explicit
+protocol. This is not useful as the harddisks are already
+operated at maximum data transfer rates.
+
+Interleave:
+
+The INTERLEAVE factor should always be »0«, except for Seagate
+harddisks, which may require a different factor. The interleave
+factor has influence on the drives' transfer rate.
+
+A factor of »0« means that the device should use its own
+default setting. Using factors »1« and higher you can determine
+the interleave factor for the low level format.
+
+In order for the factor to have any effect, you need to select
+the item EXTRAS/LOW LEVEL FORMAT. Please note that all data on
+the unit will then be deleted!
+
+Auto park:
+
+Using auto park you can set the time period after which the
+harddisk should move to the parking position. This function is
+especially useful if you do not work on your computer for a
+long time, e.g. several days, while the computer is stilled
+turned on. In case you work regularly on your computer, it is
+recommended to set the value to »0«, i.e. to switch the auto
+park function off. Minimum time period is 300 seconds. The
+program does not accept shorter periods.
+
+2.8.4 Pull Down Menu Paramter
+
+The window, »Installation of Device« has its own pull down menu.
+
+Inquiry:
+
+This function determines the information and capacity of the
+device upon request. The program sends the »Inquiry« command to
+the device, which then returns the information.
+
+Load:
+
+Since the program is also suitable for installing devices
+connected to IDE/AT-Bus controllers, you can use this function
+to load preference settings. This is particularly useful, as
+these devices return either wrong or insufficient data after an
+»Inquiry« in most cases. The preference settings for various
+devices are located on the disk in separate files.
+
+After selecting PARAMETER/LOAD a file requester opens. Now you
+can select the file with the suitable preference settings. The
+name of the file corresponds to the name of the device.
+
+Save:
+
+This function is only supplied in order to give the
+manufacturer the possibility to save files with preference
+settings. Usually you will not need this function.
+
+2.9 Partition Drive...
+
+This function is only available, if you have selected the
+manual mode. It lets you create and setup one or more
+partitions. All values that need to be set here are saved on
+the device in the »PartitionBlock« after the RDSK Block and are
+evaluated during each startup of the computer by the driver and
+the Amiga.
+
+Use:
+
+Click USE and all changes of data are adopted or maintained.
+Finally these changes can be saved using the function SAVE
+CHANGES TO DRIVE.
+
+Cancel:
+
+Use CANCEL in case you do not want to adopt or maintain the
+changes made or you just peeked in and want to leave the window
+without performing any changes. All changes made will be lost.
+
+2.9.1 Available Partitions
+
+This list displays all available partitions on the selected
+device. The partitions are listed by their names and size in
+megabyte.
+
+You can select a partition from the list for editing. The
+selected partition is also displayed in the line under the
+list. Additionally the corresponding block, representing the
+selected partition is highlighted in the overview.
+
+Partitions are automatically set as close as possible by the
+program, so that no space is left or wasted between the
+individual partitions.
+
+2.9.2 Overview
+
+In the overview the individual partitions are displayed as
+blocks in a bar which represents the capacity of the entire
+device. You can select one partition by clicking a block in the
+bar. The block will then be displayed in color, indicating the
+active partition.
+
+2.9.3    Add
+
+The function ADD PARTITION adds a partition of maximum size to
+the end of the device and appends it to the list. If there is
+no free disk space at the end of the device, the function is
+ghosted  and can not be selected. You must then supply
+sufficient space by reducing or deleting another partition.
+
+2.9.4    Edit
+
+After clicking EDIT PARTITION you access the window including
+all parameters of the selected partition. The description of
+the parameters is given in the section »Edit Partition«. If no
+partition is selected, this function is ghosted and can not be
+selected. In that case you must first use the function ADD
+PARTITION to partition a drive.
+
+2.9.5    Delete
+
+The function DELETE PARTITION deletes the active partition in
+the list. Please note that the following partitions close the
+gap and free disk space will be available at the end of the
+device. In case there is no partition at all, this function is
+ghosted and can not be selected.
+
+2.10 Edit Partition...
+
+This function cannot be accessed via the main window, but only
+via the window »Partition drive...«.
+
+Use:
+
+When using the gadget USE, all changes of data are adopted or
+maintained. Finally these changes may also be saved using the
+function SAVE CHANGES TO DRIVE.
+
+Cancel:
+
+Use CANCEL in case you do not want to maintain or adopt any
+changes made, or when you were just peeking and want to leave
+the window without performing any changes. All changes are lost.
+
+2.10.1 Name
+
+In this field you can enter or change the name of the
+partition. This name corresponds to the physical name of the
+partition. You should therefore use »dh0:«, »dh1:« or similar
+names. The names correspond to the names of floppy disk drives,
+such as »df0:«.
+
+2.10.2 Bytes
+
+This informs you of the size of the partition in byte. The
+program automatically calculates the size whenever you change
+the number of cylinders.
+
+2.10.3 Cylinder
+
+Here you may enter the number of cylinders a partition should
+consist of. This value defines the size of the partition. When
+you change the size of a partition, all following partitions -
+if applicable - are automatically moved accordingly, closing
+any gaps.
+
+In case the device does not have sufficient space for the
+desired size of the partition, the program will automatically
+reduce the number of cylinders to the maximum possible number.
+If you still want to enlarge the active partition, you must
+reduce the size of another partition, first.
+
+2.10.4 StartCyl and EndCyl
+
+These values indicate at which cylinder the partition begins
+and which cylinder defines the end. Both values include the
+cylinders given. If the StartCyl-value is 10, the partition
+begins with cylinder 10 and not with 11.
+
+2.10.5 Reserved
+
+This value is usually set to »2« and should not be changed.
+This value also depends on the used file system. It is
+different for MS-DOS file systems. The value defines the number
+of reserved blocks at the beginning of a partition, e.g. for
+the boot program.
+
+2.10.6 PreAlloc
+
+This value is usually set to »0« and should not be changed. It
+defines the number of reserved blocks at the end of the
+partition.
+
+2.10.7 File System
+
+The cycle gadget »File system« offers the choice of several
+file systems. The default setting is the »FFS«. The »DOSType«
+is automatically changed by the program according to the chosen
+file system. Each file system has its own specific DOSType.
+
+This information defines which file system, installed in the
+Amigas ROM or on the device should be used for the partition.
+The allocation is done during the booting process of the Amiga.
+Only if you have chosen the file system »Special«, you must
+enter the »DOSType« yourself, e.g. »MSD\0« for the
+»CrossDOSFileSystem«.
+
+ Typ  File System              Name / Typ          OS Version
+
+DOS\0 DOS          StandardFileSystem                 1.2
+DOS\1 FFS          FastFileSystem                     1.3
+DOS\2 DOS Inter    StandardFileSystem International   2.1
+DOS\3 FFS Inter    FastFileSystem International       2.1
+DOS\4 DOS DirCache StandardFileSystem Directory Cache 3.0
+DOS\5 FFS DirCache FastFileSystem Directory Cache     3.0
+
+2.10.8 DOSType
+
+Here you can only enter a DOSType if you have chosen the file
+system »Special«. In all other cases the entry field is
+ghosted. The »DOSType« is stated in C-syntax.
+
+2.10.9 Mask
+
+Determines to which memory range of the Amiga the controller
+may transfer data. This value is automatically set by the
+program.
+
+2.10.10 MaxTransfer
+
+This value defines the maximum amount of byte the operating
+system can request from the controller. The value is set
+automatically by the program.
+
+2.10.11 Automount
+
+»Automount« defines whether a partition should be mounted to
+the Amiga-system during the boot process. For example, you may
+turn off the »Automount« and mount the partition manually later
+on whenever necessary with the »c:Mount«-command and a
+MountList- entry.
+
+If »Automount« is disabled, you cannot change the values
+»Bootable«, »Priority« and »Bootblocks«, as »Automount« is
+necessary for these values to have any effect.
+
+2.10.12 Bootable
+
+»Bootable« lets you select whether you would like to boot from
+this partition after starting up your computer. If »Automount«
+is disabled for this partition, you cannot select »Bootable«.
+In this case the gadget is also displayed ghosted.
+
+2.10.13 Priority
+
+The »Priority« states from which bootable partition the Amiga
+should boot upon start up. The partition with the highest
+priority is used in that case. The values may range from »-127«
+to »+127«. If you enter »-1« the Amiga will boot from the
+floppy disk, as the floppy disk drive has a priority of »5«.
+
+2.10.14 Bootblocks
+
+The program uses the default value »0«. Until now, a possible
+»Bootprogram« is not supported by the controllers yet.
+
+2.10.15 Buffers
+
+Here you enter the size of the »Buffer« (Cache) that is used
+for the data transfer. A buffer has the size of 512 byte. The
+buffer is allocated in the main memory of the Amiga. You should
+select the size of the buffer according to the amount of main
+memory available. Please note that allocating large buffers for
+many partitions is very memory consuming as all these buffers
+are summed up.
+
+2.10.16 Pull Down Menu Password/Install
+
+Using this function you may set a password for a partition, as
+well as access rights. Please note that the password is stored
+together with the partition data in the RDSK Block. As the RDSK
+Block is not designed for this kind of data, the RDSK Block
+does not conform to the standard anymore. If you would like to
+a have 100% standard RDSK Block, you should not install a
+password or delete an existing password with PASSWORD/DELETE.
+
+Password protection is only available with Elaborate Bytes
+ALF and bsc/ALfaData Oktagon and AT-Bus controllers.
+
+Please also refer to the description of »MountHD« in the
+chapter »Utilities«.
+
+Access rights without password (Public):
+
+This defines the access rights for the partition that you or
+other users have, if a password was not entered at boot time.
+
+No Access:
+
+You have absolutely no access to the partition. If the user did
+not enter a password, the user will never actually see the
+partition as it isn't even mounted during start up.
+
+Read:
+
+The partition is mounted to the system and may be read from.
+
+Write, Read:
+
+The partition may be read and written to.
+
+Format, Write, Read:
+
+The partition may be read, written to and formatted.
+
+Access rights with password (Protected):
+
+Here you select the rights of users that have entered the
+correct password.
+
+No Access:
+
+This option is disabled, as you have to allow at least for
+reading access. A user that entered the correct password will
+always be able to read the partition. Anything else would not
+make sense.
+
+Read:
+
+The partition is mounted to the system and may be read from.
+
+Write, Read:
+
+The partition may be read and written to.
+
+Format, Write, Read:
+
+The partition may be read, written to and formatted.
+
+Password:
+
+Enter a password consisting of a maximum of eight characters.
+Please note that the program is case sensitive, i.e.
+distinguishes between upper and lower case letters.
+
+Use:
+
+The gadget USE adopts or maintains data changed. Finally you
+may also save the changes to your device using SAVE CHANGES TO
+DRIVE.
+
+Cancel:
+
+If you do not wish to adopt or maintain the changes made, or if
+you were just peeking and would like to quit the window without
+keeping the changes, please select CANCEL. All changes are lost.
+
+2.10.17 Pull Down Menu Password/Delete
+
+This function erases the existing password information after a
+confirmation by the user. This enables you to simply erase
+password settings and restore the RDSK Block to its standard
+form.
+
+2.11 File System
+
+This function is only available if you are working in the
+manual mode. Otherwise the gadget is disabled and ghosted. The
+function FILE SYSTEM gives you the opportunity to load a
+specific file management system, prepare it for saving on a
+device and use it for partitions.
+
+Use:
+
+The gadget USE adopts or maintains data changed. Finally you
+may also save the changes to your device using SAVE CHANGES TO
+DRIVE.
+
+Cancel:
+
+If you do not wish to adopt or maintain the changes made, or if
+you were just peeking and would like to quit the window without
+keeping the changes, please select CANCEL. All changes are lost.
+
+2.11.1   Available File Systems
+
+All listed file systems including the device and partition data
+are saved on the device. This is only necessary when you want
+to use a file system for one or several partitions which are
+not included in the Amigas ROM.
+
+The »FastFileSystem« is included in Kickstart 2.0 ROM, but not
+in the Kickstart 1.3 or 1.2 ROMs. If you would like to operate
+a partition with »FastFileSystem« under Kickstart 1.3 you must
+add »FastFileSystem« to the list. The list not only shows the
+name of the file system, but also its size, version and
+DOSType. The »FastFileSystem« of later operating systems
+starting with release 2.0 also include the
+»StandardFileSystem«, as well as some »International«- and
+»DirectoryCache«-variations starting with operating systems
+3.0. Therefore you' ll need to load the »FastFileSystem« only
+once for the file systems ranging from »DOS\0« to partially
+»DOS\5«.
+
+DOSType:
+
+This information identifies the file system.
+
+Version:
+
+This displays the version and revision number of the file
+system. The number given in the version field actually consists
+of two parts. The number before the period indicates the
+version the number thereafter the revision number. Since
+Commodore did not determine a standard for this value it may
+occur that the version number is incorrect or unusable. In that
+case you can either change the entry or enter it using UPDATE.
+This is not possible later, though.
+
+Size:
+
+Since the version number of some file systems can and/or could
+not always be identified to full satisfaction, the file system
+may also be distinguished by their file size. Their size is
+given in byte.
+
+Name / Type:
+
+In most cases this is the name of a file system under which it
+is also saved on disk. Depending on the DOSType they may also
+be different.
+
+The later versions of »FastFileSystems« know for example
+several DOSTypes. When adding or replacing the »FastFileSystem«
+with »DOS\3«, »FastFileSystem International« will appear in the
+list.
+
+2.11.2 Add
+
+After clicking ADD a file requester opens where you can enter
+the name of a new file system. In the Add File System window
+you can then change or correct the DOSType, version number and
+the size.
+
+2.11.3 Update
+
+With UPDATE you can replace an already existing file system by
+another one, e.g. a later version (see ADD). After clicking ADD
+a file requester opens where you can enter the name of a new
+file system. In the Add File System window you can then change
+or correct the DOSType, version number and the size.
+
+2.11.4 Delete
+
+With DELETE you can delete the selected file system. It will
+not be saved on the file system any longer.
+
+2.11.5 Add File System Window
+
+Use:
+
+Click USE and all changes of data are adopted or maintained.
+Finally these changes can be saved using the function SAVE
+CHANGES TO DRIVE.
+
+Cancel:
+
+Use CANCEL in case you do not want to adopt or maintain the
+changes made or you just peeked in and want to leave the window
+without performing any changes. All changes made will be lost.
+
+Name:
+
+Enter the path and file name of the file system which you would
+like to install on the device. Of course this is only possible,
+if the file system is available as a file, e.g. the
+»FastFileSystem« in the »l:«-directory.
+
+DOSType:
+
+See above: Available File Systems/DOSType
+
+Version:
+
+See above: Available File Systems/Version
+
+Revision:
+
+See above: Available File Systems/Version
+
+2.12 Save Changes To Drive
+
+This function finally saves all changes performed by the
+functions SETUP DRIVE, PARTITION DRIVE and FILE SYSTEM to the
+RDSK Block on the unit.
+
+Before these settings are saved you will be asked for
+confirmation. All previously existing data will then be lost.
+In case you have previously installed your harddisk and have
+now changed the partition data, the Amiga will only find the
+new partitions and not the old ones after a reset.
+
+When the program has completed writing the data, it will inform
+you and ask you whether you would like to reboot your Amiga to
+activate the new settings. Click REBOOT. A reboot is especially
+necessary when you have changed partitions on an already
+installed harddisk, as the old partitions are still mounted to
+the system. If you would now mount the new partitions with
+»MountHD« or the function DOS FORMAT in this program your
+Amiga could not cope with this situation. The Amiga will then
+try to work with different partitions on the same harddisk,
+which will not work in the long run.
+
+In case you are installing your harddisk for the first time,
+you may click CANCEL and continue with the function DOS FORMAT.
+
+2.13 DOS Format
+
+With this function partitions are formatted for use with
+AmigaDOS. As a rule you have to format all partitions with DOS.
+You may use this function only when a partition exists on the
+selected device and you are in the manual mode.
+
+You do not necessarily have to use this program for formatting.
+You may also format these partitions from the Workbench or
+CLI/Shell as you would format a normal floppy disk. In
+Workbench 2.0 the function used to format is called
+ICONS/FORMAT DISK... . In the CLI/Shell you have to use the
+command »sys:system/format«. We have integrated this function
+in our program in order to make the installation easier for
+unexperienced users.
+
+If you want to use a special data management system (file
+system) and with that a special DOSType for the partition, you
+cannot use this program. This program supports only the
+standard types.
+
+Cancel:
+
+If you are done formatting, or if you were just peeking, you
+can leave the function and the window by clicking CANCEL.
+
+2.13.1 Available Partitions
+
+A list of all partitions available on the selected drive is
+displayed. To select a partition, click it in the list and it
+will be highlighted.
+
+2.13.2 New Volume Name
+
+Enter the name of the partition in this field. The name will be
+shown on the Workbench under the respective icon, just like the
+icon of a floppy disk.
+
+2.13.3 Trashcan
+
+If you select this checkmark gadget a trashcan will be added to
+your partition after formatting. The program will try to copy
+the trashcan from the »sys:«-directory or, if that does not
+exist, it will copy the trashcan saved in the program.
+
+2.13.4 Verify
+
+When checked, the program will search for errors that occurred
+during the formatting of the partition. This feature will not
+work, if you select QUICK FORMAT.
+
+2.13.5 File System
+
+Here you may assign a file system to the partition, absolutely
+independent from the settings of the partition.
+
+After starting your Amiga the controller will first read the
+partition data with the assigned DOSType. Then it will search
+for a file system of the same DOSType, load and start it.
+Finally the file system checks the partition itself for which
+file system the partition was formatted. It is possible that a
+file system supports different systems, e.g. »FastFileSystem«
+»DOS\0« up to »DOS\5«.
+
+2.13.6 Format
+
+After clicking FORMAT you are asked to confirm your choice for
+safety reasons one last time, as all data on your device will
+be lost. Once the partition is formatted you can work with it
+and copy for example files, programs and data to your partition.
+
+2.13.7 Quick Format
+
+This type of formatting does the same as FORMAT, just a little
+faster but less safe. Only essential structures will be written
+to the partition and not the complete formatting information.
+The partition will not be checked for errors either, even if
+you selected the VERIFY checkmark gadget.
+
+2.14 Copy Disks
+
+Using this function you can copy the contents of a file or a
+device to a partition. You may also copy the contents of a disk
+from the CLI to a partition using the command »c:copy«. The
+program contains the COPY DISKS function in order to help the
+unexperienced user to copy a Workbench to the partition without
+having to go into the details of the CLI/Shell.
+
+Cancel:
+
+If you are done copying, or if you were just peeking and would
+like to leave this function and close the window, click CANCEL.
+
+2.14.1 From Drive
+
+Here you select the medium from which the data is to be copied,
+e.g. a Workbench disk. The selected device or drive is
+highlighted.
+
+2.14.2 To Drive
+
+Here you select the partition to which the contents of the
+drive selected above should be copied to. The selected
+partition is highlighted.
+
+2.14.3 Copy
+
+Click COPY... to start the process. Please note that you cannot
+interrupt this operation.
+
+2.14.4 List Files
+
+This function opens a file requester enabling you to look at
+the contents of the device.
+
+2.15 Extras/Low Level Format...
+
+This function formats a drive physically. It is completely
+different from the DOS format.
+
+The low level formatting is the precondition for storing data
+on a storage medium. Blocks and tracks, e.g. on the harddisk
+are created to store a certain amount of bytes. When
+DOS-formatting, the Amigas operating system creates its own
+file management structure. This file management structure and
+the files are stored together as data on the device in the
+created blocks.
+
+After low level formatting a specific amount of memory blocks
+are available on the drive. Only after DOS-formatting the drive
+you can create files and directories on the Workbench or in the
+CLI, name files, store files in subdirectories, etc.
+
+In recent years the low level formatting is already performed
+by the manufacturer of the device. Therfore you will not need
+to low level format your device. Low level formatting will
+rarely be necessary, only when for example you are having
+difficulties with the installation or other major problems
+occur.
+
+First select the device to be formatted from the list of
+available devices in the main window. Then select the function.
+Please note that all data on the device will be erased due to
+the formatting process.
+
+While the window »Low Level Format« is open, you cannot access
+any other function in the main window of the program. All
+functions are ghosted.
+
+Cancel:
+
+When you are done formatting, or if you were just peeking and
+would like to leave this function and close the window, please
+click CANCEL.
+
+2.15.1 Drive
+
+Displays the drives name and manufacturer to avoid a mix up of
+drives, if you have connected more than one. Please make sure
+you really selected the correct one!
+
+2.15.2 Interleave
+
+The INTERLEAVE-factor should always be »0«, except for Seagate
+harddisks, which may require a different factor. The interleave
+factor has influence on the drives' transfer rate.
+
+A factor of »0« means that the device should use its own
+default setting. Using factors »1« and higher you can determine
+the interleave factor for the low level format.
+
+This value is also used for SETUP DRIVE, but has no actual
+effect in that function.
+
+2.15.3 Block Size
+
+The devices block size is determined via a direct »Inquiry« by
+the program.
+
+Usually a block on a harddisk is the size of 512 bytes. Sony
+Magneto-Optical drives may have sizes of 512 bytes or 1024
+bytes and CD-ROMS can even have 2 kilobytes per block. If the
+device does not return a value upon »Inquiry«, the program uses
+512 bytes as a default setting.
+
+2.15.4 Ignore Grown Defects
+
+Clicking the checkmark gadget IGNORE GROWN DEFECTS you can
+determine, whether all blocks listes as defective shall be
+reused. Generally you should leave this function off.
+
+2.15.5 Format
+
+After clicking FORMAT a panel appears asking for your
+confirmation before the selected device is formatted. The
+formatting process cannot be interrupted until it is completely
+done. Please note that all data on the device is erased in the
+formatting process. As soon as the device is completely
+formatted it may be set up, using the program.
+
+2.16 Extras / Check Drive...
+
+Checks your harddisks for possible errors. When errors are
+detected, this does not necessarily mean that data is lost.
+Harddisks have a mechanism for repairing minor defects so they
+will not occur. Using the CHECK DRIVE command this mechanism is
+deactivated and therefore even the smallest errors on the
+harddisk are detected.
+
+While the window CHECK DRIVE is open, you cannot access any
+other function in the main window. All functions are ghosted.
+
+Cancel:
+
+As soon as you are done checking your harddisk or if you were
+just peeking and would like to leave this function and close
+the window now, please click CANCEL.
+
+2.16.1 Errors Found
+
+All errors found during the check are displayed in this list.
+If you select REASSIGN these blocks will be reassigned.
+
+2.16.2 Number of Checks
+
+Here you determine the number of time the harddisk is checked
+subsequently. Usually the harddisk is checked only once. If you
+are certain though, that an error occurs only seldomly you can
+enter a higher value, for example 100. However, this may take
+an entire night.
+
+All errors found in the test cycles are added to the list.
+
+2.16.3 Check
+
+Select CHECK to start the process. If errors are found they
+will be displayed in the »errors found« list.
+
+When you call up this function, a window opens and informs you
+that the harddisk is now being checked and the cycle number is
+also displayed.
+
+Please note that you cannot interrupt this function. Only if
+you have entered several checks, you can interrupt the
+operation between two check cycles.
+
+While CHECK is running, you cannot access any other function in
+the main window. All functions are ghosted.
+
+2.16.4 Clear List
+
+Deletes all entries from the »errors found« list.
+
+2.16.5 Reassign
+
+SCSI-devices can reassign bad blocks without a loss of data of
+capacity. Data stored in a bad block is written to another
+block and a reference to the good block is saved in the bad
+block. The new block is located in a section of the harddisk
+especially reserved for these cases. This section is not
+available for normal operation.
+
+The function REASSIGN initiates the reassignment of bad blocks.
+This operation cannot be interrupted. As soon as the
+reassignment process is completed, you return to the main
+window and the window CHECK DRIVE is closed.
+
+2.17 Extras / Rigid Disk Blocks
+
+With this function you can manage the system information of the
+harddisk. The following functions all refer to the device
+selected in the »Devices in System« in the main window. Please
+make sure that you always select the correct device.
+
+2.17.1 Load from File
+
+When selecting RIGID DISK BLOCKS/LOAD FROM FILE... a file
+requester opens, from which you may select a file. The file
+will be loaded into the RDSK Block structur in the RAM. Then
+you can write the data from RAM to the harddisk with SAVE
+CHANGES TO DRIVE in the main window.
+
+This function is especially helpful, when the system
+information on the harddisk was lost, e.g. when it was
+accidentally overwritten by another program. In this case you
+can load the RDSK Block, which you previously stored on a disk,
+and write it to the harddisk. That's all you need to do to
+repair your harddisk. In case you don't have a copy of the RDSK
+Block on disk you'll have to think hard to remember the
+position your partitions. So, always keep a copy of the RDSK
+Block in a safe place.
+
+2.17.2 Save to File
+
+Saves the RDSK Block to a file. A file requester appears and
+you can choose the filename and directory. You should select a
+floppy disk, as destination as the information would be useless
+in case of a harddisk problem. You'll also need the program on
+disk in the worst of all cases.
+
+2.17.3 Erase
+
+This command will erase the RDSK Block. It will create a
+»virgin«, i.e. uninstalled harddisk. This function is to be
+used with greatest care, as the entire installation and the
+data of the harddisk is lost irrevocably.
+
+First you will be asked whether you really want to continue.
+Then the RDSK Block is deleted from RAM. With SAVE CHANGES TO
+THE DRIVE in the main window you may save the changes to the
+harddisk. This function doesn't actually erase the RDSK Block
+completely, but makes it unreadable for the system programs and
+for the operating system. Consequently, the operating system
+assumes that the harddisk has not yet been installed.
+
+2.18 Configure Controller
+
+These functions are only available for the controllers Oktagon
+508, 2000 or A.L.F. 3 or Oktagon 2008, as these have a special
+configuration memory. This memory allows for saving the
+configuration parameters in a memory buffer that is never lost,
+even after turning off your computer.
+This is not available with the AT-Bus 2008 or the Tandem
+controllers!
+Configure controller is only available if you are running Kickstart
+version 1.3. With Kickstart 2.04 or better, please use the program
+OktagonPrefs.
+
+2.19 ToolTypes
+
+The program stores its own environment parameters under
+ToolTypes. You access ToolTypes by selecting the programs icon
+on the Workbench and calling up INFO or INFORMATION in the pull
+down menu of the Workbench. A window appears with the text
+gadget »ToolType«.
+
+2.19.1 Device
+
+The program tries to find devices by the means of the installed
+driver. The program uses the driver name »oktagon.device« as a
+default, if you haven't entered anything else in ToolTypes yet.
+Selecting PROJECT/INFO displays which driver is selected. Since
+the program is case-sensitive please mind the correct spelling
+and do not forget the extenstion ».device«.
+
+Examples:
+
+DEVICE=ALF.device
+DEVICE=scsi.device
+DEVICE=oktagon.device
+
+If the program cannot find the chosen driver in the system, you
+will be informed by a panel when starting the program. This
+message is displayed even before the main window appears. Click
+OK to quit the program. Then check, why the driver name could
+not be found. Either your controller is defective or the driver
+name is incorrect.
+
+2.19.2 Language
+
+You should change this setting from the program via the pull
+down menu SETTINGS/LANGUAGE which are then saved in the
+ToolTypes. The default language is English, if nothing is
+displayed in the ToolTypes.
+
+2.19.3 MAXLUN, MAXPIC, MAXTID
+
+MAXLUN sets the highest logical unit number to search for.
+The default is 9.
+
+MAXPIC sets the highest board number to search for.
+The default is 7.
+
+MAXTID sets the highest target id number to search for.
+The default is 9.
+
+Using PROJECT/INFO from the program will inform you about the
+actual settings.
+
+2.19.4 Mode
+
+You should make these settings via the programs' pull down menu
+SETTINGS/MODE. Using SETTINGS/Save the selected mode is saved
+in the ToolTypes. The program uses the default setting
+»automatically« if no setting is stated in the ToolTypes.
+
+2.19.5 RDBLOW
+
+Here you can specify, where the RDB should be created, if no
+valid RDB is on the disk. The default is 0, valid values are
+0 to 15.
+
+This can be helpful, if you wish to have a shared MS-DOS and
+Amiga drive.
+
+Example:
+
+RDBLOW=2
+
+will write the RDB into sector 2.
+
+Using PROJECT/INFO from the program will inform you about the
+actual setting.
+
+2.19.6 RDBSPACE
+
+Here you can specify, how much space should be reserved when a new
+RDB is created (in kBytes),
+The default is 256.
+
+This space can be used for filesystems and drive init code like
+Oktapussy.
+
+Example:
+
+RDBSPACE=256
+
+will reserve 256 kBytes for rigid disk blocks.
+
+Using PROJECT/INFO from the program will inform you about the
+actual setting.
+

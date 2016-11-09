@@ -1,0 +1,49 @@
+==============================
+ SHORT description of KingCON
+==============================
+
+   KingCON is a console-handler that optionally replaces the standard
+'CON:' and 'RAW:' devices. It is 100% compatible, but adds some VERY
+useful features, such as..
+   * Filename-completion (TAB-expansion)
+   * A review-buffer
+   * Intuition menus
+   * Global preferences
+   * Jump-scroll. (FAAST output!)
+   * Asynchronous typeahead. (Optional)
+   * Cursor-positioning using the mouse
+   * MC68020-optimized version
+   * And more...
+
+
+========================
+ Installation and usage
+========================
+
+   If you don't like reading manuals longer than one screen-page, then
+install KingCON by running 'Installation'. This copies the necessary files
+and mounts 'KCON:' and 'KRAW:' for you.
+   To start a Shell that opens in a KingCON-console, type the following (in
+an already opened shell):
+
+	NewShell WINDOW KCON:
+or
+	NewShell WINDOW KCON:////Testing/CLOSE/JUMP
+
+   If you now want to try out the filename-completion, type this:
+
+   	type s:sta
+
+   Hit the TAB-key (directly after the last 'a'), and you will get the idea
+with filename-completion. Or do you always spell 'Startup-Sequense'
+correctly in less that 1 second?
+
+   Even if you don't like it, please read KingCON.doc or KingCON.guide for
+a thorough explanation of all the new features that KingCON brings!
+
+
+        /¯\ David Larsson /¯\  Engineering Physics                /¯\_/¯¯¯¯
+       /   \_/¯\   /¯¯¯\_/   \ Chalmers University of Technology / Sweden
+      /         \_/           \      /¯\   /¯\     /¯\_/¯\      /
+¯\   /                         \    /   \_/   \   /       \    /
+  \_/  f92dala@dd.chalmers.se   \__/           \_/         \__/

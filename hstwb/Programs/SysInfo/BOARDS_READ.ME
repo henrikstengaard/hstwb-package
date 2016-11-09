@@ -1,0 +1,50 @@
+
+CREATING THE EXTERNAL BOARD IDENTIFICATION FILE
+-----------------------------------------------
+
+If Sysinfo does not recognise a board by name, it normally
+prints the Manufacturer and Product numbers.  Since version
+3.22 it now looks in an external file (if it exists) in 
+the S: directory called "sysinfo.boards" in an attempt to match 
+each of these unknown board numbers with strings that you
+have supplied within the file.
+ 
+The file *MUST* be called sysinfo.boards and *MUST* be in
+the S: directory.
+
+The file must have a strict specific format as shown below.
+
+Comments are allowed but *MUST* only be at the top of the file,
+and the first character on the beginning of each line *MUST*
+be a semi-colon (;)  Blank lines are not allowed and will cause
+errors unless preceded with a semi-colon. 
+
+Each different board must be on a new line and the
+manufacturer must be given for each product number, even
+if they are the same.  For example, Commodore cards are
+known by Sysinfo, but if they were not, and you had a 
+A2091 card, Sysinfo would have displayed it as Manufacturer 514
+and Product 3, and the memory portion of the board as 
+Manufacturer 514 with Product 10.  These two entries would
+be in the ascii file as :-
+
+514 COMMODORE 3 A2901/A590
+514 COMMODORE 10 FAST-MEMORY
+
+See the example sysinfo.boards file with this archive
+for a complete working example.
+
+***************
+***IMPORTANT***
+***************
+
+Each name that follows each number **MUST** not contain 
+spaces, if you want to seperate two names then use
+hyphens, periods or slashes etc., as shown in the example 
+above.
+
+There must be at least one space between each of the numbers 
+and the name strings on every line, as these are used
+as delimiters for seperating numbers from the names and also 
+used to null terminate the strings for printing. 
+

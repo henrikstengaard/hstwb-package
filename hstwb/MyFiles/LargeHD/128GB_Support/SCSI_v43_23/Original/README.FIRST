@@ -1,0 +1,60 @@
+Mini Introduction
+
+    Amiga International, Inc. has decided to release parts of current
+    development work as public beta versions for testing by a wider
+    audience at this time. Please note well that any software that
+    can be found here is in beta state. This means that it may
+    contain severe bugs or changed functionality which may affect
+    your system in various, possibly adverse ways. Read the
+    DISCLAIMER and BE CAREFUL!
+
+Legalese
+
+    Any software, archives or information in general that you find
+    here is NOT freely redistributable. You may NOT modify it in
+    any way and you may NOT upload it whereever you feel like.
+    There is no warranty whatsoever. Read the DISCLAIMER and any
+    other documentation that can be found here before taking
+    any further steps.
+
+
+Usage
+
+    Beta software is typically in a state where major changes
+    should no longer occur. Typically it is also riddled with
+    obscure bugs that don't turn up very often. Naturally something
+    changed inside, so reading the appropriate documentation
+    *BEFORE* trying to test something is A Good Thing(tm).
+
+    Unless noted otherwise, any beta software will assume an OS 3.1
+    system, i.e. OS V40 for its operation. It may well fail in
+    various ways if used with less than OS 3.1.
+
+    If you don't fully understand the usage instructions that come
+    with beta software or the purpose of the software itself, don't
+    try to use it. Beta software is not something for the
+    unexperienced.
+
+    It is VERY UNWISE to use beta software any longer than for
+    about 3 months after its initial release! Beta software tends to
+    get stale very soon. Public BETA software will often contain a
+    timeout feature that notifies you when it gets stale.
+
+
+Bug reports
+
+    For your convenience, we included the Report tool from the
+    Amiga Developer CD (ADCD). Please submit bug reports always and
+    only in "report" tool format!
+
+        The correct address to submit bug reports is
+
+                   *************************
+                   ***  <bugs@amiga.de>  ***
+                   *************************
+
+    Specific inquiries about specific pieces of software should be
+    directed to the addresses mentioned in the pertaining
+    documentation, too.
+
+

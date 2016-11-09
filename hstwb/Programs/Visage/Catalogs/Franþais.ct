@@ -1,0 +1,432 @@
+## version $VER: Visage.catalog 39.15 (1.9.97)
+## language français
+## codeset 0
+## chunk AUTH Par Georges 'Melkor' Goncalves
+;
+; $VER: Visage.cd 39.15 (29.7.97)
+;
+MSG_BY
+\x9b1m%s - Par Magnus Holmgren\n\x9b0m
+;\x9b1m%s - By Magnus Holmgren\n\x9b0m
+;
+MSG_MODENAME_NOT_AVAILABLE
+« Nom du mode non disponible »
+;«Mode name not available»
+;
+MSG_ABORTED
+Annulé.\n
+;Aborted.\n
+;
+MSG_BREAK
+*** Arrêt\n
+;***Break\n
+;
+MSG_WARN_BAD_ENV_ARGS
+Attention : Erreur dans l'analyse de la variable d'environnement :\n%s
+;Warning: Error parsing environment variable:\n\
+;%s
+;
+MSG_WARN_NO_WBMON
+Attention : WBMONITOR ne peut trouver le Workbench
+;Warning: WBMONITOR couldn't find Workbench
+;
+MSG_WARN_NO_MONITOR
+Attention : Le moniteur « %s » est introuvable
+;Warning: Monitor '%s' not found
+;
+MSG_WARN_NO_MODE
+Attention : Le mode « %s » est introuvable
+;Warning: Mode '%s' not found
+;
+MSG_WARN_NO_OVERSCAN
+Attention : Le type de surdimensionnement « %s » est inconnu
+;Warning: Overscan type '%s' not known
+;
+MSG_ERR_NO_LIB
+Impossible d'ouvrir %s version %ld ou mieux
+;Couldn't open %s version %ld or higher
+;
+MSG_ERR_NEED_OS3
+OS 3.0 ou mieux requis
+;You need OS 3.0 or higher
+;
+MSG_ERR_BAD_ARGS
+Erreur en analysant les arguments :\n%s
+;Error parsing arguments:\n\
+;%s
+;
+MSG_ERR_FILEREQ
+Impossible d'ouvrir la requête de fichiers :\n%s
+;Couldn't open file requester:\n\
+;%s
+;
+MSG_ERR_SMREQ
+Impossible d'ouvrir la requête de mode écran :\n%s
+;Couldn't open screen mode requester:\n\
+;%s
+;
+MSG_ERR_MONITORREQ
+Impossible d'ouvrir la requête de moniteurs :\n%s
+;Couldn't open monitor requester:\n\
+;%s
+;
+; - Replaced with MSG_ERR_SHOW
+;MSG_ERR_PATTERN (//)
+;Error parsing pattern\n\
+;'%s':\n\
+;%s
+;
+MSG_ERR_IFF_CLIENTRETURN
+Retour au client
+;Return to client
+;
+MSG_ERR_IFF_CALLBACK_HOOK
+Le 'Call-Back Hook' est manquant
+;Call-back hook missing
+;
+MSG_ERR_IFF_IFF
+Ce n'est pas un fichier IFF
+;Not an IFF file
+;
+MSG_ERR_IFF_SYNTAX
+Erreur de syntaxe dans le fichier IFF
+;Syntax error in IFF file
+;
+MSG_ERR_IFF_MANGLED
+Fichier IFF estropié
+;Mangled IFF file
+;
+MSG_ERR_IFF_SEEK
+Erreur de recherche
+;Seek error
+;
+MSG_ERR_IFF_WRITE
+Erreur d'ecriture
+;Write error
+;
+MSG_ERR_IFF_READ
+Erreur de lecture
+;Read error
+;
+MSG_ERR_IFF_MEM
+Pas assez de mémoire
+;Not enough memory
+;
+MSG_ERR_IFF_SCOPE
+Envergure invalide de la propriété
+;No valid scope for property
+;
+MSG_ERR_IFF_CONTEXT
+Fin de contexte
+;End of context
+;
+MSG_ERR_IFF_EOF
+Fin de fichier
+;End of file
+;
+MSG_ERR_SCR_MONITOR
+Le moniteur demandé est indisponible
+;Requested monitor not available
+;
+MSG_ERR_SCR_CUSTOM_CHIPS
+Les nouveaux circuits spéciaux sont requis
+;You need newer custom chips
+;
+MSG_ERR_SCR_MEM
+Pas assez de mémoire
+;Not enough memory
+;
+MSG_ERR_SCR_GFXMEM
+Pas assez de mémoire graphique
+;Not enough graphics memory
+;
+MSG_ERR_SCR_INTERNAL
+Erreur interne
+;Internal error
+;
+MSG_ERR_SCR_MODE
+Mode écran inconnu
+;Unknown screen mode
+;
+MSG_ERR_SCR_DEPTH
+Ecran plus profond que ne le supporte l'électronique
+;Screen deeper than hardware supports
+;
+MSG_ERR_SCR_WINDOW
+Impossble d'ouvrir la fenêtre
+;Couldn't open window
+;
+MSG_ERR_SCR_MODEAVAIL
+Mode écran non disponible
+;Screen mode not available
+;
+MSG_ERR_IFF_NOT_ILBM
+IFF mais non ILBM
+;IFF but not ILBM
+;
+MSG_ERR_NOT_PIC
+Format inconnu
+;Unknown format
+;
+MSG_ERR_NO_DATA
+Données manquantes
+;Missing data
+;
+MSG_ERR_BAD_DATA
+Mauvaises données
+;Bad data
+;
+MSG_ERR_EOF
+Fin de fichier prématurée
+;Premature end of file
+;
+MSG_ERR_RENDER
+Impossible d'obtenir le rendu d'image
+;Couldn't render picture
+;
+MSG_ERR_UNKNOWN_DATA
+Données non supportées
+;Unsupported data
+;
+MSG_ERR_LIB
+Bibliothèque externe manquante
+;External library missing
+;
+MSG_ERR_FORMAT
+Format inconnu
+;Unknown format
+;
+MSG_ERR_UNKNOWN
+Code d'erreur inconnu %ld. Veuillez le signaler
+;Unknown error code %ld. Please report
+;
+MSG_ERR_PICTURE
+\tErreur dans l'image : %s
+;\tError in picture: %s
+;
+MSG_ERR_SHOW
+Impossible d'afficher « %s » : %s
+;Couldn't show '%s': %s
+;
+MSG_REQ_TITLE
+Information Visage
+;Visage information
+;
+MSG_SCREENMODE_REQ_TITLE
+Choisir un mode écran
+;Select screen mode
+;
+MSG_MONITOR_REQ_TITLE
+Choisir un moniteur
+;Select monitor
+;
+MSG_FILE_REQ_TITLE
+Choisir les fichiers à voir
+;Select files to view
+;
+MSG_GAD_OK
+Okay
+; Ok \
+;
+;
+MSG_CLIPBOARD
+« Presse-papier »
+;«Clipboard»
+;
+; The following strings are used for the algorithmic mode names.
+; See the manual for more information about these.
+;
+MSG_EXTRA_LOW_RES
+Extra-Basse réso.
+;Extra-Low Res
+;
+MSG_LOW_RES
+Basse réso.
+;Low Res
+;
+MSG_HIGH_RES
+Haute réso.
+;High Res
+;
+MSG_SUPER_HIGH_RES
+Super-Haute réso.
+;Super-High Res
+;
+MSG_LACED
+Entrelacée
+; Laced
+;
+MSG_DOUBLE
+Double
+; Double
+;
+MSG_HAM
+HAM
+; HAM
+;
+MSG_EHB
+EHB
+; EHB
+;
+MSG_DPF2
+DPF2
+; DPF2
+;
+MSG_DPF
+DPF
+; DPF
+;
+; ** Version 39.1 **
+;
+MSG_WARN_NO_DITHER
+Attention : Type de lissage « %s » inconnu
+;Warning: Dither type '%s' not known
+;
+MSG_WARN_RANGE
+Attention : La valeur %ld pour %s est hors limites (%ld - %ld)
+;Warning: Value %ld for %s is out of range (%ld - %ld)
+;
+MSG_WARN_TIMER
+Attention : Impossible d'ouvrir le timer.device
+;Warning: Couldn't open timer.device
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+; - Replaced with MSG_NEWTIME
+;
+;MSG_TIME (//)
+;%2d.%03ds)\n
+;
+; ** Version 39.2 **
+;
+; Well, this string isn't *that* important to translate.. ;)
+;
+MSG_CYCLE_TASK
+Cycleur de couleurs Visage
+;Visage color cycler
+;
+MSG_ERR_FILE_EMPTY
+Le fichier est vide
+;File is empty
+;
+MSG_WARN_BAD_FILE_ARGS
+Attention : Erreur en analysant le fichier\n\
+de configuration dans le tiroir « %s »:\n\
+%s
+;Warning: Error parsing configuration file\n\
+;in drawer '%s':\n\
+;%s
+;
+MSG_WARN_BAD_CFGPATH
+Attention : Impossible de trouver le tiroir\n\
+du chemin de configuration\n\
+« %s » :\n\
+%s
+;Warning: Couldn't locate ConfigPath drawer\n\
+;'%s':\n\
+;%s
+;
+MSG_TESTED_OK
+Image okay
+;Picture ok
+;
+MSG_ALL_TESTED_OK
+Toutes les images testées étaient okay\n
+;All tested pictures were ok\n
+;
+MSG_ALL_TESTED_NOT_OK
+Une ou plusieurs images ont échoué\n
+;One or more tested pictures failed\n
+;
+; The time it took to load/render the picture in seconds, and thousands of seconds.
+;
+; Note that this format _is_ correct. ;)
+;
+MSG_NEW_TIME
+(%2d.%03ds)
+; (%2d.%03ds)
+;
+MSG_ASK_TITLE
+Requête Visage...
+;Visage request
+;
+MSG_ASK_PASSWORD
+Entrer le mot de passe pour\n\
+« %s » :
+;Enter password for\n\
+;\"%s\":
+;
+; ** Version 39.4 **
+;
+MSG_ERR_NO_PASSWD
+Mot de passe incorrect ou manquant
+;Password incorrect or missing
+;
+; ** Version 39.5 **
+;
+MSG_ERR_NO_DRAWER
+Impossible de déplacer vers le tiroir\n\
+« %s »\n\
+%s
+;Couldn't move to drawer '%s':\n\
+;%s
+;
+; ** Version 39.6 **
+;
+MSG_ERR_SCR_ATTACH
+Impossible d'attacher les écrans
+;Couldn't attach screens
+; ***NEW***
+;
+; ** Version 39.11 **
+;
+MSG_ERR_BBLANK
+Attention : Mode de bords noirs « %s » inconnu
+;Warning: Borderblank mode '%s' not known
+; ***NEW***
+;
+; ** Version 39.12 **
+;
+MSG_WARN_NO_COLOR
+Attention : Mode de couleur « %s » inconnu
+;Warning: Color mode '%s' not known
+; ***NEW***
+;
+; ** Version 39.15 **
+;
+MSG_ERR_OPEN_LIST
+Impossible d'ouvrir le fichier liste « %s » :\n\
+%s
+;Couldn't open list file '%s':\n\
+;%s
+; ***NEW***
+;
+MSG_ERR_READ_LIST
+Impossible de lire le fichier « %s » :\n\
+%s
+;Couldn't read list file '%s':\n\
+;%s
+; ***NEW***
+;
+MSG_WARN_OPEN_FONT
+Attention : Impossible d'ouvrir la police pour « %s »
+;Warning: Couldn't open font for '%s'
+; ***NEW***
+;
+MSG_WARN_BAD_FONT_SIZE
+Attention : Mauvaise taille de police dans « %s »
+;Warning: Bad font size in '%s'
+; ***NEW***
+;
+MSG_WARN_NO_FONT_SIZE
+Attention : Taille de police manquante dans « %s »
+;Warning: Missing font size in '%s'
+; ***NEW***
+;
+MSG_WARN_NO_ORDER
+Attention : Mode d'ordre « %s » inconnu
+;Warning: Order mode '%s' not known
+; ***NEW***
+;

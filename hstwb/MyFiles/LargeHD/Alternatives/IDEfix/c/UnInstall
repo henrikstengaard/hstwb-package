@@ -1,0 +1,111 @@
+;$VER: IDEfix UnInstall 49.1 (30.11.97)
+;Copyright ©1993-1997 Elaborate Bytes, Oliver Kastl
+
+(onerror
+	(makeassign "CacheCDFSInst" (safe))
+	(makeassign "CacheCDFS" (safe))
+)
+
+(complete 0)
+
+(makeassign "CacheCDFSInst" "" ( safe) )
+
+(set #theirlevel @user-level )
+
+(user 2)
+
+(message "\nWelcome to the IDE-fix 97 uninstallation program!" )
+
+(message "\nWARNING!!!!!\n\n"
+         "Click PROCEED only, if you wish to REMOVE IDE-fix '97 from your computer!\n\n"
+         "This progrm MUST be started from the directory, where IDE-fix '97 was installed!!!" )
+
+
+(if (NOT (exists "CacheCDFSInst:CacheCDFSUninstall.dat" ))
+	(
+	(abort "\nCan't find CacheCDFSInst:CacheCDFSUninstall.dat!\n\n"
+	       "UnInstall MUST be started from the directory, where IDE-fix '97 was installed!!!" )
+	)
+)
+
+(user #theirlevel)
+
+(makeassign "CacheCDFS" "" (safe))
+
+(set @default-dest "CacheCDFS:")
+
+(working "\nRestoring old installation ..." )
+	
+(complete 10 )
+
+(if ( run "BackupIDEfixInstall CacheCDFS:Backup" )
+	(
+	(abort)
+	)
+)
+
+(complete 60 )
+
+(working "\nDeleting current installation ..." )
+
+(if ( run "delete <NIL: >NIL: CacheCDFS:#? all" )
+	(
+	(abort)
+	)
+)
+
+(complete 80 )
+
+(startup "CacheCDFS"
+	(prompt "\n\nRemoving IDEfix User Startup from the user-startup")
+	(help "\n\nRemoving IDEfix User Startup from the user-startup")
+)
+
+(startup "MountLS120"
+	(prompt "\n\nRemoving MountLS120 from the user-startup")
+	(help "\n\nRemoving MountLS120 from the user-startup")
+)
+
+(startup "ActivateCrossIDEfix"
+	(prompt "\n\nRemoving ActivateCrossIDEfix from the user-startup")
+	(help "\n\nRemoving ActivateCrossIDEfix from the user-startup")
+)
+
+(makeassign "CacheCDFSInst" (safe))
+(makeassign "CacheCDFS" (safe))
+
+(complete 90 )
+
+	(if (exists "S:Startup-Sequence.std")
+		(
+		( protect "S:Startup-Sequence.std" "-e +rwsd" )
+		(if (exists "S:Startup-Sequence")
+			(
+			( protect "S:Startup-Sequence" "-e +rwsd" )
+			(delete "S:Startup-Sequence")
+			)
+		)
+		(rename "S:Startup-Sequence.std" "S:Startup-Sequence")
+		)
+	)
+
+	(if (exists "C:KeyCheck")
+		(
+		(user 2)
+		(delete "C:KeyCheck" 
+			(help "Select \"Proceed\", if you want C:KeyCheck to be deleted.")
+			(prompt "\n\nDelete C:KeyCheck ?")
+			(confirm)
+		)
+		)
+	)
+
+(user 2)
+(complete 100 )
+(message "\nWARNING:\n\n"
+			"Don't forget to remove any manually inserted \"LoadIDE\" "
+         "or \"IDEfix\" statements from your startup-sequence!" )
+
+(message "\n\nIDE-fix '97 uninstalled!" )
+
+(exit (quiet ))

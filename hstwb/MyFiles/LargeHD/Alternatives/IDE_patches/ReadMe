@@ -1,0 +1,62 @@
+
+ Patches for Individual Computer's IDE drivers  v1.1
+ by Doobrey 19/01/2010
+ doobrey@doobreynet.co.uk
+
+
+ What does it do?
+ A simple fix to allow Compact Flash cards work with XSurf,Catweasel,Buddha cards
+ and IDEFix(+Express).
+
+ Basically, the IdentifyDrive routine thought CF cards were ATAPI devices because
+ it saw bit 15 set in the device's reply. But later ATA specs allowed CF cards to
+ return a value of $848A which means it supports the 'CFA Feature Set'
+ (For those that don't count in binary, bit 15 is set in $848A )
+
+
+ What else do I need ?
+  XSurf,Catweasel,Buddha and IDEFix (non-express) patches are based on binaries
+ found in the last Elaborate Bytes supdate from IC's site
+ http://icomp.de/t/bin/eb_final.lha
+   BuddhaIDE 103.17 (08.12.00)
+   CatweaselIDE 103.17 (08.12.00)
+   IDEFix   119.17 (08.12.00)
+   XSurfIDE 104.2 (03.07.00)
+
+
+ BuddhaFlash users should also grab the flash tool to upload the new driver
+ http://icomp.de/t/bin/bflash.lha
+
+ Catweasel and non-flash Buddha users will need to burn the driver to a new EPROM.
+
+
+ IDEFix Express users:
+  Make the latest IDEFix (see link above) supports IDEFix Express. Make sure
+  you use the installer. DON'T simply copy the IDEFix binary to your system, without
+  the newer idefix.library installed, it will think it's an unregistered version.
+  (basically, the old idefix.library doesn't know about the "Express dongle")
+
+  
+
+
+ PATCHES WILL ONLY WORK AGAINST THESE FILES !
+ Previously installed copies could have prefs data saved in them, and patching will fail.
+
+
+ How do I use spatch ?
+
+ 1. Backup the old driver
+    eg. "rename IDEFix IDEFix_old"
+
+ 2. Type spatch -o<newfile> -p<patchfile> <oldfile>
+    eg.  spatch -oIDEFix -pIDEFix.pch IDEFix_old
+    (note: no spaces between -o and -p)
+
+
+
+History:
+   V1.1  Reworked CF patch to skip over all 'removable' tests.
+         Added fix for the 'Free Signals' bug found by Cosmos.
+         Removed patch for older IDEFix-Express, since the latest IDEFix supports it.
+
+

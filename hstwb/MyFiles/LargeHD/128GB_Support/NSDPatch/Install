@@ -1,0 +1,272 @@
+;------------------------------------------------------------------------
+(procedure P_SETUP_NSDPATCH_TEXTS #nsd_language
+(
+    ; English as default
+    (set #wrongversion "You need at least Installer V43!")
+
+    (set #nsd_installnsdpatch
+    (cat "Do you want to install or update NSDPatch now?\n\nAside from fixing several "
+         "obscure bugs within AmigaOS and third party devices, it will also "
+         "improve device handling for modern applications and make device "
+         "access safer in general."
+    ))
+    (set #nsd_installnsdpatch_help
+    (cat "Have you already checked the README.FIRST file that is included?\n\n"
+         "It contains a list of what NSDPatch can do for "
+         "you right in the first paragraphs. For the experienced users, "
+         "there is also quite an amount of "
+         "details included.\n\n"
+         "You really should have NSDPatch installed or updated!"
+    ))
+    (set #nsd_copypatch "Copying NSDPatch to C:")
+    (set #nsd_copypatch_help
+    (cat "NSDPatch will fix several problems with device handling "
+         "in AmigaOS and also make many devices compatible to the "
+         "New Style Device standard by Amiga Technologies GmbH.\n"
+         "It is strongly recommended that you have it installed."))
+    (set #nsd_installpatchsys "Installing NSDPatch in Startup...")
+    (set #nsd_installpatchsys_help
+    (cat "To activate NSDPatch, lines must be added to your S:Startup-Sequence "
+         "file. NSDPatch is a low level OS patch and should ideally placed "
+         "right after SetPatch into your S:Startup-Sequence.\n"))
+    (set #nsd_installpatch "Installing NSDPatch in User-Startup ...")
+    (set #nsd_installpatch_help
+    (cat "To activate NSDPatch, lines must be added to your S:User-Startup "
+         "file. NSDPatch is a low level OS patch and should ideally placed "
+         "right after SetPatch into your S:Startup-Sequence.\n"
+         "Due to ARexx not being installed on your System this isn't "
+         "possible right now, so the next best location in this case has been chosen.\n"))
+    (set #nsd_runnsdpatch "Start NSDPatch now?")
+    (set #nsd_runnsdpatch_help
+    (cat "If you don't start it now, it will be activated on the "
+         "next reset of your Amiga. It is usally wise to start it now.\n"))
+    (set #nsd_newconfig
+    (cat "You don't have a configuration file for NSDPatch installed yet. "
+         "Do you want to install the current one now?\n\n"
+         "NSDPatch won't work without a configuration file!\n"
+    ))
+    (set #nsd_newconfig_help
+    (cat "You may want to make some changes to the configuration file "
+         "DEVS:NSDPatch.cfg after the installation. In that case, make "
+         "a backup copy of your changed file in case of future automatic "
+         "updates.\n\n"
+         "You do want to have the most current patches installed!\n"
+    ))
+    (set #nsd_updateconfig
+    (cat "You already have a configuration file for NSDPatch installed. "
+         "Should it be replaced with the one from this installation?\n\n"
+         "Please check the help text before making a decision!\n"
+    ))
+    (set #nsd_updateconfig_help
+    (cat "You may have made some changes to the configuration file "
+         "DEVS:NSDPatch.cfg that you don't want to lose. In that case, "
+         "chose 'No' and compare the files afterwards manually!\n\n"
+         "You do want to have the most current patches installed!\n"
+    ))
+
+    (if (patmatch #nsd_language "deutsch")
+      (
+        (set #wrongversion "Sie benötigen mindestens Installer V43!")
+
+        (set #nsd_installnsdpatch
+        (cat "Möchten Sie jetzt NSDPatch installieren oder ein Update davon machen?\n\n"
+             "NSDPatch repariert nicht nur obskure Fehler von Gerätetreibern in AmigaOS "
+             "und Fremdherstellern, es verbessert auch die Anzeige und Verwaltung "
+             "von Gerätetreibern in modernen Applikationen.\n\n"
+             "Im allgemeinen macht NSDPatch den "
+             "Zugriff auf Gerätetreiber sicherer."
+        ))
+        (set #nsd_installnsdpatch_help
+        (cat "Haben Sie schon die README.FIRST-Datei angesehen? Dort steht in Englisch "
+             "schon in den ersten Absätzen genau, was NSDPatch alles für Sie tun kann. "
+             "Es ist genaugenommen nur eine etwas detailliertere Beschreibung dessen, was "
+             "Sie in diesem Fenster vorhin gelesen haben.\n"
+             "Für erfahrene Anwender ist in dieser Datei noch einiges an Details zu finden.\n\n"
+             "Für weitere Rückfragen finden Sie am Ende dieser Datei auch die Kontaktadresse "
+             "des Autors.\n\n"
+             "Sie sollten wirklich NSDPatch installieren oder, falls schon vorhanden, updaten!"
+        ))
+        (set #nsd_copypatch "Kopiere NSDPatch nach C:")
+        (set #nsd_copypatch_help
+        (cat "NSDPatch behebt verschiedene Probleme mit Devices in AmigaOS "
+             "und stellt auch konfigurierbar Kompatibilität zum "
+             "New Style Device Standard von Amiga Technologies GmbH her.\n"
+             "Es wird empfohlen, daß Sie es installieren."))
+        (set #nsd_installpatchsys "Installiere NSDPatch im Startup...")
+        (set #nsd_installpatchsys_help
+        (cat "Um NSDPatch zu aktivieren, müssen mehrere Zeilen in Ihrer "
+             "Startup-Sequence-Datei eingefügt werden. NSDPatch greift tief in "
+             "AmigaOS ein und sollte idealerweise unmittelbar nach SetPatch "
+             "in Ihrer Startup-Sequence gestartet werden.\n"))
+        (set #nsd_installpatch "Installiere NSDPatch im User-Startup ...")
+        (set #nsd_installpatch_help
+        (cat "Um NSDPatch zu aktivieren, müssen mehrere Zeilen in Ihrer "
+             "User-Startup-Datei eingefügt werden. Idealerweise sollte dies "
+             "zwar besser unmittelbar nach SetPatch in Ihrer Startup-Sequence-Datei "
+             "geschehen, leider ist dies momentan nicht möglich. Wahrscheinlich "
+             "ist ARexx nicht aktiv. Daher wurde User-Startup als die, in "
+             "diesem Fall, zweitbeste Lösung gewählt."))
+        (set #nsd_runnsdpatch "Soll NSDPatch jetzt gestartet werden?")
+        (set #nsd_runnsdpatch_help
+        (cat "Wenn Sie NSDPatch nicht jetzt starten, wird das Programm erst nach "
+             "dem nächsten Reset aktiv. Es ist üblicherweise eine gute Entscheidung, "
+             "NSDPatch jetzt zu aktivieren.\n"))
+        (set #nsd_newconfig
+        (cat "Es ist noch keine Konfigurationsdatei für NSDPatch installiert. "
+             "Möchten Sie jetzt die aktuelle installieren?\n\n"
+             "NSDPatch funktioniert nicht ohne Konfigurationsdatei!\n"
+        ))
+        (set #nsd_newconfig_help
+        (cat "Eventuell möchten Sie nach der Installation noch Änderungen an "
+             "der Konfigurationsdatei DEVS:NSDPatch.cfg vornehmen. "
+             "Bitte machen Sie sich in dem Fall noch eine Sicherheitskopie "
+             "Ihrer veränderten Datei, um Sie auch bei zukünftigen automatischen "
+             "Updates noch als Referenz zu behalten.\n\n"
+             "Sie sollten immer die aktuellste Konfiguration installiert haben!"
+        ))
+        (set #nsd_updateconfig
+        (cat "Es ist schon eine Konfigurationsdatei für NSDPatch als "
+             "DEVS:NSDPatch.cfg installiert. Soll sie durch die Datei dieser "
+             "Installation ersetzt werden?\n\n"
+             "Bitte lesen Sie den Hilfetext, bevor Sie eine Entscheidung treffen!\n"
+        ))
+        (set #nsd_updateconfig_help
+        (cat "Eventuell haben Sie an der Datei DEVS:NSDPatch.cfg schon "
+             "Änderungen vorgenommen die Sie nicht verlieren wollen. "
+             "Wählen Sie dann 'Nein' und vergleichen Sie die Dateien nach "
+             "der Installation manuell.\n\n"
+             "Sie sollten immer die aktuellste Konfiguration installiert haben!"
+        ))
+      )
+    )
+))
+
+;------------------------------------------------------------------------
+; Needed in sourcedir:
+;   NSDPatch
+;   v40.nsdpatchcfg or NSDPatch.cfg
+;   NSDPatchInstall.rexx
+(procedure P_INSTALL_NSDPATCH #nsd_sourcedir
+(
+    (if (askbool
+          (prompt #nsd_installnsdpatch)
+          (help #nsd_installnsdpatch_help)
+          (default 1)
+        )
+      (
+        (set #nsd_patchisnew   (not (exists "SYS:C/NSDPatch")))
+        (set #nsd_configisnew  (not (exists "SYS:DEVS/NSDPatch.cfg")))
+        (set #nsd_copyconfig 0)
+
+        ; Copy or update NSDPatch
+        (copylib
+            (prompt #nsd_copypatch)
+            (help #nsd_copypatch_help)
+            (confirm)
+            (source (tackon #nsd_sourcedir "NSDPatch"))
+            (dest "SYS:C")
+         )
+
+        ; Accept any existing file. Quick and silent copy
+        (if #nsd_configisnew
+          (
+            (if (askbool
+                  (prompt #nsd_newconfig)
+                  (help #nsd_newconfig_help)
+                  (default 1)
+                )
+              (
+                (set #nsd_copyconfig 1)
+              )
+            ) ; if
+          )
+          (
+            (if (askbool
+                  (prompt #nsd_updateconfig)
+                  (help #nsd_updateconfig_help)
+                  (default 0)
+                )
+              (
+                (set #nsd_copyconfig 1)
+              )
+            ) ; if
+          )
+        ) ; if
+
+        ; We will not ever touch any existing NSDPatch configuration!
+        (if #nsd_copyconfig
+          (
+            (set #nsd_config "v40.nsdpatchcfg")
+            (if (exists (tackon #nsd_sourcedir "NSDPatch.cfg"))
+              (
+                ; New style archive
+                (set #nsd_config "NSDPatch.cfg")
+              )
+            )
+
+            (copyfiles
+                (source (tackon #nsd_sourcedir #nsd_config))
+                (dest "SYS:DEVS")
+                (newname "NSDPatch.cfg")
+                (optional "askuser" "force")
+            )
+          )
+        ) ; if
+
+        ; Only ask for Startup-Sequence installation if necessary!
+        (if #nsd_patchisnew
+            (
+            (set #nsd_res (run
+                  (confirm)
+                  (prompt #nsd_installpatchsys)
+                  (help #nsd_installpatchsys_help)
+                  (tackon #nsd_sourcedir "RX NSDPatchInstall.rexx")
+            ))
+
+            (if (not (= #nsd_res 0))
+              (
+                (startup "NSDPATCH"
+                  (prompt #nsd_installpatch)
+                  (help #nsd_installpatch_help)
+                  (command "C:NSDPatch QUIET\n")
+                )
+              )
+            ) ; if
+          )
+        ) ; if
+
+        ; Activate NSDPatch now if acceptable!
+        (run
+            (confirm)
+            (prompt #nsd_runnsdpatch)
+            (help #nsd_runnsdpatch_help)
+            "C:NSDPatch QUIET"
+        )
+      )
+    ) ; if
+
+)) ; P_INSTALL_NSDPATCH
+
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+; We can't handle this script without Installer 42.9 or better!
+(if (< @installer-version 2752521)
+  (
+    ; Big problem!
+    (user 2)
+    (message #wrongversion)
+    (exit (quiet))
+  )
+)
+
+(welcome)
+(set @default-dest "C:")
+
+(complete 5)
+(P_SETUP_NSDPATCH_TEXTS @language)
+(complete 10)
+(P_INSTALL_NSDPATCH "")
+(complete 100)
+
+;------------------------------------------------------------------------
+

@@ -1,0 +1,75 @@
+# This file contains product information that can be used by
+# KingFisher 2.0 and other similar tools.
+
+.name
+SysInfo
+.type
+OS Utility
+.short
+Gives comprehensive system information
+.description
+A brand new release of this popular program.  It reports interesting
+information about the configuration of your Amiga, including some
+speed comparisons with other configurations, versions of the OS
+software, and much more.  Binary only.
+.version
+3.23
+.reference
+AmigaLibDisk860:SysInfo/
+3.18
+AmigaLibDisk820:SysInfo/
+3.11
+AmigaLibDisk758:SysInfo/
+3.01
+AmigaLibDisk642:SysInfo/
+2.69
+AmigaLibDisk625:SysInfo/
+2.62
+AmigaLibDisk619:SysInfo/
+2.60
+AmigaLibDisk583:SysInfo/
+2.56
+AmigaLibDisk571:SysInfo/
+2.53
+AmigaLibDisk565:SysInfo/
+2.51
+AmigaLibDisk553:SysInfo/
+2.40
+AmigaLibDisk502:SysInfo/
+2.22
+AmigaLibDisk433:SysInfo/
+1.98
+AmigaLibDisk420:SysInfo/
+1.94
+AmigaLibDisk368:SysInfo/
+1.4
+.date
+1993.11.07
+.author
+Nic Wilson
+.distribution
+Shareware
+.price
+$20(US)
+.address
+Nic Wilson Software
+P.O. Box 1164
+Toowoomba Queensland 4350
+.email
+cbmaus!cbmozq!wilson!nicw@cbmvax.commodore.com     
+.docs
+SysInfo.doc
+SysInfo.history
+BOARDS_READ.ME
+.described-by
+Fred Fish (fnf@fishpond.cygnus.com)
+.submittal
+Submitted on disk directly by the author.
+.contents
+SysInfo		A brand new release of this popular program.  It reports
+		interesting information about the configuration of your
+		Amiga, including some speed comparisons with other config-
+		urations, versions of the OS software, and much more.
+		Version 3.23, an update to version 3.18 on disk number 860.
+		Binary only.
+		Author:  Nic Wilson

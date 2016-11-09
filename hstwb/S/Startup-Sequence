@@ -1,0 +1,195 @@
+; Startup-Sequence
+; ----------------
+; Author: Henrik Noerfjand Stengaard
+; Date: 2016-09-13
+
+
+IF EXISTS S:first-boot
+	SKIP configuresetup
+ENDIF
+
+
+; Get mouse button pressed
+C:GetMouseInput LOCAL
+
+
+; Run configure setup, if right mouse button is hold down during startup (for recovery)
+IF $MouseInput EQ 2
+	SKIP configuresetup
+ENDIF
+
+SKIP startup
+
+; Configure Setup
+LAB configuresetup
+
+C:MakeDir RAM:T RAM:Clipboards RAM:ENV RAM:ENV/Sys
+Assign ENV: RAM:Env
+C:Copy ENVARC:~(#?.info) ENV: ALL QUIET
+Assign >NIL: T: RAM:T
+
+; User env
+execute S:User-Env
+
+cd SYS:Programs/Configuration
+execute Configure-Setup
+
+echo "Rebooting in 10 seconds..."
+wait 10
+reboot
+
+
+; Startup
+; -------
+LAB startup
+
+
+; Execute remove AGS2 favourites
+IF EXISTS S:RemoveAgs2Favourites
+	execute S:RemoveAgs2Favourites
+	delete >NIL: S:RemoveAgs2Favourites
+ENDIF
+
+
+; Execute remove AMS favourites
+IF EXISTS S:RemoveAmsFavourites
+	execute S:RemoveAmsFavourites
+	delete >NIL: S:RemoveAmsFavourites
+ENDIF
+
+
+; Execute Blizzard script, if "Use-Blizzard" file exists
+IF EXISTS S:Use-Blizzard
+   execute S:Blizzard
+ENDIF
+
+
+; Execute ACA script, if "Use-ACA" file exists
+IF EXISTS S:Use-ACA
+   execute S:ACA
+ENDIF
+
+
+; Execute Furia script, if "Use-Furia" file exists
+IF EXISTS S:Use-Furia
+   execute S:Furia
+ENDIF
+
+
+; Load scsi.device and icon.library using loadmodule, if not "Use-Blizzard" file exists
+IF NOT EXISTS S:Use-Blizzard
+	; Add loadmodule scsi.device, if "Load-ScsiDevice" and "DEVS:scsi.device" files exists
+	IF EXISTS S:Load-ScsiDevice
+		IF EXISTS DEVS:scsi.device
+			echo "C:LoadModule DEVS:scsi.device" NOLINE >RAM:Load-Modules
+		EndIF
+	EndIF
+
+	; Add loadmodule icon.library, if "Load-IconLibrary" file exists
+	IF EXISTS S:Load-IconLibrary
+		IF EXISTS RAM:Load-Modules
+			echo " LIBS:icon.library" NOLINE >>RAM:Load-Modules
+		Else
+			echo "C:LoadModule LIBS:icon.library" NOLINE >RAM:Load-Modules
+		EndIF
+	EndIF
+	
+	IF EXISTS RAM:Load-Modules
+		execute RAM:Load-Modules
+	EndIF
+ENDIF
+
+
+C:SetPatch QUIET
+
+
+C:Version >NIL:
+C:AddBuffers >NIL: DF0: 15
+FailAt 21
+
+
+C:anticlick
+C:PatchRam
+C:MinStack 8192
+C:TagLiFE
+C:PatchWB
+
+
+C:MakeDir RAM:T RAM:Clipboards RAM:ENV RAM:ENV/Sys
+Assign ENV: RAM:Env
+C:Copy ENVARC:~(#?.info) ENV: ALL QUIET
+
+
+Resident >NIL: C:Assign PURE
+Resident >NIL: C:Execute PURE
+
+Assign >NIL: T: RAM:T
+Assign >NIL: CLIPS: RAM:Clipboards
+Assign >NIL: REXX: S:
+Assign >NIL: PRINTERS: DEVS:Printers
+Assign >NIL: KEYMAPS: DEVS:Keymaps
+Assign >NIL: LOCALE: SYS:Locale
+Assign >NIL: LIBS: SYS:Classes ADD
+Assign >NIL: HELP: LOCALE:Help DEFER
+Assign >NIL: DOPUS: SYS:Programs/DirOpus4
+
+
+; User assign
+execute S:User-Assign
+
+
+; User env
+execute S:User-Env
+
+
+; Load whdloadargs to env, if it exists
+IF EXISTS S:Settings/whdloadargs
+  copy >NIL: S:Settings/whdloadargs ENV:whdloadargs
+ENDIF
+
+
+; Load favouritesmode to env, if it exists
+IF EXISTS S:Settings/favouritesmode
+  copy >NIL: S:Settings/favouritesmode ENV:favouritesmode
+ENDIF
+
+
+; Load ags2music to env, if it exists
+IF EXISTS S:Settings/ags2music
+  copy >NIL: S:Settings/ags2music ENV:ags2music
+ENDIF
+
+
+; Start Amiga Boot Selector, if "Start-ABS" file exists
+IF EXISTS S:Start-ABS
+	C:abs
+	execute S:Boot.abs
+	SKIP end
+ENDIF
+
+
+; Start Multiboot, if "Start-Multiboot" file exists
+IF EXISTS S:Start-Multiboot
+	execute S:Multiboot
+	SKIP end
+ENDIF
+
+
+; Start Arcade Game Selector 2 Games script, if "Start-AGS2Games" file exists
+IF EXISTS S:Start-AGS2Games
+	execute S:AGS2Games
+ENDIF
+
+
+; Start Arcade Game Selector 2 Demos script, if "Start-AGS2Demos" file exists
+IF EXISTS S:Start-AGS2Demos
+	execute S:AGS2Demos
+ENDIF
+
+
+; Start Workbench
+execute S:WB
+
+
+; End
+LAB end

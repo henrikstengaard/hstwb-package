@@ -1,0 +1,67 @@
+;$VER: IDEfix Documentation Install 48.8 (06.12.97)
+;Copyright ©1997 Elaborate Bytes, Oliver Kastl
+
+(onerror
+	(makeassign "DocsInst" (safe))
+	(makeassign "Docs" (safe))
+)
+
+
+(complete 0)
+
+(makeassign "DocsInst" "" ( safe) )
+
+
+(set #DefaultDir @default-dest )
+
+(set #theirlevel @user-level )
+
+(user 2)
+
+(set #DocsDir
+	(askdir
+		(prompt "\n\nSpecify the directory in where the IDEfix97/Docs directory shall be created:" )
+		(help "\n\nSpecify the directory in where the IDEfix97 and the Docs directory shall be created." )
+		(default #DefaultDir)
+		(newpath)
+	)
+)
+
+(complete 45)
+
+(user #theirlevel)
+
+(set #DocsDir (tackon #DocsDir "IDEfix97"))
+
+(if (NOT (exists #DocsDir ))
+	(
+	(makedir #DocsDir
+		(safe)
+		(infos)
+	)
+	)
+)
+
+(set @default-dest #DocsDir)
+
+
+(makeassign "Docs" #DocsDir (safe))
+
+(complete 50)
+
+(working "\n\nDecrunching Documentation...."
+         "\n\nPlease Wait!")
+
+	( if (NOT @pretend )
+	(( if ( run "DocsInst:c/lhex -afFqw=Docs: e DocsInst:Docs.lha" )
+		(
+		(abort "\n\nUnable to decrunch documentation!")
+		)
+	)))
+
+
+(complete 100)
+
+(makeassign "DocsInst" (safe))
+(makeassign "Docs" (safe))
+
