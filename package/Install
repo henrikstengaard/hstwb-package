@@ -2,11 +2,16 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2016-11-08
+; Date: 2016-11-14
 ;
 ; This script extracts and installs zip archives for HstWB Package. 
 
-unzip >NIL: -o -x PACKAGEDIR:hstwb.zip -d INSTALLDIR:
+unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
 
 ; Fix read write execute flags
-protect >NIL: INSTALLDIR:C/#? +rwe
+protect >NIL: SYSTEMDIR:C/#? +rwe
+
+; Copy disk icon to DH1
+IF EXISTS DH1:
+  copy DH0:Disk.info TO DH1:Disk.info
+ENDIF
