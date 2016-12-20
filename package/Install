@@ -2,10 +2,11 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2016-11-14
+; Date: 2016-12-20
 ;
 ; This script extracts and installs zip archives for HstWB Package. 
 
+echo "Installing HstWB..."
 unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
 
 ; Fix read write execute flags
