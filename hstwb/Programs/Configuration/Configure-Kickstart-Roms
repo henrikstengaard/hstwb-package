@@ -1,0 +1,136 @@
+; Configure Kickstart Roms Script
+; -------------------------------
+; Author: Henrik Noerfjand Stengaard
+; Date: 2016-12-21
+;
+; This script configures Kickstart roms for whdload.
+
+
+; Configure Kickstart Roms Menu
+; -----------------------------
+LAB kickstartromsmenu
+
+echo "kick33180.A500  : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/kick33180.A500"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "kick34005.A500  : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/kick34005.A500"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "kick40063.A600  : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/kick40063.A600"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "kick40068.A1200 : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/kick40068.A1200"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "kick40068.A4000 : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/kick40068.A4000"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "rom.key         : " NOLINE >>T:kickstartromsmenu
+IF EXISTS "SYS:Devs/Kickstarts/rom.key"
+  echo "OK " >>T:kickstartromsmenu
+ELSE
+  echo "N/A" >>T:kickstartromsmenu
+ENDIF
+
+echo "Install Kickstart Roms" >>T:kickstartromsmenu
+echo "Reset Kickstart Roms" >>T:kickstartromsmenu
+echo "Exit" >>T:kickstartromsmenu
+
+
+; Show kickstart roms menu
+C:ReqList CLONERT BUTTONS I T:kickstartromsmenu O ENV:kickstartromsmenu H "Configure Kickstart Roms"
+
+; Delete kickstart roms menu
+delete >NIL: T:kickstartromsmenu
+
+; Install Kickstarts
+IF $kickstartromsmenu eq "7" 
+	SKIP installkickstarts
+ENDIF 
+
+; Reset
+IF $kickstartromsmenu eq "8" 
+	SKIP resetkickstarts
+ENDIF 
+
+SKIP end
+
+
+; Install Kickstarts
+; ------------------
+LAB installkickstarts
+
+; Select kickstart directory
+setenv kickstartdir ""
+setenv kickstartdir `REQUESTFILE TITLE "Select drawer with Kickstart roms" NOICONS DRAWERSONLY`
+
+If "$kickstartdir" eq ""
+	SKIP kickstartromsmenu back
+EndIf
+
+; Kickstart installation
+echo "Install Kickstart rom files"
+echo "---------------------------"
+echo ""
+fsearch "$kickstartdir" >T:kickstart-rom-files1
+sed "s/^\(.\)/execute *"SYS:Programs\/Configuration\/Copy-Kickstart-Rom*" *"\1/" T:kickstart-rom-files1 >T:kickstart-rom-files2
+sed "s/\(.\)$/\1*" *"SYS:Devs\/Kickstarts\/*"/" T:kickstart-rom-files2 >T:kickstart-rom-files3
+execute T:kickstart-rom-files3
+echo "Done."
+wait 1
+SKIP end
+
+
+; Reset Kickstarts
+; ----------------
+LAB resetkickstarts
+
+setenv resetkickstarts `RequestChoice "Reset Kickstarts" "Do you want reset and delete Kickstart roms?" "Yes|No"`
+IF $resetkickstarts eq "0"
+  SKIP kickstartromsmenu back
+ENDIF
+
+IF EXISTS "SYS:Devs/Kickstarts/kick33180.A500"
+  delete >NIL: "SYS:Devs/Kickstarts/kick33180.A500"
+ENDIF
+IF EXISTS "SYS:Devs/Kickstarts/kick34005.A500"
+  delete >NIL: "SYS:Devs/Kickstarts/kick34005.A500"
+ENDIF
+IF EXISTS "SYS:Devs/Kickstarts/kick40063.A600"
+  delete >NIL: "SYS:Devs/Kickstarts/kick40063.A600"
+ENDIF
+IF EXISTS "SYS:Devs/Kickstarts/kick40068.A1200"
+  delete >NIL: "SYS:Devs/Kickstarts/kick40068.A1200"
+ENDIF
+IF EXISTS "SYS:Devs/Kickstarts/kick40068.A4000"
+  delete >NIL: "SYS:Devs/Kickstarts/kick40068.A4000"
+ENDIF
+IF EXISTS "SYS:Devs/Kickstarts/rom.key"
+  delete >NIL: "SYS:Devs/Kickstarts/rom.key"
+ENDIF
+
+SKIP kickstartromsmenu back
+
+
+; End
+LAB end
