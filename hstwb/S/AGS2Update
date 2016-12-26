@@ -1,0 +1,65 @@
+.KEY updatemode/a,whdloadslavefile/a,menuitemindexname/a,menuitemfilename/a
+.BRA {
+.KET }
+
+; AGS2 Update Script
+; ------------------
+
+IF "{updatemode}" EQ "EXIST"
+  SKIP exist
+ENDIF
+IF "{updatemode}" EQ "SHOW"
+  SKIP show
+ENDIF
+IF "{updatemode}" EQ "HIDE"
+  SKIP hide
+ENDIF
+
+SKIP end
+
+
+; Exist
+; -----
+LAB exist
+
+; Show menuitem in AGS2, if whdload slave file exists. Otherwise hide it
+IF EXISTS "{whdloadslavefile}"
+  ; Rename menuitem run to menuitem ru_ to show it in AGS2
+  IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+    RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+  ENDIF
+ELSE
+  ; Rename menuitem run to menuitem ru_ to hide it in AGS2
+  IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+    RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+  ENDIF
+ENDIF
+
+SKIP end
+
+
+; Show
+; ----
+LAB show
+
+; Show menuitem in AGS2
+IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+  RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+ENDIF
+
+SKIP end
+
+
+; Hide
+; ----
+LAB hide
+
+; Hide menuitem in AGS2
+IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+  RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+ENDIF
+
+
+; End
+; ---
+LAB end
