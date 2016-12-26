@@ -1,6 +1,39 @@
-.KEY updatemode/a,whdloadslavefile/a,menuitemindexname/a,menuitemfilename/a
+.KEY hstwbmenuitemdatafile/a,updatemode/a
 .BRA {
 .KET }
+
+
+; Fail, if hstwb menu item data file doesn't exist 
+IF NOT EXISTS "{hstwbmenuitemdatafile}"
+  SKIP fail
+ENDIF
+
+
+; Get AGS2 name
+grep -i -e "^AGS2FileName" <"{hstwbmenuitemdatafile}" >T:ags2filename
+set ags2filename `sed "s/^AGS2FileName=//" T:ags2filename`
+
+
+; Get whdload slave directory
+grep -i -e "^WhdloadSlaveDir" <"{hstwbmenuitemdatafile}" >T:whdloadslavedir
+set whdloadslavedir `sed "s/^WhdloadSlaveDir=//" T:whdloadslavedir`
+
+
+; Get whdload slave filename
+grep -i -e "^WhdloadSlaveFileName" <"{hstwbmenuitemdatafile}" >T:whdloadslavefilename
+set whdloadslavefilename `sed "s/^WhdloadSlaveFileName=//" T:whdloadslavefilename`
+
+
+; Get ags2 index name
+echo "$ags2filename" >T:ags2filename1
+cut -c 1 T:ags2filename1 >T:ags2filename2
+grep -v -i -e "^line" <"T:ags2filename2" >T:ags2filename3
+set ags2indexname ""
+set ags2indexname `grep -i -e "^[a-z]" <"T:ags2filename3"`
+IF "$ags2indexname" EQ ""
+  set ags2indexname "0"
+ENDIF
+
 
 ; AGS2 Update Script
 ; ------------------
@@ -23,15 +56,17 @@ SKIP end
 LAB exist
 
 ; Show menuitem in AGS2, if whdload slave file exists. Otherwise hide it
-IF EXISTS "{whdloadslavefile}"
+IF EXISTS "$whdloadslavedir$whdloadslavefilename"
   ; Rename menuitem run to menuitem ru_ to show it in AGS2
-  IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
-    RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+  IF EXISTS "$menupath/$ags2indexname.ags/$ags2filename.ru_"
+    echo "show"
+    RENAME "$menupath/$ags2indexname.ags/$ags2filename.ru_" "$menupath/$ags2indexname.ags/$ags2filename.run"
   ENDIF
 ELSE
   ; Rename menuitem run to menuitem ru_ to hide it in AGS2
-  IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
-    RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+  IF EXISTS "$menupath/$ags2indexname.ags/$ags2filename.run"
+    echo "hide"
+    RENAME "$menupath/$ags2indexname.ags/$ags2filename.run" "$menupath/$ags2indexname.ags/$ags2filename.ru_"
   ENDIF
 ENDIF
 
@@ -43,8 +78,9 @@ SKIP end
 LAB show
 
 ; Show menuitem in AGS2
-IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
-  RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
+IF EXISTS "$menupath/$ags2indexname.ags/$ags2filename.ru_"
+  echo "show"
+  RENAME "$menupath/$ags2indexname.ags/$ags2filename.ru_" "$menupath/$ags2indexname.ags/$ags2filename.run"
 ENDIF
 
 SKIP end
@@ -55,9 +91,18 @@ SKIP end
 LAB hide
 
 ; Hide menuitem in AGS2
-IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
-  RENAME "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run" "$menupath/{menuitemindexname}.ags/{menuitemfilename}.ru_"
+IF EXISTS "$menupath/$ags2indexname.ags/$ags2filename.run"
+  echo "hide"
+  RENAME "$menupath/$ags2indexname.ags/$ags2filename.run" "$menupath/$ags2indexname.ags/$ags2filename.ru_"
 ENDIF
+
+SKIP end
+
+; Fail
+; ----
+LAB fail
+
+echo "Failed"
 
 
 ; End
