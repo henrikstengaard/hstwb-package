@@ -1,0 +1,164 @@
+.KEY runfile/a
+.BRA {
+.KET }
+
+
+; End, if menupath is not defined
+IF NOT EXISTS ENV:menupath
+  echo "Error: Environment variable 'menupath' is not defined"
+  SKIP end
+ENDIF
+
+
+; End, if run file doesn't exist 
+IF NOT EXISTS "{runfile}"
+  echo "Error: Run file '{runfile}' doesn't exist"
+  SKIP end
+ENDIF
+
+
+; Get run dir
+set rundir `dirname "{runfile}"`
+echo "$rundir" >T:rundir
+search T:rundir ":" NONUM >NIL:
+IF WARN
+  set rundir "$rundir:"
+ENDIF
+
+; Get run filename
+echo "{runfile}" >T:runfile
+rep T:runfile ":" ":/"
+set runfilename `type T:runfile`
+set runfilename `basename "$runfilename"`
+
+
+; Check, if run file is HstWB Menu Item
+; -------------------------------------
+echo "$runfilename" >T:hstwbmenuitem
+
+; Skip, if run file doesn't contain "hstwbmenuitem"
+search T:hstwbmenuitem "hstwbmenuitem" NONUM >NIL:
+IF WARN
+  SKIP whdloadslave
+ENDIF
+
+; Skip, if run file doesn't contain ".data"
+search T:hstwbmenuitem ".data" NONUM >NIL:
+IF WARN
+  SKIP whdloadslave
+ENDIF
+
+; Skip, if HstWB Menu Item run file doesn't exist
+set hstwbmenuitem ""
+set hstwbmenuitem `sed "s/\.data$//" T:hstwbmenuitem`
+IF NOT EXISTS "$rundir/$hstwbmenuitem.run"
+  SKIP whdloadslave
+ENDIF
+
+; Set AGS2 menu item variables
+search "{runfile}" "RunFile=" NONUM >T:hstwbrunfile
+IF WARN
+  SKIP whdloadslave
+ENDIF
+set hstwbrunfile `sed "s/^RunFile=//" T:hstwbrunfile`
+
+search "{runfile}" "AGS2FileName=" NONUM >T:hstwbags2filename
+IF WARN
+  SKIP whdloadslave
+ENDIF
+
+set ags2filename `sed "s/^AGS2FileName=//" T:hstwbags2filename`
+set ags2runfile "$rundir/$hstwbrunfile"
+set ags2runscriptfile "$rundir/$hstwbmenuitem.run"
+
+
+SKIP addags2menuitem
+
+
+; Check, if run file is whdload slave
+; -----------------------------------
+LAB whdloadslave
+
+; Skip, if run file doesn't end with ".slave"
+echo "{runfile}" >T:whdloadslave
+set whdloadslave ""
+set whdloadslave `grep -i -e "\.slave$" <"T:whdloadslave"`
+IF "$whdloadslave" EQ ""
+  SKIP startrunfile
+ENDIF
+
+
+; Build ags2 run script using AGS2 whdload run template
+copy >NIL: S:AGS2WhdloadRunTemplate T:ags2runscript
+rep T:ags2runscript "[*$RunDir]" "$rundir"
+rep T:ags2runscript "[*$RunFileName]" "$runfilename"
+
+; Set HstWB menu item variables
+echo "$runfilename" >T:ags2name
+set ags2filename `sed "s/\.slave$//" T:ags2name`
+set ags2runscriptfile "T:ags2runscript"
+set ags2runfile "{runfile}"
+
+SKIP addags2menuitem
+
+
+; Start run file
+; --------------
+LAB startrunfile
+
+echo "cd *"$rundir*"" >T:ags2runscript
+echo "$runfilename" >>T:ags2runscript
+set ags2filename "$runfilename"
+set ags2runscriptfile "T:ags2runscript"
+set ags2runfile "{runfile}"
+
+
+; Add AGS2 Menu Item
+; -------------------
+LAB addags2menuitem
+set ags2filenameerror ""
+
+LAB enterags2name
+set ags2filename `RequestString "AGS2 Name" "Enter name for AGS2 (max 26 chars)*N$ags2filenameerror" default="$ags2filename"`
+
+; Get ags2 index name
+echo "$ags2filename" >T:ags2filename
+sed "s/^\([a-zA-Z]\)/echo *"\1*";/" T:ags2filename >T:ags2indexname
+set ags2indexname `execute T:ags2indexname`
+IF "$ags2indexname" EQ ""
+  set ags2indexname "0"
+ENDIF
+
+; Trim ags2 filename to length of 26 chars
+cut -c 1-26 T:ags2filename >T:ags2filename2
+set ags2filename `tail -n1 T:ags2filename2`
+
+; Make AGS2 index directory, if it doesn't exist
+IF NOT EXISTS "$menupath/$ags2indexname.ags"
+  makedir "$menupath/$ags2indexname.ags"
+ENDIF
+
+; Skip to enter ags2 name, if ags2 file name already exists
+IF EXISTS "$menupath/$ags2indexname.ags/$ags2filename.run"
+  set ags2filenameerror "Error: AGS2 name '$ags2filename' already exists!"
+  SKIP enterags2name back
+ENDIF
+
+; Build ags2 run pre template
+copy >NIL: S:AGS2RunPreTemplate T:ags2runpretemplate
+rep T:ags2runpretemplate "[*$RunFile]" "$ags2runfile"
+rep T:ags2runpretemplate "[*$AGS2IndexName]" "$ags2indexname"
+rep T:ags2runpretemplate "[*$AGS2FileName]" "$ags2filename"
+
+; Build ags2 menu item
+echo "" NOLINE >"$menupath/$ags2indexname.ags/$ags2filename.run"
+type "T:ags2runpretemplate" >>"$menupath/$ags2indexname.ags/$ags2filename.run"
+echo "" >>"$menupath/$ags2indexname.ags/$ags2filename.run"
+type "$ags2runscriptfile" >>"$menupath/$ags2indexname.ags/$ags2filename.run"
+echo "" >>"$menupath/$ags2indexname.ags/$ags2filename.run"
+type "S:AGS2RunPostTemplate" >>"$menupath/$ags2indexname.ags/$ags2filename.run"
+
+
+; End
+; ---
+LAB end
