@@ -6,6 +6,11 @@ IF NOT EXISTS ENV:menupath
   SKIP end
 ENDIF
 
+; Skip end, if music directory doesn't exist
+IF NOT EXISTS "$menupath/music"
+  SKIP end
+ENDIF
+
 ; Pick random music file from menupath music directory
 setenv randommusic `C:filepick "$menupath/music/#?"`
 
