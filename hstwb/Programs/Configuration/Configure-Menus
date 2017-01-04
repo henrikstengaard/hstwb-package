@@ -329,45 +329,93 @@ SKIP BACK ags2menu
 ; ------------------
 LAB ags2showexisting
 
+; Clear screen
+echo "*ec"
+
 fsearch "$ags2menupath" PAT #?.ru#? ALL >T:_ags2menuitemrunfiles1
 sed "s/^\(.\)/execute S:AGS2RunUpdate *"\1/" "T:_ags2menuitemrunfiles1" >"T:_ags2menuitemrunfiles2"
 sed "s/\(.\)$/\1*" *"EXIST*"/" "T:_ags2menuitemrunfiles2" >"T:_ags2menuitemrunfiles3"
+rep T:_ags2menuitemrunfiles3 "execute S:AGS2RunUpdate *"$ags2menupath/.Settings.ags" ";"
 echo "Updating $ags2menuname to only show existing..."
-set temp `execute "T:_ags2menuitemrunfiles3"`
+echo "(this can take several minutes)"
+execute "T:_ags2menuitemrunfiles3"
 echo "Done"
 delete T:_ags2menuitemrunfiles#? >NIL:
 
-SKIP BACK ags2menu
+SKIP ags2indexupdate
 
 
 ; AGS2 Show All
 ; -------------
 LAB ags2showall
 
+; Clear screen
+echo "*ec"
+
 fsearch "$ags2menupath" PAT #?.ru_ ALL >T:_ags2menuitemrunfiles1
 sed "s/^\(.\)/execute S:AGS2RunUpdate *"\1/" "T:_ags2menuitemrunfiles1" >"T:_ags2menuitemrunfiles2"
 sed "s/\(.\)$/\1*" *"SHOW*"/" "T:_ags2menuitemrunfiles2" >"T:_ags2menuitemrunfiles3"
+rep T:_ags2menuitemrunfiles3 "execute S:AGS2RunUpdate *"$ags2menupath/.Settings.ags" ";"
 echo "Updating $ags2menuname to show all..."
-set temp `execute "T:_ags2menuitemrunfiles3"`
+echo "(this can take several minutes)"
+execute "T:_ags2menuitemrunfiles3"
 echo "Done"
 delete T:_ags2menuitemrunfiles#? >NIL:
 
-SKIP BACK ags2menu
+SKIP ags2indexupdate
 
 
 ; AGS2 Hide All
 ; -------------
 LAB ags2hideall
 
+; Clear screen
+echo "*ec"
+
 fsearch "$ags2menupath" PAT #?.run ALL >T:_ags2menuitemrunfiles1
 sed "s/^\(.\)/execute S:AGS2RunUpdate *"\1/" "T:_ags2menuitemrunfiles1" >"T:_ags2menuitemrunfiles2"
 sed "s/\(.\)$/\1*" *"HIDE*"/" "T:_ags2menuitemrunfiles2" >"T:_ags2menuitemrunfiles3"
+rep T:_ags2menuitemrunfiles3 "execute S:AGS2RunUpdate *"$ags2menupath/.Settings.ags" ";"
 echo "Updating $ags2menuname to hide all..."
-set temp `execute "T:_ags2menuitemrunfiles3"`
+echo "(this can take several minutes)"
+execute "T:_ags2menuitemrunfiles3"
 echo "Done"
 delete T:_ags2menuitemrunfiles#? >NIL:
 
-SKIP BACK ags2menu
+
+; AGS2 Index Update
+; -----------------
+LAB ags2indexupdate
+
+echo "Updating $ags2menuname indexes..."
+execute S:AGS2IndexUpdate "$ags2menupath" "0"
+execute S:AGS2IndexUpdate "$ags2menupath" "A"
+execute S:AGS2IndexUpdate "$ags2menupath" "B"
+execute S:AGS2IndexUpdate "$ags2menupath" "C"
+execute S:AGS2IndexUpdate "$ags2menupath" "D"
+execute S:AGS2IndexUpdate "$ags2menupath" "E"
+execute S:AGS2IndexUpdate "$ags2menupath" "F"
+execute S:AGS2IndexUpdate "$ags2menupath" "G"
+execute S:AGS2IndexUpdate "$ags2menupath" "H"
+execute S:AGS2IndexUpdate "$ags2menupath" "I"
+execute S:AGS2IndexUpdate "$ags2menupath" "J"
+execute S:AGS2IndexUpdate "$ags2menupath" "K"
+execute S:AGS2IndexUpdate "$ags2menupath" "L"
+execute S:AGS2IndexUpdate "$ags2menupath" "M"
+execute S:AGS2IndexUpdate "$ags2menupath" "N"
+execute S:AGS2IndexUpdate "$ags2menupath" "O"
+execute S:AGS2IndexUpdate "$ags2menupath" "P"
+execute S:AGS2IndexUpdate "$ags2menupath" "Q"
+execute S:AGS2IndexUpdate "$ags2menupath" "R"
+execute S:AGS2IndexUpdate "$ags2menupath" "S"
+execute S:AGS2IndexUpdate "$ags2menupath" "T"
+execute S:AGS2IndexUpdate "$ags2menupath" "U"
+execute S:AGS2IndexUpdate "$ags2menupath" "V"
+execute S:AGS2IndexUpdate "$ags2menupath" "W"
+execute S:AGS2IndexUpdate "$ags2menupath" "X"
+execute S:AGS2IndexUpdate "$ags2menupath" "Y"
+execute S:AGS2IndexUpdate "$ags2menupath" "Z"
+echo "Done"
 
 
 ; End
