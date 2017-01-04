@@ -1,7 +1,7 @@
 ; Configure Menus Script
 ; ----------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2017-01-03
+; Date: 2017-01-04
 ;
 ; This script configures menus.
 
@@ -95,6 +95,16 @@ delete >NIL: T:ags2menu
 ; Add
 IF $ags2menu eq "1" 
 	SKIP ags2add
+ENDIF 
+
+; Rename
+IF $ags2menu eq "2" 
+	SKIP ags2rename
+ENDIF 
+
+; Delete
+IF $ags2menu eq "2" 
+	SKIP ags2delete
 ENDIF 
 
 ; Show existing
@@ -290,6 +300,25 @@ ENDIF
 IF EXISTS T:_ags2runscript
   delete T:_ags2runscript >NIL:
 ENDIF
+
+SKIP BACK ags2menu
+
+
+; AGS2 Rename
+; -----------
+LAB ags2rename
+
+fsearch "$menupath" PAT #?.ags >T:_ags2indexnames1
+sed "s/.ags*$//" "T:_ags2indexnames1" >"T:_ags2indexnames2"
+
+C:ReqList CLONERT I "T:_ags2indexnames2" O ENV:ags2indexname H "$menuname"
+
+SKIP BACK ags2menu
+
+
+; AGS2 Delete
+; -----------
+LAB ags2delete
 
 SKIP BACK ags2menu
 
