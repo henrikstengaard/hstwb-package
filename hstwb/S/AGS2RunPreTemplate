@@ -4,7 +4,7 @@
 
 ; Favourites Mode
 IF EXISTS ENV:favouritesmode
-  execute S:AGS2Favourites "[$AGS2IndexName]" "[$AGS2FileName]"
+  execute S:AGS2Favourites "[$AGS2IndexName]" "[$AGS2Name]"
   IF $favouritesmode EQ "add"
     SKIP end
   ENDIF
