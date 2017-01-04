@@ -13,7 +13,7 @@
 
 ; Hide ags2 index, if it doesn't contains run files
 IF EXISTS "{ags2menupath}/{ags2indexname}.ags"
-  search "{ags2menupath}/{ags2indexname}.ags" "#?.run" FILE
+  search "{ags2menupath}/{ags2indexname}.ags" "#?.run" FILE >NIL:
   IF WARN
     rename "{ags2menupath}/{ags2indexname}.ags" "{ags2menupath}/{ags2indexname}.ag_"
     SKIP end
@@ -22,8 +22,8 @@ ENDIF
 
 ; Show ags2 index, if it contains run files
 IF EXISTS "{ags2menupath}/{ags2indexname}.ag_"
-  search "{ags2menupath}/{ags2indexname}.ag_" "#?.run" FILE
-  IF WARN
+  search "{ags2menupath}/{ags2indexname}.ag_" "#?.run" FILE >NIL:
+  IF NOT WARN
     rename "{ags2menupath}/{ags2indexname}.ag_" "{ags2menupath}/{ags2indexname}.ags"
   ENDIF
 ENDIF
