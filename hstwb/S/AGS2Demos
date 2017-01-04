@@ -2,18 +2,26 @@
 ; -------------------------------------------
 
 
-; End script, if ags2 demos path is not defined
-IF NOT EXISTS ENV:ags2demospath
-	SKIP end
+; End, if S:AGSMenu.data file doesn't exist
+IF NOT EXISTS "S:AGS2Menu.data"
+  REQUESTCHOICE "Error" "AGS2 menu data file 'S:AGS2Menu.data'*Ndoesn't exist!" "OK" >NIL:
+  SKIP end
 ENDIF
+
+; End, if S:AGSMenu.data file doesn't contain 'AGS2DemosMenuDir'
+search "S:AGS2Menu.data" "AGS2DemosMenuDir=" NONUM >T:_ags2demosmenudir
+IF WARN
+  REQUESTCHOICE "Error" "AGS2 menu data file 'S:AGS2Menu.data'*Ndoesn't contain 'AGS2DemosMenuDir'!" "OK" >NIL:
+  SKIP end
+ENDIF
+
+; Set ags2 menu path to ags2 demos menu dir
+setenv ags2menupath `sed "s/^AGS2DemosMenuDir=//" T:_ags2demosmenudir`
+delete "T:_ags2demosmenudir" >NIL:
 
 
 ; Assign AGS
-Assign AGS: $ags2demospath
-
-
-; Set menu path to ags2 demos path
-setenv menupath "$ags2demospath"
+Assign AGS: "$ags2menupath"
 
 
 ; Start AGS2
@@ -33,7 +41,7 @@ ENDIF
 
 
 ; Remove AGS assign
-ASSIGN AGS: $ags2demospath REMOVE
+ASSIGN AGS: "$ags2menupath" REMOVE
 
 
 ; End
