@@ -83,7 +83,7 @@ ENDIF
 LAB show
 
 ; Rename AGS2 run file to end with '.run' to show it in AGS2
-sed "s/_$/n/" T:_ags2runfile >T:_ags2runfilenew
+sed "s/_*$/n/" T:_ags2runfile >T:_ags2runfilenew
 set ags2runfilenew `type T:_ags2runfilenew`
 rename "{ags2runfile}" "$ags2runfilenew"
 
@@ -106,7 +106,7 @@ ENDIF
 LAB hide
 
 ; Rename AGS2 run file to end with '.ru_' to hide it in AGS2
-sed "s/n$/_/" T:_ags2runfile >T:_ags2runfilenew
+sed "s/n*$/_/" T:_ags2runfile >T:_ags2runfilenew
 set ags2runfilenew `type T:_ags2runfilenew`
 rename "{ags2runfile}" "$ags2runfilenew"
 
