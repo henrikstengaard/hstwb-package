@@ -1,5 +1,0 @@
-IF EXISTS "PACKAGEDIR:package/hstwb.zip"
-  delete >NIL: "PACKAGEDIR:package/hstwb.zip"
-ENDIF
-cd "PACKAGEDIR:hstwb/"
-"PACKAGEDIR:tools/zip" -r "PACKAGEDIR:package/hstwb.zip" *
