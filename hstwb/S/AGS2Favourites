@@ -1,60 +1,39 @@
-.KEY menuitemdatafile/a
+.KEY ags2indexname/a,ags2name/a
 .BRA {
 .KET }
 
-
-; get menu item name
-grep -i -e "^MenuItemName" <{menuitemdatafile} >T:menuitemname
-set menuitemname `sed "s/^MenuItemName=//" T:menuitemname`
-
-
-; get menu item index name
-echo "$menuitemname" >T:menuitemname
-sed "s/^\(.\)/echo *"\1*";/" T:menuitemname >T:menuitemindexname 
-set menuitemindexname `execute T:menuitemindexname`
-
-
-; Favourites Script
-; -----------------
+; AGS2 Favourites Script
+; ----------------------
 
 ; Clear screen
 echo "*ec"
 
 
-; End script, if favourites mode is off
-IF NOT EXISTS ENV:favouritesmode
-	SKIP end
+; End, if ags2 favourites mode is off or doesn't exist
+IF NOT EXISTS ENV:ags2favouritesmode
+  SKIP end
+ENDIF
+
+; End, if ags2 menu path doesn't exist
+IF NOT EXISTS ENV:ags2menupath
+  SKIP end
+ENDIF
+
+; End, if ags2 favourites directory doesn't exist
+IF NOT EXISTS "$ags2menupath/(Favourites).ags/"
+  SKIP end
 ENDIF
 
 
-; AGS2
-IF "{menusystem}" EQ "ags2"
-	IF EXISTS "$menupath/(Favourites).ags/"
-		IF $favouritesmode EQ "add"
-			SKIP ags2favouritesadd
-		ENDIF
-		IF $favouritesmode EQ "addrun"
-			SKIP ags2favouritesadd
-		ENDIF
-		IF $favouritesmode EQ "remove"
-			SKIP ags2favouritesremove
-		ENDIF
-	ENDIF
+; AGS2 favourites mode
+IF $ags2favouritesmode EQ "add"
+  SKIP ags2favouritesadd
 ENDIF
-
-; AMS
-IF "{menusystem}" EQ "ams"
-	IF EXISTS "$menupath/(Favourites)/"
-		IF $favouritesmode EQ "add"
-			SKIP amsfavouritesadd
-		ENDIF
-		IF $favouritesmode EQ "addrun"
-			SKIP amsfavouritesadd
-		ENDIF
-		IF $favouritesmode EQ "remove"
-			SKIP amsfavouritesremove
-		ENDIF
-	ENDIF
+IF $ags2favouritesmode EQ "addrun"
+  SKIP ags2favouritesadd
+ENDIF
+IF $ags2favouritesmode EQ "remove"
+  SKIP ags2favouritesremove
 ENDIF
 
 SKIP end
@@ -63,28 +42,13 @@ SKIP end
 ; Add to AGS2 favourites
 LAB ags2favouritesadd
 
-IF NOT EXISTS "$menupath/(Favourites).ags/{menuitemfilename}.run"
-	IF EXISTS "$menupath/{menuitemindexname}.ags/{menuitemfilename}.run"
-		CD "$menupath/(Favourites).ags/"
-		COPY >NIL: "$menupath/{menuitemindexname}.ags/{menuitemfilename}.#?" ""
-		ECHO "Added '{menuitemfilename}' to favourites"
-		WAIT 1
-	ENDIF
-ENDIF
-
-SKIP end
-
-
-; Add to AMS favourites
-LAB amsfavouritesadd
-
-IF NOT EXISTS "$menupath/(Favourites)/{menuitemfilename}.start"
-	IF EXISTS "$menupath/{menuitemindexname}/{menuitemfilename}.start"
-		CD "$menupath/(Favourites)/"
-		COPY "$menupath/{menuitemindexname}/{menuitemfilename}.#?" ""
-		ECHO "Added '{menuitemfilename}' to favourites"
-		WAIT 1
-	ENDIF
+IF NOT EXISTS "$ags2menupath/(Favourites).ags/{ags2name}.run"
+  IF EXISTS "$ags2menupath/{ags2indexname}.ags/{ags2name}.run"
+    CD "$ags2menupath/(Favourites).ags/"
+    COPY >NIL: "$ags2menupath/{ags2indexname}.ags/{ags2name}.#?" ""
+  ECHO "Added '{ags2name}' to favourites"
+    WAIT 1
+  ENDIF
 ENDIF
 
 SKIP end
@@ -94,23 +58,10 @@ SKIP end
 LAB ags2favouritesremove
 
 IF NOT EXISTS S:RemoveAgs2Favourites
-	ECHO "CD *"$menupath/(Favourites).ags/*"" > S:RemoveAgs2Favourites
+	ECHO "CD *"$ags2menupath/(Favourites).ags/*"" > S:RemoveAgs2Favourites
 ENDIF
-ECHO "DELETE >NIL: *"{menuitemfilename}.#?*"" >> S:RemoveAgs2Favourites
-ECHO "Queued '{menuitemfilename}' to be removed from favourites"
-WAIT 3
-
-SKIP end
-
-
-; Remove from AMS favourites
-LAB amsfavouritesremove
-
-IF NOT EXISTS S:RemoveAmsFavourites
-	ECHO "CD *"$menupath/(Favourites)/*"" > S:RemoveAmsFavourites
-ENDIF
-ECHO "DELETE >NIL: *"{menuitemfilename}.#?*"" >> S:RemoveAmsFavourites
-ECHO "Queued '{menuitemfilename}' to be removed from favourites"
+ECHO "DELETE >NIL: *"{ags2name}.#?*"" >> S:RemoveAgs2Favourites
+ECHO "Queued '{ags2name}' to be removed from favourites"
 WAIT 3
 
 SKIP end
