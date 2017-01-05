@@ -245,23 +245,25 @@ set ags2nameerror ""
 LAB enterags2name
 set ags2name `RequestString "AGS2 Name" "Enter name for AGS2 (max 26 chars)*N$ags2nameerror" default="$ags2name"`
 
+; Trim ags2 filename to length of 26 chars
+echo "$ags2name" >T:_ags2name
+cut -c 1-26 T:_ags2name >T:_ags2name2
+set ags2name `tail -n1 T:_ags2name2`
+
+; Remove invalid characters from ags2 name
+echo "$ags2name" >T:_ags2name
+set ags2name `sed "s/[^a-zA-Z0-9\.&\-+_ ]//g" T:_ags2name`
+
 ; Get ags2 index name
 echo "$ags2name" >T:_ags2name
 sed "s/^\(.\)/echo *"\1*";/" T:_ags2name >T:_ags2indexname
 set ags2indexname `execute T:_ags2indexname`
 echo "$ags2indexname" >T:_ags2indexname
+set ags2indexname `tr "[a-z]" "[A-Z]" <T:_ags2indexname`
+echo "$ags2indexname" >T:_ags2indexname
 set ags2indexname `sed "s/^[0-9]/0/" T:_ags2indexname`
 IF "$ags2indexname" EQ ""
   set ags2indexname "0"
-ENDIF
-
-; Trim ags2 filename to length of 26 chars
-cut -c 1-26 T:_ags2name >T:_ags2name2
-set ags2name `tail -n1 T:_ags2name2`
-
-; Make AGS2 index directory, if it doesn't exist
-IF NOT EXISTS "$ags2menupath/$ags2indexname.ags"
-  makedir "$ags2menupath/$ags2indexname.ags"
 ENDIF
 
 ; Skip to enter ags2 name, if ags2 file name already exists
@@ -273,6 +275,25 @@ IF EXISTS "$ags2menupath/$ags2indexname.ags/$ags2name.ru_"
   set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
   SKIP enterags2name back
 ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.run"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.ru_"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+
+; Show ags2 index directory, if it's hidden
+IF EXISTS "$ags2menupath/$ags2indexname.ag_"
+  rename "$ags2menupath/$ags2indexname.ag_" "$ags2menupath/$ags2indexname.ags"
+ENDIF
+
+; Make AGS2 index directory, if it doesn't exist
+IF NOT EXISTS "$ags2menupath/$ags2indexname.ags"
+  makedir "$ags2menupath/$ags2indexname.ags"
+ENDIF
+
 
 ; Build ags2 run pre template
 copy >NIL: S:AGS2RunPreTemplate T:_ags2runpretemplate
@@ -310,10 +331,32 @@ SKIP BACK ags2menu
 ; -----------
 LAB ags2rename
 
-fsearch "$ags2menupath" PAT #?.ags >T:_ags2indexnames1
-sed "s/.ags*$//" "T:_ags2indexnames1" >"T:_ags2indexnames2"
+echo "0*NA*NB*NC*ND*NE*NF*NG*NH*NI*NJ*NK*NL*NM*NN*NO*NP*NQ*NR*NS*NT*NU*NV*NW*NX*NY*NZ*NCancel" >T:ags2indexlist
 
-C:ReqList CLONERT I "T:_ags2indexnames2" O ENV:ags2indexname H "$ags2menuname"
+C:ReqList CLONERT I=T:ags2indexlist O=T:ags2indexline H="$ags2menuname" PAGE=15
+set ags2indexline `sed "s/\(.\)*$/\1q;d/" T:ags2indexline`
+set ags2indexname `sed "$ags2indexline" T:ags2indexmenu`
+
+IF $ags2indexname EQ "Cancel"
+  SKIP BACK ags2menu
+ENDIF
+
+IF EXISTS "$ags2menupath/$ags2indexname.ags"
+  fsearch "$ags2menupath/$ags2indexname.ags" PAT #?.ru? >T:ags2namelist1
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_"
+  fsearch "$ags2menupath/$ags2indexname.ag_" PAT #?.ru? >T:ags2namelist1
+ENDIF
+
+rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ags/" ""
+rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ag_/" ""
+sed "s/\.ru.*$//" T:ags2namelist1 >T:ags2namelist2
+
+C:ReqList CLONERT I=T:ags2namelist2 O=T:ags2nameline H="$ags2menuname, $ags2indexname" PAGE=15
+set ags2nameline `sed "s/\(.\)*$/\1q;d/" T:ags2nameline`
+set ags2name `sed "$ags2nameline" T:ags2namelist2`
+
+echo "rename $ags2name"
 
 SKIP BACK ags2menu
 
