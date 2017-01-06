@@ -399,43 +399,52 @@ LAB ags2renamename
 ; Set ags2 menuitem old dir
 IF EXISTS "$ags2menupath/$ags2indexnameold.ags"
   set ags2menuitemolddir "$ags2menupath/$ags2indexnameold.ags"
+  SKIP ags2renamerunnewdir
 ENDIF
 IF EXISTS "$ags2menupath/$ags2indexnameold.ag_"
   set ags2menuitemolddir "$ags2menupath/$ags2indexnameold.ag_"
-ENDIF
-IF "$ags2menuitemolddir" EQ ""
-  echo "Error: AGS2 menuitem old dir doesn't exist!"
-  wait 2
-  SKIP BACK ags2menu
+  SKIP ags2renamerunnewdir
 ENDIF
 
+; Fail, if AGS2 menuitem old dir doesn't exist
+echo "Error: AGS2 menuitem old dir doesn't exist!"
+wait 2
+SKIP BACK ags2rename
+
 ; Set ags2 menuitem newdir
+LAB ags2renamerunnewdir
 IF EXISTS "$ags2menupath/$ags2indexname.ags"
   set ags2menuitemnewdir "$ags2menupath/$ags2indexname.ags"
+  SKIP ags2renamerunfileset
 ENDIF
 IF EXISTS "$ags2menupath/$ags2indexname.ag_"
   set ags2menuitemnewdir "$ags2menupath/$ags2indexname.ag_"
-ENDIF
-IF "$ags2menuitemnewdir" EQ ""
-  echo "Error: AGS2 menuitem new dir doesn't exist!"
-  wait 2
-  SKIP BACK ags2menu
+  SKIP ags2renamerunfileset
 ENDIF
 
+; Fail, if AGS2 menuitem new dir doesn't exist
+echo "Error: AGS2 menuitem new dir doesn't exist!"
+wait 2
+SKIP BACK ags2rename
+
 ; Set ags2 run file
+LAB ags2renamerunfileset
 IF EXISTS "$ags2menuitemolddir/$ags2nameold.run"
   set ags2runfile "$ags2menuitemolddir/$ags2nameold.run"
+  SKIP ags2renamerunfileupdate
 ENDIF
 IF EXISTS "$ags2menuitemolddir/$ags2nameold.ru_"
   set ags2runfile "$ags2menuitemolddir/$ags2nameold.ru_"
-ENDIF
-IF "$ags2runfile" EQ ""
-  echo "Error: AGS2 run file doesn't exist!"
-  wait 2
-  SKIP BACK ags2menu
+  SKIP ags2renamerunfileupdate
 ENDIF
 
+; Fail, if ags2 run file doesn't exist
+echo "Error: AGS2 run file doesn't exist!"
+wait 2
+SKIP BACK ags2rename
+
 ; Update ags2 favourites line in ags2 run file
+LAB ags2renamerunfileupdate
 rep "$ags2runfile" "execute S:AGS2Favourites *"$ags2indexnameold*" *"$ags2nameold*"" "execute S:AGS2Favourites *"$ags2indexname*" *"$ags2name*""
 
 ; Move files to new ags2 index, if it's changed
@@ -447,19 +456,21 @@ ENDIF
 Aren "$ags2nameold" "$ags2name" "$ags2menuitemnewdir/$ags2nameold.#?"
 
 ; Set ags2 menu favourites path
+set ags2menufavouritespath ""
 IF EXISTS "$ags2menupath/.Favourites.ags"
   set ags2menufavouritespath "$ags2menupath/.Favourites.ags"
+  SKIP ags2renamefavourites
 ENDIF
 IF EXISTS "$ags2menupath/.Favourites.ag_"
   set ags2menufavouritespath "$ags2menupath/.Favourites.ag_"
-ENDIF
-IF "$ags2menufavouritespath" EQ ""
-  echo "Error: AGS2 favourites doesn't exist!"
-  wait 2
-  SKIP BACK ags2menu
+  SKIP ags2renamefavourites
 ENDIF
 
-; Delete old ags2 name files from favourites and copy new ones
+; Skip to ags2 rename, if ags2 favourites doesn't exist
+SKIP BACK ags2rename
+
+; Rename ags2 name files in favourites
+LAB ags2renamefavourites
 delete "$ags2menufavouritespath/$ags2nameold.#?" >NIL:
 copy "$ags2menuitemnewdir/$ags2name.#?" "$ags2menufavouritespath" >NIL:
 
