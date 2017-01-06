@@ -8,8 +8,9 @@
 SKIP mainmenu
 
 
-; AGS2 name function
-LAB functionags2name
+; Enter AGS2 name function
+; ------------------------
+LAB functionenterags2name
 set ags2nameerror ""
 
 LAB enterags2name
@@ -57,6 +58,93 @@ ENDIF
 SKIP $returnlab
 
 
+; Select AGS2 Name function
+; -------------------------
+LAB functionselectags2name
+
+set cancelselectags2name "0"
+
+; Build ags2 index list
+echo "[CANCEL]*N0*NA*NB*NC*ND*NE*NF*NG*NH*NI*NJ*NK*NL*NM*NN*NO*NP*NQ*NR*NS*NT*NU*NV*NW*NX*NY*NZ" >T:ags2indexlist
+
+; Show ags2 index list
+set ags2indexline `C:ReqList CLONERT I=T:ags2indexlist H="$ags2menuname" PAGE=18`
+
+; Back, if cancel is selected
+IF "$ags2indexline" EQ "1"
+  set cancelselectags2name "1"
+  SKIP $returnlab
+ENDIF
+
+; Get selected ags2 index name
+echo "$ags2indexline" >T:ags2indexline
+set ags2indexline `sed "s/\(.\)*$/\1q;d/" T:ags2indexline`
+set ags2indexname `sed "$ags2indexline" T:ags2indexlist`
+
+; Build ags2 name list from run files in ags2 index
+IF EXISTS "$ags2menupath/$ags2indexname.ags"
+  fsearch "$ags2menupath/$ags2indexname.ags" PAT #?.ru? >T:ags2namelist1
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_"
+  fsearch "$ags2menupath/$ags2indexname.ag_" PAT #?.ru? >T:ags2namelist1
+ENDIF
+
+; Remove paths from ags2 name list
+rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ags/" ""
+rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ag_/" ""
+sed "s/\.ru.*$//" T:ags2namelist1 >T:ags2namelist2
+sed "/^$/d" T:ags2namelist2 >T:ags2namelist3
+
+set ags2namelisttotal `wc -l <T:ags2namelist3`
+set ags2namelistfrom "1"
+set ags2namelistto "200"
+
+LAB ags2namelist
+IF $ags2namelisttotal GT 200
+  GetLines T:ags2namelist3 $ags2namelistfrom $ags2namelistto T:ags2namelist4
+ELSE
+  copy T:ags2namelist3 T:ags2namelist4 >NIL:
+ENDIF
+
+; Build ags2 name lines
+echo "[CANCEL]" >T:ags2namelist5
+IF $ags2namelistfrom GT 1 VAL
+  echo "[PREV]" >>T:ags2namelist5
+ENDIF
+IF NOT $ags2namelistto GT $ags2namelisttotal VAL
+  echo "[NEXT]" >>T:ags2namelist5
+ENDIF
+type T:ags2namelist4 >>T:ags2namelist5
+
+; Show ags2 name list
+set ags2nameline `C:ReqList CLONERT I=T:ags2namelist5 H="$ags2menuname, $ags2indexname" PAGE=18`
+
+; Back, if cancel is selected
+IF "$ags2nameline" EQ "1"
+  SKIP BACK ags2rename
+ENDIF
+
+; Get selected ags2 name
+echo "$ags2nameline" >T:ags2nameline
+set ags2nameline `sed "s/\(.\)*$/\1q;d/" T:ags2nameline`
+set ags2name `sed "$ags2nameline" T:ags2namelist5`
+
+; Skip to prev 200 ags2 name lines
+IF "$ags2name" EQ "[PREV]"
+  set ags2namelistfrom `eval $ags2namelistfrom - 200`
+  set ags2namelistto `eval $ags2namelistto - 200`
+  SKIP BACK ags2namelist
+ENDIF
+
+; Skip to next 200 ags2 name lines
+IF "$ags2name" EQ "[NEXT]"
+  set ags2namelistfrom `eval $ags2namelistfrom + 200`
+  set ags2namelistto `eval $ags2namelistto + 200`
+  SKIP BACK ags2namelist
+ENDIF
+
+SKIP $returnlab
+
 
 ; Main Menu
 ; ---------
@@ -71,12 +159,12 @@ C:ReqList CLONERT BUTTONS I T:mainmenu O ENV:mainmenu H "Configure Menus"
 delete >NIL: T:mainmenu
 
 ; AGS2 Games
-IF $mainmenu eq "1" 
+IF "$mainmenu" eq "1" 
 	SKIP ags2games
 ENDIF 
 
 ; AGS2 Demos
-IF $mainmenu eq "2" 
+IF "$mainmenu" eq "2" 
 	SKIP ags2demos
 ENDIF 
 
@@ -147,32 +235,32 @@ C:ReqList CLONERT BUTTONS I T:ags2menu O ENV:ags2menu H "$ags2menuname"
 delete >NIL: T:ags2menu
 
 ; Add
-IF $ags2menu eq "1" 
+IF "$ags2menu" eq "1" 
 	SKIP ags2add
 ENDIF 
 
 ; Rename
-IF $ags2menu eq "2" 
+IF "$ags2menu" eq "2" 
 	SKIP ags2rename
 ENDIF 
 
 ; Delete
-IF $ags2menu eq "2" 
+IF "$ags2menu" eq "3" 
 	SKIP ags2delete
 ENDIF 
 
 ; Show existing
-IF $ags2menu eq "4" 
+IF "$ags2menu" eq "4" 
   SKIP ags2showexisting
 ENDIF 
 
 ; Show all
-IF $ags2menu eq "5" 
+IF "$ags2menu" eq "5" 
   SKIP ags2showall
 ENDIF 
 
 ; Hide all
-IF $ags2menu eq "6" 
+IF "$ags2menu" eq "6" 
   SKIP ags2hideall
 ENDIF 
 
@@ -295,9 +383,9 @@ LAB addags2menuitemname
 
 ; Skip to enter ags2 name function and return
 set ags2name "$ags2nameold"
-set returnlab "addags2menuitem"
-SKIP BACK functionags2name
-LAB addags2menuitem
+set returnlab "addags2nameentered"
+SKIP BACK functionenterags2name
+LAB addags2nameentered
 
 ; Show ags2 index directory, if it's hidden
 IF EXISTS "$ags2menupath/$ags2indexname.ag_"
@@ -346,55 +434,22 @@ SKIP BACK ags2menu
 ; -----------
 LAB ags2rename
 
-; Build ags2 index list
-echo "[BACK]*N0*NA*NB*NC*ND*NE*NF*NG*NH*NI*NJ*NK*NL*NM*NN*NO*NP*NQ*NR*NS*NT*NU*NV*NW*NX*NY*NZ" >T:ags2indexlist
+; Skip to select ags2 name function and return
+set returnlab "renameags2nameselected"
+SKIP BACK functionselectags2name
 
-; Show ags2 index list
-set ags2indexline `C:ReqList CLONERT I=T:ags2indexlist H="$ags2menuname" PAGE=18`
-
-; Back, if cancel is selected
-IF $ags2indexline EQ "1"
+LAB renameags2nameselected
+IF "$cancelselectags2name" EQ "1"
   SKIP BACK ags2menu
 ENDIF
-
-; Get selected ags2 index name
-echo "$ags2indexline" >T:ags2indexline
-set ags2indexline `sed "s/\(.\)*$/\1q;d/" T:ags2indexline`
-set ags2indexnameold `sed "$ags2indexline" T:ags2indexlist`
-
-; Build ags2 name list from run files in ags2 index
-echo "[BACK]" >T:ags2namelist1
-IF EXISTS "$ags2menupath/$ags2indexnameold.ags"
-  fsearch "$ags2menupath/$ags2indexnameold.ags" PAT #?.ru? >>T:ags2namelist1
-ENDIF
-IF EXISTS "$ags2menupath/$ags2indexnameold.ag_"
-  fsearch "$ags2menupath/$ags2indexnameold.ag_" PAT #?.ru? >>T:ags2namelist1
-ENDIF
-
-; Remove paths from ags2 name list
-rep T:ags2namelist1 "$ags2menupath/$ags2indexnameold.ags/" ""
-rep T:ags2namelist1 "$ags2menupath/$ags2indexnameold.ag_/" ""
-sed "s/\.ru.*$//" T:ags2namelist1 >T:ags2namelist2
-
-; Show ags2 name list
-set ags2nameline `C:ReqList CLONERT I=T:ags2namelist2 H="$ags2menuname, $ags2indexnameold" PAGE=18`
-
-; Back, if cancel is selected
-IF $ags2nameline EQ "1"
-  SKIP BACK ags2rename
-ENDIF
-
-; Get selected ags2 name
-echo "$ags2nameline" >T:ags2nameline
-set ags2nameline `sed "s/\(.\)*$/\1q;d/" T:ags2nameline`
-set ags2nameold `sed "$ags2nameline" T:ags2namelist2`
+set ags2indexnameold "$ags2indexname"
+set ags2nameold "$ags2name"
 
 ; Skip to enter ags2 name function and return
-set ags2name "$ags2nameold"
-set returnlab "ags2renamename"
-SKIP BACK functionags2name
+set returnlab "renameags2nameentered"
+SKIP BACK functionenterags2name
 
-LAB ags2renamename
+LAB renameags2nameentered
 
 ; Set ags2 menuitem old dir
 IF EXISTS "$ags2menupath/$ags2indexnameold.ags"
@@ -480,6 +535,31 @@ SKIP BACK ags2rename
 ; AGS2 Delete
 ; -----------
 LAB ags2delete
+
+; Skip to select ags2 name function and return
+set returnlab "deleteags2nameselected"
+SKIP BACK functionselectags2name
+
+LAB deleteags2nameselected
+IF "$cancelselectags2name" EQ "1"
+  SKIP BACK ags2menu
+ENDIF
+
+set confirmags2delete `RequestChoice "Confirm Delete" "Are you sure you want to delete '$ags2name'?" "Yes|No"`
+IF "$confirmags2delete" eq "1" 
+  IF EXISTS "$ags2menupath/$ags2indexname.ags"
+    delete "$ags2menupath/$ags2indexname.ags/$ags2name.#?" >NIL:
+  ENDIF
+  IF EXISTS "$ags2menupath/$ags2indexname.ag_"
+    delete "$ags2menupath/$ags2indexname.ag_/$ags2name.#?" >NIL:
+  ENDIF
+  IF EXISTS "$ags2menupath/.Favourites.ags"
+    delete "$ags2menupath/.Favourites.ags/$ags2name.#?" >NIL:
+  ENDIF
+  IF EXISTS "$ags2menupath/.Favourites.ag_"
+    delete "$ags2menupath/.Favourites.ag_/$ags2name.#?" >NIL:
+  ENDIF
+ENDIF 
 
 SKIP BACK ags2menu
 
