@@ -5,6 +5,58 @@
 ;
 ; This script configures menus.
 
+SKIP mainmenu
+
+
+; AGS2 name function
+LAB functionags2name
+set ags2nameerror ""
+
+LAB enterags2name
+set ags2name `RequestString "AGS2 Name" "Enter name for AGS2 (max 26 chars)*N$ags2nameerror" default="$ags2name"`
+
+; Trim ags2 filename to length of 26 chars
+echo "$ags2name" >T:_ags2name
+cut -c 1-26 T:_ags2name >T:_ags2name2
+set ags2name `tail -n1 T:_ags2name2`
+
+; Remove invalid characters from ags2 name
+echo "$ags2name" >T:_ags2name
+set ags2name `sed "s/[^a-zA-Z0-9\.&\-+_ ]//g" T:_ags2name`
+
+; Get ags2 index name
+echo "$ags2name" >T:_ags2name
+sed "s/^\(.\)/echo *"\1*";/" T:_ags2name >T:_ags2indexname
+set ags2indexname `execute T:_ags2indexname`
+echo "$ags2indexname" >T:_ags2indexname
+set ags2indexname `tr "[a-z]" "[A-Z]" <T:_ags2indexname`
+echo "$ags2indexname" >T:_ags2indexname
+set ags2indexname `sed "s/^[0-9]/0/" T:_ags2indexname`
+IF "$ags2indexname" EQ ""
+  set ags2indexname "0"
+ENDIF
+
+; Skip to enter ags2 name, if ags2 file name already exists
+IF EXISTS "$ags2menupath/$ags2indexname.ags/$ags2name.run"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ags/$ags2name.ru_"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.run"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.ru_"
+  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
+  SKIP enterags2name back
+ENDIF
+
+SKIP $returnlab
+
+
 
 ; Main Menu
 ; ---------
@@ -198,7 +250,7 @@ set ags2name `sed "s/^AGS2Name=//" T:_hstwbmenuitemdata`
 set ags2runfile "$rundir/$hstwbrunfile"
 set ags2runscriptfile "$rundir/$hstwbmenuitem.run"
 
-SKIP addags2menuitem
+SKIP addags2menuitemname
 
 
 ; Check, if run file is whdload slave
@@ -223,7 +275,7 @@ set ags2name `sed "s/\.slave$//" T:_ags2name`
 set ags2runscriptfile "T:_ags2runscript"
 set ags2runfile "$runfile"
 
-SKIP addags2menuitem
+SKIP addags2menuitemname
 
 
 ; Start run file
@@ -239,50 +291,13 @@ set ags2runfile "$runfile"
 
 ; Add AGS2 Menu Item
 ; -------------------
+LAB addags2menuitemname
+
+; Skip to enter ags2 name function and return
+set ags2name "$ags2nameold"
+set returnlab "addags2menuitem"
+SKIP BACK functionags2name
 LAB addags2menuitem
-set ags2nameerror ""
-
-LAB enterags2name
-set ags2name `RequestString "AGS2 Name" "Enter name for AGS2 (max 26 chars)*N$ags2nameerror" default="$ags2name"`
-
-; Trim ags2 filename to length of 26 chars
-echo "$ags2name" >T:_ags2name
-cut -c 1-26 T:_ags2name >T:_ags2name2
-set ags2name `tail -n1 T:_ags2name2`
-
-; Remove invalid characters from ags2 name
-echo "$ags2name" >T:_ags2name
-set ags2name `sed "s/[^a-zA-Z0-9\.&\-+_ ]//g" T:_ags2name`
-
-; Get ags2 index name
-echo "$ags2name" >T:_ags2name
-sed "s/^\(.\)/echo *"\1*";/" T:_ags2name >T:_ags2indexname
-set ags2indexname `execute T:_ags2indexname`
-echo "$ags2indexname" >T:_ags2indexname
-set ags2indexname `tr "[a-z]" "[A-Z]" <T:_ags2indexname`
-echo "$ags2indexname" >T:_ags2indexname
-set ags2indexname `sed "s/^[0-9]/0/" T:_ags2indexname`
-IF "$ags2indexname" EQ ""
-  set ags2indexname "0"
-ENDIF
-
-; Skip to enter ags2 name, if ags2 file name already exists
-IF EXISTS "$ags2menupath/$ags2indexname.ags/$ags2name.run"
-  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
-  SKIP enterags2name back
-ENDIF
-IF EXISTS "$ags2menupath/$ags2indexname.ags/$ags2name.ru_"
-  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
-  SKIP enterags2name back
-ENDIF
-IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.run"
-  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
-  SKIP enterags2name back
-ENDIF
-IF EXISTS "$ags2menupath/$ags2indexname.ag_/$ags2name.ru_"
-  set ags2nameerror "Error: AGS2 name '$ags2name' already exists!"
-  SKIP enterags2name back
-ENDIF
 
 ; Show ags2 index directory, if it's hidden
 IF EXISTS "$ags2menupath/$ags2indexname.ag_"
@@ -331,34 +346,124 @@ SKIP BACK ags2menu
 ; -----------
 LAB ags2rename
 
-echo "0*NA*NB*NC*ND*NE*NF*NG*NH*NI*NJ*NK*NL*NM*NN*NO*NP*NQ*NR*NS*NT*NU*NV*NW*NX*NY*NZ*NCancel" >T:ags2indexlist
+; Build ags2 index list
+echo "[BACK]*N0*NA*NB*NC*ND*NE*NF*NG*NH*NI*NJ*NK*NL*NM*NN*NO*NP*NQ*NR*NS*NT*NU*NV*NW*NX*NY*NZ" >T:ags2indexlist
 
-C:ReqList CLONERT I=T:ags2indexlist O=T:ags2indexline H="$ags2menuname" PAGE=15
-set ags2indexline `sed "s/\(.\)*$/\1q;d/" T:ags2indexline`
-set ags2indexname `sed "$ags2indexline" T:ags2indexmenu`
+; Show ags2 index list
+set ags2indexline `C:ReqList CLONERT I=T:ags2indexlist H="$ags2menuname" PAGE=18`
 
-IF $ags2indexname EQ "Cancel"
+; Back, if cancel is selected
+IF $ags2indexline EQ "1"
   SKIP BACK ags2menu
 ENDIF
 
-IF EXISTS "$ags2menupath/$ags2indexname.ags"
-  fsearch "$ags2menupath/$ags2indexname.ags" PAT #?.ru? >T:ags2namelist1
+; Get selected ags2 index name
+echo "$ags2indexline" >T:ags2indexline
+set ags2indexline `sed "s/\(.\)*$/\1q;d/" T:ags2indexline`
+set ags2indexnameold `sed "$ags2indexline" T:ags2indexlist`
+
+; Build ags2 name list from run files in ags2 index
+echo "[BACK]" >T:ags2namelist1
+IF EXISTS "$ags2menupath/$ags2indexnameold.ags"
+  fsearch "$ags2menupath/$ags2indexnameold.ags" PAT #?.ru? >>T:ags2namelist1
 ENDIF
-IF EXISTS "$ags2menupath/$ags2indexname.ag_"
-  fsearch "$ags2menupath/$ags2indexname.ag_" PAT #?.ru? >T:ags2namelist1
+IF EXISTS "$ags2menupath/$ags2indexnameold.ag_"
+  fsearch "$ags2menupath/$ags2indexnameold.ag_" PAT #?.ru? >>T:ags2namelist1
 ENDIF
 
-rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ags/" ""
-rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ag_/" ""
+; Remove paths from ags2 name list
+rep T:ags2namelist1 "$ags2menupath/$ags2indexnameold.ags/" ""
+rep T:ags2namelist1 "$ags2menupath/$ags2indexnameold.ag_/" ""
 sed "s/\.ru.*$//" T:ags2namelist1 >T:ags2namelist2
 
-C:ReqList CLONERT I=T:ags2namelist2 O=T:ags2nameline H="$ags2menuname, $ags2indexname" PAGE=15
+; Show ags2 name list
+set ags2nameline `C:ReqList CLONERT I=T:ags2namelist2 H="$ags2menuname, $ags2indexnameold" PAGE=18`
+
+; Back, if cancel is selected
+IF $ags2nameline EQ "1"
+  SKIP BACK ags2rename
+ENDIF
+
+; Get selected ags2 name
+echo "$ags2nameline" >T:ags2nameline
 set ags2nameline `sed "s/\(.\)*$/\1q;d/" T:ags2nameline`
-set ags2name `sed "$ags2nameline" T:ags2namelist2`
+set ags2nameold `sed "$ags2nameline" T:ags2namelist2`
 
-echo "rename $ags2name"
+; Skip to enter ags2 name function and return
+set ags2name "$ags2nameold"
+set returnlab "ags2renamename"
+SKIP BACK functionags2name
 
-SKIP BACK ags2menu
+LAB ags2renamename
+
+; Set ags2 menuitem old dir
+IF EXISTS "$ags2menupath/$ags2indexnameold.ags"
+  set ags2menuitemolddir "$ags2menupath/$ags2indexnameold.ags"
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexnameold.ag_"
+  set ags2menuitemolddir "$ags2menupath/$ags2indexnameold.ag_"
+ENDIF
+IF "$ags2menuitemolddir" EQ ""
+  echo "Error: AGS2 menuitem old dir doesn't exist!"
+  wait 2
+  SKIP BACK ags2menu
+ENDIF
+
+; Set ags2 menuitem newdir
+IF EXISTS "$ags2menupath/$ags2indexname.ags"
+  set ags2menuitemnewdir "$ags2menupath/$ags2indexname.ags"
+ENDIF
+IF EXISTS "$ags2menupath/$ags2indexname.ag_"
+  set ags2menuitemnewdir "$ags2menupath/$ags2indexname.ag_"
+ENDIF
+IF "$ags2menuitemnewdir" EQ ""
+  echo "Error: AGS2 menuitem new dir doesn't exist!"
+  wait 2
+  SKIP BACK ags2menu
+ENDIF
+
+; Set ags2 run file
+IF EXISTS "$ags2menuitemolddir/$ags2nameold.run"
+  set ags2runfile "$ags2menuitemolddir/$ags2nameold.run"
+ENDIF
+IF EXISTS "$ags2menuitemolddir/$ags2nameold.ru_"
+  set ags2runfile "$ags2menuitemolddir/$ags2nameold.ru_"
+ENDIF
+IF "$ags2runfile" EQ ""
+  echo "Error: AGS2 run file doesn't exist!"
+  wait 2
+  SKIP BACK ags2menu
+ENDIF
+
+; Update ags2 favourites line in ags2 run file
+rep "$ags2runfile" "execute S:AGS2Favourites *"$ags2indexnameold*" *"$ags2nameold*"" "execute S:AGS2Favourites *"$ags2indexname*" *"$ags2name*""
+
+; Move files to new ags2 index, if it's changed
+IF NOT $ags2indexnameold EQ $ags2indexname
+  rename "$ags2menuitemolddir/$ags2nameold.#?" "$ags2menuitemnewdir"
+ENDIF
+
+; Rename ags2 name files in index
+Aren "$ags2nameold" "$ags2name" "$ags2menuitemnewdir/$ags2nameold.#?"
+
+; Set ags2 menu favourites path
+IF EXISTS "$ags2menupath/.Favourites.ags"
+  set ags2menufavouritespath "$ags2menupath/.Favourites.ags"
+ENDIF
+IF EXISTS "$ags2menupath/.Favourites.ag_"
+  set ags2menufavouritespath "$ags2menupath/.Favourites.ag_"
+ENDIF
+IF "$ags2menufavouritespath" EQ ""
+  echo "Error: AGS2 favourites doesn't exist!"
+  wait 2
+  SKIP BACK ags2menu
+ENDIF
+
+; Delete old ags2 name files from favourites and copy new ones
+delete "$ags2menufavouritespath/$ags2nameold.#?" >NIL:
+copy "$ags2menuitemnewdir/$ags2name.#?" "$ags2menufavouritespath" >NIL:
+
+SKIP BACK ags2rename
 
 
 ; AGS2 Delete
