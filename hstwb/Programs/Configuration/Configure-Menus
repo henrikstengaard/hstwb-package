@@ -94,30 +94,31 @@ rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ags/" ""
 rep T:ags2namelist1 "$ags2menupath/$ags2indexname.ag_/" ""
 sed "s/\.ru.*$//" T:ags2namelist1 >T:ags2namelist2
 sed "/^$/d" T:ags2namelist2 >T:ags2namelist3
+frsort <T:ags2namelist3 >T:ags2namelist4
 
-set ags2namelisttotal `wc -l <T:ags2namelist3`
+set ags2namelisttotal `wc -l <T:ags2namelist4`
 set ags2namelistfrom "1"
 set ags2namelistto "200"
 
 LAB ags2namelist
 IF $ags2namelisttotal GT 200
-  GetLines T:ags2namelist3 $ags2namelistfrom $ags2namelistto T:ags2namelist4
+  GetLines T:ags2namelist4 $ags2namelistfrom $ags2namelistto T:ags2namelist5
 ELSE
-  copy T:ags2namelist3 T:ags2namelist4 >NIL:
+  copy T:ags2namelist4 T:ags2namelist5 >NIL:
 ENDIF
 
 ; Build ags2 name lines
-echo "[CANCEL]" >T:ags2namelist5
+echo "[CANCEL]" >T:ags2namelist6
 IF $ags2namelistfrom GT 1 VAL
-  echo "[PREV]" >>T:ags2namelist5
+  echo "[PREV]" >>T:ags2namelist6
 ENDIF
 IF NOT $ags2namelistto GT $ags2namelisttotal VAL
-  echo "[NEXT]" >>T:ags2namelist5
+  echo "[NEXT]" >>T:ags2namelist6
 ENDIF
-type T:ags2namelist4 >>T:ags2namelist5
+type T:ags2namelist5 >>T:ags2namelist6
 
 ; Show ags2 name list
-set ags2nameline `C:ReqList CLONERT I=T:ags2namelist5 H="$ags2menuname, $ags2indexname" PAGE=18`
+set ags2nameline `C:ReqList CLONERT I=T:ags2namelist6 H="$ags2menuname, $ags2indexname" PAGE=18`
 
 ; Back, if cancel is selected
 IF "$ags2nameline" EQ "1"
@@ -127,7 +128,7 @@ ENDIF
 ; Get selected ags2 name
 echo "$ags2nameline" >T:ags2nameline
 set ags2nameline `sed "s/\(.\)*$/\1q;d/" T:ags2nameline`
-set ags2name `sed "$ags2nameline" T:ags2namelist5`
+set ags2name `sed "$ags2nameline" T:ags2namelist6`
 
 ; Skip to prev 200 ags2 name lines
 IF "$ags2name" EQ "[PREV]"
