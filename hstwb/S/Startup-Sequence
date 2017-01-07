@@ -148,9 +148,9 @@ IF EXISTS S:Settings/whdloadargs
 ENDIF
 
 
-; Load favouritesmode to env, if it exists
-IF EXISTS S:Settings/favouritesmode
-  copy >NIL: S:Settings/favouritesmode ENV:favouritesmode
+; Load ags2 favouritesmode to env, if it exists
+IF EXISTS S:Settings/ags2favouritesmode
+  copy >NIL: S:Settings/ags2favouritesmode ENV:ags2favouritesmode
 ENDIF
 
 
