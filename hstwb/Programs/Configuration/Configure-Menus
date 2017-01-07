@@ -3,7 +3,11 @@
 ; Author: Henrik Noerfjand Stengaard
 ; Date: 2017-01-04
 ;
-; This script configures menus.
+; This script configures menus for AGS2 games and demos.
+; Menu items can be added, renamed and deleted.
+; It also supports hiding and showing menu items based on the existence of run file references.
+; A run file reference is a commented line (;RunFile=) in each AGS2 run file.
+; Using show existing check if run file reference exists. If it exists menu item is shown, otherwise it's hidden.
 
 SKIP mainmenu
 
