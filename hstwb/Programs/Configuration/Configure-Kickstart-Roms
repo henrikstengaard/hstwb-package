@@ -97,7 +97,8 @@ sed "s/^\(.\)/execute *"SYS:Programs\/Configuration\/Copy-Kickstart-Rom*" *"\1/"
 sed "s/\(.\)$/\1*" *"SYS:Devs\/Kickstarts\/*"/" T:kickstart-rom-files2 >T:kickstart-rom-files3
 execute T:kickstart-rom-files3
 echo "Done."
-wait 1
+echo ""
+ask "Press ENTER to continue"
 SKIP end
 
 
