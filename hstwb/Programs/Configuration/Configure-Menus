@@ -305,6 +305,12 @@ echo "$runfile" >T:_runfile
 echo "$runfilename" >T:_runfilename
 
 
+; Clear ags2 menu item variables
+set ags2menuitemrunfile ""
+set ags2menuitemifffile ""
+set ags2menuitemtxtfile ""
+
+
 ; Check, if run file is HstWB Menu Item
 ; -------------------------------------
 
@@ -315,7 +321,8 @@ IF WARN
 ENDIF
 
 ; Skip, if run file doesn't contain ".data"
-search T:_runfilename ".data" NONUM >NIL:
+tr "[A-Z]" "[a-z]" <T:_runfilename >T:_hstwbmenuitem
+search T:_hstwbmenuitem ".data" NONUM >NIL:
 IF WARN
   SKIP whdloadslave
 ENDIF
@@ -341,7 +348,17 @@ ENDIF
 
 set ags2name `sed "s/^AGS2Name=//" T:_hstwbmenuitemdata`
 set ags2runfile "$rundir/$hstwbrunfile"
-set ags2runscriptfile "$rundir/$hstwbmenuitem.run"
+set ags2menuitemrunfile "$rundir/$hstwbmenuitem.run"
+
+; Set ags2 menu item iff file, if iff file exists
+IF EXISTS "$rundir/$hstwbmenuitem.iff"
+  set ags2menuitemifffile "$rundir/$hstwbmenuitem.iff"
+ENDIF
+
+; Set ags2 menu item txt file, if txt file exists
+IF EXISTS "$rundir/$hstwbmenuitem.txt"
+  set ags2menuitemtxtfile "$rundir/$hstwbmenuitem.txt"
+ENDIF
 
 SKIP addags2menuitemname
 
@@ -351,11 +368,14 @@ SKIP addags2menuitemname
 LAB whdloadslave
 
 ; Skip, if run filename doesn't end with ".slave"
-search T:_runfilename ".slave" NONUM >NIL:
+tr "[A-Z]" "[a-z]" <T:_runfilename >T:_whdloadslave
+search T:_whdloadslave ".slave" NONUM >NIL:
 IF WARN
   SKIP startrunfile
 ENDIF
 
+; Get ags2 name
+set ags2name `sed "s/\.[Ss][Ll][Aa][Vv][Ee]$//" T:_runfilename`
 
 ; Build ags2 run script using AGS2 whdload run template
 copy >NIL: S:AGS2WhdloadRunTemplate T:_ags2runscript
@@ -363,10 +383,18 @@ rep T:_ags2runscript "[*$RunDir]" "$rundir"
 rep T:_ags2runscript "[*$RunFileName]" "$runfilename"
 
 ; Set HstWB menu item variables
-echo "$runfilename" >T:_ags2name
-set ags2name `sed "s/\.slave$//" T:_ags2name`
-set ags2runscriptfile "T:_ags2runscript"
+set ags2menuitemrunfile "T:_ags2runscript"
 set ags2runfile "$runfile"
+
+; Set ags2 menu item iff file, if iff file exists
+IF EXISTS "$rundir/$ags2name.iff"
+  set ags2menuitemifffile "$rundir/$ags2name.iff"
+ENDIF
+
+; Set ags2 menu item txt file, if txt file exists
+IF EXISTS "$rundir/$ags2name.txt"
+  set ags2menuitemtxtfile "$rundir/$ags2name.txt"
+ENDIF
 
 SKIP addags2menuitemname
 
@@ -378,8 +406,18 @@ LAB startrunfile
 echo "cd *"$rundir*"" >T:ags2runscript
 echo "$runfilename" >>T:ags2runscript
 set ags2name "$runfilename"
-set ags2runscriptfile "T:ags2runscript"
+set ags2menuitemrunfile "T:ags2runscript"
 set ags2runfile "$runfile"
+
+; Set ags2 menu item iff file, if iff file exists
+IF EXISTS "$rundir/$ags2name.iff"
+  set ags2menuitemifffile "$rundir/$ags2name.iff"
+ENDIF
+
+; Set ags2 menu item txt file, if txt file exists
+IF EXISTS "$rundir/$ags2name.txt"
+  set ags2menuitemtxtfile "$rundir/$ags2name.txt"
+ENDIF
 
 
 ; Add AGS2 Menu Item
@@ -408,13 +446,27 @@ rep T:_ags2runpretemplate "[*$RunFile]" "$ags2runfile"
 rep T:_ags2runpretemplate "[*$AGS2IndexName]" "$ags2indexname"
 rep T:_ags2runpretemplate "[*$AGS2Name]" "$ags2name"
 
-; Build ags2 menu item
+; Build ags2 menu item run file
 echo "" NOLINE >"$ags2menupath/$ags2indexname.ags/$ags2name.run"
 type "T:_ags2runpretemplate" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
 echo "" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
-type "$ags2runscriptfile" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
+type "$ags2menuitemrunfile" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
 echo "" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
 type "S:AGS2RunPostTemplate" >>"$ags2menupath/$ags2indexname.ags/$ags2name.run"
+
+; Copy ags2 menu item iff file
+IF NOT "$ags2menuitemifffile" EQ ""
+  IF EXISTS "$ags2menuitemifffile"
+    copy "$ags2menuitemifffile" "$ags2menupath/$ags2indexname.ags/$ags2name.iff" >NIL:
+  ENDIF
+ENDIF
+
+; Copy ags2 menu item txt file
+IF NOT "$ags2menuitemtxtfile" EQ ""
+  IF EXISTS "$ags2menuitemtxtfile"
+    copy "$ags2menuitemtxtfile" "$ags2menupath/$ags2indexname.ags/$ags2name.txt" >NIL:
+  ENDIF
+ENDIF
 
 ; Clean temp files
 delete T:_runfile >NIL:
@@ -424,11 +476,17 @@ delete T:_ags2name >NIL:
 delete T:_ags2name2 >NIL:
 delete T:_ags2indexname >NIL:
 delete T:_ags2runpretemplate >NIL:
+IF EXISTS T:_whdloadslave
+  delete T:_whdloadslave >NIL:
+ENDIF
 IF EXISTS T:_hstwbmenuitemdata
   delete T:_hstwbmenuitemdata >NIL:
 ENDIF
 IF EXISTS T:_ags2runscript
   delete T:_ags2runscript >NIL:
+ENDIF
+IF EXISTS T:_hstwbmenuitem
+  delete T:_hstwbmenuitem >NIL:
 ENDIF
 
 SKIP BACK ags2menu
