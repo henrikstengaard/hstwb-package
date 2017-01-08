@@ -387,7 +387,6 @@ set ags2runfile "$runfile"
 LAB addags2menuitemname
 
 ; Skip to enter ags2 name function and return
-set ags2name "$ags2nameold"
 set returnlab "addags2nameentered"
 SKIP BACK functionenterags2name
 LAB addags2nameentered
