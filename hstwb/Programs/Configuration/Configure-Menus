@@ -329,7 +329,7 @@ ENDIF
 
 ; Skip, if HstWB Menu Item run file doesn't exist
 set hstwbmenuitem ""
-set hstwbmenuitem `sed "s/\.data$//" T:_runfilename`
+set hstwbmenuitem `sed "s/\.[Dd][Aa][Tt][Aa]$//" T:_runfilename`
 IF NOT EXISTS "$rundir/$hstwbmenuitem.run"
   SKIP whdloadslave
 ENDIF
