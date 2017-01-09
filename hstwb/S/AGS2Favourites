@@ -19,9 +19,14 @@ IF NOT EXISTS ENV:ags2menupath
   SKIP end
 ENDIF
 
-; End, if ags2 favourites directory doesn't exist
-IF NOT EXISTS "$ags2menupath/(Favourites).ags/"
-  SKIP end
+; Show ags2 favourites directory, if ags2 favourites directory is hidden
+IF EXISTS "$ags2menupath/.Favourites.ag_/"
+  rename "$ags2menupath/.Favourites.ag_" "$ags2menupath/.Favourites.ags" >NIL:
+ENDIF
+
+; Create ags2 favourites directory, if ags2 favourites directory doesn't exist
+IF NOT EXISTS "$ags2menupath/.Favourites.ags/"
+  makedir "$ags2menupath/.Favourites.ags" >NIL:
 ENDIF
 
 
@@ -42,11 +47,11 @@ SKIP end
 ; Add to AGS2 favourites
 LAB ags2favouritesadd
 
-IF NOT EXISTS "$ags2menupath/(Favourites).ags/{ags2name}.run"
+IF NOT EXISTS "$ags2menupath/.Favourites.ags/{ags2name}.run"
   IF EXISTS "$ags2menupath/{ags2indexname}.ags/{ags2name}.run"
-    CD "$ags2menupath/(Favourites).ags/"
+    CD "$ags2menupath/.Favourites.ags/"
     COPY >NIL: "$ags2menupath/{ags2indexname}.ags/{ags2name}.#?" ""
-  ECHO "Added '{ags2name}' to favourites"
+    ECHO "Added '{ags2name}' to favourites"
     WAIT 1
   ENDIF
 ENDIF
@@ -57,12 +62,15 @@ SKIP end
 ; Remove from AGS2 favourites
 LAB ags2favouritesremove
 
-IF NOT EXISTS S:RemoveAgs2Favourites
-	ECHO "CD *"$ags2menupath/(Favourites).ags/*"" > S:RemoveAgs2Favourites
-ENDIF
-ECHO "DELETE >NIL: *"{ags2name}.#?*"" >> S:RemoveAgs2Favourites
-ECHO "Queued '{ags2name}' to be removed from favourites"
-WAIT 3
+echo "IF EXISTS *"$ags2menupath/.Favourites.ags/*"" >> S:RemoveAgs2Favourites
+echo "  DELETE >NIL: *"$ags2menupath/.Favourites.ags/{ags2name}.#?*"" >> S:RemoveAgs2Favourites
+echo "ENDIF" >> S:RemoveAgs2Favourites
+echo "IF EXISTS *"$ags2menupath/.Favourites.ag_/*"" >> S:RemoveAgs2Favourites
+echo "  DELETE >NIL: *"$ags2menupath/.Favourites.ag_/{ags2name}.#?*"" >> S:RemoveAgs2Favourites
+echo "ENDIF" >> S:RemoveAgs2Favourites
+
+echo "Queued '{ags2name}' to be removed from favourites"
+wait 3
 
 SKIP end
 
