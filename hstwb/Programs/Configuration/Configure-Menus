@@ -641,6 +641,7 @@ echo "Updating $ags2menuname to only show existing..."
 echo "(this can take several minutes)"
 execute "T:_ags2menuitemrunfiles3"
 echo "Done"
+echo ""
 delete T:_ags2menuitemrunfiles#? >NIL:
 
 SKIP ags2indexupdate
@@ -661,6 +662,7 @@ echo "Updating $ags2menuname to show all..."
 echo "(this can take several minutes)"
 execute "T:_ags2menuitemrunfiles3"
 echo "Done"
+echo ""
 delete T:_ags2menuitemrunfiles#? >NIL:
 
 SKIP ags2indexupdate
@@ -681,6 +683,7 @@ echo "Updating $ags2menuname to hide all..."
 echo "(this can take several minutes)"
 execute "T:_ags2menuitemrunfiles3"
 echo "Done"
+echo ""
 delete T:_ags2menuitemrunfiles#? >NIL:
 
 
@@ -717,6 +720,8 @@ execute S:AGS2IndexUpdate "$ags2menupath" "X"
 execute S:AGS2IndexUpdate "$ags2menupath" "Y"
 execute S:AGS2IndexUpdate "$ags2menupath" "Z"
 echo "Done"
+echo ""
+ask "Press ENTER to continue"
 
 
 ; End
