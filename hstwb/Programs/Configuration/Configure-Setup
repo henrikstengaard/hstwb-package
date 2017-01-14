@@ -530,32 +530,32 @@ C:ReqList CLONERT BUTTONS I T:scsidevicemenu O ENV:scsidevicemenu H "Select scsi
 delete >NIL: T:scsidevicemenu
 
 ; Built-in (Kickstart ROM)
-IF $bootsequencemenu eq "1" 
+IF $scsidevicemenu eq "1" 
 	delete >NIL: devs:scsi.device
 ENDIF 
 
 ; v43.45 Chris/Toni A1200
-IF $bootsequencemenu eq "2" 
+IF $scsidevicemenu eq "2" 
 	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_45_ChrisToni/A1200IDE.scsi.device.43.45 DEVS:scsi.device
 ENDIF 
 
 ; v43.46 Cosmos A600/A1200
-IF $bootsequencemenu eq "3" 
+IF $scsidevicemenu eq "3" 
 	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_47_Cosmos/scsi.device_A600_A1200_43.46 DEVS:scsi.device
 ENDIF 
 
 ; v43.47 Cosmos A600/A1200
-IF $bootsequencemenu eq "4" 
+IF $scsidevicemenu eq "4" 
 	Copy >NIL: SYS:Programs/Configuration/SCSI_v43_47_Cosmos/scsi.device_A600_A1200_43.47b1 DEVS:scsi.device
 ENDIF 
 
 ; v44.20 Doobrey A600
-IF $bootsequencemenu eq "5" 
+IF $scsidevicemenu eq "5" 
 	Copy >NIL: SYS:Programs/Configuration/SCSI_v44_20_Doobrey/scsi.device_A600_44.2 DEVS:scsi.device
 ENDIF 
 
 ; v44.20 Doobrey A1200
-IF $bootsequencemenu eq "6" 
+IF $scsidevicemenu eq "6" 
 	Copy >NIL: SYS:Programs/Configuration/SCSI_v44_20_Doobrey/scsi.device_A1200_44.2 DEVS:scsi.device
 ENDIF 
 
