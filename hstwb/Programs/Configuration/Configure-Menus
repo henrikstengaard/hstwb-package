@@ -636,7 +636,6 @@ echo "*ec"
 fsearch "$ags2menupath" PAT #?.ru#? ALL >T:_ags2menuitemrunfiles1
 sed "s/^\(.\)/execute S:AGS2RunUpdate *"\1/" "T:_ags2menuitemrunfiles1" >"T:_ags2menuitemrunfiles2"
 sed "s/\(.\)$/\1*" *"EXIST*"/" "T:_ags2menuitemrunfiles2" >"T:_ags2menuitemrunfiles3"
-rep T:_ags2menuitemrunfiles3 "execute S:AGS2RunUpdate *"$ags2menupath/.Settings.ags" ";"
 echo "Updating $ags2menuname to only show existing..."
 echo "(this can take several minutes)"
 execute "T:_ags2menuitemrunfiles3"

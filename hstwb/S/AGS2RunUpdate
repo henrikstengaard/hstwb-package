@@ -17,10 +17,9 @@ IF NOT EXISTS "{ags2runfile}"
   SKIP end
 ENDIF
 
-; Fail, if ags2 run file doesn't contain run file reference
+; Skip, if ags2 run file doesn't contain run file reference
 search "{ags2runfile}" ";RunFile=" NONUM >T:_runfile
 IF WARN
-  echo "Error: AGS2 run file '{ags2runfile}' doesn't contain run file reference ';RunFile='!"
   SKIP end
 ENDIF
 set runfile `sed "s/^;RunFile=//" T:_runfile`
