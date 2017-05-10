@@ -127,8 +127,11 @@ function ReadCentralDirectoryFileEntry($binaryReader)
 
 	$fileName = $encoding.GetString($fileNameBytes)
 
+	# amiga zip has: versionMadeBy = 20 and bitflag = 2048
+
 	Write-Host "versionMadeBy = $versionMadeBy"
 	Write-Host "version = $version"
+	Write-Host "bitFlag = $bitFlag"
 	# Write-Host "compressedSize = $compressedSize"
 	# Write-Host "uncompressedSize = $uncompressedSize"
 	# Write-Host "fileNameLength = $fileNameLength"
