@@ -77,7 +77,25 @@ function ReadLocalFileEntry($binaryReader)
 
 	$encoding = [system.Text.Encoding]::UTF8
 
-	$fileName = $encoding.GetString($fileNameBytes)
+	#$fileName = $encoding.GetString($fileNameBytes)
+
+	#if ()
+	#$extraField = $encoding.GetString($extraFieldLength)
+
+	#Write-Host $extraFieldLength
+
+	return New-Object PSObject -Property @{`
+		'Version' = $version;
+		'Flags' = $flags;
+		'Method' = $method;
+		'FileModificationTime' = $fileModificationTime;
+		'FileModificationDate' = $fileModificationDate;
+		'Crc32' = $crc32;
+		'CompressedSize' = $compressedSize;
+		'UncompressedSize' = $uncompressedSize;
+		'FileNameBytes' = $fileNameBytes;
+		'ExtraFieldBytes' = $extraFieldBytes
+	}
 
 	#Write-Host ""
 	#Write-Host "signature = $signature"
@@ -91,17 +109,71 @@ function ReadLocalFileEntry($binaryReader)
 	# Write-Host "uncompressedSize = $uncompressedSize"
 	# Write-Host "fileNameLength = $fileNameLength"
 	# Write-Host "extraFieldLength = $extraFieldLength"
-	Write-Host "fileName = $fileName"
+	#Write-Host "fileName = $fileName"
 	# Write-Host "extraField = $extraField"
 
-	if ($compressedSize -gt 0)
+	# if ($compressedSize -gt 0)
+	# {
+	# 	$binaryReader.BaseStream.Seek($compressedSize, ([System.IO.SeekOrigin]::Current)) | Out-Null
+	# }
+}
+
+function WriteLocalFileEntry($binaryWriter, $localFileEntry)
+{
+	$binaryWriter.Write([Int]$localFileHeaderSignature)
+	$binaryWriter.Write([Int16]$localFileEntry.Version)
+	$binaryWriter.Write([Int16]$localFileEntry.Flags)
+	$binaryWriter.Write([Int16]$localFileEntry.Method)
+	$binaryWriter.Write([Int16]$localFileEntry.FileModificationTime)
+	$binaryWriter.Write([Int16]$localFileEntry.FileModificationDate)
+	$binaryWriter.Write([Int]$localFileEntry.Crc32)
+	$binaryWriter.Write([int]$localFileEntry.CompressedSize)
+	$binaryWriter.Write([Int]$localFileEntry.UncompressedSize)
+	$binaryWriter.Write([Int16]$localFileEntry.FileNameBytes.Count)
+	$binaryWriter.Write([Int16]$localFileEntry.ExtraFieldBytes.Count)
+
+	if ($localFileEntry.FileNameBytes.Count)
 	{
-		$binaryReader.BaseStream.Seek($compressedSize, ([System.IO.SeekOrigin]::Current)) | Out-Null
+		$binaryWriter.Write($localFileEntry.FileNameBytes)
+	}
+
+	if ($localFileEntry.ExtraFieldBytes.Count)
+	{
+		$binaryWriter.Write($localFileEntry.ExtraFieldBytes)
 	}
 }
 
-function ReadCentralDirectoryFileEntry($binaryReader)
+function CopyBytes($binaryReader, $binaryWriter, $count)
 {
+	[byte[]]$buffer = new-object byte[] 4096
+	$offset = 0
+	do{
+		if ($offset + $buffer.Count -gt $count)
+		{
+			$length = $count - $offset
+		}
+		else
+		{
+			$length = $buffer.Count
+		}
+		$result = $binaryReader.BaseStream.Read($buffer, 0, $length)
+#		Write-Host "Read $length, Result $result"
+		$binaryWriter.BaseStream.Write($buffer, 0, $result)
+		$offset += $result
+	} while($result -eq $length -and $offset -lt $count)
+}
+
+function ReadCentralDirectoryFileEntry($binaryReader, $binaryWriter)
+{
+	#Write-Host $binaryWriter.BaseStream.Position
+	#Write-Host $binaryReader.BaseStream.Position
+	#exit
+	#$binaryWriter.BaseStream.Position = $binaryReader.BaseStream.Position
+	#$binaryWriter.Write([Int16]20)
+	#$binaryWriter.Write([Int16]20)
+	#$binaryWriter.Write([Int16]2048)
+	#$binaryWriter.Flush()
+	# write 
 	$versionMadeBy = $binaryReader.ReadInt16()
 	$version = $binaryReader.ReadInt16()
 	$bitFlag = $binaryReader.ReadInt16()
@@ -154,50 +226,72 @@ function ReadEndCentralDirectoryFileEntry($binaryReader)
 	$commentBytes = $binaryReader.ReadBytes($commentLength)
 }
 
-
-function PatchZip($zipFile)
-{
-	$mode = [System.IO.FileMode]::Open
-	$access = [System.IO.FileAccess]::Read
-	$sharing = [System.IO.FileShare]::Read
-
-    $fileStream = New-Object System.IO.FileStream $zipFile, $mode, $access, $sharing
-    $binaryReader = New-Object System.IO.BinaryReader($fileStream)
-
 	$localFileHeaderSignature = 0x04034b50
 	$centralDirectoryFileHeaderSignature = 0x02014b50
 	$endCentralDirectoryFileHeaderSignature = 0x06054b50
 
+function PatchZip($zipFile, $patchZipFile)
+{
+	$openFileMode = [System.IO.FileMode]::Open
+	$readAccess = [System.IO.FileAccess]::Read
+	$readFileShare = [System.IO.FileShare]::Read
+    $zipFileStream = New-Object System.IO.FileStream $zipFile, $openFileMode, $readAccess, $readFileShare
+    $zipFileReader = New-Object System.IO.BinaryReader($zipFileStream)
+
+	$createFileMode = [System.IO.FileMode]::Create
+	$writeAccess = [System.IO.FileAccess]::Write
+	$writeFileShare = [System.IO.FileShare]::Write
+    $patchZipFileStream = New-Object System.IO.FileStream $patchZipFile, $createFileMode, $writeAccess, $writeFileShare
+    $patchZipFileWriter = New-Object System.IO.BinaryWriter($patchZipFileStream)
+
+
 	do
 	{
-		$signature = $binaryReader.ReadInt32()
+		$signature = $zipFileReader.ReadInt32()
 
 		if ($signature -eq $localFileHeaderSignature)
 		{
-			ReadLocalFileEntry $binaryReader
+			$localFileEntry = ReadLocalFileEntry $zipFileReader
+			#$localFileEntry
+			WriteLocalFileEntry $patchZipFileWriter $localFileEntry
+
+			#break
+
+			if ($localFileEntry.CompressedSize -gt 0)
+			{
+				CopyBytes $zipFileReader $patchZipFileWriter $localFileEntry.CompressedSize
+				#$binaryReader.BaseStream.Seek($localFileEntry.CompressedSize, ([System.IO.SeekOrigin]::Current)) | Out-Null
+			}
 		}
 		elseif ($signature -eq $centralDirectoryFileHeaderSignature)
 		{
-			ReadCentralDirectoryFileEntry $binaryReader
+			break
+			ReadCentralDirectoryFileEntry $binaryReader $binaryWriter
 		}
 		elseif ($signature -eq $endCentralDirectoryFileHeaderSignature)
 		{
+			break
 			ReadEndCentralDirectoryFileEntry $binaryReader
 		}
 		else
 		{
+			break
 			$signature
 		}
 	}
 	while ($signature -eq $localFileHeaderSignature -or $signature -eq $centralDirectoryFileHeaderSignature)
 
+	$patchZipFileWriter.Close()
+	$patchZipFileWriter.Dispose()
 
-	$binaryReader.Close()
-	$binaryReader.Dispose()
+	$patchZipFileStream.Close()
+	$patchZipFileStream.Dispose()
 
+	$zipFileReader.Close()
+	$zipFileReader.Dispose()
 
-	$fileStream.Close()
-	$fileStream.Dispose()
+	$zipFileStream.Close()
+	$zipFileStream.Dispose()
 }
 
 function CheckZip($zipFile)
@@ -239,9 +333,11 @@ function CheckZip($zipFile)
 }
 
 
-CreateAmigaZipFile $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("test2.zip")
+#CreateAmigaZipFile $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("test2.zip")
 
-PatchZip 'c:\Work\First Realize\hstwb-package\package\hstwb_win.zip'
+#Copy-Item 'c:\Work\First Realize\hstwb-package\package\hstwb_powershell.zip' -Destination 'c:\Work\First Realize\hstwb-package\package\hstwb_patched2.zip'   
+
+PatchZip 'c:\Work\First Realize\hstwb-package\package\hstwb_powershell.zip' 'c:\Work\First Realize\hstwb-package\package\hstwb_patched3.zip'
 #PatchZip $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("test2.zip")
 
 exit
