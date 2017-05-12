@@ -2,518 +2,64 @@
 # -------------
 #
 # Author: Henrik Nørfjand Stengaard
-# Date:   2017-05-10
+# Date:   2017-05-13
 #
 # A PowerShell script to build package for HstWB Installer.
 
-using assembly ICSharpCode.SharpZipLib.dll
-using namespace ICSharpCode.SharpZipLib.Zip
-using namespace ICSharpCode.SharpZipLib.Checksums
-
-
-# create amiga zip file
-function CreateAmigaZipFile($zipFile)
-{
-    $zipFileStream = New-Object System.IO.FileStream($zipFile, 'Create')
-	$zipOutputStream = New-Object ZipOutputStream($zipFileStream)
-
-	$crc = New-Object Crc32
-
-	$amigaHostSystemId = [HostSystemID]::Amiga
-	$method = [CompressionMethod]::Deflate
-
-    # $fileStream = New-Object System.IO.FileStream('c:\Work\First Realize\hstwb-package\hstwb\C\acatune', 'Open', 'Read', 'Read')
-
-	# $fileStream.Close()
-	# $fileStream.Dispose()
-
-	$bytes = [System.IO.File]::ReadAllBytes('c:\Work\First Realize\hstwb-package\hstwb\C\acatune')
-
-	# update crc
-	$crc.Reset()
-	$crc.Update($bytes)
-
-	# add zip entry
-	$zipEntry = New-Object ZipEntry("test/acatune")
-	# $zipEntry.HostSystem = $amigaHostSystemId
-	$zipEntry.Size = $bytes.Count
-	$zipEntry.Crc = $crc.Value
-	#$zipEntry.Flags = 2048
-	#$zipEntry.DateTime = DateTime.Now;
-	#$zip.Add($zipEntry)
-
-	#$zipEntry.GetType().GetProperties() | Where-Object {$_.Name -match 'versionMadeBy'}
-
-
-	#$zipEntry.VersionMadeBy
-
-	#Write-Host $zipEntry.HostSystem
-
-	$zipOutputStream.PutNextEntry($zipEntry);
-	$zipOutputStream.Write($bytes, 0, $bytes.Count);
-
-	$zipOutputStream.Close()
-	$zipOutputStream.Dispose()
-	$zipFileStream.Close()
-	$zipFileStream.Dispose()
-}
-
-$localFileHeaderSignature = 0x04034b50
-$centralDirectoryFileHeaderSignature = 0x02014b50
-$endCentralDirectoryFileHeaderSignature = 0x06054b50
-
-
-# Protection bits are flags that files, links and directories have in the filesystem. To change them one can either use the command Protect, or use the Information entry from the Icons menu in Workbench on selected files. AmigaDOS supports the following set of protection bits (abbreviated as HSPARWED):
-
-# H = Hold (reentrant commands with the P-bit set will automatically become resident on first execution. Requires E, P and R bits set to work. Does not mean "Hide". See below.)
-# S = Script (Batch file. Requires E and R bits set to work.) If this protection bit is set on, then AmigaDOS is able to recognize and automatically run a script by simply invoking its name. Without S bit scripts can still be launched using the Execute command.
-# P = Pure (indicates reentrant commands that can be made resident in RAM and then no longer need to be loaded any time from flash drives, hard disks or any other media device. Requires E and R bits set to work.)
-# A = Archive (Archived bit, used by various backup programs to indicate that a file has been backed up)
-# R = Read (Permission to read the file, link or content of directory)
-# W = Write (Permission to write the file, link or inside a directory)
-# E = Execute (Permission to execute the file or enter the directory. All commands need this bit set, or they won't run. Requires R bit set to work.)
-# D = Delete (Permission to delete the file, link or directory)
-
-# add flags enum type
-Add-Type -TypeDefinition @"
-[System.Flags]
-public enum FileAttributesEnum
-{
-	Disk = 1,
-	NoError = 2,
-	EmulTrap = 4,
-	NoDivZero = 8,
-	Req68020 = 16,
-	ReqAGA = 32,
-	NoKbd = 64,
-	EmulLineA = 128,
-	EmulTrapV = 256,
-	EmulChk = 512,
-	EmulPriv = 1024,
-	EmulLineF = 2048,
-	ClearMem = 4096,
-	Examine = 8192,
-	EmulDivZero = 16384,
-	EmulIllegal = 32768
-}
-"@
-
-
-function ReadLocalFileEntry($binaryReader)
-{
-	$version = $binaryReader.ReadInt16()
-	$flags = $binaryReader.ReadInt16()
-	$method = $binaryReader.ReadInt16()
-	$fileModificationTime = $binaryReader.ReadInt16()
-	$fileModificationDate = $binaryReader.ReadInt16()
-	$crc32 = $binaryReader.ReadInt32()
-	$compressedSize = $binaryReader.ReadInt32()
-	$uncompressedSize = $binaryReader.ReadInt32()
-	$fileNameLength = $binaryReader.ReadInt16()
-	$extraFieldLength = $binaryReader.ReadInt16()
-	$fileNameBytes = $binaryReader.ReadBytes($fileNameLength)
-	$extraFieldBytes = $binaryReader.ReadBytes($extraFieldLength)
-
-	# $encoding = [system.Text.Encoding]::UTF8
-	#$fileName = $encoding.GetString($fileNameBytes)
-	#if ()
-	#$extraField = $encoding.GetString($extraFieldLength)
-	#Write-Host $extraFieldLength
-
-	return New-Object PSObject -Property @{
-		'Version' = $version;
-		'Flags' = $flags;
-		'Method' = $method;
-		'FileModificationTime' = $fileModificationTime;
-		'FileModificationDate' = $fileModificationDate;
-		'Crc32' = $crc32;
-		'CompressedSize' = $compressedSize;
-		'UncompressedSize' = $uncompressedSize;
-		'FileNameBytes' = $fileNameBytes;
-		'ExtraFieldBytes' = $extraFieldBytes
-	}
-
-	#Write-Host ""
-	#Write-Host "signature = $signature"
-	# Write-Host "version = $version"
-	# Write-Host "flags = $flags"
-	# Write-Host "method = $method"
-	# Write-Host "fileModificationTime = $fileModificationTime"
-	# Write-Host "fileModificationDate = $fileModificationDate"
-	# Write-Host "crc32 = $crc32"
-	# Write-Host "compressedSize = $compressedSize"
-	# Write-Host "uncompressedSize = $uncompressedSize"
-	# Write-Host "fileNameLength = $fileNameLength"
-	# Write-Host "extraFieldLength = $extraFieldLength"
-	#Write-Host "fileName = $fileName"
-	# Write-Host "extraField = $extraField"
-
-	# if ($compressedSize -gt 0)
-	# {
-	# 	$binaryReader.BaseStream.Seek($compressedSize, ([System.IO.SeekOrigin]::Current)) | Out-Null
-	# }
-}
-
-function WriteLocalFileEntry($binaryWriter, $localFileEntry)
-{
-	$binaryWriter.Write([Int]$localFileHeaderSignature)
-	$binaryWriter.Write([Int16]$localFileEntry.Version)
-	$binaryWriter.Write([Int16]$localFileEntry.Flags)
-	$binaryWriter.Write([Int16]$localFileEntry.Method)
-	$binaryWriter.Write([Int16]$localFileEntry.FileModificationTime)
-	$binaryWriter.Write([Int16]$localFileEntry.FileModificationDate)
-	$binaryWriter.Write([Int]$localFileEntry.Crc32)
-	$binaryWriter.Write([int]$localFileEntry.CompressedSize)
-	$binaryWriter.Write([Int]$localFileEntry.UncompressedSize)
-	$binaryWriter.Write([Int16]$localFileEntry.FileNameBytes.Count)
-	$binaryWriter.Write([Int16]$localFileEntry.ExtraFieldBytes.Count)
-
-	if ($localFileEntry.FileNameBytes.Count)
-	{
-		$binaryWriter.Write($localFileEntry.FileNameBytes)
-	}
-
-	if ($localFileEntry.ExtraFieldBytes.Count)
-	{
-		$binaryWriter.Write($localFileEntry.ExtraFieldBytes)
-	}
-}
-
-function CopyBytes($binaryReader, $binaryWriter, $count)
-{
-	[byte[]]$buffer = new-object byte[] 4096
-	$offset = 0
-	do{
-		if ($offset + $buffer.Count -gt $count)
-		{
-			$length = $count - $offset
-		}
-		else
-		{
-			$length = $buffer.Count
-		}
-		$result = $binaryReader.BaseStream.Read($buffer, 0, $length)
-		$binaryWriter.BaseStream.Write($buffer, 0, $result)
-		$offset += $result
-	} while($result -eq $length -and $offset -lt $count)
-}
-
-function ReadCentralDirectoryFileEntry($binaryReader)
-{
-	$versionMadeBy = $binaryReader.ReadInt16()
-	$version = $binaryReader.ReadInt16()
-	$flags = $binaryReader.ReadInt16()
-	$method = $binaryReader.ReadInt16()
-	$fileModificationTime = $binaryReader.ReadInt16()
-	$fileModificationDate = $binaryReader.ReadInt16()
-	$crc32 = $binaryReader.ReadInt32()
-	$compressedSize = $binaryReader.ReadInt32()
-	$uncompressedSize = $binaryReader.ReadInt32()
-	$fileNameLength = $binaryReader.ReadInt16()
-	$extraFieldLength = $binaryReader.ReadInt16()
-	$fileCommentLength = $binaryReader.ReadInt16()
-	$diskNumber = $binaryReader.ReadInt16()
-	$internalFileAttributes = $binaryReader.ReadInt16()
-	$externalFileAttributes = $binaryReader.ReadInt32()
-	$dataOffset = $binaryReader.ReadInt32()
-	$fileNameBytes = $binaryReader.ReadBytes($fileNameLength)
-	$extraFieldBytes = $binaryReader.ReadBytes($extraFieldLength)
-	$fileCommentBytes = $binaryReader.ReadBytes($fileCommentLength)
-
-	return New-Object PSObject -Property @{
-		'VersionMadeBy' = $versionMadeBy;
-		'Version' = $version;
-		'Flags' = $flags;
-		'Method' = $method;
-		'FileModificationTime' = $fileModificationTime;
-		'FileModificationDate' = $fileModificationDate;
-		'Crc32' = $crc32;
-		'CompressedSize' = $compressedSize;
-		'UncompressedSize' = $uncompressedSize;
-		'FileNameBytes' = $fileNameBytes;
-		'ExtraFieldBytes' = $extraFieldBytes;
-		'FileCommentBytes' = $fileCommentBytes;
-		'DiskNumber' = $diskNumber;
-		'InternalFileAttributes' = $internalFileAttributes;
-		'ExternalFileAttributes' = $externalFileAttributes;
-		'DataOffset' = $dataOffset
-	}
-
-	# $encoding = [system.Text.Encoding]::UTF8
-
-	# $fileName = $encoding.GetString($fileNameBytes)
-
-	# amiga zip has: versionMadeBy = 20 and bitflag = 2048
-
-	# Write-Host "versionMadeBy = $versionMadeBy"
-	# Write-Host "version = $version"
-	# Write-Host "bitFlag = $bitFlag"
-	# Write-Host "compressedSize = $compressedSize"
-	# Write-Host "uncompressedSize = $uncompressedSize"
-	# Write-Host "fileNameLength = $fileNameLength"
-	# Write-Host "extraFieldLength = $extraFieldLength"
-	# Write-Host "fileCommentLength = $fileCommentLength"
-	# Write-Host "offset = $offset"
-	# Write-Host "fileName = $fileName"
-}
-
-
-# write central directory file entry
-function WriteCentralDirectoryFileEntry($binaryWriter, $centralDirectoryFileEntry)
-{
-	$binaryWriter.Write([Int]$centralDirectoryFileHeaderSignature)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.VersionMadeBy)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Version)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Flags)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Method)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileModificationTime)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileModificationDate)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.Crc32)
-	$binaryWriter.Write([int]$centralDirectoryFileEntry.CompressedSize)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.UncompressedSize)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileNameBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.ExtraFieldBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileCommentBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.DiskNumber)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.InternalFileAttributes)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.ExternalFileAttributes)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.DataOffset)
-
-	if ($centralDirectoryFileEntry.FileNameBytes.Count)
-	{
-		$binaryWriter.Write($centralDirectoryFileEntry.FileNameBytes)
-	}
-
-	if ($centralDirectoryFileEntry.ExtraFieldBytes.Count)
-	{
-		$binaryWriter.Write($centralDirectoryFileEntry.ExtraFieldBytes)
-	}
-
-	if ($centralDirectoryFileEntry.FileCommentBytes.Count)
-	{
-		$binaryWriter.Write($centralDirectoryFileEntry.FileCommentBytes)
-	}
-}
-
-
-function ReadCentralDirectoryEndEntry($binaryReader)
-{
-	$diskNumber = $binaryReader.ReadInt16()
-	$diskCentralStart = $binaryReader.ReadInt16()
-	$numberOfCentralsStored = $binaryReader.ReadInt16()
-	$totalNumberOfCentralDirectories = $binaryReader.ReadInt16()
-	$sizeOfCentralDirectory = $binaryReader.ReadInt32()
-	$offsetCentralDirectoryStart = $binaryReader.ReadInt32()
-	$commentLength = $binaryReader.ReadInt16()
-	$commentBytes = $binaryReader.ReadBytes($commentLength)
-
-	return New-Object PSObject -Property @{
-		'DiskNumber' = $diskNumber;
-		'DiskCentralStart' = $diskCentralStart;
-		'NumberOfCentralsStored' = $numberOfCentralsStored;
-		'TotalNumberOfCentralDirectories' = $totalNumberOfCentralDirectories;
-		'SizeOfCentralDirectory' = $sizeOfCentralDirectory;
-		'OffsetCentralDirectoryStart' = $offsetCentralDirectoryStart;
-		'CommentBytes' = $commentBytes;
-	}
-}
-
-function WriteCentralDirectoryEndEntry($binaryWriter, $centralDirectoryEndEntry)
-{
-	$binaryWriter.Write([Int]$endCentralDirectoryFileHeaderSignature)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.DiskNumber)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.DiskCentralStart)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.NumberOfCentralsStored)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.TotalNumberOfCentralDirectories)
-	$binaryWriter.Write([Int]$centralDirectoryEndEntry.SizeOfCentralDirectory)
-	$binaryWriter.Write([int]$centralDirectoryEndEntry.OffsetCentralDirectoryStart)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.CommentBytes.Count)
-
-	if ($centralDirectoryEndEntry.CommentBytes.Count)
-	{
-		$binaryWriter.Write($centralDirectoryEndEntry.CommentBytes)
-	}
-}
-
-function PatchZip($zipFile, $patchZipFile)
-{
-	$openFileMode = [System.IO.FileMode]::Open
-	$readAccess = [System.IO.FileAccess]::Read
-	$readFileShare = [System.IO.FileShare]::Read
-    $zipFileStream = New-Object System.IO.FileStream $zipFile, $openFileMode, $readAccess, $readFileShare
-    $zipFileReader = New-Object System.IO.BinaryReader($zipFileStream)
-
-	$createFileMode = [System.IO.FileMode]::Create
-	$writeAccess = [System.IO.FileAccess]::Write
-	$writeFileShare = [System.IO.FileShare]::Write
-    $patchZipFileStream = New-Object System.IO.FileStream $patchZipFile, $createFileMode, $writeAccess, $writeFileShare
-    $patchZipFileWriter = New-Object System.IO.BinaryWriter($patchZipFileStream)
-
-
-	$currentVersion = 0
-	$currentFlags = 0
-	$currentExternalFileAttributes = 0
-
-	$encoding = [system.Text.Encoding]::UTF8
-
-	do
-	{
-		$signature = $zipFileReader.ReadInt32()
-
-		if ($signature -eq $localFileHeaderSignature)
-		{
-			$localFileEntry = ReadLocalFileEntry $zipFileReader
-
-			if ($localFileEntry.Version -ne $currentVersion)
-			{
-				$currentVersion = $localFileEntry.Version
-				#Write-Host "LVersion: $currentVersion"
-			}
-
-			if ($localFileEntry.Flags -ne $currentFlags)
-			{
-				$currentFlags = $localFileEntry.Flags
-				#Write-Host "LFlags: $currentFlags"
-			}
-
-			#$localFileEntry.Version = 20
-			#$localFileEntry.Flags = 2048
-
-			WriteLocalFileEntry $patchZipFileWriter $localFileEntry
-
-			if ($localFileEntry.CompressedSize -gt 0)
-			{
-				CopyBytes $zipFileReader $patchZipFileWriter $localFileEntry.CompressedSize
-			}
-		}
-		elseif ($signature -eq $centralDirectoryFileHeaderSignature)
-		{
-			$centralDirectoryFileEntry = ReadCentralDirectoryFileEntry $zipFileReader
-
-			if ($centralDirectoryFileEntry.VersionMadeBy -ne $currentVersion)
-			{
-				$currentVersion = $centralDirectoryFileEntry.VersionMadeBy
-				# Write-Host "CVersion: $currentVersion"
-			}
-
-			if ($centralDirectoryFileEntry.Flags -ne $currentFlags)
-			{
-				$currentFlags = $centralDirectoryFileEntry.Flags
-				# Write-Host "CFlags: $currentFlags"
-			}
-
-			if ($centralDirectoryFileEntry.ExternalFileAttributes -ne $currentExternalFileAttributes)
-			{
-				$currentExternalFileAttributes = $centralDirectoryFileEntry.ExternalFileAttributes
-
-				# if ($currentExternalFileAttributes -ne 135200784 -and $currentExternalFileAttributes -ne 67960832 -and $currentExternalFileAttributes -ne 68091904)
-				# {
-				# Write-Host ""
-				# Write-Host "CExternalFileAttributes: $currentExternalFileAttributes"
-
-				$fileName = $encoding.GetString($centralDirectoryFileEntry.FileNameBytes)
-				# Write-Host "CFileName: $fileName"
-				#Write-Output "$fileName;$currentExternalFileAttributes"
-				# }
-			}
-
-			# External File Attribute, Hex Value, Example files:
-			# 136249360, 81F0010, 'Utilities/'
-			# 135200784, 80F0010, 'WBStartup/'
-			# 76480512, 48F0000, 'Programs/Configuration/guigfx_render_fpu/guigfx.library' (hidden), 'Programs/ProTracker/ProTracker-3.15.info', 'Programs/Visage/Catalogs/+e�tina/visage.catalog'
-			# 70189056, 42F0000, 'Programs/DPaintIV/Dpaint','Programs/DirOpus4/c/Date'
-			# 68091904, 40F0000, 'WBStartup/AtLast', 'Storage/DOSDrivers/BootRamDrive', 'MyFiles/LargeHD/128GB_Support/SCSI_v43_45_ChrisToni/A4000TSCSI.scsi.device.43.45'
-			# 67960832, 40D0000, 'Devs/Printers.info'
-
-			# Devs/Monitors/ = 135200784 = --------
-
-			# 136249360 = directory?
-			# 135200784 = directory?
-			# 76480512 = H---RWED
-			# 70189056 = --P-RWED
-			# 68091904 = ----RWED
-			# 67960832 = ----RW-D
-
-			$centralDirectoryFileEntry.VersionMadeBy = 279
-			$centralDirectoryFileEntry.ExternalFileAttributes = 68091904
-
-			WriteCentralDirectoryFileEntry $patchZipFileWriter $centralDirectoryFileEntry
-		}
-		elseif ($signature -eq $endCentralDirectoryFileHeaderSignature)
-		{
-			$centralDirectoryEndEntry = ReadCentralDirectoryEndEntry $zipFileReader
-			WriteCentralDirectoryEndEntry $patchZipFileWriter $centralDirectoryEndEntry
-		}
-		else
-		{
-			$signature
-		}
-	}
-	while ($signature -eq $localFileHeaderSignature -or $signature -eq $centralDirectoryFileHeaderSignature)
-
-	$patchZipFileWriter.Close()
-	$patchZipFileWriter.Dispose()
-
-	$patchZipFileStream.Close()
-	$patchZipFileStream.Dispose()
-
-	$zipFileReader.Close()
-	$zipFileReader.Dispose()
-
-	$zipFileStream.Close()
-	$zipFileStream.Dispose()
-}
-
-function CheckZip($zipFile)
-{
-	$zip = New-Object ZipFile($zipFile)
-	$zip.BeginUpdate()
-
-	#$amigaHostSystemId = [HostSystemID]::Amiga
-
-	foreach($zipEntry in $zip)
-	{
-		# use reflection to get private property 'versionMadeBy' and change it
-		$versionMadeByField = $zipEntry.GetType().GetField("versionMadeBy", [Reflection.BindingFlags]::NonPublic -bor [Reflection.BindingFlags]::Instance)
-		$versionMadeBy = [uint32]20
-		$versionMadeByField.SetValue($zipEntry, [UInt16]20)
-		
-		$zipEntry
-		# if ($zipEntry.IsDirectory -or $zipEntry.Flags -eq 2048)
-		# {
-	    #     continue
-		# }
-		#$zipEntry.HostSystem = $amigaHostSystemId
-		#$zipEntry.Flags = 2048
-	}
-
-	# # create amiga zip file
-	# $zip = [ZipFile]::create($amigaZipFile)
-
-
-
-	# # add zip entry
-	# $zipEntry = [ZipEntry]::new("some/file")
-	# $zipEntry.HostSystem = $amigaHostSystemId
-	# $zip.Add($zipEntry)
-
-	# # close amiga zip file
-    $zip.CommitUpdate()
-    $zip.Close()
-}
-
-
-#CreateAmigaZipFile $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("test2.zip")
-
-#Copy-Item 'c:\Work\First Realize\hstwb-package\package\hstwb_powershell.zip' -Destination 'c:\Work\First Realize\hstwb-package\package\hstwb_patched2.zip'   
-
-PatchZip 'c:\Work\First Realize\hstwb-package\package\hstwb.zip' 'c:\Work\First Realize\hstwb-package\package\hstwb_patched3.zip'
-#PatchZip $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("test2.zip")
-
-exit
-
 
 Add-Type -Assembly System.IO.Compression.FileSystem
+
+
+# create zip from directory
+function CreateZipFromDirectory($directoryName, $outputZipFile)
+{
+    # create zip archive
+    $zipFileStream = New-Object System.IO.FileStream $outputZipFile, 'Create', 'Write', 'Write'
+    $zipArchive = New-Object System.IO.Compression.ZipArchive $zipFileStream, 'Create'
+
+	$items = @()
+	$items += Get-ChildItem $directoryName -Recurse
+
+	foreach($item in $items)
+	{
+		$entryName = $item.FullName.Substring($directoryName.Length + 1) -replace '\\', '/'
+
+		# add tailing slash to entry name, if item is a directory
+		if ($item.PSIsContainer)
+		{
+			$entryName += '/'
+		}
+
+		$zipArchiveEntry = $zipArchive.CreateEntry($entryName)
+
+		# add item content to zip archive entry, if item is a file
+		if (!$item.PSIsContainer)
+		{
+			# open entry stream and item file stream
+			$entryStream = $zipArchiveEntry.Open()
+			$itemFileStream = New-Object System.IO.FileStream $item.FullName, 'Open', 'Read'
+
+			[byte[]]$buffer = new-object byte[] 4096
+
+			# copy item file stream to entry stream
+			do
+			{
+				$result = $itemFileStream.Read($buffer, 0, $buffer.Count)
+				$entryStream.Write($buffer, 0, $result)
+			} while ($result -eq $buffer.Count)
+
+			# close and dispose zip archive and zip file stream
+			$itemFileStream.Close()
+			$itemFileStream.Dispose()
+			$entryStream.Close()
+		}
+	}
+
+	# close and dispose zip archive and zip file stream
+    $zipArchive.Dispose()
+	$zipFileStream.Close()
+	$zipFileStream.Dispose()
+}
 
 
 # paths
@@ -522,6 +68,8 @@ $rootDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPa
 $packageDir = Join-Path -Path $rootDir -ChildPath "package"
 $screenshotsDir = Join-Path -Path $rootDir -ChildPath "screenshots"
 $readmeMarkdownFile = Join-Path -Path $rootDir -ChildPath "README.md"
+$convertZipToAmigaFile = Resolve-Path "convert_zip_to_amiga.ps1"
+
 
 # get screenshot files
 $screenshotFiles = @()
@@ -560,33 +108,6 @@ Write-Host "Building readme guide for package from readme markdown..." -Foregrou
 Write-Host "Done." -ForegroundColor "Yellow"
 
 
-# c# code for forward slash encoder used to create zip files with forward slash as path separator in entries compatible with amiga
-$source = @"
-using System.Text;
-
-namespace HstWB.Package
-{ 
-	public class ForwardSlashEncoder : UTF8Encoding
-	{
-		public ForwardSlashEncoder() : base(true)
-		{
-		}
-
-		public override byte[] GetBytes(string s)
-		{
-			s = s.Replace("\\", "/");
-			return base.GetBytes(s);
-		}
-	}
-}
-"@
-Add-Type -TypeDefinition $source -Language CSharp 
-
-
-# create instance of forward slash encoder
-$forwardSlashEncoder = New-Object 'HstWB.Package.ForwardSlashEncoder'
-
-
 # read package ini lines
 $packageIniFile = [System.IO.Path]::Combine($packageDir, 'package.ini')
 $packageIniLines = Get-Content $packageIniFile
@@ -608,8 +129,14 @@ foreach ($contentDir in $contentDirs)
 	# write progress message
 	Write-Host ("Compressing content '" + $contentDir.Name + "' zip file...")
 
+	# temp file file
+	$tempZipFile = Join-Path $packageDir -ChildPath "temp.zip"
+
+	# compress content directory
+	CreateZipFromDirectory $contentDir.FullName $tempZipFile
+
 	# content zip file
-	$contentZipFile = [System.IO.Path]::Combine($packageDir, ($contentDir.Name + ".zip"))
+	$contentZipFile = Join-Path $packageDir -ChildPath ($contentDir.Name + ".zip")
 
 	# delete content zip file, if it exists
 	if (test-path -path $contentZipFile)
@@ -617,8 +144,14 @@ foreach ($contentDir in $contentDirs)
 		remove-item $contentZipFile -force
 	}
 
-	# compress content directory
-	[System.IO.Compression.ZipFile]::CreateFromDirectory($contentDir.FullName, $contentZipFile, $compressionLevel, $false, $forwardSlashEncoder)	
+	# convert zip to amiga
+	& $convertZipToAmigaFile -zipFile $tempZipFile -outputZipFile $contentZipFile
+
+	# delete temp zip file, if it exists
+	if (test-path -path $tempZipFile)
+	{
+		remove-item $tempZipFile -force
+	}
 }
 
 
@@ -635,7 +168,7 @@ if (test-path -path $packageFile)
 }
 
 # compress package directory
-[System.IO.Compression.ZipFile]::CreateFromDirectory($packageDir, $packageFile, $compressionLevel, $false, $forwardSlashEncoder)
+[System.IO.Compression.ZipFile]::CreateFromDirectory($packageDir, $packageFile, $compressionLevel, $false)
 
 
 # write progress message
