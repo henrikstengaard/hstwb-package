@@ -7,6 +7,7 @@
 # A PowerShell script to build package for HstWB Installer.
 
 
+Add-Type -Assembly System.IO.Compression
 Add-Type -Assembly System.IO.Compression.FileSystem
 
 
