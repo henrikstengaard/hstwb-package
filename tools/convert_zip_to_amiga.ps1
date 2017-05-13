@@ -5,12 +5,20 @@
 # Date:   2017-05-13
 #
 # A PowerShell script to convert a zip file to Amiga.
+#
 # This is done by changing only zip file entries version made by to 279 (Amiga) and 
 # external file attributes with protection bits for amiga file system.
 # Protection bits are set to '----RWED' using external file attributes, 
 # which is 135200784 for directories and 68091904 for files.
+#
 # The converted zip file now appears as if it was created on an Amiga and
 # can successfully be extracted with system files.
+#
+# For unzip to work properly on Amiga, the zip file must contain directory 
+# entries for all directories and not just empty directories to be compatible.
+#
+# Use either 7-Zip, WinRar, Windows build-in zip compression or create_zip_from_directory.ps1
+# script to create a compatible zip file.
 
 
 Param(
@@ -259,6 +267,7 @@ function ConvertZipToAmiga($zipFile, $outputZipFile)
     $outputZipFileStream = New-Object System.IO.FileStream $outputZipFile, $createFileMode, $writeAccess, $writeFileShare
     $outputZipFileBinaryWriter = New-Object System.IO.BinaryWriter($outputZipFileStream)
 
+	$invalidSignature = $false
 	$encoding = [system.Text.Encoding]::UTF8
 
 	do
@@ -320,6 +329,7 @@ function ConvertZipToAmiga($zipFile, $outputZipFile)
 		else
 		{
 			Write-Error ("Unknown signature '{0}' at position '{1}' in file '{2}'" -f $signature, $zipFileBinaryReader.BaseStream.Position - 4, $zipFile)
+			$invalidSignature = $true
 			break
 		}
 	}
@@ -336,6 +346,11 @@ function ConvertZipToAmiga($zipFile, $outputZipFile)
 	$outputZipFileStream.Dispose()
 	$zipFileStream.Close()
 	$zipFileStream.Dispose()
+
+	if ($invalidSignature)
+	{
+		exit 1
+	}
 }
 
 ConvertZipToAmiga $zipFile $outputZipFile

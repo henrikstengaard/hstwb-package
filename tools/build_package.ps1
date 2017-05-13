@@ -7,68 +7,15 @@
 # A PowerShell script to build package for HstWB Installer.
 
 
-Add-Type -Assembly System.IO.Compression
 Add-Type -Assembly System.IO.Compression.FileSystem
 
 
-# create zip from directory
-function CreateZipFromDirectory($directoryName, $outputZipFile)
-{
-    # create zip archive
-    $zipFileStream = New-Object System.IO.FileStream $outputZipFile, 'Create', 'Write', 'Write'
-    $zipArchive = New-Object System.IO.Compression.ZipArchive $zipFileStream, 'Create'
-
-	$items = @()
-	$items += Get-ChildItem $directoryName -Recurse
-
-	foreach($item in $items)
-	{
-		$entryName = $item.FullName.Substring($directoryName.Length + 1) -replace '\\', '/'
-
-		# add tailing slash to entry name, if item is a directory
-		if ($item.PSIsContainer)
-		{
-			$entryName += '/'
-		}
-
-		$zipArchiveEntry = $zipArchive.CreateEntry($entryName)
-
-		# add item content to zip archive entry, if item is a file
-		if (!$item.PSIsContainer)
-		{
-			# open entry stream and item file stream
-			$entryStream = $zipArchiveEntry.Open()
-			$itemFileStream = New-Object System.IO.FileStream $item.FullName, 'Open', 'Read'
-
-			[byte[]]$buffer = new-object byte[] 4096
-
-			# copy item file stream to entry stream
-			do
-			{
-				$result = $itemFileStream.Read($buffer, 0, $buffer.Count)
-				$entryStream.Write($buffer, 0, $result)
-			} while ($result -eq $buffer.Count)
-
-			# close and dispose zip archive and zip file stream
-			$itemFileStream.Close()
-			$itemFileStream.Dispose()
-			$entryStream.Close()
-		}
-	}
-
-	# close and dispose zip archive and zip file stream
-    $zipArchive.Dispose()
-	$zipFileStream.Close()
-	$zipFileStream.Dispose()
-}
-
-
 # paths
-$compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
 $rootDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..")
 $packageDir = Join-Path -Path $rootDir -ChildPath "package"
 $screenshotsDir = Join-Path -Path $rootDir -ChildPath "screenshots"
 $readmeMarkdownFile = Join-Path -Path $rootDir -ChildPath "README.md"
+$createZipFromDirectoryFile = Resolve-Path "create_zip_from_directory.ps1"
 $convertZipToAmigaFile = Resolve-Path "convert_zip_to_amiga.ps1"
 
 
@@ -134,7 +81,7 @@ foreach ($contentDir in $contentDirs)
 	$tempZipFile = Join-Path $packageDir -ChildPath "temp.zip"
 
 	# compress content directory
-	CreateZipFromDirectory $contentDir.FullName $tempZipFile
+	& $createZipFromDirectoryFile -inputDir $contentDir.FullName -outputZipFile $tempZipFile
 
 	# content zip file
 	$contentZipFile = Join-Path $packageDir -ChildPath ($contentDir.Name + ".zip")
@@ -169,7 +116,7 @@ if (test-path -path $packageFile)
 }
 
 # compress package directory
-[System.IO.Compression.ZipFile]::CreateFromDirectory($packageDir, $packageFile, $compressionLevel, $false)
+[System.IO.Compression.ZipFile]::CreateFromDirectory($packageDir, $packageFile, 'Optimal', $false)
 
 
 # write progress message
