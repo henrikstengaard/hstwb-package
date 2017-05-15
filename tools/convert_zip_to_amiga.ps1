@@ -2,7 +2,7 @@
 # --------------------
 #
 # Author: Henrik Nørfjand Stengaard
-# Date:   2017-05-13
+# Date:   2017-05-15
 #
 # A PowerShell script to convert a zip file to Amiga.
 #
