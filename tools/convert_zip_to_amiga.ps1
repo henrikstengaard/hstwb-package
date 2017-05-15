@@ -58,16 +58,16 @@ $endCentralDirectoryFileHeaderSignature = 0x06054b50
 # read local file entry from binary reader
 function ReadLocalFileEntry($binaryReader)
 {
-	$version = $binaryReader.ReadInt16()
-	$flags = $binaryReader.ReadInt16()
-	$method = $binaryReader.ReadInt16()
-	$fileModificationTime = $binaryReader.ReadInt16()
-	$fileModificationDate = $binaryReader.ReadInt16()
-	$crc32 = $binaryReader.ReadInt32()
-	$compressedSize = $binaryReader.ReadInt32()
-	$uncompressedSize = $binaryReader.ReadInt32()
-	$fileNameLength = $binaryReader.ReadInt16()
-	$extraFieldLength = $binaryReader.ReadInt16()
+	$version = $binaryReader.ReadUInt16()
+	$flags = $binaryReader.ReadUInt16()
+	$method = $binaryReader.ReadUInt16()
+	$fileModificationTime = $binaryReader.ReadUInt16()
+	$fileModificationDate = $binaryReader.ReadUInt16()
+	$crc32 = $binaryReader.ReadUInt32()
+	$compressedSize = $binaryReader.ReadUInt32()
+	$uncompressedSize = $binaryReader.ReadUInt32()
+	$fileNameLength = $binaryReader.ReadUInt16()
+	$extraFieldLength = $binaryReader.ReadUInt16()
 	$fileNameBytes = $binaryReader.ReadBytes($fileNameLength)
 	$extraFieldBytes = $binaryReader.ReadBytes($extraFieldLength)
 
@@ -88,24 +88,24 @@ function ReadLocalFileEntry($binaryReader)
 # write local file entry to binary writer
 function WriteLocalFileEntry($binaryWriter, $localFileEntry)
 {
-	$binaryWriter.Write([Int]$localFileHeaderSignature)
-	$binaryWriter.Write([Int16]$localFileEntry.Version)
-	$binaryWriter.Write([Int16]$localFileEntry.Flags)
-	$binaryWriter.Write([Int16]$localFileEntry.Method)
-	$binaryWriter.Write([Int16]$localFileEntry.FileModificationTime)
-	$binaryWriter.Write([Int16]$localFileEntry.FileModificationDate)
-	$binaryWriter.Write([Int]$localFileEntry.Crc32)
-	$binaryWriter.Write([int]$localFileEntry.CompressedSize)
-	$binaryWriter.Write([Int]$localFileEntry.UncompressedSize)
-	$binaryWriter.Write([Int16]$localFileEntry.FileNameBytes.Count)
-	$binaryWriter.Write([Int16]$localFileEntry.ExtraFieldBytes.Count)
+	$binaryWriter.Write([UInt32]$localFileHeaderSignature)
+	$binaryWriter.Write([UInt16]$localFileEntry.Version)
+	$binaryWriter.Write([UInt16]$localFileEntry.Flags)
+	$binaryWriter.Write([UInt16]$localFileEntry.Method)
+	$binaryWriter.Write([UInt16]$localFileEntry.FileModificationTime)
+	$binaryWriter.Write([UInt16]$localFileEntry.FileModificationDate)
+	$binaryWriter.Write([UInt32]$localFileEntry.Crc32)
+	$binaryWriter.Write([UInt32]$localFileEntry.CompressedSize)
+	$binaryWriter.Write([UInt32]$localFileEntry.UncompressedSize)
+	$binaryWriter.Write([UInt16]$localFileEntry.FileNameBytes.Count)
+	$binaryWriter.Write([UInt16]$localFileEntry.ExtraFieldBytes.Count)
 
-	if ($localFileEntry.FileNameBytes.Count)
+	if ($localFileEntry.FileNameBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($localFileEntry.FileNameBytes)
 	}
 
-	if ($localFileEntry.ExtraFieldBytes.Count)
+	if ($localFileEntry.ExtraFieldBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($localFileEntry.ExtraFieldBytes)
 	}
@@ -134,22 +134,22 @@ function CopyBytes($binaryReader, $binaryWriter, $count)
 # read central directory file entry from binary reader
 function ReadCentralDirectoryFileEntry($binaryReader)
 {
-	$versionMadeBy = $binaryReader.ReadInt16()
-	$version = $binaryReader.ReadInt16()
-	$flags = $binaryReader.ReadInt16()
-	$method = $binaryReader.ReadInt16()
-	$fileModificationTime = $binaryReader.ReadInt16()
-	$fileModificationDate = $binaryReader.ReadInt16()
-	$crc32 = $binaryReader.ReadInt32()
-	$compressedSize = $binaryReader.ReadInt32()
-	$uncompressedSize = $binaryReader.ReadInt32()
-	$fileNameLength = $binaryReader.ReadInt16()
-	$extraFieldLength = $binaryReader.ReadInt16()
-	$fileCommentLength = $binaryReader.ReadInt16()
-	$diskNumber = $binaryReader.ReadInt16()
-	$internalFileAttributes = $binaryReader.ReadInt16()
-	$externalFileAttributes = $binaryReader.ReadInt32()
-	$dataOffset = $binaryReader.ReadInt32()
+	$versionMadeBy = $binaryReader.ReadUInt16()
+	$version = $binaryReader.ReadUInt16()
+	$flags = $binaryReader.ReadUInt16()
+	$method = $binaryReader.ReadUInt16()
+	$fileModificationTime = $binaryReader.ReadUInt16()
+	$fileModificationDate = $binaryReader.ReadUInt16()
+	$crc32 = $binaryReader.ReadUInt32()
+	$compressedSize = $binaryReader.ReadUInt32()
+	$uncompressedSize = $binaryReader.ReadUInt32()
+	$fileNameLength = $binaryReader.ReadUInt16()
+	$extraFieldLength = $binaryReader.ReadUInt16()
+	$fileCommentLength = $binaryReader.ReadUInt16()
+	$diskNumber = $binaryReader.ReadUInt16()
+	$internalFileAttributes = $binaryReader.ReadUInt16()
+	$externalFileAttributes = $binaryReader.ReadUInt32()
+	$dataOffset = $binaryReader.ReadUInt32()
 	$fileNameBytes = $binaryReader.ReadBytes($fileNameLength)
 	$extraFieldBytes = $binaryReader.ReadBytes($extraFieldLength)
 	$fileCommentBytes = $binaryReader.ReadBytes($fileCommentLength)
@@ -177,35 +177,35 @@ function ReadCentralDirectoryFileEntry($binaryReader)
 # write central directory file entry
 function WriteCentralDirectoryFileEntry($binaryWriter, $centralDirectoryFileEntry)
 {
-	$binaryWriter.Write([Int]$centralDirectoryFileHeaderSignature)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.VersionMadeBy)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Version)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Flags)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.Method)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileModificationTime)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileModificationDate)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.Crc32)
-	$binaryWriter.Write([int]$centralDirectoryFileEntry.CompressedSize)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.UncompressedSize)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileNameBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.ExtraFieldBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.FileCommentBytes.Count)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.DiskNumber)
-	$binaryWriter.Write([Int16]$centralDirectoryFileEntry.InternalFileAttributes)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.ExternalFileAttributes)
-	$binaryWriter.Write([Int]$centralDirectoryFileEntry.DataOffset)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileHeaderSignature)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.VersionMadeBy)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.Version)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.Flags)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.Method)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.FileModificationTime)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.FileModificationDate)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileEntry.Crc32)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileEntry.CompressedSize)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileEntry.UncompressedSize)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.FileNameBytes.Count)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.ExtraFieldBytes.Count)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.FileCommentBytes.Count)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.DiskNumber)
+	$binaryWriter.Write([UInt16]$centralDirectoryFileEntry.InternalFileAttributes)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileEntry.ExternalFileAttributes)
+	$binaryWriter.Write([UInt32]$centralDirectoryFileEntry.DataOffset)
 
-	if ($centralDirectoryFileEntry.FileNameBytes.Count)
+	if ($centralDirectoryFileEntry.FileNameBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($centralDirectoryFileEntry.FileNameBytes)
 	}
 
-	if ($centralDirectoryFileEntry.ExtraFieldBytes.Count)
+	if ($centralDirectoryFileEntry.ExtraFieldBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($centralDirectoryFileEntry.ExtraFieldBytes)
 	}
 
-	if ($centralDirectoryFileEntry.FileCommentBytes.Count)
+	if ($centralDirectoryFileEntry.FileCommentBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($centralDirectoryFileEntry.FileCommentBytes)
 	}
@@ -214,13 +214,13 @@ function WriteCentralDirectoryFileEntry($binaryWriter, $centralDirectoryFileEntr
 # read central directory end entry from binary reader
 function ReadCentralDirectoryEndEntry($binaryReader)
 {
-	$diskNumber = $binaryReader.ReadInt16()
-	$diskCentralStart = $binaryReader.ReadInt16()
-	$numberOfCentralsStored = $binaryReader.ReadInt16()
-	$totalNumberOfCentralDirectories = $binaryReader.ReadInt16()
-	$sizeOfCentralDirectory = $binaryReader.ReadInt32()
-	$offsetCentralDirectoryStart = $binaryReader.ReadInt32()
-	$commentLength = $binaryReader.ReadInt16()
+	$diskNumber = $binaryReader.ReadUInt16()
+	$diskCentralStart = $binaryReader.ReadUInt16()
+	$numberOfCentralsStored = $binaryReader.ReadUInt16()
+	$totalNumberOfCentralDirectories = $binaryReader.ReadUInt16()
+	$sizeOfCentralDirectory = $binaryReader.ReadUInt32()
+	$offsetCentralDirectoryStart = $binaryReader.ReadUInt32()
+	$commentLength = $binaryReader.ReadUInt16()
 	$commentBytes = $binaryReader.ReadBytes($commentLength)
 
 	return New-Object PSObject -Property @{
@@ -237,16 +237,16 @@ function ReadCentralDirectoryEndEntry($binaryReader)
 # write central directory end entry to binary writer
 function WriteCentralDirectoryEndEntry($binaryWriter, $centralDirectoryEndEntry)
 {
-	$binaryWriter.Write([Int]$endCentralDirectoryFileHeaderSignature)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.DiskNumber)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.DiskCentralStart)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.NumberOfCentralsStored)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.TotalNumberOfCentralDirectories)
-	$binaryWriter.Write([Int]$centralDirectoryEndEntry.SizeOfCentralDirectory)
-	$binaryWriter.Write([int]$centralDirectoryEndEntry.OffsetCentralDirectoryStart)
-	$binaryWriter.Write([Int16]$centralDirectoryEndEntry.CommentBytes.Count)
+	$binaryWriter.Write([UInt32]$endCentralDirectoryFileHeaderSignature)
+	$binaryWriter.Write([UInt16]$centralDirectoryEndEntry.DiskNumber)
+	$binaryWriter.Write([UInt16]$centralDirectoryEndEntry.DiskCentralStart)
+	$binaryWriter.Write([UInt16]$centralDirectoryEndEntry.NumberOfCentralsStored)
+	$binaryWriter.Write([UInt16]$centralDirectoryEndEntry.TotalNumberOfCentralDirectories)
+	$binaryWriter.Write([UInt32]$centralDirectoryEndEntry.SizeOfCentralDirectory)
+	$binaryWriter.Write([UInt32]$centralDirectoryEndEntry.OffsetCentralDirectoryStart)
+	$binaryWriter.Write([UInt16]$centralDirectoryEndEntry.CommentBytes.Count)
 
-	if ($centralDirectoryEndEntry.CommentBytes.Count)
+	if ($centralDirectoryEndEntry.CommentBytes.Count -gt 0)
 	{
 		$binaryWriter.Write($centralDirectoryEndEntry.CommentBytes)
 	}
@@ -255,16 +255,10 @@ function WriteCentralDirectoryEndEntry($binaryWriter, $centralDirectoryEndEntry)
 # convert zip to amiga
 function ConvertZipToAmiga($zipFile, $outputZipFile)
 {
-	$openFileMode = [System.IO.FileMode]::Open
-	$readAccess = [System.IO.FileAccess]::Read
-	$readFileShare = [System.IO.FileShare]::Read
-    $zipFileStream = New-Object System.IO.FileStream $zipFile, $openFileMode, $readAccess, $readFileShare
+    $zipFileStream = New-Object System.IO.FileStream $zipFile, 'Open', 'Read', 'Read'
     $zipFileBinaryReader = New-Object System.IO.BinaryReader($zipFileStream)
 
-	$createFileMode = [System.IO.FileMode]::Create
-	$writeAccess = [System.IO.FileAccess]::Write
-	$writeFileShare = [System.IO.FileShare]::Write
-    $outputZipFileStream = New-Object System.IO.FileStream $outputZipFile, $createFileMode, $writeAccess, $writeFileShare
+    $outputZipFileStream = New-Object System.IO.FileStream $outputZipFile, 'Create', 'Write', 'Write'
     $outputZipFileBinaryWriter = New-Object System.IO.BinaryWriter($outputZipFileStream)
 
 	$invalidSignature = $false
