@@ -27,6 +27,8 @@ function CreateZipFromDirectory($inputDir, $outputZipFile)
     $zipFileStream = New-Object System.IO.FileStream $outputZipFile, 'Create', 'Write', 'Write'
     $zipArchive = New-Object System.IO.Compression.ZipArchive $zipFileStream, 'Create'
 
+	$earliestPermittedLastWriteDate = New-Object System.DateTime 1980, 1, 1, 0, 0, 0
+
 	$items = @()
 	$items += Get-ChildItem $inputDir -Recurse
 
@@ -41,7 +43,16 @@ function CreateZipFromDirectory($inputDir, $outputZipFile)
 		}
 
 		$zipArchiveEntry = $zipArchive.CreateEntry($entryName)
-		$zipArchiveEntry.LastWriteTime = $item.LastWriteTime
+
+		# set last write time to earliest permitted last write date, if last write date is earlier then 1980 January 1
+		if ($item.LastWriteTime -lt $earliestPermittedLastWriteDate)
+		{
+			$zipArchiveEntry.LastWriteTime = $earliestPermittedLastWriteDate
+		}
+		else
+		{
+			$zipArchiveEntry.LastWriteTime = $item.LastWriteTime
+		}
 
 		# add item content to zip archive entry, if item is a file
 		if (!$item.PSIsContainer)
