@@ -23,7 +23,9 @@ unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
 protect >NIL: SYSTEMDIR:C/#? +rwe
 
 ; Copy scsi device
-COPY DEVS:scsi.device SYSTEMDIR:Devs
+IF EXISTS DEVS:scsi.device
+  COPY >NIL: DEVS:scsi.device SYSTEMDIR:Devs
+ENDIF
 
 ; Create default settings, load scsi device and icon library and start Amiga Boot Selector
 ECHO "" NOLINE >SYSTEMDIR:S/Load-ScsiDevice
