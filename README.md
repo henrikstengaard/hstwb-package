@@ -232,31 +232,3 @@ Screenshots of HstWB.
 ![HstWB 4](screenshots/hstwb_4.png?raw=true)
 
 ![HstWB 5](screenshots/hstwb_5.png?raw=true)
-
-![HstWB 6](screenshots/hstwb_6.png?raw=true)
-
-![HstWB 7](screenshots/hstwb_7.png?raw=true)
-
-![HstWB 8](screenshots/hstwb_8.png?raw=true)
-
-![HstWB 9](screenshots/hstwb_9.png?raw=true)
-
-![HstWB 10](screenshots/hstwb_10.png?raw=true)
-
-![HstWB 11](screenshots/hstwb_11.png?raw=true)
-
-![HstWB 12](screenshots/hstwb_12.png?raw=true)
-
-![HstWB 13](screenshots/hstwb_13.png?raw=true)
-
-![HstWB 14](screenshots/hstwb_14.png?raw=true)
-
-![HstWB 15](screenshots/hstwb_15.png?raw=true)
-
-![HstWB 16](screenshots/hstwb_16.png?raw=true)
-
-![HstWB 17](screenshots/hstwb_17.png?raw=true)
-
-![HstWB 18](screenshots/hstwb_18.png?raw=true)
-
-![HstWB 19](screenshots/hstwb_19.png?raw=true)
