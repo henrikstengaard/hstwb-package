@@ -219,6 +219,21 @@ Configure kickstart roms main menu has following options:
 
 ![HstWB 19](screenshots/hstwb_19.png?raw=true)
 
+## FAQ
+
+Find questions and answers to commonly asked questions using HstWB.
+
+**Q:** How do I install my Cloanto Amiga Forever Kickstart roms?
+
+Copy Cloanto Amiga Forever Kickstart roms from "c:\Users\Public\Documents\Amiga Files\Shared\rom" directory to emulator or real Amiga and start Configure kickstart roms and use Install Kickstart Roms option. 
+
+**A:** Start Configure kickstart roms and use Install Kickstart Roms option. 
+
+First transfer Cloanto Amiga Forever Kickstart roms to HstWB in following ways:
+
+1. Emulator: Add directory with device name ROMS: and select Cloanto Amiga Forever Kickstart roms "c:\Users\Public\Documents\Amiga Files\Shared\rom" directory. Select ROMS: device in Install Kickstart Roms option, when emulator is started.
+2. Real Amiga: Copy Cloanto Amiga Forever Kickstart roms files from "c:\Users\Public\Documents\Amiga Files\Shared\rom" to CF card using CF to USB adapter. Select CF0: device in Install Kickstart Roms option, when CF card is plugged into A600/A1200 PCMCIA port.
+
 ## Screenshots
 
 Screenshots of HstWB.
