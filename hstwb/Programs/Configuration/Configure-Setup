@@ -1,7 +1,7 @@
 ; Configure Setup Script
 ; ----------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2016-09-13
+; Date: 2017-06-07
 ;
 ; This script configures setup of hardware, devices, boot sequence and whdload.
 ; Hardware menu contains configuration of accelerator cards Blizzard, ACA, Furia. It also has options for CPU, FPU and OS patches.
@@ -633,16 +633,10 @@ SKIP bootsequencemenu back
 LAB multibootdefault
 
 echo "" NOLINE >T:multibootdefaultmenu
-
-IF EXISTS ENV:ags2gamespath
-	echo "Games" >>T:multibootdefaultmenu
-ENDIF
-
-IF EXISTS ENV:ags2demospath
-	echo "Demos" >>T:multibootdefaultmenu
-ENDIF
-
+echo "Games" >>T:multibootdefaultmenu
+echo "Demos" >>T:multibootdefaultmenu
 echo "Workbench" >>T:multibootdefaultmenu
+echo "CLI" >>T:multibootdefaultmenu
 echo "Back" >>T:multibootdefaultmenu
 
 ; Show select multiboot default menu
@@ -653,17 +647,30 @@ delete >NIL: T:multibootdefaultmenu
 
 ; Games
 IF $multibootdefaultmenu eq "1" 
-	copy >NIL: S:StartUp.Games S:StartUp.Default
+  IF EXISTS S:AGS2Games
+    copy >NIL: S:StartUp.1 S:StartUp.Default
+  ELSE
+    REQUESTCHOICE "Error" "AGS2 Games is not installed!" "OK" >NIL:
+  ENDIF
 ENDIF 
 
 ; Demos
 IF $multibootdefaultmenu eq "2" 
-	copy >NIL: S:StartUp.Demos S:StartUp.Default
+  IF EXISTS S:AGS2Demos
+    copy >NIL: S:StartUp.2 S:StartUp.Default
+  ELSE
+    REQUESTCHOICE "Error" "AGS2 Demos is not installed!" "OK" >NIL:
+  ENDIF
 ENDIF 
 
 ; Workbench
 IF $multibootdefaultmenu eq "3" 
-	copy >NIL: S:StartUp.Workbench S:StartUp.Default
+	copy >NIL: S:StartUp.3 S:StartUp.Default
+ENDIF 
+
+; CLI
+IF $multibootdefaultmenu eq "4" 
+	copy >NIL: S:StartUp.4 S:StartUp.Default
 ENDIF 
 
 SKIP bootsequencemenu back
