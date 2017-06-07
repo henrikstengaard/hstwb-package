@@ -54,7 +54,7 @@ function ConvertImages($markdownFile, $outputDir)
 
     # get image references from markdown
     $imageReferences = @()
-    $imageReferences += $markdownLines | ForEach-Object { $_ | Select-String -Pattern "!\[[^\[\]]+\]\(([^\(\)]+\.png)[^\)]+\)" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value.Trim() } }
+    $imageReferences += $markdownLines | ForEach-Object { $_ | Select-String -Pattern "!\[[^\[\]]+\]\(([^\(\)]+\.(png|jpg))[^\)]+\)" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value.Trim() } }
 
     # image dir
     $imageDir = Split-Path $markdownFile -Parent

@@ -24,7 +24,7 @@ $screenshotFiles = @()
 
 if (Test-Path $screenshotsDir)
 {
-	$screenshotFiles += Get-ChildItem -Path $screenshotsDir -Filter *.png
+	$screenshotFiles += Get-ChildItem -Path "$screenshotsDir\*" -Include *.png, *.jpg
 }
 
 
