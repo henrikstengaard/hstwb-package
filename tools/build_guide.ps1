@@ -2,7 +2,7 @@
 # -----------
 #
 # Author: Henrik Nørfjand Stengaard
-# Date:   2017-06-07
+# Date:   2017-06-08
 #
 # A PowerShell script to build amiga guide from markdown.
 #
@@ -74,7 +74,7 @@ function ConvertImages($markdownFile, $outputDir)
         $imageFile = Resolve-Path $imageFile
 
         # image magick
-	    $imageMagickConvertArgs = """$imageFile"" -resize 610x190! -filter Point -depth 8 -colors 255 ""$tempFile"""
+	    $imageMagickConvertArgs = """$imageFile"" -resize 610x190! -filter Point -depth 8 -colors 255 png8:""$tempFile"""
         $imageMagickConvertProcess = Start-Process -FilePath $imageMagickFile -ArgumentList $imageMagickConvertArgs -Wait -NoNewWindow -PassThru
         if ($imageMagickConvertProcess.ExitCode -ne 0)
         {
@@ -223,9 +223,9 @@ function BuildGuideLines($markdownFile, $guideFileName)
         }
 
         # convert image references
-        if ($guideLines[$i] -match '!\[[^\[\]]+\]\([^\(\)]+\.png[^\)]+\)')
+        if ($guideLines[$i] -match '!\[[^\[\]]+\]\([^\(\)]+\.(png|jpg)[^\)]+\)')
         {
-            $guideLines[$i] = $guideLines[$i] -replace '!\[([^\[\]]+)\]\(([^\(\)]+)\.png[^\)]+\)', '@{"$1" SYSTEM "multiview $2.iff"}'
+            $guideLines[$i] = $guideLines[$i] -replace '!\[([^\[\]]+)\]\(([^\(\)]+)\.(png|jpg)[^\)]+\)', '@{"$1" SYSTEM "multiview $2.iff"}'
         }
     }
 
