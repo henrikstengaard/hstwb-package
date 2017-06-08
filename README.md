@@ -1,6 +1,6 @@
 # HstWB Package
 
-HstWB is a minimalistic Workbench enhancement by Henrik Nørfjand Stengaard based on using BetterWB targeted A500, A600, A1200 using 16 colour screenmode using PAL / NTSC / Non-Interlaced 640x256 display.
+HstWB is a minimalistic Workbench enhancement by Henrik Nørfjand Stengaard based on BetterWB targeted A500, A600, A1200 using 16 colour screenmode using PAL / NTSC / Non-Interlaced 640x256 display.
 
 HstWB contains following features:
 
@@ -267,6 +267,16 @@ First transfer Cloanto Amiga Forever Kickstart roms to HstWB in following ways:
 
 1. Emulator: Add directory with device name ROMS: and select Cloanto Amiga Forever Kickstart roms "c:\Users\Public\Documents\Amiga Files\Shared\rom" directory. Select ROMS: device in Install Kickstart Roms option, when emulator is started.
 2. Real Amiga: Copy Cloanto Amiga Forever Kickstart roms files from "c:\Users\Public\Documents\Amiga Files\Shared\rom" to CF card using CF to USB adapter. Select CF0: device in Install Kickstart Roms option, when CF card is plugged into A600/A1200 PCMCIA port.
+
+---
+
+**Q:** How do I customize the Blizzard, ACA and Furia accelerator card scripts?
+
+**A:** Blizzard, ACA and Furia accelerator card scripts contains default settings and can customized by changing following files located in S: assign:
+
+- Blizzard: Blizzard accelerator card initialization script using BlitzKick.
+- ACA: ACA accelerator card initialization script using ACATune.
+- Furia: Furia accelerator card initialization script using FuriaTune.
 
 ## Screenshots
 
