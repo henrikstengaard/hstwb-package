@@ -2,7 +2,9 @@
 
 HstWB is a minimalistic Workbench enhancement by Henrik Nørfjand Stengaard based on BetterWB targeted A500, A600, A1200 using 16 colour screenmode using PAL / NTSC / Non-Interlaced 640x256 display.
 
-HstWB contains following features:
+## Description
+
+HstWB Package contains following features:
 
 - Adds and replaces Workbench icons with icons from ClassicWB.
 - Build-in support for ACA, Furia and Blizzard accelerator cards.
