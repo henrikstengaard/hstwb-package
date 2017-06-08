@@ -48,7 +48,7 @@ HstWB has build-in support for following accelerator cards:
 
 Picture showing MAPROM jumper enabled on Blizzard 1230 MK-IV accelerator card.
 
-![Blizzard 1230 MK-IV MAPROM Enabled](screenshots/blizzard_1230_mk-iv_maprom_enabled.jpg?raw=true)
+![Blizzard 1230 MK-IV MAPROM Enabled](screenshots/blizzard_1230_mk-iv.jpg?raw=true)
 
 ## Boot selectors
 
