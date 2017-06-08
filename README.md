@@ -30,6 +30,14 @@ Installation of HstWB package requires and uses following assign and default val
 
 HstWB files will be installed and configured in SYSTEMDIR: assign, which must be set to harddrive containing Workbench.
 
+## First time boot
+
+First time HstWB is booted after installation, it will automatically start configure setup. This allows changing configuration for most optimal use on the Amiga it's installed on.
+
+Screenshot of first time boot.
+
+![First time boot](screenshots/first_time_boot.png?raw=true)
+
 ## Build-in support for accelerator cards
 
 HstWB has build-in support for following accelerator cards:
@@ -64,7 +72,9 @@ A 5 second timer will automatically select last used boot option, which by defau
 
 Amiga Boot Selector can be changed by pressing F1. This allows changing existing boot options or add new ones.
 
-![HstWB 2](screenshots/hstwb_2.png?raw=true)
+Screenshot of Amiga Boot Selector.
+
+![Amiga Boot Selector](screenshots/hstwb_2.png?raw=true)
 
 ### Multi Boot
 
@@ -79,7 +89,9 @@ HstWB is configured with following boot options in Multi Boot:
 
 A 5 second timer will automatically select default boot option, which is Games by default and can be changed using configure setup.
 
-![HstWB 3](screenshots/hstwb_3.png?raw=true)
+Screenshot of Multi Boot.
+
+![Multi Boot](screenshots/hstwb_3.png?raw=true)
 
 ## Configure setup
 
@@ -93,7 +105,9 @@ Configure setup can be started in 2 following ways:
 
 Start of configure setup during boot has been added as a recovery option allowing setup to be reset or changed, if boot sequence or Workbench could result in a crash.
 
-![HstWB 6](screenshots/hstwb_6.png?raw=true)
+Screenshot of Configuration drawer.
+
+![Configuration drawer](screenshots/hstwb_6.png?raw=true)
 
 ### Configure setup main menu
 
@@ -107,7 +121,9 @@ Configure setup main menu has following options:
 - Reboot: Reboot system with a delay of 10 seconds.
 - Exit: Exit Configure setup.
 
-![HstWB 7](screenshots/hstwb_7.png?raw=true)
+Screenshot of Configure setup main menu.
+
+![Configure setup main menu](screenshots/hstwb_7.png?raw=true)
 
 ### Hardware menu
 
@@ -121,23 +137,25 @@ Hardware menu has following options:
 - Use OS Patches: Enables or disables BlazeWCP, FBlit and FText during Workbench startup.
 - Back: Back to configure setup main menu.
 
-![HstWB 8](screenshots/hstwb_8.png?raw=true)
+Screenshot of Hardware menu.
 
-Enabling Use Blizzard asks to maprom A1200 Kickstart 3.1.
+![Hardware menu](screenshots/hstwb_8.png?raw=true)
 
-![HstWB 9](screenshots/hstwb_9.png?raw=true)
+Screenshot of enabling Use Blizzard asks to maprom A1200 Kickstart 3.1.
 
-Enabling Use ACA asks to maprom A600 Kickstart 3.1.
+![Use Blizzard maprom A1200](screenshots/hstwb_9.png?raw=true)
 
-![HstWB 10](screenshots/hstwb_10.png?raw=true)
+Screenshot of enabling Use ACA asks to maprom A600 Kickstart 3.1.
 
-Enabling Use ACA asks to maprom A1200 Kickstart 3.1.
+![Use ACA maprom A600](screenshots/hstwb_10.png?raw=true)
 
-![HstWB 11](screenshots/hstwb_11.png?raw=true)
+Screenshot of enabling Use ACA asks to maprom A1200 Kickstart 3.1.
 
-Enabling Use Furia asks to maprom A600 Kickstart 3.1.
+![Use ACA maprom A1200](screenshots/hstwb_11.png?raw=true)
 
-![HstWB 12](screenshots/hstwb_12.png?raw=true)
+Screenshot of enabling Use Furia asks to maprom A600 Kickstart 3.1.
+
+![Use Furia maprom A600](screenshots/hstwb_12.png?raw=true)
 
 ### Device & Library menu
 
@@ -148,7 +166,9 @@ Device & Library menu has following options:
 - Select scsi.device: Enters select scsi.device menu.
 - Back: Back to configure setup main menu.
 
-![HstWB 13](screenshots/hstwb_13.png?raw=true)
+Screenshot of Device & Library menu.
+
+![Device & Library menu](screenshots/hstwb_13.png?raw=true)
 
 ### Select scsi.device menu
 
@@ -162,7 +182,9 @@ Select scsi.device menu has following options:
 - v44.20 Doobrey A1200: Selects and copies v44.20 Doobrey A1200 patched scsi.device to DEVS:scsi.device. It supports harddrives larger than 4GB and has ide speed optimizations similar to BlitzKick SpeedyIDE.
 - Back: Back to configure setup main menu.
 
-![HstWB 14](screenshots/hstwb_14.png?raw=true)
+Screenshot of Select scsi.device menu.
+
+![Select scsi.device menu](screenshots/hstwb_14.png?raw=true)
 
 ### Boot Sequence menu
 
@@ -175,7 +197,9 @@ Boot Sequence menu has following options:
 - Start AGS2 Demos: Enables or disables start of AGS2 demos menu during boot.
 - Back: Back to configure setup main menu.
 
-![HstWB 15](screenshots/hstwb_15.png?raw=true)
+Screenshot of Boot Sequence menu.
+
+![Boot Sequence menu](screenshots/hstwb_15.png?raw=true)
 
 ### WHDLoad menu
 
@@ -186,9 +210,13 @@ WHDLoad menu has following options:
 
 Setting a quit key is very usefor for A600 users as default quit key is often a key not available on A600 keyboard.
 
-![HstWB 16](screenshots/hstwb_16.png?raw=true)
+Screenshot of WHDLoad menu.
 
-![HstWB 17](screenshots/hstwb_17.png?raw=true)
+![WHDLoad menu](screenshots/hstwb_16.png?raw=true)
+
+Screenshot of setting WHDLoad global quit key.
+
+![Set Quit Key](screenshots/hstwb_17.png?raw=true)
 
 ## Configure kickstart roms
 
@@ -197,7 +225,9 @@ It's build using AmigaDOS script and ReqList to make menus for easily changing o
 
 Configure kickstart roms can be started by double-click Workbench, System, Programs, Configuration and Configure-Kickstart-Roms icon.
 
-![HstWB 6](screenshots/hstwb_6.png?raw=true)
+Screenshot of Configuration drawer.
+
+![Configuration drawer](screenshots/hstwb_6.png?raw=true)
 
 ### Configure kickstart roms main menu
 
@@ -215,9 +245,13 @@ Configure kickstart roms main menu has following options:
 
 **Note: Cloanto Amiga Forever Kickstart roms are encrypted and requires their rom.key is installed. Otherwise WHDLoad can't use Cloanto Amiga Forever Kickstart roms.**
 
-![HstWB 18](screenshots/hstwb_18.png?raw=true)
+Screenshot of Configure kickstart roms main menu.
 
-![HstWB 19](screenshots/hstwb_19.png?raw=true)
+![Configure kickstart roms main menu](screenshots/hstwb_18.png?raw=true)
+
+Screenshot of selecting drawer to install Kickstart roms from.
+
+![Install Kickstart Roms select drawer](screenshots/hstwb_19.png?raw=true)
 
 ## FAQ
 
