@@ -16,7 +16,7 @@ HstWB Package contains following features:
 
 ## Requirements
 
-HstWB package can be installed on any Amiga with Workbench 3.1 (or better), BetterWB and about 20MB free space on a harddrive for installation. 
+HstWB package can be installed on any Amiga with Workbench 3.1, BetterWB and about 20MB free space on a harddrive for installation. 
 
 Installing HstWB package using either HstWB Installer install mode or running a self install image requires BetterWB package is installed, when selecting packages to install.
 
