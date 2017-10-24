@@ -13,6 +13,12 @@
 ; stop Roadshow
 ;C:NetShutdown
 
+; stop wireless connection
+;Set WirelessManagerPID `Status COM=C:WirelessManager`
+;If VAL $WirelessManagerPID GT 0
+;  Break $WirelessManagerPID
+;EndIf
+
 ; stop Poseidon USB-stack
 ;C:AddUSBHardware REMOVE ALL
 

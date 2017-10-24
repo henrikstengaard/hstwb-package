@@ -10,7 +10,7 @@
 ;AmiTCP:bin/online x-surf0
 
 ; start Roadshow
-;AddInterface DEVS:NetInterfaces/(#?.info) Quiet
+;AddNetInterface DEVS:NetInterfaces/(#?.info) Quiet
 
 ; start the IP-stack via ARexx
 ;C:rx online.rexx
