@@ -1,12 +1,11 @@
 ; Startup-Sequence
 ; ----------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2016-09-13
+; Date: 2017-11-13
 
 
-IF EXISTS S:first-boot
-	SKIP configuresetup
-ENDIF
+; Add alias
+Alias cls "Echo NOLINE *"*E[0;0H*E[J*" "  
 
 
 ; Get mouse button pressed
@@ -22,6 +21,8 @@ SKIP startup
 
 ; Configure Setup
 LAB configuresetup
+
+cls
 
 C:MakeDir RAM:T RAM:Clipboards RAM:ENV RAM:ENV/Sys
 Assign ENV: RAM:Env
@@ -100,7 +101,13 @@ IF NOT EXISTS S:Use-Blizzard
 ENDIF
 
 
-C:SetPatch QUIET
+; Run setpatch noromupdate, if exec.library is v45.20 or greater
+C:Version >NIL: exec.library 45 20
+IF WARN
+  C:SetPatch QUIET
+ELSE
+  C:SetPatch NOROMUPDATE QUIET
+ENDIF
 
 
 C:Version >NIL:
