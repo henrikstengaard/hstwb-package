@@ -107,7 +107,7 @@ Configure setup can be started in 2 following ways:
 - Double-click Workbench, System, Programs, Configuration and Configure-Setup icon.
 - Hold down right mouse button during boot.
 
-Start of configure setup during boot has been added as a recovery option allowing setup to be reset or changed, if boot sequence or Workbench could result in a crash.
+Start of configure setup during boot has been added as a recovery option allowing setup to be reset or changed, if boot sequence or Workbench would result in a crash.
 
 Screenshot of Configuration drawer.
 

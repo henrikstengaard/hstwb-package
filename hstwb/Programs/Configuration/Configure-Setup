@@ -1,7 +1,7 @@
 ; Configure Setup Script
 ; ----------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2017-06-07
+; Date: 2017-11-13
 ;
 ; This script configures setup of hardware, devices, boot sequence and whdload.
 ; Hardware menu contains configuration of accelerator cards Blizzard, ACA, Furia. It also has options for CPU, FPU and OS patches.
@@ -24,9 +24,8 @@ echo "Hardware" >T:mainmenu
 echo "Device & Library" >>T:mainmenu
 echo "Boot Sequence" >>T:mainmenu
 echo "WHDLoad" >>T:mainmenu
-echo "Reset" >>T:mainmenu
-echo "Reboot" >>T:mainmenu
-echo "Exit" >>T:mainmenu
+echo "Reset setup" >>T:mainmenu
+echo "Quit" >>T:mainmenu
 
 ; Show main menu
 C:ReqList CLONERT BUTTONS I T:mainmenu O ENV:mainmenu H "Configure Setup"
@@ -55,20 +54,17 @@ IF $mainmenu eq "4"
 	SKIP whdloadmenu
 ENDIF 
 
-; Reset
+; Reset setup
 IF $mainmenu eq "5" 
 	execute SYS:Programs/Configuration/Reset-Setup
 ENDIF 
 
-; Reboot
+; Quit
 IF $mainmenu eq "6"
-	echo "Rebooting in 10 seconds..."
-	wait 10
-	reboot
+	SKIP end
 ENDIF 
 
-
-SKIP end
+SKIP BACK mainmenu
 
 
 ; Hardware Menu
@@ -714,3 +710,11 @@ SKIP bootsequencemenu back
 
 ; End
 LAB end
+
+echo "Configure setup menu can started anytime from Workbench,"
+echo "Programs, Configuration."
+echo ""
+echo "Holding down right mouse button during boot will also"
+echo "start Configure setup menu. This is has been added as"
+echo "a recovery option allowing setup to be reset or changed,"
+echo "if boot sequence or Workbench would result in a crash."
