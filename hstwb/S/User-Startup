@@ -1,6 +1,6 @@
 ;BEGIN MUI
-if exists "System:MUI"
-   assign MUI: "System:MUI"
+if exists "SYS:MUI"
+   assign MUI: "SYS:MUI"
    if exists MUI:Libs
       assign add LIBS: MUI:Libs
    endif
@@ -18,11 +18,10 @@ if exists "System:MUI"
 endif
 ;END MUI
 
-
 ; Replace CON with KingCON, if present
 IF EXISTS DEVS:KingCON-mountlist
-	Assign CON: DISMOUNT
-	Assign RAW: DISMOUNT 
-	Mount CON: from DEVS:KingCON-mountlist
-	Mount RAW: from DEVS:KingCON-mountlist 
+  Assign CON: DISMOUNT
+  Assign RAW: DISMOUNT 
+  Mount CON: from DEVS:KingCON-mountlist
+  Mount RAW: from DEVS:KingCON-mountlist 
 ENDIF
