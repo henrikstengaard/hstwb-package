@@ -2,7 +2,7 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2017-11-13
+; Date: 2017-12-14
 ;
 ; This script extracts and installs zip archives for HstWB Package. 
 
@@ -63,11 +63,6 @@ protect >NIL: SYSTEMDIR:C/#? +rwe
 IF EXISTS DEVS:scsi.device
   COPY >NIL: DEVS:scsi.device SYSTEMDIR:Devs
 ENDIF
-
-; Create default settings, load scsi device and icon library and start Amiga Boot Selector
-ECHO "" NOLINE >SYSTEMDIR:S/Load-ScsiDevice
-ECHO "" NOLINE >SYSTEMDIR:S/Load-IconLibrary 
-ECHO "" NOLINE >SYSTEMDIR:S/Start-ABS 
 
 ; Copy disk icon to DH1, if device is present
 Assign >NIL: EXISTS DH1:
