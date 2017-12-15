@@ -3,7 +3,7 @@
 
 
 ; Use OS patches
-IF EXISTS S:Use-OS-Patches
+IF EXISTS SYS:Prefs/HstWB/Use-OS-Patches
 	C:blazewcp
 	C:FBlit
 	C:FText
