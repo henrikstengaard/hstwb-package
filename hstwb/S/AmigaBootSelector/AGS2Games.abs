@@ -1,0 +1,7 @@
+IF EXISTS S:AGS2Menu
+  execute S:AGS2Menu "AGS2Games"
+ELSE
+  REQUESTCHOICE "Error" "AGS2 Menu is not installed!" "OK" >NIL:
+ENDIF
+wait 1
+totalreset

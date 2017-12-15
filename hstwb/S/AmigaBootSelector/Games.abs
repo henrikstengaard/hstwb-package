@@ -1,7 +1,0 @@
-IF EXISTS S:AGS2Games
-  execute S:AGS2Games
-  wait 1
-  reboot
-ELSE
-  REQUESTCHOICE "Error" "AGS2 Games is not installed!" "OK" >NIL:
-ENDIF
