@@ -1,7 +1,0 @@
-; AGS2 Pre Script
-; ---------------
-
-; AGS2 Music Stop
-IF EXISTS S:AGS2MusicStop
-  execute S:AGS2MusicStop
-ENDIF
