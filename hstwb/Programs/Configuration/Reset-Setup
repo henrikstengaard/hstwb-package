@@ -1,7 +1,7 @@
 ; Reset Startup Script
 ; --------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2016-09-13
+; Date: 2017-12-14
 ;
 ; This script reset configuration setup of hardware, devices, boot sequence and whdload.
 
@@ -15,41 +15,41 @@ EndIf
 
 ; Reset Blizzard
 ; --------------
-IF EXISTS S:Use-Blizzard
-	delete >NIL: S:Use-Blizzard
+IF EXISTS SYS:Prefs/HstWB/Use-Blizzard
+	delete >NIL: SYS:Prefs/HstWB/Use-Blizzard
 EndIF
-IF EXISTS S:MapRom-Blizzard-A1200-KS31
-	delete >NIL: S:MapRom-Blizzard-A1200-KS31
+IF EXISTS SYS:Prefs/HstWB/MapRom-Blizzard-A1200-KS31
+	delete >NIL: SYS:Prefs/HstWB/MapRom-Blizzard-A1200-KS31
 EndIF
 
 
 ; Reset ACA
 ; ---------
-IF EXISTS S:Use-ACA
-	delete >NIL: S:Use-ACA
+IF EXISTS SYS:Prefs/HstWB/Use-ACA
+	delete >NIL: SYS:Prefs/HstWB/Use-ACA
 EndIF
-IF EXISTS S:MapRom-ACA-A600-KS31
-	delete >NIL: S:MapRom-ACA-A600-KS31
+IF EXISTS SYS:Prefs/HstWB/MapRom-ACA-A600-KS31
+	delete >NIL: SYS:Prefs/HstWB/MapRom-ACA-A600-KS31
 EndIF
-IF EXISTS S:MapRom-ACA-A1200-KS31
-	delete >NIL: S:MapRom-ACA-A1200-KS31
+IF EXISTS SYS:Prefs/HstWB/MapRom-ACA-A1200-KS31
+	delete >NIL: SYS:Prefs/HstWB/MapRom-ACA-A1200-KS31
 EndIF
 
 
 ; Reset Furia
 ; -----------
-IF EXISTS S:Use-Furia
-	delete >NIL: S:Use-Furia
+IF EXISTS SYS:Prefs/HstWB/Use-Furia
+	delete >NIL: SYS:Prefs/HstWB/Use-Furia
 EndIF
-IF EXISTS S:MapRom-Furia-A600-KS31
-	delete >NIL: S:MapRom-Furia-A600-KS31
+IF EXISTS SYS:Prefs/HstWB/MapRom-Furia-A600-KS31
+	delete >NIL: SYS:Prefs/HstWB/MapRom-Furia-A600-KS31
 EndIF
 
 
 ; Reset CPU
 ; ---------
-IF EXISTS S:Use-020
-	delete >NIL: S:Use-020
+IF EXISTS SYS:Prefs/HstWB/Use-020
+	delete >NIL: SYS:Prefs/HstWB/Use-020
 EndIF
 Copy >NIL: SYS:Programs/Configuration/KingCON1.3/Handler/KingCON-handler L:KingCon-handler
 Copy >NIL: SYS:Programs/Configuration/iconlib_46.4/icon.library_68000 Libs:icon.library
@@ -57,70 +57,65 @@ Copy >NIL: SYS:Programs/Configuration/iconlib_46.4/icon.library_68000 Libs:icon.
 
 ; Reset FPU
 ; ---------
-IF EXISTS S:Use-FPU
-	delete >NIL: S:Use-FPU
+IF EXISTS SYS:Prefs/HstWB/Use-FPU
+	delete >NIL: SYS:Prefs/HstWB/Use-FPU
 EndIF
 Copy >NIL: SYS:Programs/Configuration/guigfx_render_nofpu/ Libs:
 
 
 ; Reset OS patches
 ; ----------------
-IF EXISTS S:Use-OS-Patches
-	delete >NIL: S:Use-OS-Patches
+IF EXISTS SYS:Prefs/HstWB/Use-OS-Patches
+	delete >NIL: SYS:Prefs/HstWB/Use-OS-Patches
 EndIF
 
 
 ; Reset scsi.device
 ; ------------------
-IF EXISTS S:Load-ScsiDevice
-	delete >NIL: S:Load-ScsiDevice
+IF EXISTS SYS:Prefs/HstWB/Load-ScsiDevice
+	delete >NIL: SYS:Prefs/HstWB/Load-ScsiDevice
 EndIF
 
 
 ; Reset icon.library
 ; ------------------
-IF EXISTS S:Load-IconLibrary
-	delete >NIL: S:Load-IconLibrary
+IF EXISTS SYS:Prefs/HstWB/Load-IconLibrary
+	delete >NIL: SYS:Prefs/HstWB/Load-IconLibrary
 EndIF
 
 
 ; Reset scsi.device
 ; -----------------
-delete >NIL: scsi.device
+Copy >NIL: SYS:Programs/Configuration/SCSI_v43_45_ChrisToni/A1200IDE.scsi.device.43.45 DEVS:scsi.device
 
 
 ; Reset Amiga Boot Selector
 ; -------------------------
-IF NOT EXISTS S:Start-ABS
-	echo "" >S:Start-ABS
+IF NOT EXISTS SYS:Prefs/HstWB/Start-ABS
+	echo "" >SYS:Prefs/HstWB/Start-ABS
 EndIF
 
 
 ; Reset AGS2 Games
 ; ----------------
-IF EXISTS S:Start-AGS2Games
-	delete >NIL: S:Start-AGS2Games
+IF EXISTS SYS:Prefs/HstWB/Start-AGS2Games
+	delete >NIL: SYS:Prefs/HstWB/Start-AGS2Games
 EndIF
 
 
 ; Reset Multiboot
 ; ---------------
-IF EXISTS S:Start-Multiboot
-	delete >NIL: S:Start-Multiboot
+IF EXISTS SYS:Prefs/HstWB/Start-Multiboot
+	delete >NIL: SYS:Prefs/HstWB/Start-Multiboot
 EndIF
-copy >NIL: S:StartUp.Games S:StartUp.Default
+copy >NIL: SYS:Prefs/HstWB/StartUp.1 SYS:Prefs/HstWB/StartUp.Default
 
 
 ; Reset AGS2 Demos
 ; ----------------
-IF EXISTS S:Start-AGS2Demos
-	delete >NIL: S:Start-AGS2Demos
+IF EXISTS SYS:Prefs/HstWB/Start-AGS2Demos
+	delete >NIL: SYS:Prefs/HstWB/Start-AGS2Demos
 EndIF
-
-
-; Reset WHDLoad
-; -------------
-Copy >NIL: SYS:Programs/Configuration/WHDLoad/WHDLoad.prefs S:
 
 
 ; End
