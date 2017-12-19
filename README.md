@@ -100,7 +100,7 @@ Screenshot of Multi Boot.
 ## Configure setup
 
 Configure setup is a menu to change hardware, device & library, boot sequence and WHDLoad settings. 
-It's build using AmigaDOS script and ReqList to make menus for easily changing options.
+It's build using AmigaDOS script and RequestList to make menus for easily changing options.
 
 Configure setup can be started in 2 following ways:
 
@@ -225,7 +225,7 @@ Screenshot of setting WHDLoad global quit key.
 ## Configure kickstart roms
 
 Configure kickstart roms is a menu to install or reset Kickstart roms for WHDLoad.
-It's build using AmigaDOS script and ReqList to make menus for easily changing options.
+It's build using AmigaDOS script and RequestList to make menus for easily changing options.
 
 Configure kickstart roms can be started by double-click Workbench, System, Programs, Configuration and Configure-Kickstart-Roms icon.
 

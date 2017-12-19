@@ -1,7 +1,7 @@
 ; Configure Setup
 ; ---------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2017-12-14
+; Date: 2017-12-19
 ;
 ; This script configures setup of hardware, devices, boot sequence and whdload.
 ; Hardware menu contains configuration of accelerator cards Blizzard, ACA, Furia. It also has options for CPU, FPU and OS patches.
@@ -28,11 +28,9 @@ echo "Reset setup" >>T:mainmenu
 echo "Quit" >>T:mainmenu
 
 ; Show main menu
-C:ReqList CLONERT BUTTONS I T:mainmenu O ENV:mainmenu H "Configure Setup"
-
-; Delete main menu
+set mainmenu ""
+set mainmenu "`C:RequestList TITLE="Configure Setup" LISTFILE="T:mainmenu" WIDTH=240 LINES=12`"
 delete >NIL: T:mainmenu
-
 
 ; Hardware
 IF $mainmenu eq "1" 
@@ -130,13 +128,10 @@ EndIF
 
 echo "Back" >>T:hardwaremenu
 
-
 ; Show hardware menu
-C:ReqList CLONERT BUTTONS I T:hardwaremenu O ENV:hardwaremenu H "Hardware"
-
-; Delete hardware menu
+set hardwaremenu ""
+set hardwaremenu "`C:RequestList TITLE="Hardware" LISTFILE="T:hardwaremenu" WIDTH=240 LINES=12`"
 delete >NIL: T:hardwaremenu
-
 
 ; Switch Use Blizzard
 IF $hardwaremenu eq "1" 
@@ -194,13 +189,10 @@ EndIF
 echo "Select scsi.device" >>T:devicelibrarymenu
 echo "Back" >>T:devicelibrarymenu
 
-
 ; Show device & library menu
-C:ReqList CLONERT BUTTONS I T:devicelibrarymenu O ENV:devicelibrarymenu H "Device & Library"
-
-; Delete hardware menu
+set devicelibrarymenu ""
+set devicelibrarymenu "`C:RequestList TITLE="Device & Library" LISTFILE="T:devicelibrarymenu" WIDTH=240 LINES=12`"
 delete >NIL: T:devicelibrarymenu
-
 
 ; Switch Load scsi.device
 IF $devicelibrarymenu eq "1" 
@@ -277,13 +269,10 @@ EndIF
 
 echo "Back" >>T:bootsequencemenu
 
-
 ; Show boot sequence menu
-C:ReqList CLONERT BUTTONS I T:bootsequencemenu O ENV:bootsequencemenu H "Boot Sequence"
-
-; Delete boot sequence menu
+set bootsequencemenu ""
+set bootsequencemenu "`C:RequestList TITLE="Boot Sequence" LISTFILE="T:bootsequencemenu" WIDTH=240 LINES=12`"
 delete >NIL: T:bootsequencemenu
-
 
 ; Switch Start ABS
 IF $bootsequencemenu eq "1"
@@ -312,15 +301,12 @@ SKIP mainmenu back
 ; ------------
 LAB whdloadmenu
 
-
 echo "Set Quit Key" >T:whdloadmenu
 echo "Back" >>T:whdloadmenu
 
-
 ; Show whdload menu
-C:ReqList CLONERT BUTTONS I T:whdloadmenu O ENV:whdloadmenu H "WHDLoad"
-
-; Delete whdload menu
+set whdloadmenu ""
+set whdloadmenu "`C:RequestList TITLE="WHDLoad" LISTFILE="T:whdloadmenu" WIDTH=240 LINES=12`"
 delete >NIL: T:whdloadmenu
 
 ; WHDLoad Quit Key
@@ -527,14 +513,15 @@ echo "v44.20 Doobrey A1200    " >>T:scsidevicemenu
 echo "          Back          " >>T:scsidevicemenu
 
 ; Show select scsi.device menu
-C:ReqList CLONERT BUTTONS I T:scsidevicemenu O ENV:scsidevicemenu H "Select scsi.device"
-
-; Delete select scsi.device menu
+set scsidevicemenu ""
+set scsidevicemenu "`C:RequestList TITLE="Select scsi.device" LISTFILE="T:scsidevicemenu" WIDTH=240 LINES=12`"
 delete >NIL: T:scsidevicemenu
 
 ; Built-in (Kickstart ROM)
 IF $scsidevicemenu eq "1" 
-	delete >NIL: devs:scsi.device
+  IF EXISTS devs:scsi.device
+    delete >NIL: devs:scsi.device
+  ENDIF 
 ENDIF 
 
 ; v43.45 Chris/Toni A1200
