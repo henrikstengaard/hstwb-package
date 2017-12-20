@@ -1,0 +1,5 @@
+Assign >NIL: DOPUS: SYS:Programs/DirOpus4
+Assign >NIL: C: DOPUS:C ADD
+Assign >NIL: Libs: DOPUS:Libs ADD
+InitLib >NIL:
+DOPUS:DirectoryOpus
