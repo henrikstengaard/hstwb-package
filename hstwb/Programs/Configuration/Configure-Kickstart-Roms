@@ -1,7 +1,7 @@
 ; Configure Kickstart Roms Script
 ; -------------------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2017-12-19
+; Date: 2018-03-20
 ;
 ; This script configures Kickstart roms for whdload.
 
@@ -58,7 +58,7 @@ echo "Exit" >>T:kickstartromsmenu
 
 ; Show kickstart roms menu
 set kickstartromsmenu ""
-set kickstartromsmenu "`C:RequestList TITLE="Configure Kickstart Roms" LISTFILE="T:kickstartromsmenu" WIDTH=240 LINES=12`"
+set kickstartromsmenu `RequestList TITLE="Configure Kickstart Roms" LISTFILE="T:kickstartromsmenu" WIDTH=320 LINES=12`
 delete >NIL: T:kickstartromsmenu
 
 ; Install Kickstarts
