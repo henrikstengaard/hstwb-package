@@ -13,10 +13,14 @@ HstWB Package contains following features:
 - Configure kickstart roms: A menu to easily install Kickstart roms for WHDLoad.
 - Tools installed: MUI, WHDLoad.
 - Programs installed: DirOpus, DCopy, Deluxe Paint 4, DiskSalv, Find, HippoPlayer, JoyPortTest, ProTracker, ReOrg, SuperDuper, SysInfo, TSgui, TransWrite, VirusZ and Visage.
+- Added support for Amiga OS 3.1.4:
+  - Added LoadModule ROMUPDATE to support Kickstart 3.1 being patched to 3.1.4.
+  - Added version checking of DEVS:scsi.device, so it only will be loaded if scsi.device in memory/resident is less than v43.45.
+  - Added install patch Amiga OS 3.1.4.1, if Amiga OS 3.1.4.1 update is installed.
 
 ## Requirements
 
-HstWB package can be installed on any Amiga with Workbench 3.1, BetterWB and about 20MB free space on a harddrive for installation. 
+HstWB package can be installed on any Amiga with Amiga OS 3.1 or 3.1.4, BetterWB and about 20MB free space on a harddrive for installation. 
 
 Installing HstWB package using either HstWB Installer install mode or running a self install image requires BetterWB package is installed, when selecting packages to install.
 
@@ -285,6 +289,8 @@ First transfer Cloanto Amiga Forever Kickstart roms to HstWB in following ways:
 ## Screenshots
 
 Screenshots of HstWB.
+
+![HstWB 3.1.4 1](screenshots/hstwb_3.1.4_1.png?raw=true)
 
 ![HstWB 1](screenshots/hstwb_1.png?raw=true)
 
