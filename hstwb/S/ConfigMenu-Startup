@@ -1,0 +1,51 @@
+; Config Menu Startup
+; -------------------
+
+; cls alias
+Alias cls "Echo NOLINE *"*E[0;0H*E[J*" "  
+
+; skip to configure setup, if first boot exists
+IF EXISTS SYS:Prefs/HstWB/First-Boot
+  SKIP configuresetup
+ENDIF
+
+; get mouse button pressed
+C:GetMouseInput LOCAL
+
+; skip to configure setup, if right mouse button is hold down during startup (for recovery)
+IF $MouseInput EQ 2
+  SKIP configuresetup
+ENDIF
+
+SKIP startup
+
+; Configure Setup
+LAB configuresetup
+
+cls
+
+; skip to configure setup, if first boot exists
+IF EXISTS SYS:Prefs/HstWB/First-Boot
+  Delete >NIL: SYS:Prefs/HstWB/First-Boot
+  echo "Welcome to your first time boot of HstWB."
+  echo "Please make changes matching your preferences, if needed."
+  echo "Quit will reboot and start HstWB."
+  echo ""
+ENDIF
+
+C:MakeDir RAM:T RAM:Clipboards RAM:ENV RAM:ENV/Sys
+Assign ENV: RAM:Env
+C:Copy ENVARC:~(#?.info) ENV: ALL QUIET
+Assign >NIL: T: RAM:T
+
+cd SYS:Programs/Configuration
+execute Configure-Setup
+
+echo ""
+echo "Rebooting in 10 seconds..."
+wait 10
+totalreset
+
+; startup
+; -------
+LAB startup

@@ -1,1 +1,2 @@
-execute S:wb
+; amiga boot selector workbench
+; empty to continue boot of startup sequence

@@ -1,0 +1,42 @@
+; Boot Selector Startup
+; ---------------------
+
+; Assign Startup
+IF EXISTS S:Assign-Startup
+  execute S:Assign-Startup
+ENDIF
+
+; Start Amiga Boot Selector, if "Start-ABS" file exists
+IF EXISTS SYS:Prefs/HstWB/Start-ABS
+  C:abs
+  IF EXISTS S:Boot.abs
+    execute S:Boot.abs
+  ENDIF
+  SKIP continueboot
+ENDIF
+
+; Start Multiboot, if "Start-Multiboot" file exists
+IF EXISTS SYS:Prefs/HstWB/Start-Multiboot
+  execute S:Multiboot
+  SKIP continueboot
+ENDIF
+
+; Start Arcade Game Selector 2 Games script, if "Start-AGS2Games" file exists
+IF EXISTS SYS:Prefs/HstWB/Start-AGS2Games
+  IF EXISTS S:AGS2Menu
+    execute S:AGS2Menu "AGS2Games"
+  ELSE
+    REQUESTCHOICE "Error" "AGS2 Menu is not installed!" "OK" >NIL:
+  ENDIF
+ENDIF
+
+; Start Arcade Game Selector 2 Demos script, if "Start-AGS2Demos" file exists
+IF EXISTS SYS:Prefs/HstWB/Start-AGS2Demos
+  IF EXISTS S:AGS2Menu
+    execute S:AGS2Menu "AGS2Demos"
+  ELSE
+    REQUESTCHOICE "Error" "AGS2 Menu is not installed!" "OK" >NIL:
+  ENDIF
+ENDIF
+
+LAB continueboot

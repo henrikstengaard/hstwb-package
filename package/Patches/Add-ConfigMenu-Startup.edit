@@ -1,0 +1,11 @@
+F/Execute S:Boot-Startup/
+N
+N
+I
+; execute config menu startup, if it exists
+IF EXISTS S:ConfigMenu-Startup
+  Execute S:ConfigMenu-Startup
+EndIF
+
+Z
+W

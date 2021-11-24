@@ -1,0 +1,19 @@
+;BEGIN MUI
+IF EXISTS SYS:System/MUI
+   Assign >NIL: MUI: SYS:System/MUI
+   IF EXISTS MUI:Libs
+      Assign >NIL: ADD LIBS: MUI:Libs
+   EndIF
+   IF EXISTS MUI:Locale
+      Assign >NIL: ADD LOCALE: MUI:Locale
+   EndIF
+   C:Version >NIL: exec.library 39
+   IF NOT WARN
+      IF EXISTS MUI:Docs
+         IF EXISTS HELP:dummy
+         EndIF
+         Assign >NIL: ADD HELP: MUI:Docs
+      EndIF
+   EndIF
+EndIF
+;END MUI

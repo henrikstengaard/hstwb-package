@@ -1,0 +1,19 @@
+; Workbench Patches Startup
+; -------------------------
+
+; Use OS patches
+IF EXISTS SYS:Prefs/HstWB/Use-OS-Patches
+	C:blazewcp
+	C:FBlit
+	C:FText
+ENDIF
+
+C:FPPrefs
+
+IF EXISTS C:FastColors
+  C:FastColors 
+EndIf
+
+IF EXISTS ENVARC:Sys/def_ramdisk.info
+   Copy ENVARC:Sys/def_ramdisk.info RAM:Disk.info >NIL:
+EndIf

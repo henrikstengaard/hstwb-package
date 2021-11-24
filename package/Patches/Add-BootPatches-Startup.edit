@@ -1,0 +1,8 @@
+F/BindDrivers/
+P
+I
+IF EXISTS S:BootPatches-Startup
+  Execute S:BootPatches-Startup
+EndIF
+Z
+W

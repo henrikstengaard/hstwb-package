@@ -1,4 +1,4 @@
 ; Multiboot script
 ; ----------------
 
-C:MultiBoot >NIL: "  Games" "  Demos" "Workbench" "   CLI" "" "" "" "" "" "" "" "" 5 "Multiboot Selector" 3
+C:MultiBoot >NIL: "AGS2Games" "AGS2Demos" "HSTGames" "HSTDemos" "Workbench" "DirOpus4" "CLI" "" "" "" "" "" 5 "Multiboot Selector" 3

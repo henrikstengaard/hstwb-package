@@ -1,0 +1,86 @@
+; Accelerator Startup
+; -------------------
+
+; Execute Blizzard script, if "Use-Blizzard" file exists
+IF EXISTS SYS:Prefs/HstWB/Use-Blizzard
+  execute S:Blizzard
+ENDIF
+
+; Execute ACA script, if "Use-ACA" file exists
+IF EXISTS SYS:Prefs/HstWB/Use-ACA
+  execute S:ACA
+ENDIF
+
+; Execute Furia script, if "Use-Furia" file exists
+IF EXISTS SYS:Prefs/HstWB/Use-Furia
+  execute S:Furia
+ENDIF
+
+; detect amiga os version
+set amigaosversion "3.1"
+IF EXISTS "Libs:workbench.library"
+  ; set amiga os version to 3.1.4, if workbench.library file is equal or greater than v45.194
+  Version >NIL: "Libs:workbench.library" 45 194 FILE
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.1.4"
+  ENDIF
+
+  ; set amiga os version to 3.2, if workbench.library file is equal or greater than v47.33
+  Version >NIL: "Libs:workbench.library" 47 33 FILE
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.2"
+  ENDIF
+ELSE
+  ; set amiga os version to 3.1.4, if loaded workbench.library is equal or greater than v45.194
+  Version >NIL: "workbench.library" 45 194
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.1.4"
+  ENDIF
+
+  ; set amiga os version to 3.2, if loaded workbench.library is equal or greater than v47.33
+  Version >NIL: "workbench.library" 47 33
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.2"
+  ENDIF
+ENDIF
+
+; skip end, if amiga os is not 3.1
+IF NOT "$amigaosversion" EQ "3.1"
+  SKIP end
+ENDIF
+
+; Load scsi.device and icon.library using loadmodule, if not "Use-Blizzard" file exists
+IF NOT EXISTS SYS:Prefs/HstWB/Use-Blizzard
+  ; Add loadmodule scsi.device, if "Load-ScsiDevice" and "DEVS:scsi.device" files exists
+  IF EXISTS SYS:Prefs/HstWB/Load-ScsiDevice
+    IF EXISTS DEVS:scsi.device
+	  ; Load scsi.device, if current loaded scsi.device is less than v43.45
+      Version >NIL: "scsi.device" 43 45
+      IF WARN
+        echo "C:LoadModule DEVS:scsi.device" NOLINE >RAM:Load-Modules
+      EndIF
+    EndIF
+  EndIF
+
+  ; Add loadmodule icon.library, if "Load-IconLibrary" file exists
+  IF EXISTS SYS:Prefs/HstWB/Load-IconLibrary
+    IF EXISTS LIBS:icon.library
+	  ; Load icon.library, if current loaded icon.library is less than v46.x
+      Version >NIL: "icon.library" 46
+      IF WARN
+        IF EXISTS RAM:Load-Modules
+          echo " LIBS:icon.library" NOLINE >>RAM:Load-Modules
+        Else
+          echo "C:LoadModule LIBS:icon.library" NOLINE >RAM:Load-Modules
+        EndIF
+      EndIF
+    EndIF
+  EndIF
+	
+  IF EXISTS RAM:Load-Modules
+    execute RAM:Load-Modules
+  EndIF
+ENDIF
+
+; end
+LAB end

@@ -1,0 +1,11 @@
+F/Execute S:BootPatches-Startup/
+N
+N
+I
+; execute boot selector startup, if it exists
+IF EXISTS S:BootSelector-Startup
+  Execute S:BootSelector-Startup
+EndIF
+
+Z
+W

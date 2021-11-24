@@ -1,0 +1,11 @@
+F/Execute S:ConfigMenu-Startup/
+N
+N
+I
+; execute accelerator startup, if it exists
+IF EXISTS S:Accelerator-Startup
+  Execute S:Accelerator-Startup
+EndIF
+
+Z
+W

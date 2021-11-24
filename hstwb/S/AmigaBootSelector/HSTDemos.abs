@@ -1,3 +1,4 @@
+; amiga boot selector hstdemos
 IF EXISTS S:HSTLauncherMenu
   execute S:HSTLauncherMenu "HSTDemos"
 ELSE

@@ -2,14 +2,17 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2019-08-05
+; Date: 2021-11-22
 ;
-; This script extracts and installs zip archives for HstWB Package.
+; AmigaDOS script to extract and install HstWB Package for Amiga OS 3.2, 3.1.4 and 3.1.
+; For Amiga OS 3.1 rep command is used instead of edit due to edit truncating lines.
 ;
-; - Added support for Amiga OS 3.1.4:
-;   - Added LoadModule ROMUPDATE to support Kickstart 3.1 being patched to 3.1.4.
-;   - Added version checking of DEVS:scsi.device, so it only will be loaded if scsi.device in memory/resident is less than v43.45.
-;   - Added install patch Amiga OS 3.1.4.1, if Amiga OS 3.1.4.1 update is installed.
+; Installation makes following changes:
+; - Creates backup of startup sequence as "S:Startup-Sequence.BAK".
+; - Creates backup of user startup as "S:User-Startup.BAK". 
+; - Patch startup sequence and user startup with HstWB support for best Amiga OS compatibility with existing and future versions.
+; - Creates backup of HstWB startup sequence as "S:Startup-Sequence.HstWB".
+; - Creates backup of HstWB user startup as "S:User-Startup.HstWB".
 
 
 ; Copy readme and screenshots to locale help for HstWB
@@ -45,12 +48,18 @@ copy >NIL: PACKAGEDIR:screenshots/#?.iff SYSTEMDIR:Locale/Help/HstWB/screenshots
 
 
 ; detect amiga os version
-set amigaosversion ""
+set amigaosversion "3.1"
 IF EXISTS "SYSTEMDIR:Libs/workbench.library"
   ; set amiga os version to 3.1.4, if workbench.library file is equal or greater than v45.194
   Version >NIL: "SYSTEMDIR:Libs/workbench.library" 45 194 FILE
   IF $RC EQ 0 VAL
     set amigaosversion "3.1.4"
+  ENDIF
+
+  ; set amiga os version to 3.2, if workbench.library file is equal or greater than v47.33
+  Version >NIL: "SYSTEMDIR:Libs/workbench.library" 47 33 FILE
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.2"
   ENDIF
 ELSE
   ; set amiga os version to 3.1.4, if loaded workbench.library is equal or greater than v45.194
@@ -58,39 +67,174 @@ ELSE
   IF $RC EQ 0 VAL
     set amigaosversion "3.1.4"
   ENDIF
+
+  ; set amiga os version to 3.2, if loaded workbench.library is equal or greater than v47.33
+  Version >NIL: "workbench.library" 47 33
+  IF $RC EQ 0 VAL
+    set amigaosversion "3.2"
+  ENDIF
 ENDIF
- 
+
 
 echo "Installing HstWB..."
 
-; Create demos directory, if it doesn't exist
+; create backup of wb startup sequence
+IF EXISTS SYSTEMDIR:S/Startup-Sequence
+  Copy >NIL: SYSTEMDIR:S/Startup-Sequence SYSTEMDIR:S/Startup-Sequence.WB
+ENDIF
+
+; create backup of wb user startup
+IF EXISTS SYSTEMDIR:S/User-Startup
+  Copy >NIL: SYSTEMDIR:S/User-Startup SYSTEMDIR:S/User-Startup.WB
+ENDIF
+
+; create demos directory, if it doesn't exist
 IF NOT EXISTS "SYSTEMDIR:Demos/"
   makedir >NIL: "SYSTEMDIR:Demos"
 ENDIF
 
-; Create games directory, if it doesn't exist
+; create games directory, if it doesn't exist
 IF NOT EXISTS "SYSTEMDIR:Games/"
   makedir >NIL: "SYSTEMDIR:Games"
 ENDIF
 
-IF "$amigaosversion" EQ "3.1.4"
-  ; extract hstwb excluding files conflicting with amiga os 3.1.4 
-  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR: -x *LoadModule *MakeLink *SetPatch *icon.library
+IF "$amigaosversion" EQ "3.1"
+  ; extract hstwb
+  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
+ELSE
+  ; extract hstwb excluding files conflicting with amiga os 3.2 and 3.1.4 
+  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR: -x *LoadModule *SetPatch *FastFileSystem *lowlevel.library *MakeLink *icon.library
 
-  ; delete hstwb prefs
+  ; delete load icon library and scsi device conflicting with amiga os 3.2 and 3.1.4 
   Delete >NIL: SYSTEMDIR:Prefs/HstWB/Load-IconLibrary
   Delete >NIL: SYSTEMDIR:Prefs/HstWB/Load-ScsiDevice
 
-  ; copy startup-sequence for amiga os 3.1.4
-  Copy >NIL: PACKAGEDIR:Startup-Sequence.3.1.4 SYSTEMDIR:S/Startup-Sequence    
+  IF "$amigaosversion" EQ "3.2"
+    Delete >NIL: SYSTEMDIR:Devs/DOSDrivers/PIPE#?
+  ENDIF
+ENDIF
 
-  ; install patch amiga os 3.1.4.1, if it exists
-  IF EXISTS "SYSTEMDIR:S/Install-Patch-Amiga-OS-3141"
-    Execute "SYSTEMDIR:S/Install-Patch-Amiga-OS-3141" SYS SYSTEMDIR QUIET
+; add boot startup to startup sequence, if it doesn't exist
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:Boot-Startup" quiet
+IF NOT $RC EQ 0 VAL
+  ; add boot startup to beginning of startup sequence
+  Copy >NIL: PACKAGEDIR:Patches/Startup-Sequence T:_Startup-Sequence
+  Type SYSTEMDIR:S/Startup-Sequence >>T:_Startup-Sequence
+  Copy >NIL: T:_Startup-Sequence SYSTEMDIR:S/Startup-Sequence
+  Delete >NIL: T:_Startup-Sequence
+ENDIF
+
+; add config menu startup to startup sequence after "S:Boot-Startup", if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
+IF NOT $RC EQ 0 VAL
+  IF "$amigaosversion" EQ "3.1"
+    rep SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" "Execute S:Boot-Startup*NEndIf*NIF EXISTS S:ConfigMenu-Startup*N  Execute S:ConfigMenu-Startup"
+  ELSE
+    Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-ConfigMenu-Startup.edit
+  ENDIF
+ENDIF
+
+; add accelerator startup to startup sequence after "S:ConfigMenu-Startup", if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
+IF $RC EQ 0 VAL
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:Accelerator-Startup" quiet
+  IF NOT $RC EQ 0 VAL
+    IF "$amigaosversion" EQ "3.1"
+      rep SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" "Execute S:ConfigMenu-Startup*NEndIf*NIF EXISTS S:Accelerator-Startup*N  Execute S:Accelerator-Startup"
+    ELSE
+      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-Accelerator-Startup.edit
+    ENDIF
   ENDIF
 ELSE
-  ; extract hstwb
-  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
+  echo "*e[1mError: Unable to add accelerator startup,*N'Execute S:ConfigMenu-Startup'*Nnot found in startup sequence.*NAccelerator startup can't be installed without this!*e[0m"
+  ask "Press ENTER to continue"
+ENDIF
+
+; add boot patches startup to startup sequence, if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "BindDrivers" quiet
+IF $RC EQ 0 VAL
+  ; add boot patches startup to startup sequence after "BindDrivers", if not present
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootPatches-Startup" quiet
+  IF NOT $RC EQ 0 VAL
+    IF "$amigaosversion" EQ "3.1"
+      rep SYSTEMDIR:S/Startup-Sequence "BindDrivers" "IF EXISTS S:BootPatches-Startup*N  Execute S:BootPatches-Startup*NEndIf*NBindDrivers"
+    ELSE
+      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootPatches-Startup.edit
+    ENDIF
+  ENDIF
+ELSE
+  echo "*e[1mError: Unable to add boot patches startup,*N'BindDrivers'*Nnot found in startup sequence.*NBoot patches startup can't be installed without this!*e[0m"
+  ask "Press ENTER to continue"
+ENDIF
+
+; add boot selector startup to startup sequence, if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" quiet
+IF $RC EQ 0 VAL
+  ; add boot selector startup to startup sequence after "S:BootPatches-Startup", if not present
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootSelector-Startup" quiet
+  IF NOT $RC EQ 0 VAL
+    IF "$amigaosversion" EQ "3.1"
+      rep SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" "Execute S:BootPatches-Startup*NEndIf*NIF EXISTS S:BootSelector-Startup*N  Execute S:BootSelector-Startup"
+    ELSE
+      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootSelector-Startup.edit
+    ENDIF
+  ENDIF
+ELSE
+  echo "*e[1mError: Unable to add boot selector startup,*N'Execute S:BootPatches-Startup'*Nnot found in startup sequence.*NBoot selector can't be installed without this!*e[0m"
+  ask "Press ENTER to continue"
+ENDIF
+
+; disable patch ram, min stack, taglife, patch bw, if not amiga os 3.1
+IF NOT "$amigaosversion" EQ "3.1"
+  IF EXISTS C:PatchRam
+    Rename >NIL: C:PatchRam C:PatchRam_disabled
+  ENDIF
+
+  IF EXISTS C:MinStack
+    Rename >NIL: C:MinStack C:MinStack_disabled
+  ENDIF
+
+  IF EXISTS C:TagLiFE
+    Rename >NIL: C:TagLiFE C:TagLiFE_disabled
+  ENDIF
+
+  IF EXISTS C:PatchWB
+    Rename >NIL: C:PatchWB C:PatchWB_disabled
+  ENDIF
+
+  IF EXISTS C:FastColors
+    Rename >NIL: C:FastColors C:FastColors_disabled
+  ENDIF
+ENDIF
+
+; add mui to user startup, if not present
+Search >NIL: SYSTEMDIR:S/User-Startup "MUI" quiet
+IF NOT $RC EQ 0 VAL
+  Type PACKAGEDIR:Patches/MUI >>SYSTEMDIR:S/User-Startup
+ENDIF
+
+IF NOT "$amigaosversion" EQ "3.2"
+  ; add kingcon to user startup, if not present
+  Search >NIL: SYSTEMDIR:S/User-Startup "KingCON" quiet
+  IF NOT $RC EQ 0 VAL
+    Type PACKAGEDIR:Patches/KingCON >>SYSTEMDIR:S/User-Startup
+  ENDIF
+ENDIF
+
+; add workbench patches startup to user startup, if not present
+Search >NIL: SYSTEMDIR:S/User-Startup "Execute S:WorkbenchPatches-Startup" quiet
+IF NOT $RC EQ 0 VAL
+  Type PACKAGEDIR:Patches/WorkbenchPatches-Startup >>SYSTEMDIR:S/User-Startup
+ENDIF
+
+; create backup of hstwb startup sequence
+IF EXISTS SYSTEMDIR:S/Startup-Sequence
+  Copy >NIL: SYSTEMDIR:S/Startup-Sequence SYSTEMDIR:S/Startup-Sequence.HstWB
+ENDIF
+
+; create backup of hstwb user startup
+IF EXISTS SYSTEMDIR:S/User-Startup
+  Copy >NIL: SYSTEMDIR:S/User-Startup SYSTEMDIR:S/User-Startup.HstWB
 ENDIF
 
 IF EXISTS SYSTEMDIR:System/SD
@@ -105,8 +249,20 @@ IF EXISTS DEVS:scsi.device
   COPY >NIL: DEVS:scsi.device SYSTEMDIR:Devs
 ENDIF
 
-; Copy disk icon to DH1, if device is present
-Assign >NIL: EXISTS DH1:
-IF NOT WARN
-  copy >NIL: DH0:Disk.info TO DH1:Disk.info
+; set harddisk icon
+set harddiskicon "SYSTEMDIR:Disk.info"
+
+; update disk icon, if harddisk icon exists
+IF NOT "$harddiskicon" EQ ""
+  ; update dh1 disk icon, if dh1: device exists
+  Assign >NIL: EXISTS DH1:
+  IF $RC EQ 0 VAL
+    Copy >NIL: "$harddiskicon" "DH1:Disk.info"
+  ENDIF
+
+  ; update dh2 disk icon, if dh2: device exists
+  Assign >NIL: EXISTS DH2:
+  IF $RC EQ 0 VAL
+    Copy >NIL: "$harddiskicon" "DH2:Disk.info"
+  ENDIF
 ENDIF

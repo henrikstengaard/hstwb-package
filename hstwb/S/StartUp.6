@@ -1,0 +1,16 @@
+; multiboot diropus4
+IF EXISTS SYS:Programs/DirOpus4
+  Assign >NIL: EXISTS "DOPUS:"
+  IF WARN
+    Assign >NIL: DOPUS: SYS:Programs/DirOpus4
+    Assign >NIL: C: DOPUS:C ADD
+    Assign >NIL: Libs: DOPUS:Libs ADD
+  ENDIF
+  InitLib >NIL:
+  DOPUS:DirectoryOpus
+  Quit
+ELSE
+  REQUESTCHOICE "Error" "DirOpus4 is not installed!" "OK" >NIL:
+  wait 1
+  totalreset
+ENDIF
