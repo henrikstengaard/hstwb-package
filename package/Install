@@ -2,17 +2,18 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2021-11-22
+; Date: 2021-11-25
 ;
-; AmigaDOS script to extract and install HstWB Package for Amiga OS 3.2, 3.1.4 and 3.1.
-; For Amiga OS 3.1 rep command is used instead of edit due to edit truncating lines.
+; AmigaDOS script to extract and install HstWB for Amiga OS 3.2, 3.1.4 and 3.1.
+; For Amiga OS 3.1 rep command is used instead of edit due to edit truncating lines, therefore only rep is used.
 ;
 ; Installation makes following changes:
 ; - Creates backup of startup sequence as "S:Startup-Sequence.BAK".
 ; - Creates backup of user startup as "S:User-Startup.BAK". 
 ; - Patch startup sequence and user startup with HstWB support for best Amiga OS compatibility with existing and future versions.
-; - Creates backup of HstWB startup sequence as "S:Startup-Sequence.HstWB".
-; - Creates backup of HstWB user startup as "S:User-Startup.HstWB".
+
+; default set use edit to 0
+set useedit "0"
 
 
 ; Copy readme and screenshots to locale help for HstWB
@@ -127,10 +128,10 @@ ENDIF
 ; add config menu startup to startup sequence after "S:Boot-Startup", if not present
 Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
 IF NOT $RC EQ 0 VAL
-  IF "$amigaosversion" EQ "3.1"
-    rep SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" "Execute S:Boot-Startup*NEndIf*NIF EXISTS S:ConfigMenu-Startup*N  Execute S:ConfigMenu-Startup"
-  ELSE
+  IF "$useedit" EQ 1 VAL
     Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-ConfigMenu-Startup.edit
+  ELSE
+    rep SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" "Execute S:Boot-Startup*NEndIf*NIF EXISTS S:ConfigMenu-Startup*N  Execute S:ConfigMenu-Startup"
   ENDIF
 ENDIF
 
@@ -139,10 +140,10 @@ Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
 IF $RC EQ 0 VAL
   Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:Accelerator-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$amigaosversion" EQ "3.1"
-      rep SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" "Execute S:ConfigMenu-Startup*NEndIf*NIF EXISTS S:Accelerator-Startup*N  Execute S:Accelerator-Startup"
-    ELSE
+    IF "$useedit" EQ 1 VAL
       Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-Accelerator-Startup.edit
+    ELSE
+      rep SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" "Execute S:ConfigMenu-Startup*NEndIf*NIF EXISTS S:Accelerator-Startup*N  Execute S:Accelerator-Startup"
     ENDIF
   ENDIF
 ELSE
@@ -156,10 +157,10 @@ IF $RC EQ 0 VAL
   ; add boot patches startup to startup sequence after "BindDrivers", if not present
   Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootPatches-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$amigaosversion" EQ "3.1"
-      rep SYSTEMDIR:S/Startup-Sequence "BindDrivers" "IF EXISTS S:BootPatches-Startup*N  Execute S:BootPatches-Startup*NEndIf*NBindDrivers"
-    ELSE
+    IF "$useedit" EQ 1 VAL
       Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootPatches-Startup.edit
+    ELSE
+      rep SYSTEMDIR:S/Startup-Sequence "BindDrivers" "IF EXISTS S:BootPatches-Startup*N  Execute S:BootPatches-Startup*NEndIf*NBindDrivers"
     ENDIF
   ENDIF
 ELSE
@@ -173,10 +174,10 @@ IF $RC EQ 0 VAL
   ; add boot selector startup to startup sequence after "S:BootPatches-Startup", if not present
   Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootSelector-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$amigaosversion" EQ "3.1"
-      rep SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" "Execute S:BootPatches-Startup*NEndIf*NIF EXISTS S:BootSelector-Startup*N  Execute S:BootSelector-Startup"
-    ELSE
+    IF "$useedit" EQ 1 VAL
       Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootSelector-Startup.edit
+    ELSE
+      rep SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" "Execute S:BootPatches-Startup*NEndIf*NIF EXISTS S:BootSelector-Startup*N  Execute S:BootSelector-Startup"
     ENDIF
   ENDIF
 ELSE
@@ -225,16 +226,6 @@ ENDIF
 Search >NIL: SYSTEMDIR:S/User-Startup "Execute S:WorkbenchPatches-Startup" quiet
 IF NOT $RC EQ 0 VAL
   Type PACKAGEDIR:Patches/WorkbenchPatches-Startup >>SYSTEMDIR:S/User-Startup
-ENDIF
-
-; create backup of hstwb startup sequence
-IF EXISTS SYSTEMDIR:S/Startup-Sequence
-  Copy >NIL: SYSTEMDIR:S/Startup-Sequence SYSTEMDIR:S/Startup-Sequence.HstWB
-ENDIF
-
-; create backup of hstwb user startup
-IF EXISTS SYSTEMDIR:S/User-Startup
-  Copy >NIL: SYSTEMDIR:S/User-Startup SYSTEMDIR:S/User-Startup.HstWB
 ENDIF
 
 IF EXISTS SYSTEMDIR:System/SD

@@ -19,8 +19,6 @@ Installation makes following changes:
 - Creates backup of startup sequence as "S:Startup-Sequence.BAK".
 - Creates backup of user startup as "S:User-Startup.BAK".
 - Patch startup sequence and user startup with HstWB support for best Amiga OS compatibility with existing and future versions.
-- Creates backup of HstWB startup sequence as "S:Startup-Sequence.HstWB".
-- Creates backup of HstWB user startup as "S:User-Startup.HstWB".
 
 ## Requirements
 
