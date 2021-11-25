@@ -6,3 +6,7 @@
 
 # windows forced line-endings
 *.ps1 text eol=crlf
+
+# binary
+*.jpg binary
+*.png binary
