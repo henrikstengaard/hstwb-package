@@ -1,10 +1,10 @@
-; Amiga Boot Selector - AGS2Games
-; -------------------------------
+; Amiga Boot Selector - AGS2Mags
+; ------------------------------
 ; Author: Henrik Noerfjand Stengaard
-; Date:   2021-11-25
+; Date:   2021-12-05
 
 IF EXISTS S:AGS2Menu
-  execute S:AGS2Menu "AGS2Games"
+  execute S:AGS2Menu "AGS2Magazines"
 ELSE
   REQUESTCHOICE "Error" "AGS2 Menu is not installed!" "OK" >NIL:
 ENDIF

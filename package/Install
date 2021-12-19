@@ -2,18 +2,14 @@
 ; ----------------------------
 ;
 ; Author: Henrik Noerfjand Stengaard
-; Date: 2021-11-25
+; Date: 2021-12-18
 ;
 ; AmigaDOS script to extract and install HstWB for Amiga OS 3.2, 3.1.4 and 3.1.
-; For Amiga OS 3.1 rep command is used instead of edit due to edit truncating lines, therefore only rep is used.
 ;
 ; Installation makes following changes:
 ; - Creates backup of startup sequence as "S:Startup-Sequence.BAK".
 ; - Creates backup of user startup as "S:User-Startup.BAK". 
-; - Patch startup sequence and user startup with HstWB support for best Amiga OS compatibility with existing and future versions.
-
-; default set use edit to 0
-set useedit "0"
+; - Patch startup sequence and user startup with HstWB changes for best Amiga OS compatibility with existing and future versions.
 
 
 ; Copy readme and screenshots to locale help for HstWB
@@ -79,14 +75,14 @@ ENDIF
 
 echo "Installing HstWB..."
 
-; create backup of wb startup sequence
+; create backup of startup sequence
 IF EXISTS SYSTEMDIR:S/Startup-Sequence
-  Copy >NIL: SYSTEMDIR:S/Startup-Sequence SYSTEMDIR:S/Startup-Sequence.WB
+  Copy >NIL: SYSTEMDIR:S/Startup-Sequence SYSTEMDIR:S/Startup-Sequence.BAK
 ENDIF
 
-; create backup of wb user startup
+; create backup of user startup
 IF EXISTS SYSTEMDIR:S/User-Startup
-  Copy >NIL: SYSTEMDIR:S/User-Startup SYSTEMDIR:S/User-Startup.WB
+  Copy >NIL: SYSTEMDIR:S/User-Startup SYSTEMDIR:S/User-Startup.BAK
 ENDIF
 
 ; create demos directory, if it doesn't exist
@@ -104,7 +100,7 @@ IF "$amigaosversion" EQ "3.1"
   unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR:
 ELSE
   ; extract hstwb excluding files conflicting with amiga os 3.2 and 3.1.4 
-  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR: -x *LoadModule *SetPatch *FastFileSystem *lowlevel.library *MakeLink *icon.library
+  unzip -qq -o -x PACKAGEDIR:hstwb.zip -d SYSTEMDIR: -x *LoadModule *SetPatch *FastFileSystem *MakeLink *icon.library
 
   ; delete load icon library and scsi device conflicting with amiga os 3.2 and 3.1.4 
   Delete >NIL: SYSTEMDIR:Prefs/HstWB/Load-IconLibrary
@@ -115,70 +111,67 @@ ELSE
   ENDIF
 ENDIF
 
-; add boot startup to startup sequence, if it doesn't exist
-Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:Boot-Startup" quiet
-IF NOT $RC EQ 0 VAL
-  ; add boot startup to beginning of startup sequence
-  Copy >NIL: PACKAGEDIR:Patches/Startup-Sequence T:_Startup-Sequence
-  Type SYSTEMDIR:S/Startup-Sequence >>T:_Startup-Sequence
-  Copy >NIL: T:_Startup-Sequence SYSTEMDIR:S/Startup-Sequence
-  Delete >NIL: T:_Startup-Sequence
-ENDIF
-
-; add config menu startup to startup sequence after "S:Boot-Startup", if not present
-Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
-IF NOT $RC EQ 0 VAL
-  IF "$useedit" EQ 1 VAL
-    Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-ConfigMenu-Startup.edit
-  ELSE
-    rep SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" "Execute S:Boot-Startup*NEndIf*NIF EXISTS S:ConfigMenu-Startup*N  Execute S:ConfigMenu-Startup"
-  ENDIF
-ENDIF
-
-; add accelerator startup to startup sequence after "S:ConfigMenu-Startup", if not present
-Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:ConfigMenu-Startup" quiet
+; find set patch in startup sequence
+Search SYSTEMDIR:S/Startup-Sequence "SetPatch" NONUM >T:_setpatch1
 IF $RC EQ 0 VAL
-  Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:Accelerator-Startup" quiet
+  ; add boot startup to startup sequence after "SetPatch", if not present 
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$useedit" EQ 1 VAL
-      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-Accelerator-Startup.edit
-    ELSE
-      rep SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" "Execute S:ConfigMenu-Startup*NEndIf*NIF EXISTS S:Accelerator-Startup*N  Execute S:Accelerator-Startup"
-    ENDIF
+    ; get found set patch text
+    sed "1q;d" T:_setpatch1 >T:_setpatch2
+    set setpatch `type T:_setpatch2`
+
+    rep SYSTEMDIR:S/Startup-Sequence "$setpatch" "If Exists S:Boot-Startup*N  Execute S:Boot-Startup*NEndIf*N$setpatch"
+  ENDIF
+ELSE
+  echo "*e[1mError: Unable to add boot startup,*N'SetPatch'*Nnot found in startup sequence.*NBoot startup can't be installed without this!*e[0m"
+  ask "Press ENTER to continue"
+ENDIF
+Delete >NIL: T:_setpatch#?
+
+; add config menu startup to startup sequence after boot startup, if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" quiet
+IF NOT $RC EQ 0 VAL
+  rep SYSTEMDIR:S/Startup-Sequence "Execute S:Boot-Startup" "Execute S:Boot-Startup*NEndIf*NIF EXISTS S:ConfigMenu-Startup*N  Execute S:ConfigMenu-Startup"
+ENDIF
+
+; add accelerator startup to startup sequence after config menu Startup, if not present
+Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" quiet
+IF $RC EQ 0 VAL
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:Accelerator-Startup" quiet
+  IF NOT $RC EQ 0 VAL
+    rep SYSTEMDIR:S/Startup-Sequence "Execute S:ConfigMenu-Startup" "Execute S:ConfigMenu-Startup*NEndIf*NIF EXISTS S:Accelerator-Startup*N  Execute S:Accelerator-Startup"
   ENDIF
 ELSE
   echo "*e[1mError: Unable to add accelerator startup,*N'Execute S:ConfigMenu-Startup'*Nnot found in startup sequence.*NAccelerator startup can't be installed without this!*e[0m"
   ask "Press ENTER to continue"
 ENDIF
 
-; add boot patches startup to startup sequence, if not present
-Search >NIL: SYSTEMDIR:S/Startup-Sequence "BindDrivers" quiet
+; find bind drivers in startup sequence
+Search SYSTEMDIR:S/Startup-Sequence "BindDrivers" NONUM >T:_binddrivers1
 IF $RC EQ 0 VAL
   ; add boot patches startup to startup sequence after "BindDrivers", if not present
   Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootPatches-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$useedit" EQ 1 VAL
-      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootPatches-Startup.edit
-    ELSE
-      rep SYSTEMDIR:S/Startup-Sequence "BindDrivers" "IF EXISTS S:BootPatches-Startup*N  Execute S:BootPatches-Startup*NEndIf*NBindDrivers"
-    ENDIF
+    ; get found binddrivers text
+    sed "1q;d" T:_binddrivers1 >T:_binddrivers2
+    set binddrivers `sed "1q;d" T:_binddrivers2`
+
+    rep SYSTEMDIR:S/Startup-Sequence "$binddrivers" "IF EXISTS S:BootPatches-Startup*N  Execute S:BootPatches-Startup*NEndIf*N$binddrivers"
   ENDIF
 ELSE
   echo "*e[1mError: Unable to add boot patches startup,*N'BindDrivers'*Nnot found in startup sequence.*NBoot patches startup can't be installed without this!*e[0m"
   ask "Press ENTER to continue"
 ENDIF
+Delete >NIL: T:_binddrivers#?
 
 ; add boot selector startup to startup sequence, if not present
 Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" quiet
 IF $RC EQ 0 VAL
   ; add boot selector startup to startup sequence after "S:BootPatches-Startup", if not present
-  Search >NIL: SYSTEMDIR:S/Startup-Sequence "S:BootSelector-Startup" quiet
+  Search >NIL: SYSTEMDIR:S/Startup-Sequence "Execute S:BootSelector-Startup" quiet
   IF NOT $RC EQ 0 VAL
-    IF "$useedit" EQ 1 VAL
-      Edit SYSTEMDIR:S/Startup-Sequence OPT P70 with PACKAGEDIR:Patches/Add-BootSelector-Startup.edit
-    ELSE
-      rep SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" "Execute S:BootPatches-Startup*NEndIf*NIF EXISTS S:BootSelector-Startup*N  Execute S:BootSelector-Startup"
-    ENDIF
+    rep SYSTEMDIR:S/Startup-Sequence "Execute S:BootPatches-Startup" "Execute S:BootPatches-Startup*NEndIf*NIF EXISTS S:BootSelector-Startup*N  Execute S:BootSelector-Startup"
   ENDIF
 ELSE
   echo "*e[1mError: Unable to add boot selector startup,*N'Execute S:BootPatches-Startup'*Nnot found in startup sequence.*NBoot selector can't be installed without this!*e[0m"
@@ -218,7 +211,7 @@ IF NOT "$amigaosversion" EQ "3.2"
   ; add kingcon to user startup, if not present
   Search >NIL: SYSTEMDIR:S/User-Startup "KingCON" quiet
   IF NOT $RC EQ 0 VAL
-    Type PACKAGEDIR:Patches/KingCON >>SYSTEMDIR:S/User-Startup
+    Type PACKAGEDIR:Patches/Add-KingCON-Startup >>SYSTEMDIR:S/User-Startup
   ENDIF
 ENDIF
 
@@ -232,13 +225,8 @@ IF EXISTS SYSTEMDIR:System/SD
   Delete >NIL: SYSTEMDIR:System/SD#?
 ENDIF
 
-; Fix read write execute flags
+; fix read write execute flags
 protect >NIL: SYSTEMDIR:C/#? +rwe
-
-; Copy scsi device
-IF EXISTS DEVS:scsi.device
-  COPY >NIL: DEVS:scsi.device SYSTEMDIR:Devs
-ENDIF
 
 ; set harddisk icon
 set harddiskicon "SYSTEMDIR:Disk.info"

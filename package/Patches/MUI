@@ -1,6 +1,6 @@
 ;BEGIN MUI
-IF EXISTS SYS:System/MUI
-   Assign >NIL: MUI: SYS:System/MUI
+IF EXISTS SYS:MUI
+   Assign >NIL: MUI: SYS:MUI
    IF EXISTS MUI:Libs
       Assign >NIL: ADD LIBS: MUI:Libs
    EndIF

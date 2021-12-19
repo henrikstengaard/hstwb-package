@@ -1,4 +1,8 @@
-; amiga boot selector hstgames
+; Amiga Boot Selector - HSTGames
+; ------------------------------
+; Author: Henrik Noerfjand Stengaard
+; Date:   2021-11-25
+
 IF EXISTS S:HSTLauncherMenu
   execute S:HSTLauncherMenu "HSTGames"
 ELSE
